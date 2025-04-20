@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('/fonts.css');
+
+:root {
+  --color-primary: #00FFA3;
+  --color-dark: #121212;
+  --color-light: #FFFFFF;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-[#121212] text-white font-inter;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-space-grotesk font-bold;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center px-6 py-3 text-dark bg-primary rounded-lg font-medium transition-all duration-300 hover:brightness-110 active:scale-95;
+  }
+  
+  .btn-outline {
+    @apply inline-flex items-center px-6 py-3 text-primary border border-primary rounded-lg font-medium transition-all duration-300 hover:bg-primary/10 active:scale-95;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+  
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+}
+
+.card-hover {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 255, 163, 0.2);
+}
+
+.gradient-border {
+  position: relative;
+  border-radius: 0.5rem;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #00FFA3, #121212);
+  z-index: -1;
+  border-radius: 0.6rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gradient-border:hover::before {
+  opacity: 1;
+}
