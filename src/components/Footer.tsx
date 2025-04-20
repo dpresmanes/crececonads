@@ -15,10 +15,10 @@ const Footer = () => {
               Automatizamos tu negocio digital con IA para que puedas escalar sin complicaciones.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-primary transition-colors">
+              <a href="https://www.instagram.com/crececonads" className="text-gray-400 hover:text-primary transition-colors">
                 <Instagram size={20} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-primary transition-colors">
+              <a href="https://www.linkedin.com/in/dpresmanes" className="text-gray-400 hover:text-primary transition-colors">
                 <Linkedin size={20} />
               </a>
               <a href="#" className="text-gray-400 hover:text-primary transition-colors">
@@ -57,7 +57,7 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <Mail size={20} className="text-primary mt-1 mr-2 flex-shrink-0" />
-                <span className="text-gray-400">info@crececonads.com</span>
+                <span className="text-gray-400">damianpresmanes@gmail.com</span>
               </li>
               <li className="flex items-start">
                 <MapPin size={20} className="text-primary mt-1 mr-2 flex-shrink-0" />
