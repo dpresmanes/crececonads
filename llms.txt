@@ -1,0 +1,26 @@
+# CreceConAds
+
+> CreceConAds es el servicio de Damián Presmanes, de Argentina. Gestiona campañas de ventas en Meta Ads (Facebook e Instagram) para tiendas online, desarrolla agentes de IA que responden consultas por WhatsApp e Instagram, y automatiza procesos repetitivos con IA. Damián se recibió en Comercio Electrónico y Marketing Digital en la Universidad Tecnológica Nacional (UTN) y tiene formación en programación.
+
+## Servicios
+
+- Gestión de Meta Ads: campañas de ventas directas para tiendas online, optimizadas a compras, con prueba de creativos e informes semanales.
+- Agente de IA para WhatsApp e Instagram: responde con el tono del negocio las 24 horas, entiende audios, responde talle, envío y stock, filtra y agenda.
+- Sistema completo: Meta Ads y agente de IA conectados, con medición desde el anuncio hasta la venta.
+- Automatización de procesos con IA: contactos de anuncios a planillas, mensajes automáticos, reportes y publicación de contenido.
+- Asesoría mensual para quienes manejan sus propios anuncios.
+
+## Casos con datos del administrador de anuncios de Meta (pesos argentinos)
+
+- Prussia (ecommerce de moda): $209M en ventas atribuidas a Meta entre enero y abril de 2026, ROAS atribuido de 8,2x y 1.363 compras.
+- Alejandra Ferechian (inmobiliaria en CABA): 630 conversaciones de WhatsApp en 7 meses; un solo reel trajo 206.
+- Win Ar (marca de pádel): el costo por seguidor bajó de $46.848 a $1.419 al pasar de mostrar solo el producto a mostrar personas.
+- Guadalupe González y Sofía Maciel (nutricionistas): 1.485 conversaciones. Caso de aprendizaje: el evento gratuito se llenó, pero casi nadie pasó a la oferta paga.
+- UTN Facultad Regional Buenos Aires, Dirección de Alumnos: automatización de trámites de simultaneidad de carreras, de la solicitud a la resolución.
+
+## Contacto
+
+- Web: https://crececonads.site/
+- Agendar llamada de diagnóstico de 30 minutos: https://calendar.app.google/Y7rQAcUQw2EqX5z3A
+- Instagram: https://www.instagram.com/crececonads/
+- Google Maps (5,0 con 13 reseñas): https://maps.google.com/?cid=8214692810272884951
