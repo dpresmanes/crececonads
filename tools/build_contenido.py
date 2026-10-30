@@ -18,7 +18,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 SITIO = "https://crececonads.site"
 GTM = "GTM-TKWHBHB9"
-WA = "https://wa.me/5491137638307?text="
+WA = "https://wa.me/5491173566942?text="
 CAL = "https://calendar.app.google/Y7rQAcUQw2EqX5z3A"
 PERSONA = SITIO + "/damian-presmanes#persona"
 ORG = SITIO + "/#org"
@@ -184,7 +184,7 @@ def perfil(meta, cuerpo):
 {faq_html(meta.get("faq"))}
 <section class="cta"><h2>¿Trabajamos juntos?</h2><p>En 30 minutos reviso tu caso y te digo qué haría. Sin compromiso.</p>
 <div class="row"><a class="btn" data-cta="agendar" href="{CAL}" target="_blank" rel="noopener">Agendar llamada gratis</a>
-<a class="btn btn-line" data-cta="whatsapp" href="{WA}Hola%20Dami%C3%A1n" target="_blank" rel="noopener">Escribime por WhatsApp</a></div></section>
+<a class="btn btn-line" data-cta="whatsapp" href="{WA}Hola%2C%20vengo%20de%20la%20web" target="_blank" rel="noopener">Escribime por WhatsApp</a></div></section>
 </article>'''
     persona = dict(meta["persona"])
     persona.update({"@type": "Person", "@id": PERSONA, "url": url, "worksFor": {"@id": ORG},
