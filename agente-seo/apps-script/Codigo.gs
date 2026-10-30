@@ -140,9 +140,10 @@ function gemini(clave, prompt, buscar, json) {
       method: 'post', contentType: 'application/json', payload: JSON.stringify(body), muteHttpExceptions: true,
     });
     let res = pedir();
-    // 429 por ritmo (muchas por minuto): espera y reintenta. 429 por cupo agotado o 404: pasa al siguiente modelo.
-    if (res.getResponseCode() === 429 && !/quota/i.test(res.getContentText())) {
-      Utilities.sleep(30000);
+    // 429 por ritmo (muchas por minuto) o 503 (modelo saturado): espera y reintenta una vez.
+    // 429 por cupo agotado: pasa directo al siguiente modelo.
+    if (res.getResponseCode() === 503 || (res.getResponseCode() === 429 && !/quota/i.test(res.getContentText()))) {
+      Utilities.sleep(res.getResponseCode() === 503 ? 10000 : 30000);
       res = pedir();
     }
     if (res.getResponseCode() === 200) {
@@ -150,7 +151,8 @@ function gemini(clave, prompt, buscar, json) {
       return leerRespuesta(res);
     }
     ultimo = modelo + (conBusqueda ? ' con búsqueda' : '') + ' respondió ' + res.getResponseCode() + ': ' + res.getContentText().slice(0, 150);
-    if (res.getResponseCode() !== 429 && res.getResponseCode() !== 404 && res.getResponseCode() !== 400) break;
+    // Clave inválida o sin permiso: no tiene sentido probar otros modelos. Cupo, saturación (503) u otros: probar el siguiente.
+    if (res.getResponseCode() === 401 || res.getResponseCode() === 403) break;
   }
   SIN_CUPO = true;
   throw new Error('Gemini sin cupo disponible. Último intento: ' + ultimo);
