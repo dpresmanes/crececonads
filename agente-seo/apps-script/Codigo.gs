@@ -12,7 +12,9 @@
 
 const SITIO = 'https://crececonads.site/';
 const MARCA = /crece\s*con\s*ads|crececonads|presmanes/i;
-const MODELO = 'gemini-flash-latest';
+// Se prueban en orden; el primero con cupo gratuito queda guardado para las próximas corridas.
+const MODELOS = ['gemini-2.5-flash', 'gemini-flash-latest', 'gemini-2.5-flash-lite', 'gemini-flash-lite-latest', 'gemini-2.0-flash'];
+let SIN_CUPO = false;
 
 function onOpen() {
   SpreadsheetApp.getUi().createMenu('Agente SEO')
@@ -88,6 +90,7 @@ function visibilidadIA(estado) {
   const filas = [];
   estado.sinMencion = [];
   preguntas.forEach((p, i) => {
+    if (SIN_CUPO) return; // ningún modelo tiene cupo: no tiene sentido seguir preguntando
     if (i) Utilities.sleep(7000); // el plan gratuito limita las consultas por minuto
     let r;
     try {
@@ -106,7 +109,7 @@ function visibilidadIA(estado) {
 
 function ideas(estado) {
   const clave = PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
-  if (!clave) return;
+  if (!clave || SIN_CUPO) return;
   const prompt = 'Sos estratega de SEO y GEO de CreceConAds (Damián Presmanes, Argentina): campañas de ventas en Meta Ads ' +
     'para tiendas online, agentes de IA para WhatsApp y automatización de procesos con IA.\n' +
     'Búsquedas reales en Google que ya muestran la web (consulta, impresiones, posición): ' + JSON.stringify((estado.busquedas || []).slice(0, 40)) + '\n' +
@@ -119,18 +122,41 @@ function ideas(estado) {
 }
 
 function gemini(clave, prompt, buscar, json) {
-  const body = { contents: [{ parts: [{ text: prompt }] }] };
-  if (buscar) body.tools = [{ google_search: {} }];
-  if (json) body.generationConfig = { responseMimeType: 'application/json' };
-  const pedir = () => UrlFetchApp.fetch('https://generativelanguage.googleapis.com/v1beta/models/' + MODELO + ':generateContent?key=' + clave, {
-    method: 'post', contentType: 'application/json', payload: JSON.stringify(body), muteHttpExceptions: true,
-  });
-  let res = pedir();
-  if (res.getResponseCode() === 429) { // demasiadas consultas: espera y reintenta una vez
-    Utilities.sleep(30000);
-    res = pedir();
+  const props = PropertiesService.getScriptProperties();
+  const guardado = props.getProperty('GEMINI_COMBO'); // ej. "gemini-2.5-flash|buscar"
+  const combos = [];
+  if (guardado) combos.push(guardado.split('|'));
+  // Primero con búsqueda en Google en todos los modelos; si ninguno tiene cupo, sin búsqueda.
+  [true, false].forEach(b => MODELOS.forEach(m => combos.push([m, b ? 'buscar' : 'sin'])));
+
+  let ultimo = '';
+  for (const [modelo, modo] of combos) {
+    if (!buscar && modo === 'buscar') continue; // sin búsqueda pedida, alcanza con probar cada modelo una vez
+    const conBusqueda = modo === 'buscar';
+    const body = { contents: [{ parts: [{ text: prompt }] }] };
+    if (conBusqueda) body.tools = [{ google_search: {} }];
+    if (json) body.generationConfig = { responseMimeType: 'application/json' };
+    const pedir = () => UrlFetchApp.fetch('https://generativelanguage.googleapis.com/v1beta/models/' + modelo + ':generateContent?key=' + clave, {
+      method: 'post', contentType: 'application/json', payload: JSON.stringify(body), muteHttpExceptions: true,
+    });
+    let res = pedir();
+    // 429 por ritmo (muchas por minuto): espera y reintenta. 429 por cupo agotado o 404: pasa al siguiente modelo.
+    if (res.getResponseCode() === 429 && !/quota/i.test(res.getContentText())) {
+      Utilities.sleep(30000);
+      res = pedir();
+    }
+    if (res.getResponseCode() === 200) {
+      if (buscar) props.setProperty('GEMINI_COMBO', modelo + '|' + modo);
+      return leerRespuesta(res);
+    }
+    ultimo = modelo + (conBusqueda ? ' con búsqueda' : '') + ' respondió ' + res.getResponseCode() + ': ' + res.getContentText().slice(0, 150);
+    if (res.getResponseCode() !== 429 && res.getResponseCode() !== 404 && res.getResponseCode() !== 400) break;
   }
-  if (res.getResponseCode() !== 200) throw new Error('Gemini respondió ' + res.getResponseCode() + ': ' + res.getContentText().slice(0, 200));
+  SIN_CUPO = true;
+  throw new Error('Gemini sin cupo disponible. Último intento: ' + ultimo);
+}
+
+function leerRespuesta(res) {
   const cand = JSON.parse(res.getContentText()).candidates[0];
   const texto = ((cand.content || {}).parts || []).map(p => p.text || '').join('');
   const fuentes = ((cand.groundingMetadata || {}).groundingChunks || []).filter(c => c.web).map(c => c.web.title || c.web.uri);
