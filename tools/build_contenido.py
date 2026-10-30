@@ -30,13 +30,13 @@ FUENTES = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
 
 CABECERA = f'''<header class="top"><div class="wrap">
   <a class="logo" href="/">Crece<b>Con</b>Ads</a>
-  <nav aria-label="Secciones"><a href="/#resultados">Resultados</a><a href="/#servicios">Servicios</a><a href="/guias/">Guías</a><a href="/damian-presmanes">Quién soy</a></nav>
+  <nav aria-label="Secciones"><a href="/#resultados">Resultados</a><a href="/#servicios">Servicios</a><a href="/guias">Guías</a><a href="/damian-presmanes">Quién soy</a></nav>
   <a class="btn btn-sm" data-cta="agendar" href="{CAL}" target="_blank" rel="noopener">Agendar llamada</a>
 </div></header>'''
 
 PIE = '''<footer class="site-foot"><div class="wrap">
   <span>© 2026 CreceConAds · Damián Presmanes</span>
-  <span><a href="/guias/">Guías</a> · <a href="https://www.instagram.com/crececonads/">Instagram</a> · <a href="https://maps.google.com/?cid=8214692810272884951">Google Maps</a> · <a href="/privacidad">Privacidad</a></span>
+  <span><a href="/guias">Guías</a> · <a href="https://www.instagram.com/crececonads/">Instagram</a> · <a href="https://maps.google.com/?cid=8214692810272884951">Google Maps</a> · <a href="/privacidad">Privacidad</a></span>
 </div></footer>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -144,7 +144,7 @@ def guia(meta, cuerpo):
         botones = (f'<a class="btn" data-cta="agendar" href="{CAL}" target="_blank" rel="noopener">Agendar llamada gratis</a>'
                    f'<a class="btn btn-line" data-cta="whatsapp" href="{WA}Vengo%20de%20la%20gu%C3%ADa" target="_blank" rel="noopener">Escribime por WhatsApp</a>')
         cta_txt = "En 30 minutos reviso tus campañas y te digo qué haría en tu tienda. Sin compromiso."
-    html_cuerpo = f'''<p class="crumbs"><a href="/">Inicio</a> / <a href="/guias/">Guías</a></p>
+    html_cuerpo = f'''<p class="crumbs"><a href="/">Inicio</a> / <a href="/guias">Guías</a></p>
 <article>
 <h1>{esc(meta["titulo"])}</h1>
 <p class="lead">{esc(meta["descripcion"])}</p>
@@ -162,7 +162,7 @@ def guia(meta, cuerpo):
          "datePublished": meta["fecha"], "dateModified": meta.get("actualizado", meta["fecha"]), "inLanguage": "es-AR",
          "author": {"@id": PERSONA}, "publisher": {"@id": ORG}, "mainEntityOfPage": url, "image": SITIO + "/img/og.jpg",
          "about": meta.get("temas", [])},
-        migas([("Inicio", SITIO + "/"), ("Guías", SITIO + "/guias/"), (meta["titulo"], url)]),
+        migas([("Inicio", SITIO + "/"), ("Guías", SITIO + "/guias"), (meta["titulo"], url)]),
     ]
     if meta.get("faq"):
         grafo.append(faq_ld(meta["faq"], url))
@@ -197,7 +197,7 @@ def perfil(meta, cuerpo):
 
 
 def listado(guias):
-    url = SITIO + "/guias/"
+    url = SITIO + "/guias"
     tarjetas = "\n".join(
         f'<a class="card" href="/guias/{m["slug"]}"><span class="tag">{esc(m.get("tag", "Guía"))}</span>'
         f'<h2>{esc(m["titulo"])}</h2><p>{esc(m["descripcion"])}</p></a>' for m in guias)
