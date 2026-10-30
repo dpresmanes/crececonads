@@ -87,14 +87,21 @@ function visibilidadIA(estado) {
 
   const filas = [];
   estado.sinMencion = [];
-  preguntas.forEach(p => {
-    const r = gemini(clave, p + '\nRespondé en español rioplatense. Si recomendás profesionales o empresas, nombralos.', true);
+  preguntas.forEach((p, i) => {
+    if (i) Utilities.sleep(7000); // el plan gratuito limita las consultas por minuto
+    let r;
+    try {
+      r = gemini(clave, p + '\nRespondé en español rioplatense. Si recomendás profesionales o empresas, nombralos.', true);
+    } catch (e) {
+      console.error('Pregunta "' + p + '": ' + e);
+      return;
+    }
     const nombra = MARCA.test(r.texto) || r.fuentes.some(f => MARCA.test(f));
     if (!nombra) estado.sinMencion.push(p);
     filas.push([hoy(), p, nombra ? 'SÍ' : 'no', r.fuentes.join(', ').slice(0, 500), r.texto.replace(/\s+/g, ' ').slice(0, 400)]);
   });
   if (filas.length) hoja('Visibilidad IA').getRange(hoja('Visibilidad IA').getLastRow() + 1, 1, filas.length, 5).setValues(filas);
-  estado.ia = [preguntas.length - estado.sinMencion.length, preguntas.length];
+  estado.ia = [filas.filter(f => f[2] === 'SÍ').length, filas.length];
 }
 
 function ideas(estado) {
@@ -115,9 +122,15 @@ function gemini(clave, prompt, buscar, json) {
   const body = { contents: [{ parts: [{ text: prompt }] }] };
   if (buscar) body.tools = [{ google_search: {} }];
   if (json) body.generationConfig = { responseMimeType: 'application/json' };
-  const res = UrlFetchApp.fetch('https://generativelanguage.googleapis.com/v1beta/models/' + MODELO + ':generateContent?key=' + clave, {
-    method: 'post', contentType: 'application/json', payload: JSON.stringify(body),
+  const pedir = () => UrlFetchApp.fetch('https://generativelanguage.googleapis.com/v1beta/models/' + MODELO + ':generateContent?key=' + clave, {
+    method: 'post', contentType: 'application/json', payload: JSON.stringify(body), muteHttpExceptions: true,
   });
+  let res = pedir();
+  if (res.getResponseCode() === 429) { // demasiadas consultas: espera y reintenta una vez
+    Utilities.sleep(30000);
+    res = pedir();
+  }
+  if (res.getResponseCode() !== 200) throw new Error('Gemini respondió ' + res.getResponseCode() + ': ' + res.getContentText().slice(0, 200));
   const cand = JSON.parse(res.getContentText()).candidates[0];
   const texto = ((cand.content || {}).parts || []).map(p => p.text || '').join('');
   const fuentes = ((cand.groundingMetadata || {}).groundingChunks || []).filter(c => c.web).map(c => c.web.title || c.web.uri);
