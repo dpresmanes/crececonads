@@ -1,0 +1,94 @@
+/* Estilos compartidos de las páginas de contenido (guías y perfil). Mismos tokens que la landing. */
+:root{
+  --night:#0A0F1F; --night-2:#101731; --night-3:#18213F; --edge:#24315A;
+  --text:#EEF1FA; --soft:#A3ACC8; --blue:#2F5BFF; --blue-2:#6D8BFF; --green:#2FD08F; --green-bg:rgba(47,208,143,.12);
+  --display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--night);color:var(--text);font-family:var(--body);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:var(--blue-2)}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.narrow{max-width:740px}
+
+/* barra superior */
+.top{position:sticky;top:0;z-index:20;background:rgba(10,15,31,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--edge)}
+.top .wrap{height:60px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.03em;color:var(--text);text-decoration:none}
+.logo b{color:var(--blue-2)}
+.top nav{display:flex;gap:20px;font-size:15px}
+.top nav a{color:var(--soft);text-decoration:none}
+.top nav a:hover{color:var(--text)}
+@media (max-width:720px){.top nav{display:none}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;color:#fff;background:var(--blue);transition:transform .15s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible{outline:3px solid var(--blue-2);outline-offset:3px}
+.btn-sm{min-height:38px;padding:0 14px;font-size:14px;border-radius:10px}
+.btn-line{background:transparent;box-shadow:inset 0 0 0 1.5px var(--edge);color:var(--text)}
+
+/* encabezado de la página */
+.crumbs{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin:40px 0 14px}
+.crumbs a{color:var(--soft);text-decoration:none}
+.crumbs a:hover{color:var(--text)}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,52px);margin:0 0 16px}
+h2{font-size:clamp(26px,4vw,32px);margin:48px 0 12px}
+h3{font-size:21px;margin:28px 0 8px}
+.lead{font-size:20px;color:var(--soft);margin:0 0 20px}
+.byline{display:flex;align-items:center;gap:12px;font-size:15px;color:var(--soft);padding-bottom:24px;border-bottom:1px solid var(--edge)}
+.byline img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.byline a{color:var(--text);font-weight:700;text-decoration:none}
+
+/* cuerpo */
+article p,article li{color:#D3D8E8}
+article ul,article ol{padding-left:22px}
+article li{margin:6px 0}
+article strong{color:var(--text)}
+.answer{margin:28px 0;padding:20px 22px;border-radius:16px;background:var(--green-bg);box-shadow:inset 0 0 0 1px rgba(47,208,143,.35)}
+.answer .k{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.answer p{margin:0;color:var(--text)}
+.toc{margin:28px 0;padding:18px 22px;border-radius:16px;background:var(--night-2);border:1px solid var(--edge)}
+.toc b{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.toc ul{margin:10px 0 0;padding-left:0;list-style:none}
+.toc li{margin:6px 0}
+.toc a{color:var(--text);text-decoration:none}
+.toc a:hover{color:var(--blue-2)}
+.dato{margin:24px 0;padding:18px 20px;border-left:3px solid var(--green);background:var(--night-2);border-radius:0 14px 14px 0}
+.dato b{display:block;font-family:var(--display);font-size:30px;color:var(--green);line-height:1.1}
+.dato span{font-size:15px;color:var(--soft)}
+table{width:100%;border-collapse:collapse;font-size:16px;margin:20px 0}
+.tabla{overflow-x:auto}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--edge)}
+th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--soft)}
+.faq details{background:var(--night-2);border:1px solid var(--edge);border-radius:14px;margin:10px 0}
+.faq summary{cursor:pointer;list-style:none;padding:16px 48px 16px 18px;font-weight:700;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--blue-2);font-size:20px}
+.faq details[open] summary::after{content:"−"}
+.faq details p{padding:0 18px 16px;margin:0}
+.cta{margin:48px 0;padding:28px;border-radius:20px;background:var(--night-2);border:1px solid var(--blue);display:flex;flex-direction:column;gap:12px}
+.cta h2{margin:0;font-size:26px}
+.cta p{margin:0;color:var(--soft)}
+.cta .row{display:flex;flex-wrap:wrap;gap:10px}
+.autor{display:flex;gap:18px;align-items:flex-start;margin:48px 0;padding:22px;border-radius:18px;background:var(--night-2);border:1px solid var(--edge)}
+.autor img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex:none}
+.autor p{margin:4px 0 0;font-size:16px;color:var(--soft)}
+.fuente{font-size:14px;color:var(--soft)}
+
+/* listado de guías */
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:28px 0 64px}
+@media (max-width:720px){.cards{grid-template-columns:1fr}}
+.card{display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:18px;background:var(--night-2);border:1px solid var(--edge);text-decoration:none;color:var(--text);transition:border-color .15s ease}
+.card:hover{border-color:var(--blue-2)}
+.card .tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--green)}
+.card h2{font-size:22px;margin:0}
+.card p{margin:0;font-size:16px;color:var(--soft)}
+
+.site-foot{border-top:1px solid var(--edge);padding-block:24px 40px;font-size:14px;color:var(--soft);margin-top:40px}
+.site-foot .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.site-foot a{color:var(--soft)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}

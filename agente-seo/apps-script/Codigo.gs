@@ -125,7 +125,8 @@ function gemini(clave, prompt, buscar, json) {
   const props = PropertiesService.getScriptProperties();
   const guardado = props.getProperty('GEMINI_COMBO'); // ej. "gemini-2.5-flash|buscar"
   const combos = [];
-  if (guardado) combos.push(guardado.split('|'));
+  // Lo guardado va primero solo si incluye búsqueda: así cada semana se vuelve a intentar buscar en internet.
+  if (guardado && guardado.endsWith('|buscar')) combos.push(guardado.split('|'));
   // Primero con búsqueda en Google en todos los modelos; si ninguno tiene cupo, sin búsqueda.
   [true, false].forEach(b => MODELOS.forEach(m => combos.push([m, b ? 'buscar' : 'sin'])));
 
