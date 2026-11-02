@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || email.length > 120 || !nombre) return res.status(400).json({ ok: false });
 
   // trim y sin "Bearer " por si se pegó con espacios o con el prefijo.
-  const token = String(process.env.SENDER_API_TOKEN || "").trim().replace(/^Bearer\s+/i, ""), grupo = String(process.env.SENDER_GROUP_ID || "").trim();
+  const token = String(process.env.SENDER_API_TOKEN || "").trim().replace(/^Bearer\s+/i, "").replace(/[\s"']/g, ""), grupo = String(process.env.SENDER_GROUP_ID || "").trim();
   if (!token || !grupo) return res.status(503).json({ ok: false, motivo: "sin_configurar" });
 
   const r = await fetch("https://api.sender.net/v2/subscribers", {
