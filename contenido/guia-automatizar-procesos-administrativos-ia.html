@@ -1,0 +1,87 @@
+<!--{
+"tipo": "guia",
+"slug": "automatizar-procesos-administrativos-ia-pyme",
+"titulo": "Cómo automatizar procesos administrativos con IA en una pyme: por dónde empezar",
+"titulo_seo": "Automatizar procesos administrativos con IA en una pyme | CreceConAds",
+"descripcion": "Qué tareas administrativas conviene automatizar primero, cuándo alcanza con una automatización simple y cuándo hace falta IA, con una calculadora de horas y un caso real.",
+"respuesta": "Para automatizar procesos administrativos con IA en una pyme, empezá por una sola tarea que se repite todas las semanas y siempre se hace igual: pasar datos de mails o formularios a una planilla, armar un informe, responder las mismas consultas. Medí cuántas horas te lleva, automatizala primero con algo simple (muchas veces no hace falta IA) y sumá IA solo donde hay que leer o redactar texto. Recién cuando funciona, pasá a la siguiente.",
+"fecha": "2026-11-02",
+"tag": "Automatización · IA",
+"temas": ["Automatización de procesos", "Inteligencia artificial", "Pymes", "Procesos administrativos", "Productividad"],
+"faq": [
+  ["¿Qué procesos administrativos se pueden automatizar?", "Los que se repiten y siguen siempre los mismos pasos: cargar datos de mails, formularios o facturas en una planilla, mandar recordatorios, armar reportes, responder consultas frecuentes y generar documentos a partir de una plantilla."],
+  ["¿Necesito IA para automatizar?", "No siempre. Si la tarea es mover datos de un lugar a otro con reglas claras, alcanza con una automatización simple. La IA suma cuando hay que leer texto libre (un mail, un PDF, un audio), clasificarlo o redactar una respuesta."],
+  ["¿Es seguro poner datos de clientes en una herramienta de IA?", "Depende de la herramienta y de cómo se configure. Usá cuentas de empresa, no subas datos sensibles que no hagan falta y revisá quién tiene acceso. Si manejás datos de salud o financieros, consultalo antes con tu asesor."],
+  ["¿Cuánto tarda en armarse una automatización?", "Una tarea simple puede quedar funcionando en días. Lo que más demora no es la tecnología sino definir bien los pasos y las excepciones del proceso."]
+],
+"cta_titulo": "¿Vemos qué proceso de tu negocio conviene automatizar primero?"
+}-->
+<p>Las búsquedas de “automatizar procesos con IA”, “automatizar procesos administrativos” y “automatizar procesos contables” crecen en Argentina. La mayoría de las pymes no necesita un sistema nuevo: necesita sacarse de encima tres o cuatro tareas que hace igual todas las semanas. Esta guía explica cómo elegir la primera y trae una calculadora para ver cuánto tiempo te devuelve.</p>
+
+<h2 id="cual-primero">1. Qué tarea automatizar primero</h2>
+<p>La mejor candidata cumple tres condiciones:</p>
+<ul>
+  <li><strong>Se repite</strong> todas las semanas o todos los días.</li>
+  <li><strong>Siempre se hace igual</strong>: los mismos pasos, aunque tenga algunas excepciones.</li>
+  <li><strong>Te come tiempo o genera errores</strong> por copiar a mano.</li>
+</ul>
+<p>Ejemplos típicos en una pyme: pasar los datos de mails o formularios a una planilla, cargar pedidos que llegan por WhatsApp, armar el informe semanal, mandar recordatorios de pago, responder las mismas consultas o generar documentos a partir de una plantilla.</p>
+
+<figure class="viz" id="calc-horas">
+  <span class="viz-k">Calculadora</span>
+  <h3>¿Cuánto tiempo te devuelve automatizar?</h3>
+  <p class="sub">Marcá las tareas que hacés y ajustá cuántos minutos por semana te llevan.</p>
+  <ul class="viz-chk" id="ch-lista"></ul>
+  <div class="viz-res">
+    <div><b id="ch-semana"></b><span>horas por semana</span></div>
+    <div><b class="azul" id="ch-mes"></b><span>horas por mes</span></div>
+    <div><b id="ch-anio"></b><span>jornadas de 8 horas por año</span></div>
+  </div>
+  <p class="viz-nota">Minutos de ejemplo para empezar: cambialos por los tuyos. Nada se guarda ni se envía.</p>
+</figure>
+<script>
+(() => {
+  const tareas = [["Pasar datos de mails o formularios a una planilla", 180], ["Cargar pedidos que llegan por WhatsApp", 240], ["Armar el informe o reporte semanal", 120], ["Mandar recordatorios de pago o de turnos", 90], ["Responder las mismas consultas", 300], ["Generar documentos con una plantilla (presupuestos, resoluciones)", 150]];
+  const lista = document.getElementById("ch-lista");
+  lista.innerHTML = tareas.map(([t, m], i) => `<li><label><input type="checkbox" data-i="${i}" ${i < 2 ? "checked" : ""}><span>${t}<br><input type="number" min="0" step="15" value="${m}" data-m="${i}" aria-label="Minutos por semana" style="margin-top:8px;max-width:150px"> <small style="color:var(--soft)">min por semana</small></span></label></li>`).join("");
+  const fmt = (n) => n.toLocaleString("es-AR", { maximumFractionDigits: 1 });
+  function calcular() {
+    const min = [...lista.querySelectorAll("input[type=checkbox]:checked")].reduce((s, c) => s + (+lista.querySelector(`[data-m="${c.dataset.i}"]`).value || 0), 0);
+    document.getElementById("ch-semana").textContent = fmt(min / 60);
+    document.getElementById("ch-mes").textContent = fmt(min / 60 * 4.33);
+    document.getElementById("ch-anio").textContent = fmt(min / 60 * 52 / 8);
+  }
+  lista.addEventListener("input", calcular); lista.addEventListener("change", calcular);
+  calcular();
+})();
+</script>
+
+<h2 id="ia-o-no">2. ¿Hace falta IA?</h2>
+<p>Muchas veces no. Conviene separar dos tipos de tarea:</p>
+<ul>
+  <li><strong>Mover datos con reglas claras</strong> (del formulario a la planilla, de la planilla al mail): alcanza con una automatización simple, sin IA. Es más barata y más predecible.</li>
+  <li><strong>Leer o escribir texto libre</strong> (entender un mail, sacar datos de un PDF o un audio, clasificar una consulta, redactar una respuesta): ahí la IA suma, porque hace lo que antes requería que una persona leyera.</li>
+</ul>
+<p>La combinación es la que más rinde: la automatización mueve los datos y la IA interpreta lo que no viene ordenado.</p>
+
+<h2 id="pasos">3. Cómo hacerlo, paso a paso</h2>
+<ol>
+  <li><strong>Escribí el proceso como lo hacés hoy</strong>, con las excepciones (“si el mail no trae el número de pedido, lo busco en…”).</li>
+  <li><strong>Medí</strong> cuánto tiempo te lleva por semana y cuántos errores aparecen.</li>
+  <li><strong>Automatizá la parte más repetitiva</strong>, no todo de una vez.</li>
+  <li><strong>Dejá un control humano</strong> al principio: revisás lo que sale antes de que llegue al cliente.</li>
+  <li><strong>Cuando funciona dos o tres semanas seguidas</strong>, sacás el control y pasás a la siguiente tarea.</li>
+</ol>
+
+<h2 id="caso">4. Un caso real: trámites universitarios</h2>
+<p>En la Dirección de Alumnos de la UTN Facultad Regional Buenos Aires, los trámites de simultaneidad de carreras se hacían a mano: leer cada formulario, cruzar materias, armar el informe de equivalencias para cada departamento y redactar las resoluciones una por una. Hoy <strong>las solicitudes llegan solas a una planilla, el informe de equivalencias se arma solo y las resoluciones colectivas se generan con un clic</strong>.</p>
+<p>No hizo falta cambiar de sistema: se automatizó lo que se repetía, sobre las herramientas que ya usaban. Es el mismo enfoque que sirve para una pyme con trámites, pedidos o consultas que llegan por mail.</p>
+
+<h2 id="errores">5. Errores comunes</h2>
+<ul>
+  <li><strong>Automatizar un proceso desordenado.</strong> Si hoy cada uno lo hace distinto, la automatización repite el desorden más rápido.</li>
+  <li><strong>Querer automatizar todo de una vez.</strong> Una tarea bien resuelta vale más que cinco a medias.</li>
+  <li><strong>Usar IA donde alcanzaba con una regla.</strong> Suma costo y deja resultados menos predecibles.</li>
+  <li><strong>No medir antes.</strong> Sin saber cuánto tiempo llevaba, no sabés cuánto ganaste.</li>
+</ul>
+<p>Si además lo que se repite son las consultas de clientes por WhatsApp, un agente de IA las responde y te pasa a los interesados: lo explico en <a href="/guias/agente-ia-whatsapp-business-meta-o-propio">agente de IA en WhatsApp Business: el de Meta o uno propio</a>.</p>

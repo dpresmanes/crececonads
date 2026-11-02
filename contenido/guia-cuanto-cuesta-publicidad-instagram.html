@@ -1,0 +1,101 @@
+<!--{
+"tipo": "guia",
+"slug": "cuanto-cuesta-publicidad-instagram-argentina",
+"titulo": "Cuánto cuesta la publicidad en Instagram en Argentina y cuánto invertir para vender",
+"titulo_seo": "Cuánto cuesta la publicidad en Instagram en Argentina | CreceConAds",
+"descripcion": "Cómo se cobra un anuncio en Instagram, por qué no hay un precio fijo y cómo calcular cuánto invertir en tu tienda según tu ticket y tu margen, con una calculadora.",
+"respuesta": "La publicidad en Instagram no tiene un precio fijo: Meta la cobra por subasta, según cuánta competencia hay por la misma audiencia, y vos decidís el presupuesto. Para saber cuánto invertir, calculá primero cuánto podés pagar por una venta sin perder plata: tu ticket promedio por tu margen. Con eso sabés tu ROAS de equilibrio y cuánto presupuesto necesita una campaña para aprender (alrededor de 50 compras en 7 días por conjunto de anuncios).",
+"fecha": "2026-11-02",
+"tag": "Meta Ads · Presupuesto",
+"temas": ["Publicidad en Instagram", "Meta Ads", "Presupuesto de anuncios", "ROAS", "Ecommerce"],
+"faq": [
+  ["¿Cuál es el presupuesto mínimo para hacer publicidad en Instagram?", "Meta deja empezar con montos chicos, pero el mínimo que te deja la plataforma no es el mínimo que sirve. Para que una campaña de ventas aprenda, necesita juntar compras: alrededor de 50 en 7 días por conjunto de anuncios. Si tu presupuesto no alcanza para eso, conviene concentrarlo en menos conjuntos."],
+  ["¿Se paga en pesos o en dólares?", "Depende de la moneda con la que configuraste la cuenta publicitaria. En Argentina, además, el costo final cambia según el medio de pago y los impuestos que apliquen a tu tarjeta: revisalo con tu contador."],
+  ["¿Por qué un mes me sale más caro que otro?", "Porque es una subasta. En fechas como Hot Sale, Cyber Monday, Black Friday o Navidad compiten muchas más marcas por la misma gente y el costo por mil impresiones sube."],
+  ["¿Qué es el ROAS de equilibrio?", "Es el retorno mínimo que necesitás para no perder plata con los anuncios. Se calcula como 1 dividido tu margen: con un margen del 40%, el ROAS de equilibrio es 2,5. Por debajo de eso, cada peso en anuncios te deja pérdida."]
+],
+"cta_titulo": "¿Querés que calculemos el presupuesto de tu tienda?"
+}-->
+<p>“¿Cuánto cuesta hacer publicidad en Instagram?” es una de las preguntas más buscadas por dueños de tiendas en Argentina. La respuesta corta es que no hay un precio fijo. La útil es otra: <strong>cuánto podés pagar por cada venta sin perder plata</strong>, y con eso cuánto invertir. Esta guía explica cómo se cobra y trae una calculadora para que hagas la cuenta con tus números.</p>
+
+<h2 id="como-se-cobra">1. Cómo se cobra un anuncio en Instagram</h2>
+<p>Los anuncios de Instagram se compran desde Meta (el mismo sistema que Facebook). No pagás una tarifa: <strong>definís un presupuesto</strong> diario o total, y Meta lo gasta en una <strong>subasta</strong> donde compiten todos los anunciantes que quieren llegarle a la misma gente.</p>
+<ul>
+  <li><strong>El costo por mil impresiones (CPM)</strong> sube cuando hay más competencia: fechas de descuentos, fin de año, audiencias muy buscadas.</li>
+  <li><strong>El costo por venta</strong> depende de cuánta gente que ve el anuncio termina comprando. Ahí pesan el creativo, el precio, la web y la confianza en la marca.</li>
+  <li><strong>El objetivo de la campaña</strong> cambia lo que optimiza Meta. Para vender, la campaña tiene que ser de <strong>Ventas</strong>, optimizada a compras: si optimizás a clics, Meta te consigue clics.</li>
+</ul>
+
+<h2 id="cuanto-podes-pagar">2. Cuánto podés pagar por una venta</h2>
+<p>Antes de definir un presupuesto, hacé esta cuenta: <strong>ticket promedio × margen</strong>. Si vendés a $40.000 y te queda un 40% después del costo del producto, el envío y las comisiones, podés pagar hasta $16.000 por venta en anuncios sin perder plata. Ese es tu <strong>costo por compra máximo</strong>.</p>
+<p>El mismo dato dicho de otra forma es el <strong>ROAS de equilibrio</strong>: 1 dividido tu margen. Con un 40% de margen, necesitás que cada peso en anuncios vuelva 2,5 veces en ventas para quedar hecho. Todo lo que esté arriba es ganancia; lo que esté abajo, pérdida.</p>
+
+<figure class="viz" id="calc-presupuesto">
+  <span class="viz-k">Calculadora</span>
+  <h3>¿Cuánto podés invertir en anuncios?</h3>
+  <p class="sub">Mové los valores con los números de tu tienda. Nada se guarda ni se envía.</p>
+  <div class="viz-grid">
+    <div class="viz-campo"><label for="cp-ticket">Ticket promedio <output id="cp-ticket-o"></output></label><input id="cp-ticket" type="range" min="5000" max="200000" step="1000" value="40000"></div>
+    <div class="viz-campo"><label for="cp-margen">Margen después de costos <output id="cp-margen-o"></output></label><input id="cp-margen" type="range" min="10" max="80" step="1" value="40"></div>
+    <div class="viz-campo"><label for="cp-ventas">Ventas por mes que buscás con anuncios <output id="cp-ventas-o"></output></label><input id="cp-ventas" type="range" min="10" max="1000" step="10" value="150"></div>
+    <div class="viz-campo"><label for="cp-cpa">Costo por compra que esperás (si no sabés, dejalo en el máximo) <output id="cp-cpa-o"></output></label><input id="cp-cpa" type="range" min="1000" max="200000" step="500" value="16000"></div>
+  </div>
+  <div class="viz-res">
+    <div><b id="cp-max"></b><span>costo por compra máximo</span></div>
+    <div><b class="azul" id="cp-roas"></b><span>ROAS de equilibrio</span></div>
+    <div><b id="cp-mes"></b><span>inversión mensual para esas ventas</span></div>
+    <div><b class="azul" id="cp-semana"></b><span>presupuesto semanal para que un conjunto aprenda (50 compras)</span></div>
+  </div>
+  <p class="viz-nota" id="cp-aviso"></p>
+  <p class="viz-nota">Fórmulas: costo máximo = ticket × margen · ROAS de equilibrio = 1 ÷ margen · inversión = ventas × costo por compra · aprendizaje ≈ 50 compras en 7 días (Meta).</p>
+</figure>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const plata = (n) => "$" + Math.round(n).toLocaleString("es-AR");
+  function calcular() {
+    const ticket = +$("cp-ticket").value, margen = +$("cp-margen").value / 100, ventas = +$("cp-ventas").value;
+    const max = ticket * margen;
+    $("cp-cpa").max = Math.max(max * 1.5, 2000);
+    const cpa = +$("cp-cpa").value;
+    $("cp-ticket-o").textContent = plata(ticket); $("cp-margen-o").textContent = Math.round(margen * 100) + "%";
+    $("cp-ventas-o").textContent = ventas; $("cp-cpa-o").textContent = plata(cpa);
+    $("cp-max").textContent = plata(max);
+    $("cp-roas").textContent = (1 / margen).toFixed(1).replace(".", ",") + "x";
+    $("cp-mes").textContent = plata(ventas * cpa);
+    $("cp-semana").textContent = plata(50 * cpa);
+    const mal = cpa > max;
+    $("cp-mes").className = mal ? "rojo" : "";
+    $("cp-aviso").textContent = mal ? "Con ese costo por compra perdés plata en cada venta: primero hay que bajar el costo (creativos, oferta, web) o subir el ticket." : "Con ese costo por compra cada venta deja ganancia. El desafío es sostenerlo cuando subís el presupuesto.";
+  }
+  ["cp-ticket", "cp-margen", "cp-ventas", "cp-cpa"].forEach((id) => $(id).addEventListener("input", calcular));
+  calcular();
+})();
+</script>
+
+<h2 id="presupuesto-minimo">3. El presupuesto mínimo que sirve</h2>
+<p>Meta te deja arrancar con muy poco, pero <strong>el mínimo de la plataforma no es el mínimo que funciona</strong>. Una campaña de ventas aprende con compras: según Meta, un conjunto de anuncios sale de la fase de aprendizaje después de unas <strong>50 compras en los 7 días</strong> posteriores a su último cambio importante. Si tu presupuesto no llega a eso, pasan dos cosas:</p>
+<ul>
+  <li>La campaña se queda en “aprendizaje limitado” y el costo por compra es más inestable.</li>
+  <li>Tomás decisiones con muy pocos datos: un anuncio parece malo cuando todavía no juntó información.</li>
+</ul>
+<p>Con poco presupuesto, la salida es <strong>concentrar</strong>: menos conjuntos de anuncios, una sola campaña de ventas y varios creativos distintos adentro, para que Meta reparta donde rinde.</p>
+
+<h2 id="que-mover">4. Qué mueve el costo por venta (y no es el presupuesto)</h2>
+<ol>
+  <li><strong>El creativo.</strong> Hoy es lo que más pesa: Meta decide a quién mostrar cada anuncio según lo que dice y muestra. Varios anuncios con ángulos distintos rinden más que uno solo repetido. Lo explico en <a href="/guias/escalar-ventas-tienda-online-meta-ads">cómo escalar las ventas con Meta Ads</a>.</li>
+  <li><strong>La oferta.</strong> Cuotas, envío gratis desde un monto alcanzable, cambios fáciles: bajan la fricción y suben la conversión.</li>
+  <li><strong>La web.</strong> Si la ficha de producto tarda, no muestra talles o no tiene reseñas, pagás clics que no compran.</li>
+  <li><strong>La respuesta a las consultas.</strong> En Argentina mucha gente pregunta por WhatsApp antes de comprar. Si tardás horas en responder, esa venta que pagaste se enfría.</li>
+</ol>
+
+<h2 id="caso">5. Un caso real</h2>
+<p>Prussia, una marca de moda, generó <strong>$209 millones en ventas atribuidas a Meta en 4 meses</strong> (enero a abril de 2026) con una inversión de <strong>$25,5 millones</strong>: un ROAS de 8,2. No lo cuento como promesa (cada negocio es distinto) sino para mostrar el orden de magnitud cuando la medición, los creativos y la oferta están bien.</p>
+
+<h2 id="pasos">6. Cómo arrancar este mes</h2>
+<ol>
+  <li>Calculá tu costo por compra máximo y tu ROAS de equilibrio con la calculadora de arriba.</li>
+  <li>Verificá que el píxel y la API de Conversiones registren cada compra con su valor.</li>
+  <li>Armá una campaña de Ventas con 3 a 6 creativos de ángulos distintos.</li>
+  <li>Dale una semana antes de juzgarla, y recién ahí escalá lo que vende.</li>
+</ol>

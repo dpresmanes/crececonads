@@ -39,6 +39,41 @@
 </ul>
 <p>Si hubiéramos cortado después del primero, la conclusión habría sido "Meta no funciona".</p>
 
+<figure class="viz">
+  <span class="viz-k">Ilustrativo</span>
+  <h3>Diez anuncios no son diez oportunidades si dicen lo mismo</h3>
+  <p class="sub">Cada cuadrado es un grupo de personas distinto. Meta le muestra cada mensaje a quien es más probable que responda a ese mensaje.</p>
+  <div class="viz-tabs" role="tablist" id="ang-tabs">
+    <button role="tab" aria-selected="true" data-n="1">10 anuncios, 1 ángulo</button>
+    <button role="tab" aria-selected="false" data-n="3">10 anuncios, 3 ángulos</button>
+    <button role="tab" aria-selected="false" data-n="6">10 anuncios, 6 ángulos</button>
+  </div>
+  <div class="viz-mapa" id="ang-mapa" aria-hidden="true"></div>
+  <div class="viz-res"><div><b id="ang-n"></b><span>grupos de personas a los que llegás con un mensaje que les habla</span></div><div><b class="azul" id="ang-c"></b><span id="ang-ej"></span></div></div>
+  <p class="viz-nota">Esquema ilustrativo, no datos de una cuenta: sirve para ver la idea, no para predecir resultados.</p>
+</figure>
+<script>
+(() => {
+  const mapa = document.getElementById("ang-mapa"), tabs = document.querySelectorAll("#ang-tabs button");
+  mapa.innerHTML = "<i></i>".repeat(100);
+  const celdas = [...mapa.children];
+  const ejemplos = { 1: "precio", 3: "precio · calce · ocasión", 6: "precio · calce · ocasión · reseñas · detrás de escena · cuidado" };
+  // Orden fijo y repartido para que cada ángulo "ilumine" una zona distinta.
+  const orden = celdas.map((_, i) => i).sort((a, b) => ((a * 37) % 100) - ((b * 37) % 100));
+  function mostrar(n) {
+    tabs.forEach((t) => t.setAttribute("aria-selected", +t.dataset.n === n));
+    const lit = Math.min(15 + (n - 1) * 13, 85);
+    celdas.forEach((c) => (c.className = ""));
+    orden.slice(0, lit).forEach((i, k) => (celdas[i].className = k % 2 ? "on" : "on2"));
+    document.getElementById("ang-n").textContent = lit + " de 100";
+    document.getElementById("ang-c").textContent = n + (n === 1 ? " ángulo" : " ángulos");
+    document.getElementById("ang-ej").textContent = ejemplos[n];
+  }
+  tabs.forEach((t) => t.addEventListener("click", () => mostrar(+t.dataset.n)));
+  mostrar(1);
+})();
+</script>
+
 <h2 id="personas">4. Mostrá personas, no solo el producto</h2>
 <p>En Win Ar, una marca de pádel, los anuncios mostraban el producto solo. Cuando pasamos a contenido con personas (un jugador hablando a cámara, gente jugando), el costo cambió por completo:</p>
 <div class="tabla"><table>

@@ -126,11 +126,15 @@ section{padding:72px 0;border-top:1px solid var(--edge)}
 .persona p.bio{color:var(--soft);font-size:15.5px;margin-bottom:14px}
 .planes-de{font:500 12px var(--mono);color:var(--soft);margin-left:auto;text-align:right}
 .trabajos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.trabajo{aspect-ratio:4/5;border-radius:12px;overflow:hidden;background:var(--night-3);border:1px solid var(--edge);cursor:pointer;position:relative;padding:0;color:var(--soft);font:500 12px var(--mono)}
+.trabajo{aspect-ratio:16/10;border-radius:12px;overflow:hidden;background:var(--night-3);border:1px solid var(--edge);cursor:pointer;position:relative;padding:0;color:var(--soft);font:500 12px var(--mono)}
 .trabajo img{width:100%;height:100%;object-fit:cover}
 .trabajo .ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:8px}
 .trabajo .t{position:absolute;left:0;right:0;bottom:0;padding:22px 8px 8px;background:linear-gradient(transparent,rgba(10,15,31,.92));color:var(--text);font:500 12px var(--body);text-align:left}
 .persona.atenuada{opacity:.45}
+.hace{list-style:none;padding:0;margin:0 0 16px;display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
+.hace li{padding-left:24px;position:relative;font-size:15px}
+.hace li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}
+@media (max-width:860px){.hace{grid-template-columns:1fr}}
 .ver-mas{font-size:14.5px;margin-top:12px;display:inline-block}
 
 /* Shooting */
@@ -235,12 +239,12 @@ footer{padding:28px 0 40px;border-top:1px solid var(--edge);color:var(--soft);fo
 </div></section>
 
 <section id="equipo"><div class="wrap">
-  <div class="head"><span class="label">4 · Equipo</span><h2>Quién trabaja en tu marca</h2><p class="soft">Cada persona con trabajos reales. Tocá una imagen para verla grande.</p></div>
+  <div class="head"><span class="label">4 · Equipo</span><h2>Quién trabaja en tu marca</h2><p class="soft">Cuatro especialistas, una sola estrategia. Tocá un trabajo para verlo grande.</p></div>
   <div class="equipo" id="eq-lista"></div>
 </div></section>
 
 <section id="shooting"><div class="wrap">
-  <div class="head"><span class="label">5 · Producción</span><h2>Shooting y contenido a medida</h2><p class="soft">Opcional y aparte de cualquier plan. Cada shooting se cotiza según lo que necesita tu marca: marcá lo que te interesa y te pasamos una cotización a medida.</p></div>
+  <div class="head"><span class="label">5 · Producción</span><h2>Shooting y contenido a medida</h2><p class="soft">Opcional y aparte de cualquier plan. Lo organiza y dirige Tatiana, y cada shooting se cotiza según lo que necesita tu marca: marcá lo que te interesa y te pasamos una cotización a medida.</p></div>
   <div class="card shoot">
     <div><div class="opciones" id="sh-opciones"></div>
       <label class="etiqueta" for="sh-nota">¿Algo más que debamos saber? <span class="soft">(opcional)</span></label>
@@ -342,37 +346,52 @@ const P = {
     { n: "Siempre", t: "Te mostramos qué funciona", d: "Reporte en palabras simples: qué ángulo vendió, qué aprendimos y qué hacemos después." },
   ],
 
-  // Los ids del equipo se usan en cada plan.
+  // Los ids del equipo se usan en cada plan. "hace": qué hace cada persona (se muestra siempre).
   equipo: [
     { id: "paid", nombre: "Damián Presmanes", rol: "Estrategia y Paid Media", foto: "/img/damian-presmanes-avatar.jpg",
-      bio: "Estrategia de comunicación y campañas de ventas en Meta Ads. Define los ángulos, mide cada creativo y decide qué escalar.",
+      bio: "Define la estrategia de comunicación: los ángulos de venta para cada nivel de conciencia y cómo se cuentan en cada canal. Arma y optimiza las campañas de ventas en Meta Ads, mide cada creativo y decide qué escalar.",
+      hace: ["Estrategia de ángulos por nivel de conciencia", "Campañas de ventas en Meta Ads, optimizadas a compras", "Pruebas de creativos y escalado de los que venden", "Reporte en palabras simples"],
       trabajos: [{ t: "Prussia · $209M en ventas atribuidas a Meta", img: "/img/cliente-prussia.jpg" }, { t: "Alejandra Ferechian · 630 conversaciones", img: "/img/cliente-alejandra-ferechian.jpg" }, { t: "Win Ar · −97% costo por seguidor", img: "/img/cliente-winar.jpg" }],
       mas: "https://crececonads.site/damian-presmanes" },
-    { id: "diseno", nombre: "Nombre", rol: "Diseño", bio: "Bio y especialidad (sale de su carpeta de Drive).", trabajos: [{ t: "Trabajo 1" }, { t: "Trabajo 2" }, { t: "Trabajo 3" }, { t: "Trabajo 4" }] },
-    { id: "cm", nombre: "Nombre", rol: "Community Manager", bio: "Bio y especialidad (sale de su carpeta de Drive).", trabajos: [{ t: "Trabajo 1" }, { t: "Trabajo 2" }, { t: "Trabajo 3" }, { t: "Trabajo 4" }] },
-    { id: "contenido", nombre: "Nombre", rol: "Creación de contenido", bio: "Bio y especialidad (sale de su carpeta de Drive).", trabajos: [{ t: "Trabajo 1" }, { t: "Trabajo 2" }, { t: "Trabajo 3" }, { t: "Trabajo 4" }] },
+    { id: "diseno", nombre: "Tatiana Mammarelli", rol: "Diseño y dirección creativa",
+      bio: "Fashion creative y diseñadora visual. Diseña las piezas para anuncios, la tienda y los newsletters, cuida la identidad visual de la marca y organiza y dirige los shootings.",
+      hace: ["Piezas para anuncios, banners web y newsletters", "Cuidado de la identidad visual: paleta, tipografías y estilo fotográfico", "Organización y dirección creativa de shootings", "Piezas para lanzamientos, colecciones y fechas especiales", "Calendario visual junto a la community manager"],
+      trabajos: [
+        { t: "Hot Prussia 2026", img: "/propuestas/img/equipo/tatiana-hot-prussia.jpg" }, { t: "Prussia Edit", img: "/propuestas/img/equipo/tatiana-prussia-edit.jpg" },
+        { t: "Prussale 2026", img: "/propuestas/img/equipo/tatiana-prussale-2026.jpg" }, { t: "Prussia Mid/Sale 2026", img: "/propuestas/img/equipo/tatiana-prussia-midsale.jpg" },
+        { t: "Gusmán · Black Friday 2025", img: "/propuestas/img/equipo/tatiana-gusman-black-friday.jpg" }, { t: "Effesiete · Hot7", img: "/propuestas/img/equipo/tatiana-hot7.jpg" },
+        { t: "Chiarelli · Archivo", img: "/propuestas/img/equipo/tatiana-chiarelli-archivo.jpg" }, { t: "Inédita · FW 24", img: "/propuestas/img/equipo/tatiana-inedita.jpg" }],
+      mas: "https://tatianamammarelli.com/work" },
+    { id: "cm", nombre: "Giuliana Luchetti", rol: "Community Manager",
+      bio: "Lleva Instagram y TikTok de la marca: planifica el calendario, escribe los textos, publica y responde, con el tono de la marca y alineado con lo que dicen los anuncios.",
+      hace: ["30 publicaciones por mes entre feed y reels, para Instagram y TikTok", "De 2 a 4 historias por día, con encuestas, preguntas y detrás de escena", "Copys y llamados a la acción con el tono de la marca", "Interacción con la comunidad: respuestas, menciones y contenido de clientas", "Métricas de alcance e interacción para ajustar la estrategia"],
+      trabajos: [] },
+    { id: "contenido", nombre: "Francesca Gioria", rol: "Creación de contenido",
+      bio: "Produce los videos de punta a punta: la idea, el guion, la grabación y la edición, para reels, TikTok, historias y anuncios.",
+      hace: ["12 videos por mes, listos para publicar", "Guion con gancho, desarrollo y llamado a la acción", "Grabación frente a cámara o lifestyle", "Edición con subtítulos, música y formato para cada plataforma", "Prendas en uso: calce, combinaciones, probador y detrás de escena"],
+      trabajos: [] },
   ],
 
   planes: [
-    { id: "esencial", nombre: "Esencial", equipo: ["paid", "diseno"], precio: "A definir", periodo: "por mes",
-      para: "Para recuperar el rendimiento de los anuncios con creativos nuevos por ángulo, mientras tu equipo sigue con las redes.",
-      incluye: ["Estrategia de ángulos por nivel de conciencia", "Gestión de campañas en Meta Ads", "X creativos nuevos por mes (diseño)", "Reporte quincenal en palabras simples"] },
-    { id: "crecimiento", nombre: "Crecimiento", equipo: ["paid", "diseno", "cm"], precio: "A definir", periodo: "por mes", recomendado: true,
+    { id: "esencial", nombre: "Esencial", equipo: ["paid", "diseno"], precio: "A confirmar", periodo: "por mes",
+      para: "Para recuperar el rendimiento de los anuncios con creativos nuevos por ángulo y una identidad visual cuidada.",
+      incluye: ["Estrategia de ángulos por nivel de conciencia", "Gestión de campañas de ventas en Meta Ads", "Diseño de piezas para anuncios, tienda y newsletters", "Organización y dirección creativa de shootings", "Reporte en palabras simples"] },
+    { id: "crecimiento", nombre: "Crecimiento", equipo: ["paid", "diseno", "cm"], precio: "A confirmar", periodo: "por mes", recomendado: true,
       para: "Para que anuncios, perfil e historias digan lo mismo: la comunicación coherente en todos los canales.",
-      incluye: ["Todo lo del plan Esencial", "Gestión de Instagram (CM): X publicaciones y X historias por semana", "Calendario mensual alineado con los anuncios", "Respuesta a comentarios y mensajes"] },
-    { id: "completo", nombre: "Completo", equipo: ["paid", "diseno", "cm", "contenido"], precio: "A definir", periodo: "por mes",
-      para: "Para delegar toda la comunicación, con contenido propio grabado para cada ángulo.",
-      incluye: ["Todo lo del plan Crecimiento", "Creación de contenido: X videos y reels por mes", "Guiones por ángulo y nivel de conciencia", "Contenido pensado para anuncios y para orgánico"] },
+      incluye: ["Todo lo del plan Esencial", "Instagram y TikTok: 30 publicaciones por mes y de 2 a 4 historias por día", "Calendario mensual alineado con los anuncios", "Copys, publicación e interacción con la comunidad"] },
+    { id: "completo", nombre: "Completo", equipo: ["paid", "diseno", "cm", "contenido"], precio: "A confirmar", periodo: "por mes",
+      para: "Para delegar toda la comunicación, con videos propios pensados para cada ángulo de venta.",
+      incluye: ["Todo lo del plan Crecimiento", "12 videos por mes con guion, grabación y edición", "Prendas en uso: calce, combinaciones y detrás de escena", "Videos pensados para anuncios y para orgánico"] },
   ],
 
   // Filas de la tabla comparativa: [texto, esencial, crecimiento, completo]
   comparar: [
     ["Estrategia por nivel de conciencia", true, true, true],
     ["Campañas en Meta Ads", true, true, true],
-    ["Diseño de creativos", true, true, true],
-    ["Gestión de Instagram", false, true, true],
+    ["Diseño y dirección creativa", true, true, true],
+    ["Gestión de Instagram y TikTok", false, true, true],
     ["Respuesta a comentarios y mensajes", false, true, true],
-    ["Creación de contenido (videos y reels)", false, false, true],
+    ["12 videos por mes (guion, grabación y edición)", false, false, true],
   ],
 
   // Lo que el cliente puede pedir. No lleva precio: el shooting se cotiza a medida.
@@ -460,7 +479,7 @@ $("#eq-lista").innerHTML = P.equipo.map((p) => {
     return `<button class="trabajo" type="button" data-i="${i}">${t.img ? `<img src="${esc(t.img)}" alt="${esc(t.t)}" loading="lazy">` : `<span class="ph">${esc(t.t)}</span>`}${t.img ? `<span class="t">${esc(t.t)}</span>` : ""}</button>`; }).join("");
   return `<div class="card persona" data-id="${p.id}"><div class="top-p"><div class="foto">${avatar(p)}</div><div><span class="rol">${esc(p.rol)}</span><h3>${esc(p.nombre)}</h3></div>
       <span class="planes-de">${planes.length === P.planes.length ? "En todos los planes" : "Plan " + planes.join(" y ")}</span></div>
-    <p class="bio">${esc(p.bio)}</p><div class="trabajos">${trabajos}</div>${p.mas ? `<a class="ver-mas" href="${esc(p.mas)}" target="_blank" rel="noopener">Ver más trabajos →</a>` : ""}</div>`;
+    <p class="bio">${esc(p.bio)}</p>${p.hace ? `<ul class="hace">${p.hace.map((h) => `<li>${esc(h)}</li>`).join("")}</ul>` : ""}${trabajos ? `<div class="trabajos">${trabajos}</div>` : ""}${p.mas ? `<a class="ver-mas" href="${esc(p.mas)}" target="_blank" rel="noopener">Ver más trabajos →</a>` : ""}</div>`;
 }).join("");
 
 // Visor

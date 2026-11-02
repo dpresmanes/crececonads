@@ -99,3 +99,58 @@ th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacin
 .site-foot .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .site-foot a{color:var(--soft)}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+
+/* Visuales interactivos de las guías: misma identidad que la landing (noche, azul y verde, mono para datos). */
+.viz{margin:36px 0;padding:24px;border-radius:20px;background:linear-gradient(180deg,var(--night-2),#0d1430);border:1px solid var(--edge);box-shadow:0 0 0 1px rgba(109,139,255,.06) inset}
+.viz-k{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
+.viz-k::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px var(--green-bg)}
+.viz h3{font-family:var(--display);font-weight:800;font-size:23px;letter-spacing:-.02em;line-height:1.15;margin:8px 0 6px}
+.viz>p.sub{color:var(--soft);font-size:16px;margin:0 0 18px}
+.viz-nota{font-family:var(--mono);font-size:12px;color:var(--soft);margin:16px 0 0}
+.viz-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:640px){.viz-grid{grid-template-columns:1fr}.viz{padding:18px}}
+.viz-campo{display:flex;flex-direction:column;gap:6px}
+.viz-campo label{font-size:15px;color:var(--text);display:flex;justify-content:space-between;gap:10px}
+.viz-campo label output{font-family:var(--mono);color:var(--blue-2)}
+.viz input[type=range]{width:100%;accent-color:var(--blue)}
+.viz input[type=number]{width:100%;background:var(--night);border:1px solid var(--edge);border-radius:10px;color:var(--text);font:500 17px var(--mono);padding:10px 12px}
+.viz input[type=number]:focus{outline:none;border-color:var(--blue-2)}
+.viz-res{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:20px}
+.viz-res div{background:var(--night);border:1px solid var(--edge);border-radius:14px;padding:14px 16px}
+.viz-res b{display:block;font-family:var(--mono);font-weight:500;font-size:clamp(20px,5.6vw,26px);color:var(--green);line-height:1.2;overflow-wrap:anywhere}
+.viz-res b.azul{color:var(--blue-2)} .viz-res b.rojo{color:#FF7A7A}
+.viz-res span{font-size:14px;color:var(--soft)}
+.viz-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.viz-tabs button{font:500 14px var(--body);color:var(--soft);background:var(--night);border:1px solid var(--edge);border-radius:999px;padding:8px 14px;cursor:pointer;transition:all .15s ease}
+.viz-tabs button[aria-selected=true]{background:var(--blue);border-color:var(--blue);color:#fff}
+.viz-panel{animation:vizIn .25s ease}
+@keyframes vizIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.viz-panel{animation:none}}
+.viz-chk{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.viz-chk label{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;padding:12px 14px;border:1px solid var(--edge);border-radius:12px;cursor:pointer;color:#D3D8E8;font-size:16px;line-height:1.45}
+.viz-chk input{width:18px;height:18px;margin-top:3px;accent-color:var(--green)}
+.viz-chk label:has(input:checked){border-color:rgba(47,208,143,.5);background:var(--green-bg);color:var(--text)}
+.viz-barra{height:8px;border-radius:4px;background:var(--night);overflow:hidden;margin:16px 0 6px}
+.viz-barra i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--green));transition:width .3s ease}
+.viz-linea{display:grid;gap:0;margin-top:8px;position:relative}
+.viz-linea div{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:12px 0;border-bottom:1px solid var(--edge)}
+.viz-linea div:last-child{border:0}
+.viz-linea time{font-family:var(--mono);font-size:14px;color:var(--blue-2);padding-top:2px}
+.viz-linea div.hoy time{color:var(--green)}
+.viz-chat{display:flex;flex-direction:column;gap:8px;background:#0B141A;border-radius:16px;padding:16px;min-height:220px}
+.viz-chat p{margin:0;max-width:85%;padding:10px 14px;border-radius:14px;font-size:15.5px;line-height:1.45;color:var(--text);animation:vizIn .3s ease}
+.viz-chat .yo{align-self:flex-end;background:#005C4B;border-top-right-radius:4px}
+.viz-chat .bot{align-self:flex-start;background:#1F2C34;border-top-left-radius:4px}
+.viz-chat .sis{align-self:center;background:transparent;color:var(--soft);font-family:var(--mono);font-size:12px}
+.viz-opciones{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.viz-opciones button{font:500 14px var(--body);color:var(--text);background:var(--night-3);border:1px solid var(--edge);border-radius:999px;padding:9px 14px;cursor:pointer}
+.viz-opciones button:hover{border-color:var(--blue-2)}
+.viz-mapa{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin:6px 0 4px}
+.viz-mapa i{aspect-ratio:1;border-radius:6px;background:var(--night-3);transition:background .3s ease}
+.viz-mapa i.on{background:var(--blue)} .viz-mapa i.on2{background:var(--green)}
+.viz-tabla{width:100%;border-collapse:collapse;font-size:15px}
+.viz-tabla th,.viz-tabla td{padding:10px 8px;border-bottom:1px solid var(--edge);text-align:left;vertical-align:top}
+.viz-tabla th{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);font-weight:500}
+.viz-tabla td.si{color:var(--green)}
+.viz-veredicto{margin-top:16px;padding:16px 18px;border-radius:14px;background:var(--night);border:1px solid var(--edge)}
+.viz-veredicto b{font-family:var(--display);font-size:20px;display:block;margin-bottom:4px}

@@ -47,6 +47,36 @@
   <li><strong>Cambios y devoluciones</strong>, con tu política.</li>
 </ul>
 
+<figure class="viz">
+  <span class="viz-k">Conversación de ejemplo</span>
+  <h3>Así responde un agente en una tienda de ropa</h3>
+  <p class="sub">Tocá una pregunta como si fueras una clienta.</p>
+  <div class="viz-chat" id="demo-chat" aria-live="polite"><p class="sis">Hoy, 23:47</p></div>
+  <div class="viz-opciones" id="demo-op"></div>
+  <p class="viz-nota">Ejemplo armado para la guía: una tienda ficticia, no una conversación real.</p>
+</figure>
+<script>
+(() => {
+  const guion = [
+    ["¿Tienen el jean wide leg en talle 40?", "¡Hola! Sí, el wide leg celeste está en talle 40. El azul oscuro en 40 se agotó, ¿te sirve el celeste o querés que te avise cuando vuelva?"],
+    ["¿Cuánto tarda el envío a Rosario?", "A Rosario llega en 2 a 4 días hábiles con Correo Argentino. Si comprás antes de las 14, sale hoy."],
+    ["¿Puedo pagar en cuotas?", "Sí, 3 cuotas sin interés con tarjetas de crédito bancarias, y 10% off pagando por transferencia."],
+    ["Quiero hablar con alguien", "Dale, ya le paso tu consulta a Sofi del equipo, que te escribe por acá en el horario de atención (lunes a viernes de 9 a 18)."],
+  ];
+  const chat = document.getElementById("demo-chat"), op = document.getElementById("demo-op");
+  op.innerHTML = guion.map(([q], i) => `<button type="button" data-i="${i}">${q}</button>`).join("");
+  op.addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    const [q, r] = guion[+b.dataset.i]; b.disabled = true; b.style.opacity = .4;
+    chat.insertAdjacentHTML("beforeend", `<p class="yo">${q}</p>`);
+    setTimeout(() => {
+      chat.insertAdjacentHTML("beforeend", `<p class="bot">${r}</p>`);
+      if (+b.dataset.i === 3) chat.insertAdjacentHTML("beforeend", `<p class="sis">El agente avisó al equipo con un resumen</p>`);
+    }, 700);
+  });
+})();
+</script>
+
 <h2 id="cuando-no">Cuándo no tiene que responder</h2>
 <p>Un buen agente sabe cuándo correrse. Le pasa la conversación a una persona cuando:</p>
 <ul>
