@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
     body: JSON.stringify({ email, firstname: nombre, groups: [grupo], fields: { "{$rubro}": rubro, "{$recurso}": recurso }, trigger_automation: true }),
   });
   if (!r.ok) {
-    console.error("Sender respondió", r.status, (await r.text()).slice(0, 200));
+    console.error("Sender respondió", r.status, "largo del token:", token.length, (await r.text()).slice(0, 200));
     return res.status(502).json({ ok: false });
   }
   return res.status(200).json({ ok: true });
