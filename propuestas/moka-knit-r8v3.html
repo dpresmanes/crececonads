@@ -89,6 +89,16 @@ section{padding:72px 0;border-top:1px solid var(--edge)}
 .metodo{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
 .metodo .card{padding:20px}.metodo h3{font-size:18px;margin:8px 0 6px}.metodo p{font-size:15px;color:var(--soft)}
 
+/* Contenido destacado */
+.destacado{background:radial-gradient(80% 60% at 20% 0%,rgba(47,208,143,.12) 0%,transparent 60%)}
+.tira{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;scrollbar-width:thin}
+.tira button{flex:0 0 auto;width:min(46vw,220px);aspect-ratio:9/16;border-radius:16px;overflow:hidden;border:1px solid var(--edge);background:var(--night-3);padding:0;cursor:pointer;position:relative;scroll-snap-align:start}
+.tira video{width:100%;height:100%;object-fit:cover;display:block}
+.tira .son{position:absolute;bottom:10px;left:10px;font:500 12px var(--mono);color:#fff;background:rgba(10,15,31,.7);border-radius:999px;padding:5px 10px}
+.cifras{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.cifras .card{padding:18px}.cifras b{display:block;font:500 34px var(--mono);color:var(--green)}.cifras span{font-size:15px;color:var(--soft)}
+@media (max-width:860px){.cifras{grid-template-columns:1fr}}
+
 /* Planes */
 .selector{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
 .plan-btn{background:var(--night-2);border:1.5px solid var(--edge);border-radius:16px;padding:18px;text-align:left;color:var(--text);font:inherit;cursor:pointer;transition:border-color .15s ease}
@@ -213,7 +223,7 @@ footer{padding:28px 0 40px;border-top:1px solid var(--edge);color:var(--soft);fo
 <header class="top"><div class="wrap">
   <a class="logo" href="https://crececonads.site/" target="_blank" rel="noopener">Crece<b>Con</b>Ads</a>
   <nav class="pasos" aria-label="Secciones de la propuesta">
-    <a href="#diagnostico">Diagnóstico</a><a href="#estrategia">Estrategia</a><a href="#planes">Planes</a><a href="#equipo">Equipo</a><a href="#shooting">Shooting</a><a href="#siguiente">Próximos pasos</a>
+    <a href="#diagnostico">Diagnóstico</a><a href="#estrategia">Estrategia</a><a href="#contenido">Contenido</a><a href="#planes">Planes</a><a href="#equipo">Equipo</a><a href="#shooting">Shooting</a><a href="#siguiente">Próximos pasos</a>
   </nav>
 </div></header>
 
@@ -242,6 +252,18 @@ footer{padding:28px 0 40px;border-top:1px solid var(--edge);color:var(--soft);fo
   <div class="recorrido" id="e-recorrido"></div>
 
   <div class="metodo" id="e-metodo"></div>
+</div></section>
+
+<section id="contenido" class="destacado"><div class="wrap">
+  <div class="head"><span class="label">Contenido que vende</span><h2>La pieza que le falta a Moka: <span class="g">videos con ángulo</span></h2>
+    <p class="soft">El problema de hoy no es cuánto se invierte sino qué se muestra. Francesca, creadora de contenido, produce videos de punta a punta: guion con gancho, grabación y edición. Cada video nace de un ángulo de venta y le habla a un nivel de conciencia distinto: la prenda en uso, el calce real, el probador, el detrás de escena.</p></div>
+  <div class="tira" id="tira" aria-label="Videos de Francesca Gioria"></div>
+  <div class="cifras">
+    <div class="card"><b>12</b><span>videos por mes, listos para anuncios y orgánico</span></div>
+    <div class="card"><b>5</b><span>niveles de conciencia cubiertos con ángulos distintos</span></div>
+    <div class="card"><b>1</b><span>estrategia: los mismos ángulos en anuncios, Instagram y TikTok</span></div>
+  </div>
+  <p class="soft" style="margin-top:18px;font-size:15px">Está incluida en el plan <b style="color:var(--text)">Completo</b>, el que recomendamos para Moka. <a href="#planes" id="ir-completo">Ver el plan →</a></p>
 </div></section>
 
 <section id="planes"><div class="wrap">
@@ -375,7 +397,7 @@ const P = {
       bio: "Lleva Instagram y TikTok de la marca: planifica el calendario, escribe los textos, publica y responde, con el tono de la marca y alineado con lo que dicen los anuncios.",
       hace: ["30 publicaciones por mes entre feed y reels, para Instagram y TikTok", "De 2 a 4 historias por día, con encuestas, preguntas y detrás de escena", "Copys y llamados a la acción con el tono de la marca", "Interacción con la comunidad: respuestas, menciones y contenido de clientas", "Métricas de alcance e interacción para ajustar la estrategia"],
       trabajos: [] },
-    { id: "contenido", nombre: "Francesca Gioria", rol: "Creación de contenido",
+    { id: "contenido", nombre: "Francesca Gioria", rol: "Creadora de contenido",
       bio: "Produce los videos de punta a punta: la idea, el guion, la grabación y la edición, para reels, TikTok, historias y anuncios.",
       hace: ["12 videos por mes, listos para publicar", "Guion con gancho, desarrollo y llamado a la acción", "Grabación frente a cámara o lifestyle", "Edición con subtítulos, música y formato para cada plataforma", "Prendas en uso: calce, combinaciones, probador y detrás de escena"],
       trabajos: [{"t": "Prussia · Prussale orgánico", "img": "/propuestas/img/equipo/fran/fran-01.jpg", "video": "/propuestas/img/equipo/fran/fran-01.mp4", "cat": "Videos", "vert": true}, {"t": "Video 1", "img": "/propuestas/img/equipo/fran/fran-02.jpg", "video": "/propuestas/img/equipo/fran/fran-02.mp4", "cat": "Videos", "vert": true}, {"t": "Prussia · Prussale orgánico", "img": "/propuestas/img/equipo/fran/fran-03.jpg", "video": "/propuestas/img/equipo/fran/fran-03.mp4", "cat": "Videos", "vert": true}, {"t": "Video 2", "img": "/propuestas/img/equipo/fran/fran-04.jpg", "video": "/propuestas/img/equipo/fran/fran-04.mp4", "cat": "Videos", "vert": true}, {"t": "Prussia · Prussale orgánico", "img": "/propuestas/img/equipo/fran/fran-05.jpg", "video": "/propuestas/img/equipo/fran/fran-05.mp4", "cat": "Videos", "vert": true}, {"t": "Prussia · Prussale orgánico", "img": "/propuestas/img/equipo/fran/fran-06.jpg", "video": "/propuestas/img/equipo/fran/fran-06.mp4", "cat": "Videos", "vert": true}, {"t": "Prussia · Prussale orgánico", "img": "/propuestas/img/equipo/fran/fran-07.jpg", "video": "/propuestas/img/equipo/fran/fran-07.mp4", "cat": "Videos", "vert": true}, {"t": "Video 3", "img": "/propuestas/img/equipo/fran/fran-08.jpg", "video": "/propuestas/img/equipo/fran/fran-08.mp4", "cat": "Videos", "vert": true}, {"t": "Video 4", "img": "/propuestas/img/equipo/fran/fran-09.jpg", "video": "/propuestas/img/equipo/fran/fran-09.mp4", "cat": "Videos", "vert": true}, {"t": "Video 5", "img": "/propuestas/img/equipo/fran/fran-10.jpg", "video": "/propuestas/img/equipo/fran/fran-10.mp4", "cat": "Videos", "vert": true}, {"t": "Video 6", "img": "/propuestas/img/equipo/fran/fran-11.jpg", "video": "/propuestas/img/equipo/fran/fran-11.mp4", "cat": "Videos", "vert": true}, {"t": "Video 7", "img": "/propuestas/img/equipo/fran/fran-12.jpg", "video": "/propuestas/img/equipo/fran/fran-12.mp4", "cat": "Videos", "vert": true}, {"t": "Video 8", "img": "/propuestas/img/equipo/fran/fran-13.jpg", "video": "/propuestas/img/equipo/fran/fran-13.mp4", "cat": "Videos", "vert": true}, {"t": "Video 9", "img": "/propuestas/img/equipo/fran/fran-14.jpg", "video": "/propuestas/img/equipo/fran/fran-14.mp4", "cat": "Videos", "vert": true}, {"t": "Video 10", "img": "/propuestas/img/equipo/fran/fran-15.jpg", "video": "/propuestas/img/equipo/fran/fran-15.mp4", "cat": "Videos", "vert": true}, {"t": "Video 11", "img": "/propuestas/img/equipo/fran/fran-16.jpg", "video": "/propuestas/img/equipo/fran/fran-16.mp4", "cat": "Videos", "vert": true}, {"t": "Video 12", "img": "/propuestas/img/equipo/fran/fran-17.jpg", "video": "/propuestas/img/equipo/fran/fran-17.mp4", "cat": "Videos", "vert": true}, {"t": "Video 13", "img": "/propuestas/img/equipo/fran/fran-18.jpg", "video": "/propuestas/img/equipo/fran/fran-18.mp4", "cat": "Videos", "vert": true}, {"t": "Video 14", "img": "/propuestas/img/equipo/fran/fran-19.jpg", "video": "/propuestas/img/equipo/fran/fran-19.mp4", "cat": "Videos", "vert": true}] },
@@ -385,11 +407,11 @@ const P = {
     { id: "esencial", nombre: "Esencial", equipo: ["paid", "diseno"], precio: 3000000, periodo: "por mes",
       para: "Para recuperar el rendimiento de los anuncios con creativos nuevos por ángulo y una identidad visual cuidada.",
       incluye: ["Estrategia de ángulos por nivel de conciencia", "Gestión de campañas de ventas en Meta Ads", "Diseño de piezas para anuncios, tienda y newsletters", "Organización y dirección creativa de shootings", "Reporte en palabras simples"] },
-    { id: "crecimiento", nombre: "Crecimiento", equipo: ["paid", "diseno", "cm"], precio: 4200000, periodo: "por mes", recomendado: true,
+    { id: "crecimiento", nombre: "Crecimiento", equipo: ["paid", "diseno", "cm"], precio: 4200000, periodo: "por mes",
       para: "Para que anuncios, perfil e historias digan lo mismo: la comunicación coherente en todos los canales.",
       incluye: ["Todo lo del plan Esencial", "Instagram y TikTok: 30 publicaciones por mes y de 2 a 4 historias por día", "Calendario mensual alineado con los anuncios", "Copys, publicación e interacción con la comunidad"] },
-    { id: "completo", nombre: "Completo", equipo: ["paid", "diseno", "cm", "contenido"], precio: 5400000, periodo: "por mes",
-      para: "Para delegar toda la comunicación, con videos propios pensados para cada ángulo de venta.",
+    { id: "completo", nombre: "Completo", equipo: ["paid", "diseno", "cm", "contenido"], precio: 5400000, periodo: "por mes", recomendado: true,
+      para: "El que necesita Moka: el problema son los creativos, y este plan suma a una creadora de contenido que produce 12 videos por mes, uno para cada ángulo de venta y nivel de conciencia.",
       incluye: ["Todo lo del plan Crecimiento", "12 videos por mes con guion, grabación y edición", "Prendas en uso: calce, combinaciones y detrás de escena", "Videos pensados para anuncios y para orgánico"] },
   ],
 
@@ -511,6 +533,18 @@ document.querySelectorAll(".persona").forEach((per) => {
     b.parentElement.querySelectorAll(".trabajo[hidden]").forEach((t) => (t.hidden = false)); b.remove();
   }));
 });
+
+// Tira de videos destacados de la creadora de contenido: se reproducen en silencio al verse;
+// al tocar uno se abre en el visor con sonido.
+(() => {
+  const fran = galeria.filter((g) => g.video && P.equipo.find((e) => e.id === "contenido").trabajos.some((t) => t.video === g.video));
+  const elegidos = [...fran.filter((g) => g.t.includes("Prussale")), ...fran.filter((g) => !g.t.includes("Prussale"))].slice(0, 8);
+  $("#tira").innerHTML = elegidos.map((g) => `<button type="button" data-i="${galeria.indexOf(g)}" aria-label="${esc(g.t)}"><video src="${esc(g.video)}" poster="${esc(g.img)}" muted loop playsinline preload="none"></video><span class="son">▶ con sonido</span></button>`).join("");
+  const obs = new IntersectionObserver((es) => es.forEach((e) => { const v = e.target; if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }), { threshold: .5 });
+  document.querySelectorAll("#tira video").forEach((v) => obs.observe(v));
+  document.querySelectorAll("#tira button").forEach((b) => b.addEventListener("click", () => abrir(+b.dataset.i)));
+  $("#ir-completo").addEventListener("click", () => pintarPlan(P.planes.find((p) => p.id === "completo")));
+})();
 
 // Visor
 let actual = 0;
