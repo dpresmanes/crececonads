@@ -136,13 +136,16 @@ section{padding:72px 0;border-top:1px solid var(--edge)}
 /* Shooting */
 .shoot{padding:24px;display:grid;grid-template-columns:1.3fr 1fr;gap:26px}
 .opciones{display:grid;gap:10px}
-.op{display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:center;padding:14px 16px;border:1px solid var(--edge);border-radius:12px;cursor:pointer}
+.op{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:center;padding:14px 16px;border:1px solid var(--edge);border-radius:12px;cursor:pointer}
 .op input{width:20px;height:20px;accent-color:var(--blue)}
 .op b{font-size:16px;display:block}.op small{color:var(--soft);font-size:14px}
 .op .p{font:500 14px var(--mono);color:var(--soft);white-space:nowrap}
 .op:has(input:checked){border-color:var(--blue-2);background:var(--night-3)}
 .resumen-shoot{background:var(--night-3);border-radius:14px;padding:20px;align-self:start}
-.resumen-shoot .total{font:500 30px var(--mono);margin:6px 0 10px}
+.resumen-shoot .total{font:700 22px var(--display);margin:8px 0 10px}
+.etiqueta{display:block;font-size:15px;margin:18px 0 8px}
+textarea{width:100%;background:var(--night);border:1px solid var(--edge);border-radius:12px;color:var(--text);font:16px var(--body);padding:12px 14px;resize:vertical}
+textarea:focus{outline:none;border-color:var(--blue-2)}
 
 /* 90 días */
 .dias{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
@@ -237,10 +240,12 @@ footer{padding:28px 0 40px;border-top:1px solid var(--edge);color:var(--soft);fo
 </div></section>
 
 <section id="shooting"><div class="wrap">
-  <div class="head"><span class="label">5 · Producción</span><h2>Shooting y contenido a medida</h2><p class="soft">Opcional y aparte de cualquier plan. Elegí lo que necesitás y ves el valor al instante.</p></div>
+  <div class="head"><span class="label">5 · Producción</span><h2>Shooting y contenido a medida</h2><p class="soft">Opcional y aparte de cualquier plan. Cada shooting se cotiza según lo que necesita tu marca: marcá lo que te interesa y te pasamos una cotización a medida.</p></div>
   <div class="card shoot">
-    <div class="opciones" id="sh-opciones"></div>
-    <div class="resumen-shoot"><span class="label">Tu shooting</span><div class="total" id="sh-total">—</div><p class="soft" id="sh-detalle" style="font-size:15px">Elegí al menos una opción.</p></div>
+    <div><div class="opciones" id="sh-opciones"></div>
+      <label class="etiqueta" for="sh-nota">¿Algo más que debamos saber? <span class="soft">(opcional)</span></label>
+      <textarea id="sh-nota" rows="3" placeholder="Ej.: lanzamos una colección en diciembre, son 30 productos y queremos fotos en exteriores."></textarea></div>
+    <div class="resumen-shoot"><span class="label">Tu pedido</span><div class="total" id="sh-total">Nada elegido</div><p class="soft" id="sh-detalle" style="font-size:15px">Marcá lo que necesitás: se suma a tu mensaje al final y te mandamos la cotización.</p></div>
   </div>
 </div></section>
 
@@ -370,13 +375,13 @@ const P = {
     ["Creación de contenido (videos y reels)", false, false, true],
   ],
 
-  // precio en número para sumar; si es null se muestra "a cotizar".
+  // Lo que el cliente puede pedir. No lleva precio: el shooting se cotiza a medida.
   shooting: [
-    { id: "media", t: "Media jornada", d: "Hasta 4 horas, 1 locación", precio: null },
-    { id: "completa", t: "Jornada completa", d: "Hasta 8 horas, hasta 2 locaciones", precio: null },
-    { id: "fotos", t: "Fotos de producto editadas", d: "Pack de 20 fotos", precio: null },
-    { id: "videos", t: "Videos para anuncios y reels", d: "Pack de 5 videos editados", precio: null },
-    { id: "modelo", t: "Modelo", d: "Por jornada", precio: null },
+    { id: "producto", t: "Fotos de producto", d: "Fondo neutro, para la tienda y el catálogo" },
+    { id: "lifestyle", t: "Fotos de producto en uso", d: "En contexto, con personas o en locación" },
+    { id: "videos", t: "Videos para anuncios y reels", d: "Pensados para cada ángulo de venta" },
+    { id: "modelos", t: "Modelos", d: "Para mostrar el producto puesto o en uso" },
+    { id: "locacion", t: "Locación o estudio", d: "Si necesitás un espacio especial" },
   ],
 
   dias: [
@@ -476,18 +481,17 @@ $("#visor .ant").onclick = () => abrir(actual - 1);
 $("#visor .sig").onclick = () => abrir(actual + 1);
 addEventListener("keydown", (e) => { if (!$("#visor").classList.contains("on")) return; if (e.key === "Escape") $("#visor .cerrar").onclick(); if (e.key === "ArrowLeft") abrir(actual - 1); if (e.key === "ArrowRight") abrir(actual + 1); });
 
-// Shooting
-$("#sh-opciones").innerHTML = P.shooting.map((o) => `<label class="op"><input type="checkbox" value="${o.id}"><span><b>${esc(o.t)}</b><small>${esc(o.d)}</small></span><span class="p">${o.precio == null ? "a cotizar" : plata(o.precio)}</span></label>`).join("");
+// Shooting: se arma el pedido y se cotiza a medida
+$("#sh-opciones").innerHTML = P.shooting.map((o) => `<label class="op"><input type="checkbox" value="${o.id}"><span><b>${esc(o.t)}</b><small>${esc(o.d)}</small></span></label>`).join("");
 function elegidosShoot() { return [...document.querySelectorAll("#sh-opciones input:checked")].map((i) => P.shooting.find((o) => o.id === i.value)); }
 function pintarShoot() {
   const e = elegidosShoot();
-  const conPrecio = e.filter((o) => o.precio != null);
-  const total = conPrecio.reduce((s, o) => s + o.precio, 0);
-  $("#sh-total").textContent = !e.length ? "—" : conPrecio.length === e.length ? plata(total) : conPrecio.length ? plata(total) + " + a cotizar" : "A cotizar";
-  $("#sh-detalle").textContent = e.length ? e.map((o) => o.t).join(" · ") : "Elegí al menos una opción.";
+  $("#sh-total").textContent = e.length ? `${e.length} ${e.length === 1 ? "cosa elegida" : "cosas elegidas"}` : "Nada elegido";
+  $("#sh-detalle").textContent = e.length ? e.map((o) => o.t).join(" · ") + ". Te pasamos la cotización a medida." : "Marcá lo que necesitás: se suma a tu mensaje al final y te mandamos la cotización.";
   pintarEleccion();
 }
 document.querySelectorAll("#sh-opciones input").forEach((i) => i.addEventListener("change", pintarShoot));
+$("#sh-nota").addEventListener("input", pintarEleccion);
 
 // 90 días y casos
 $("#n-dias").innerHTML = P.dias.map((d) => `<div class="card"><span class="n">${esc(d.n)}</span><h3>${esc(d.t)}</h3><ul>${d.items.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("");
@@ -500,8 +504,10 @@ function pintarEleccion() {
   $("#s-eleccion").innerHTML = `<div class="fila"><span>Plan</span><span>${esc(planElegido.nombre)}</span></div>
     <div class="fila"><span>Equipo</span><span>${planElegido.equipo.map((id) => esc(persona(id).rol)).join(" + ")}</span></div>
     <div class="fila"><span>Inversión</span><span>${esc(precio)}</span></div>
-    <div class="fila"><span>Shooting</span><span>${shoot.length ? esc(shoot.map((o) => o.t).join(", ")) : "No por ahora"}</span></div>`;
-  const msg = `Hola Damián, soy de ${P.cliente}. Vi la propuesta y quiero avanzar con el plan ${planElegido.nombre}${shoot.length ? `, con shooting: ${shoot.map((o) => o.t).join(", ")}` : ""}.`;
+    <div class="fila"><span>Shooting</span><span>${shoot.length ? esc(shoot.map((o) => o.t).join(", ")) + " (a cotizar)" : "No por ahora"}</span></div>`;
+  const nota = $("#sh-nota").value.trim();
+  const msg = `Hola Damián, soy de ${P.cliente}. Vi la propuesta y quiero avanzar con el plan ${planElegido.nombre}.` +
+    (shoot.length ? ` También quiero cotizar un shooting: ${shoot.map((o) => o.t).join(", ")}.` : "") + (nota ? ` ${nota}` : "");
   $("#s-wa").href = `https://wa.me/${P.whatsapp}?text=${encodeURIComponent(msg)}`;
 }
 $("#s-cal").href = P.agenda;
