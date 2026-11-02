@@ -23,6 +23,14 @@ CAL = "https://calendar.app.google/Y7rQAcUQw2EqX5z3A"
 PERSONA = SITIO + "/damian-presmanes#persona"
 ORG = SITIO + "/#org"
 
+# Tag Manager se carga cuando la persona interactúa o 2 s después de cargar la página: así no
+# compite con el contenido en celulares (Lighthouse: 270 ms de código de terceros en el hilo principal).
+GTM_DIFERIDO = ("<script>window.dataLayer=window.dataLayer||[];dataLayer.push({'gtm.start':Date.now(),event:'gtm.js'});"
+                "(function(){var c=0;function g(){if(c)return;c=1;var j=document.createElement('script');j.async=true;"
+                "j.src='https://www.googletagmanager.com/gtm.js?id=" + GTM + "';document.head.appendChild(j);}"
+                "['scroll','pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,g,{once:true,passive:true});});"
+                "addEventListener('load',function(){setTimeout(g,2000);});})();</script>")
+
 FUENTES = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
            '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
            '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800'
@@ -73,7 +81,7 @@ def documento(meta, url, ld, cuerpo):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}})(window,document,'script','dataLayer','{GTM}');</script>
+{GTM_DIFERIDO}
 <title>{esc(meta["titulo_seo"])}</title>
 <meta name="description" content="{esc(meta["descripcion"])}">
 <link rel="canonical" href="{url}">
@@ -134,7 +142,17 @@ def indice(cuerpo):
     return f'<nav class="toc" aria-label="En esta guía"><b>En esta guía</b><ul>{li}</ul></nav>'
 
 
-def guia(meta, cuerpo):
+def relacionadas(meta, todas):
+    otras = [m for m in todas if m["slug"] != meta["slug"]][:3]
+    if not otras:
+        return ""
+    tarjetas = "\n".join(
+        f'<a class="card" href="/guias/{m["slug"]}"><span class="tag">{esc(m.get("tag", "Guía"))}</span>'
+        f'<h3>{esc(m["titulo"])}</h3></a>' for m in otras)
+    return f'<section class="relacionadas"><h2>Seguí leyendo</h2>\n<div class="cards">\n{tarjetas}\n</div></section>'
+
+
+def guia(meta, cuerpo, todas=()):
     url = f"{SITIO}/guias/{meta['slug']}"
     meta["titulo_seo"] = meta.get("titulo_seo", meta["titulo"] + " | CreceConAds")
     cta = meta.get("cta", "agendar")
@@ -157,6 +175,7 @@ def guia(meta, cuerpo):
 {cuerpo}
 {faq_html(meta.get("faq"))}
 <section class="cta"><h2>{esc(meta.get("cta_titulo", "¿Vemos tu caso?"))}</h2><p>{cta_txt}</p><div class="row">{botones}</div></section>
+{relacionadas(meta, todas)}
 {AUTOR}
 </article>'''
     grafo = [
@@ -222,10 +241,12 @@ def listado(guias):
 
 def main():
     guias, urls = [], [(SITIO + "/", "2026-10-30"), (SITIO + "/privacidad", "2026-10-30")]
-    for path in sorted((RAIZ / "contenido").glob("*.html")):
-        meta, cuerpo = leer(path)
+    contenidos = [leer(p) for p in sorted((RAIZ / "contenido").glob("*.html"))]
+    # Las más nuevas primero: son las que se muestran en "Seguí leyendo" y en la home.
+    todas = sorted([m for m, _ in contenidos if m["tipo"] == "guia"], key=lambda m: m["fecha"], reverse=True)
+    for meta, cuerpo in contenidos:
         if meta["tipo"] == "guia":
-            url, doc = guia(meta, cuerpo)
+            url, doc = guia(meta, cuerpo, todas)
             destino = RAIZ / "guias" / f"{meta['slug']}.html"
             guias.append(meta)
         else:
@@ -244,6 +265,14 @@ def main():
     items = "\n".join(f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{f}</lastmod>\n  </url>" for u, f in urls)
     (RAIZ / "sitemap.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{items}\n</urlset>\n', encoding="utf-8")
+
+    portada = (RAIZ / "index.html").read_text(encoding="utf-8")
+    enlaces = "\n".join(
+        f'        <a href="/guias/{m["slug"]}"><span class="label">{esc(m.get("tag", "Guía"))}</span><b>{esc(m["titulo"])}</b></a>'
+        for m in guias[:4])
+    portada = re.sub(r"(<!-- guias-home:inicio -->).*?(\n\s*<!-- guias-home:fin -->)",
+                     lambda x: x.group(1) + "\n" + enlaces + x.group(2), portada, flags=re.S)
+    (RAIZ / "index.html").write_text(portada, encoding="utf-8")
 
     llms = (RAIZ / "llms.txt").read_text(encoding="utf-8")
     bloque = "## Guías\n\n" + "\n".join(f"- [{m['titulo']}]({SITIO}/guias/{m['slug']}): {m['respuesta']}" for m in guias)

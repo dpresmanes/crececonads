@@ -90,6 +90,9 @@ th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacin
 .card:hover{border-color:var(--blue-2)}
 .card .tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--green)}
 .card h2{font-size:22px;margin:0}
+.card h3{font-size:18px;margin:0;line-height:1.25}
+.relacionadas{margin-top:48px}
+.relacionadas .cards{margin:16px 0 40px}
 .card p{margin:0;font-size:16px;color:var(--soft)}
 
 .site-foot{border-top:1px solid var(--edge);padding-block:24px 40px;font-size:14px;color:var(--soft);margin-top:40px}
