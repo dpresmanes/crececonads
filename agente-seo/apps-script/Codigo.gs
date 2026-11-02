@@ -3,11 +3,13 @@
  *
  * Cada lunes:
  *  - Búsquedas y Páginas: qué búsquedas de Google muestran crececonads.site (Search Console, últimos 28 días).
+ *  - Bing: lo mismo en Bing (Bing Webmaster Tools), que es de donde busca ChatGPT.
  *  - Visibilidad IA: hace a Gemini las preguntas de la pestaña "Preguntas" y anota si te nombra.
- *  - Ideas: propone 5 guías nuevas para la web.
+ *  - Ideas: propone 5 guías nuevas para la web, sin repetir las que ya están en la pestaña.
  *  - Historial: una fila por semana para ver la evolución.
  *
  * Primera vez: menú "Agente SEO" > "Configurar clave de Gemini", después "Programar cada lunes".
+ * Bing (opcional): "Configurar clave de Bing" con la clave de Bing Webmaster > Configuración > Acceso a la API.
  */
 
 const SITIO = 'https://crececonads.site/';
@@ -20,6 +22,7 @@ function onOpen() {
   SpreadsheetApp.getUi().createMenu('Agente SEO')
     .addItem('Correr ahora', 'correrAgente')
     .addItem('Configurar clave de Gemini', 'configurarClave')
+    .addItem('Configurar clave de Bing', 'configurarClaveBing')
     .addItem('Programar cada lunes', 'programar')
     .addToUi();
 }
@@ -29,6 +32,14 @@ function configurarClave() {
   const r = ui.prompt('Clave de Gemini', 'Pegá tu clave de aistudio.google.com (se guarda en el script, no en la planilla):', ui.ButtonSet.OK_CANCEL);
   if (r.getSelectedButton() !== ui.Button.OK || !r.getResponseText().trim()) return;
   PropertiesService.getScriptProperties().setProperty('GEMINI_API_KEY', r.getResponseText().trim());
+  ui.alert('Clave guardada.');
+}
+
+function configurarClaveBing() {
+  const ui = SpreadsheetApp.getUi();
+  const r = ui.prompt('Clave de Bing', 'Pegá la clave de Bing Webmaster > Configuración > Acceso a la API (se guarda en el script, no en la planilla):', ui.ButtonSet.OK_CANCEL);
+  if (r.getSelectedButton() !== ui.Button.OK || !r.getResponseText().trim()) return;
+  PropertiesService.getScriptProperties().setProperty('BING_API_KEY', r.getResponseText().trim());
   ui.alert('Clave guardada.');
 }
 
@@ -42,14 +53,16 @@ function programar() {
 
 function correrAgente() {
   const estado = {};
-  [busquedas, visibilidadIA, ideas].forEach(tarea => {
+  [busquedas, bing, visibilidadIA, ideas].forEach(tarea => {
     try {
       tarea(estado);
     } catch (e) {
       console.error(tarea.name + ' falló: ' + e);
     }
   });
-  hoja('Historial').appendRow([hoy(), ...(estado.resumen || ['', '', '']), ...(estado.ia || ['', ''])]);
+  const historial = hoja('Historial');
+  if (!historial.getRange('G1').getValue()) historial.getRange('G1:H1').setValues([['Clics Bing (28 días)', 'Impresiones Bing (28 días)']]);
+  historial.appendRow([hoy(), ...(estado.resumen || ['', '', '']), ...(estado.ia || ['', '']), ...(estado.bing || ['', ''])]);
 }
 
 // ---------- Search Console ----------
@@ -78,6 +91,33 @@ function gsc(ini, fin, dimension) {
     payload: JSON.stringify({ startDate: fecha(ini), endDate: fecha(fin), dimensions: [dimension], rowLimit: 250 }),
   });
   return JSON.parse(res.getContentText()).rows || [];
+}
+
+// ---------- Bing Webmaster Tools ----------
+
+function bing(estado) {
+  const clave = PropertiesService.getScriptProperties().getProperty('BING_API_KEY');
+  if (!clave) return; // opcional: sin clave no se mide Bing
+  const res = UrlFetchApp.fetch('https://ssl.bing.com/webmaster/api.svc/json/GetQueryStats?siteUrl=' + encodeURIComponent(SITIO) +
+    '&apikey=' + encodeURIComponent(clave), { muteHttpExceptions: true });
+  if (res.getResponseCode() !== 200) throw new Error('Bing respondió ' + res.getResponseCode() + ': ' + res.getContentText().slice(0, 150));
+  // Bing devuelve una fila por búsqueda y por semana; se suman las de los últimos 28 días.
+  const desde = Date.now() - 28 * 864e5;
+  const porBusqueda = {};
+  (JSON.parse(res.getContentText()).d || []).forEach(r => {
+    const ms = Number((String(r.Date).match(/\d+/) || [0])[0]);
+    if (ms < desde) return;
+    const b = porBusqueda[r.Query] || (porBusqueda[r.Query] = { clics: 0, impresiones: 0, posicion: 0 });
+    b.clics += r.Clicks;
+    b.impresiones += r.Impressions;
+    b.posicion = r.AvgImpressionPosition; // la más reciente alcanza para ver dónde está
+  });
+  const filas = Object.keys(porBusqueda).map(q => [q, porBusqueda[q].clics, porBusqueda[q].impresiones, redondear(porBusqueda[q].posicion)])
+    .sort((a, b) => b[2] - a[2]);
+  if (!hoja('Bing')) SpreadsheetApp.getActive().insertSheet('Bing');
+  escribir('Bing', [['Búsqueda', 'Clics', 'Impresiones', 'Posición']].concat(filas));
+  estado.bing = [filas.reduce((s, f) => s + f[1], 0), filas.reduce((s, f) => s + f[2], 0)];
+  estado.busquedasBing = filas.slice(0, 40).map(f => [f[0], f[2], f[3]]);
 }
 
 // ---------- Visibilidad en IA ----------
@@ -113,12 +153,19 @@ function ideas(estado) {
   const prompt = 'Sos estratega de SEO y GEO de CreceConAds (Damián Presmanes, Argentina): campañas de ventas en Meta Ads ' +
     'para tiendas online, agentes de IA para WhatsApp y automatización de procesos con IA.\n' +
     'Búsquedas reales en Google que ya muestran la web (consulta, impresiones, posición): ' + JSON.stringify((estado.busquedas || []).slice(0, 40)) + '\n' +
+    'Búsquedas reales en Bing (consulta, impresiones, posición): ' + JSON.stringify(estado.busquedasBing || []) + '\n' +
     'Preguntas a asistentes de IA donde CreceConAds NO aparece: ' + JSON.stringify(estado.sinMencion || []) + '\n' +
+    'Guías que ya existen o ya se propusieron (no repitas ninguna ni propongas el mismo tema con otras palabras): ' + JSON.stringify(yaPropuestas()) + '\n' +
     'Proponé 5 guías nuevas para publicar en crececonads.site/guias que respondan una pregunta concreta de un dueño de tienda online. ' +
     'Devolvé JSON: lista de objetos con "titulo", "pregunta_que_responde", "por_que" (una línea, citando el dato que lo justifica).';
   const temas = JSON.parse(gemini(clave, prompt, false, true).texto);
   const filas = temas.map(t => [hoy(), t.titulo || '', t.pregunta_que_responde || '', t.por_que || '', 'Pendiente']);
   if (filas.length) hoja('Ideas').getRange(hoja('Ideas').getLastRow() + 1, 1, filas.length, 5).setValues(filas);
+}
+
+// Títulos de la pestaña Ideas (publicadas, pendientes y descartadas), para no proponerlos otra vez.
+function yaPropuestas() {
+  return hoja('Ideas').getRange('B2:B').getValues().map(f => String(f[0]).trim()).filter(Boolean);
 }
 
 function gemini(clave, prompt, buscar, json) {
