@@ -103,6 +103,12 @@ section{padding:72px 0;border-top:1px solid var(--edge)}
 .cifras .card{padding:18px}.cifras b{display:block;font:500 34px var(--mono);color:var(--green)}.cifras span{font-size:15px;color:var(--soft)}
 @media (max-width:860px){.cifras{grid-template-columns:1fr}}
 
+/* Condiciones */
+.condiciones{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.condiciones .card{padding:20px}.condiciones .n{font:500 12px var(--mono);color:var(--green)}
+.condiciones h3{font-size:18px;margin:8px 0 6px}.condiciones p{font-size:15px;color:var(--soft)}
+@media (max-width:860px){.condiciones{grid-template-columns:1fr}}
+
 /* Planes */
 .selector{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
 .plan-btn{background:var(--night-2);border:1.5px solid var(--edge);border-radius:16px;padding:18px;text-align:left;color:var(--text);font:inherit;cursor:pointer;transition:border-color .15s ease}
@@ -229,7 +235,7 @@ footer{padding:28px 0 40px;border-top:1px solid var(--edge);color:var(--soft);fo
 <header class="top"><div class="wrap">
   <a class="logo" href="https://crececonads.site/" target="_blank" rel="noopener">Crece<b>Con</b>Ads</a>
   <nav class="pasos" aria-label="Secciones de la propuesta">
-    <a href="#diagnostico">Diagnóstico</a><a href="#estrategia">Estrategia</a><a href="#contenido">Contenido</a><a href="#planes">Planes</a><a href="#equipo">Equipo</a><a href="#shooting">Shooting</a><a href="#siguiente">Próximos pasos</a>
+    <a href="#diagnostico">Diagnóstico</a><a href="#estrategia">Estrategia</a><a href="#contenido">Contenido</a><a href="#planes">Planes</a><a href="#equipo">Equipo</a><a href="#shooting">Shooting</a><a href="#condiciones">Condiciones</a><a href="#siguiente">Próximos pasos</a>
   </nav>
 </div></header>
 
@@ -310,6 +316,18 @@ footer{padding:28px 0 40px;border-top:1px solid var(--edge);color:var(--soft);fo
   <div class="casos" id="c-lista"></div>
 </div></section>
 
+<section id="condiciones"><div class="wrap">
+  <div class="head"><span class="label">Condiciones</span><h2>Cómo trabajamos</h2><p class="soft">Lo dejamos claro desde el principio para que no haya sorpresas.</p></div>
+  <div class="condiciones">
+    <div class="card"><span class="n">01</span><h3>Abono mensual por adelantado</h3><p>El primer mes se abona para comenzar. Los siguientes, del 1 al 5 de cada mes.</p></div>
+    <div class="card"><span class="n">02</span><h3>Permanencia mínima de 3 meses</h3><p>Es el tiempo que necesita la estrategia para probar ángulos, quedarse con los que venden y escalarlos.</p></div>
+    <div class="card"><span class="n">03</span><h3>La pauta, directo a Meta</h3><p>La inversión en anuncios la paga Moka con su medio de pago en su propia cuenta publicitaria. No pasa por nosotros y no está incluida en el abono.</p></div>
+    <div class="card"><span class="n">04</span><h3>Ajuste trimestral</h3><p>El abono se actualiza cada 3 meses según la inflación del período (IPC del INDEC).</p></div>
+    <div class="card"><span class="n">05</span><h3>Shooting aparte</h3><p>Se cotiza a medida. Se reserva la fecha con el 50% y el resto se abona antes de la entrega del material. Los gastos de producción (fotografía, modelos, locación) se abonan antes del día del shooting.</p></div>
+    <div class="card"><span class="n">06</span><h3>Atrasos</h3><p>Si un pago se atrasa más de 10 días, el trabajo se pausa hasta regularizarlo.</p></div>
+  </div>
+</div></section>
+
 <section id="siguiente" class="cierre"><div class="wrap">
   <div class="head"><span class="label">Próximos pasos</span><h2>¿Arrancamos?</h2><p class="soft">Esto es lo que elegiste. Mandámelo y coordinamos el inicio, o agendá una llamada si querés verlo juntos.</p></div>
   <div class="card eleccion" id="s-eleccion"></div>
@@ -334,7 +352,7 @@ const P = {
   borrador: false,
   cliente: "Moka Knit",
   fecha: "Noviembre 2026",
-  vigencia: "Propuesta válida por 15 días.",
+  vigencia: "Propuesta válida por 15 días. Condiciones de pago y permanencia en la sección Condiciones.",
   titulo: "Más ángulos, más gente nueva: el plan para que Moka vuelva a crecer",
   bajada: "Una estrategia de creativos por ángulo de venta y nivel de conciencia para recuperar el tráfico, con una comunicación que diga lo mismo en anuncios, Instagram, TikTok y la tienda.",
   mail: "damian@crececonads.site",
@@ -605,6 +623,8 @@ function pintarEleccion() {
   $("#s-eleccion").innerHTML = `<div class="fila"><span>Plan</span><span>${esc(planElegido.nombre)}</span></div>
     <div class="fila"><span>Equipo</span><span>${planElegido.equipo.map((id) => esc(persona(id).rol)).join(" + ")}</span></div>
     <div class="fila"><span>Inversión</span><span>${esc(precio)}</span></div>
+    <div class="fila"><span>Para comenzar</span><span>${typeof planElegido.precio === "number" ? esc(plata(planElegido.precio)) + " (primer mes por adelantado)" : "primer mes por adelantado"}</span></div>
+    <div class="fila"><span>Permanencia</span><span>3 meses mínimo</span></div>
     <div class="fila"><span>Shooting</span><span>${shoot.length ? esc(shoot.map((o) => o.t).join(", ")) + " (a cotizar)" : "No por ahora"}</span></div>`;
   const nota = $("#sh-nota").value.trim();
   const msg = `Hola Damián, soy de ${P.cliente}. Vi la propuesta y quiero avanzar con el plan ${planElegido.nombre}.` +
