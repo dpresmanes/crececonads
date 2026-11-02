@@ -7,6 +7,8 @@
  *  - Visibilidad IA: hace a Gemini las preguntas de la pestaña "Preguntas" y anota si te nombra.
  *  - Ideas: propone 5 guías nuevas para la web, sin repetir las que ya están en la pestaña.
  *  - Historial: una fila por semana para ver la evolución.
+ *  - Palabras clave (primer lunes de cada mes, o desde el menú): qué busca la gente en Argentina
+ *    alrededor de las semillas de la pestaña "Semillas", con autocompletar de Google y volumen de Bing.
  *
  * Primera vez: menú "Agente SEO" > "Configurar clave de Gemini", después "Programar cada lunes".
  * Bing (opcional): "Configurar clave de Bing" con la clave de Bing Webmaster > Configuración > Acceso a la API.
@@ -23,6 +25,7 @@ function onOpen() {
     .addItem('Correr ahora', 'correrAgente')
     .addItem('Configurar clave de Gemini', 'configurarClave')
     .addItem('Configurar clave de Bing', 'configurarClaveBing')
+    .addItem('Investigar palabras clave', 'investigarPalabras')
     .addItem('Programar cada lunes', 'programar')
     .addToUi();
 }
@@ -60,6 +63,10 @@ function correrAgente() {
       console.error(tarea.name + ' falló: ' + e);
     }
   });
+  // Una vez por mes alcanza: el volumen de búsquedas no cambia de una semana a otra.
+  if (Number(Utilities.formatDate(new Date(), 'America/Argentina/Buenos_Aires', 'd')) <= 7) {
+    try { investigarPalabras(); } catch (e) { console.error('investigarPalabras falló: ' + e); }
+  }
   const historial = hoja('Historial');
   if (!historial.getRange('G1').getValue()) historial.getRange('G1:H1').setValues([['Clics Bing (28 días)', 'Impresiones Bing (28 días)']]);
   historial.appendRow([hoy(), ...(estado.resumen || ['', '', '']), ...(estado.ia || ['', '']), ...(estado.bing || ['', ''])]);
@@ -118,6 +125,71 @@ function bing(estado) {
   escribir('Bing', [['Búsqueda', 'Clics', 'Impresiones', 'Posición']].concat(filas));
   estado.bing = [filas.reduce((s, f) => s + f[1], 0), filas.reduce((s, f) => s + f[2], 0)];
   estado.busquedasBing = filas.slice(0, 40).map(f => [f[0], f[2], f[3]]);
+}
+
+// ---------- Palabras clave ----------
+
+const SEMILLAS = ['meta ads tienda online', 'facebook ads ecommerce', 'publicidad en instagram', 'agencia meta ads',
+  'agente ia whatsapp', 'chatbot whatsapp', 'automatizar procesos', 'tiendanube publicidad'];
+const PREFIJOS = ['como', 'que es', 'cuanto cuesta', 'mejor', 'para'];
+
+// Junta lo que la gente busca alrededor de cada semilla y cuánto se busca:
+//  - Google autocompletar (Argentina): las búsquedas reales más comunes, sin volumen.
+//  - Bing (Argentina, últimos 3 meses): palabras relacionadas con impresiones. Bing es mucho más chico que
+//    Google, así que el número sirve para comparar entre palabras, no como volumen absoluto.
+function investigarPalabras() {
+  let semillasHoja = hoja('Semillas');
+  if (!semillasHoja) {
+    semillasHoja = SpreadsheetApp.getActive().insertSheet('Semillas');
+    semillasHoja.getRange(1, 1, SEMILLAS.length + 1, 1).setValues([['Semilla']].concat(SEMILLAS.map(s => [s])));
+  }
+  const semillas = semillasHoja.getRange('A2:A').getValues().map(f => String(f[0]).trim()).filter(Boolean);
+  const clave = PropertiesService.getScriptProperties().getProperty('BING_API_KEY');
+  const palabras = {}; // palabra -> { semilla, fuente, bing }
+
+  semillas.forEach(semilla => {
+    const consultas = [semilla].concat(PREFIJOS.map(p => p + ' ' + semilla), 'abcdefghilmnoprstv'.split('').map(l => semilla + ' ' + l));
+    consultas.forEach(q => autocompletar(q).forEach(p => {
+      if (!palabras[p]) palabras[p] = { semilla: semilla, fuente: 'Google', bing: '' };
+    }));
+    if (clave) {
+      bingRelacionadas(clave, semilla).forEach(r => {
+        const p = String(r.Query).toLowerCase();
+        palabras[p] = { semilla: semilla, fuente: palabras[p] ? 'Google y Bing' : 'Bing', bing: r.Impressions };
+      });
+    }
+  });
+
+  const filas = Object.keys(palabras).map(p => [p, palabras[p].semilla, palabras[p].fuente, palabras[p].bing])
+    .sort((a, b) => (Number(b[3]) || 0) - (Number(a[3]) || 0) || a[1].localeCompare(b[1]));
+  if (!hoja('Palabras clave')) SpreadsheetApp.getActive().insertSheet('Palabras clave');
+  escribir('Palabras clave', [['Palabra clave', 'Semilla', 'Fuente', 'Impresiones Bing AR (3 meses)']].concat(filas));
+  hoja('Palabras clave').getRange('F1').setValue('Actualizado: ' + hoy());
+}
+
+function autocompletar(q) {
+  const res = UrlFetchApp.fetch('https://suggestqueries.google.com/complete/search?client=firefox&hl=es&gl=ar&q=' + encodeURIComponent(q),
+    { muteHttpExceptions: true });
+  if (res.getResponseCode() !== 200) return [];
+  try {
+    return (JSON.parse(res.getContentText())[1] || []).map(s => String(s).toLowerCase());
+  } catch (e) {
+    return [];
+  }
+}
+
+function bingRelacionadas(clave, q) {
+  const fin = new Date(Date.now() - 864e5);
+  const ini = new Date(fin.getTime() - 90 * 864e5);
+  const url = 'https://ssl.bing.com/webmaster/api.svc/json/GetRelatedKeywords?q=' + encodeURIComponent(q) +
+    '&country=ar&language=es-AR&startDate=' + fecha(ini) + '&endDate=' + fecha(fin) + '&apikey=' + encodeURIComponent(clave);
+  const res = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+  if (res.getResponseCode() !== 200) {
+    console.error('Bing palabras "' + q + '": ' + res.getResponseCode() + ' ' + res.getContentText().slice(0, 150));
+    return [];
+  }
+  const d = JSON.parse(res.getContentText()).d;
+  return Array.isArray(d) ? d : [];
 }
 
 // ---------- Visibilidad en IA ----------
