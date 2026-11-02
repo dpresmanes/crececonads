@@ -38,13 +38,13 @@ FUENTES = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
 
 CABECERA = f'''<header class="top"><div class="wrap">
   <a class="logo" href="/">Crece<b>Con</b>Ads</a>
-  <nav aria-label="Secciones"><a href="/#resultados">Resultados</a><a href="/#servicios">Servicios</a><a href="/guias">Guías</a><a href="/damian-presmanes">Quién soy</a></nav>
+  <nav aria-label="Secciones"><a href="/#resultados">Resultados</a><a href="/#servicios">Servicios</a><a href="/guias">Guías</a><a href="/recursos">Recursos</a><a href="/damian-presmanes">Quién soy</a></nav>
   <a class="btn btn-sm" data-cta="agendar" href="{CAL}" target="_blank" rel="noopener">Agendar llamada</a>
 </div></header>'''
 
 PIE = '''<footer class="site-foot"><div class="wrap">
   <span>© 2026 CreceConAds · Damián Presmanes</span>
-  <span><a href="/guias">Guías</a> · <a href="https://www.instagram.com/crececonads/">Instagram</a> · <a href="https://maps.google.com/?cid=8214692810272884951">Google Maps</a> · <a href="/privacidad">Privacidad</a></span>
+  <span><a href="/guias">Guías</a> · <a href="/recursos">Recursos</a> · <a href="https://www.instagram.com/crececonads/">Instagram</a> · <a href="https://maps.google.com/?cid=8214692810272884951">Google Maps</a> · <a href="/privacidad">Privacidad</a></span>
 </div></footer>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -190,6 +190,102 @@ def guia(meta, cuerpo, todas=()):
     return url, documento(meta, url, {"@context": "https://schema.org", "@graph": grafo}, html_cuerpo)
 
 
+RUBROS = ["Tienda online", "Inmobiliaria", "Servicios o profesional", "Otro"]
+
+
+def recurso(meta, cuerpo, guias):
+    """Recurso gratis: se ve una parte; el resto se desbloquea dejando nombre, mail y rubro (Sender)."""
+    url = f"{SITIO}/recursos/{meta['slug']}"
+    meta["titulo_seo"] = meta.get("titulo_seo", meta["titulo"] + " | Recurso gratis | CreceConAds")
+    visible, _, completo = cuerpo.partition("<!-- completo -->")
+    guia = next((g for g in guias if g["slug"] == meta.get("guia")), None)
+    enlace_guia = (f'<a class="card" href="/guias/{guia["slug"]}"><span class="tag">Guía relacionada</span><h3>{esc(guia["titulo"])}</h3></a>'
+                   if guia else '<a class="card" href="/guias"><span class="tag">Guías</span><h3>Todas las guías de Meta Ads, agentes de IA y automatización</h3></a>')
+    opciones = "".join(f"<option>{esc(r)}</option>" for r in RUBROS)
+    html_cuerpo = f'''<p class="crumbs"><a href="/">Inicio</a> / <a href="/recursos">Recursos</a></p>
+<article class="recurso" data-recurso="{esc(meta['slug'])}">
+<span class="chip-recurso">Recurso gratis · {esc(meta.get("tag", ""))}</span>
+<h1>{meta.get("titulo_html", esc(meta["titulo"])).replace("<em>", '<span class="g">').replace("</em>", "</span>")}</h1>
+<p class="lead">{esc(meta["descripcion"])}</p>
+{visible}
+<section class="gate" id="gate">
+  <h2>Desbloqueá el recurso completo</h2>
+  <p>Dejá tu nombre y tu mail y se abre todo acá mismo, con la opción de descargarlo en PDF. Te mandamos también una copia por mail.</p>
+  <form id="gate-form" novalidate>
+    <label>Nombre<input name="nombre" autocomplete="given-name" required maxlength="80"></label>
+    <label>Mail<input name="email" type="email" autocomplete="email" required maxlength="120"></label>
+    <label>¿A qué se dedica tu negocio?<select name="rubro" required><option value="">Elegí una opción</option>{opciones}</select></label>
+    <label class="hp" aria-hidden="true">Web<input name="web" tabindex="-1" autocomplete="off"></label>
+    <label class="acepto"><input type="checkbox" name="acepto" required> Acepto recibir el recurso y novedades de CreceConAds por mail. Me puedo dar de baja cuando quiera. <a href="/privacidad">Privacidad</a></label>
+    <button class="btn" type="submit">Ver el recurso completo</button>
+    <p class="gate-error" id="gate-error" hidden></p>
+  </form>
+</section>
+<div class="completo" id="completo" hidden>
+{completo}
+<p class="acciones"><button class="btn btn-line" type="button" onclick="window.print()">Descargar en PDF</button></p>
+</div>
+<section class="relacionadas"><h2>Seguí con esto</h2><div class="cards">{enlace_guia}</div></section>
+<section class="cta"><h2>¿Querés que lo armemos para tu negocio?</h2><p>En 30 minutos vemos tu caso y te digo qué haría. Sin compromiso.</p>
+<div class="row"><a class="btn" data-cta="agendar" href="{CAL}" target="_blank" rel="noopener">Agendar llamada gratis</a>
+<a class="btn btn-line" data-cta="whatsapp" href="{WA}AGENTE" target="_blank" rel="noopener">Escribí AGENTE por WhatsApp</a></div></section>
+{AUTOR}
+</article>
+<script>
+(() => {{
+  const CLAVE = "cca-recursos-desbloqueados", slug = document.querySelector("[data-recurso]").dataset.recurso;
+  const abrir = () => {{ document.getElementById("gate").hidden = true; document.getElementById("completo").hidden = false; }};
+  try {{ if (localStorage.getItem(CLAVE)) abrir(); }} catch (e) {{}}
+  const form = document.getElementById("gate-form"), error = document.getElementById("gate-error");
+  form.addEventListener("submit", async (ev) => {{
+    ev.preventDefault();
+    const d = Object.fromEntries(new FormData(form));
+    if (!d.nombre.trim() || !/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(d.email) || !d.rubro || !form.acepto.checked) {{
+      error.textContent = "Completá nombre, un mail válido, tu rubro y aceptá recibir el recurso."; error.hidden = false; return;
+    }}
+    form.querySelector("button").disabled = true;
+    try {{
+      await fetch("/api/suscribir", {{ method: "POST", headers: {{ "Content-Type": "application/json" }},
+        body: JSON.stringify({{ nombre: d.nombre, email: d.email, rubro: d.rubro, web: d.web || "", recurso: slug }}) }});
+    }} catch (e) {{}}
+    (window.dataLayer = window.dataLayer || []).push({{ event: "recurso_desbloqueado", recurso: slug, rubro: d.rubro }});
+    try {{ localStorage.setItem(CLAVE, "1"); }} catch (e) {{}}
+    abrir(); document.getElementById("completo").scrollIntoView({{ behavior: "smooth" }});
+  }});
+  document.querySelectorAll("[data-copiar]").forEach((b) => b.addEventListener("click", () => {{
+    navigator.clipboard.writeText(b.nextElementSibling.textContent).then(() => (b.textContent = "Copiado"));
+  }}));
+}})();
+</script>'''
+    ld = {"@context": "https://schema.org", "@graph": [
+        {"@type": "LearningResource", "@id": url + "#recurso", "name": meta["titulo"], "description": meta["descripcion"],
+         "inLanguage": "es-AR", "isAccessibleForFree": True, "author": {"@id": PERSONA}, "publisher": {"@id": ORG}, "datePublished": meta["fecha"]},
+        migas([("Inicio", SITIO + "/"), ("Recursos", SITIO + "/recursos"), (meta["titulo"], url)])]}
+    return url, documento(meta, url, ld, html_cuerpo)
+
+
+def listado_recursos(recursos):
+    url = SITIO + "/recursos"
+    tarjetas = "\n".join(
+        f'<a class="card" href="/recursos/{m["slug"]}"><span class="tag">{esc(m.get("tag", "Recurso"))}</span>'
+        f'<h2>{esc(m["titulo"])}</h2><p>{esc(m["descripcion"])}</p></a>' for m in recursos)
+    meta = {"titulo": "Recursos gratis para vender más por redes y WhatsApp",
+            "titulo_seo": "Recursos gratis: plantillas y checklists | CreceConAds",
+            "descripcion": "Plantillas, checklists y prompts listos para usar en tu negocio: respuestas de WhatsApp, seguimiento de consultas, métricas de Meta Ads y más.",
+            "og_tipo": "website"}
+    cuerpo = f'''<p class="crumbs"><a href="/">Inicio</a> / Recursos</p>
+<h1>{meta["titulo"]}</h1>
+<p class="lead">{meta["descripcion"]}</p>
+<div class="cards">
+{tarjetas}
+</div>'''
+    ld = {"@context": "https://schema.org", "@graph": [
+        {"@type": "CollectionPage", "@id": url, "url": url, "name": meta["titulo"], "inLanguage": "es-AR",
+         "hasPart": [{"@id": f"{SITIO}/recursos/{m['slug']}#recurso"} for m in recursos]},
+        migas([("Inicio", SITIO + "/"), ("Recursos", url)])]}
+    return url, documento(meta, url, ld, cuerpo)
+
+
 def perfil(meta, cuerpo):
     url = f"{SITIO}/{meta['slug']}"
     meta["titulo_seo"] = meta.get("titulo_seo", meta["titulo"])
@@ -244,7 +340,16 @@ def main():
     contenidos = [leer(p) for p in sorted((RAIZ / "contenido").glob("*.html"))]
     # Las más nuevas primero: son las que se muestran en "Seguí leyendo" y en la home.
     todas = sorted([m for m, _ in contenidos if m["tipo"] == "guia"], key=lambda m: m["fecha"], reverse=True)
+    recursos = sorted([m for m, _ in contenidos if m["tipo"] == "recurso"], key=lambda m: m["fecha"])
     for meta, cuerpo in contenidos:
+        if meta["tipo"] == "recurso":
+            url, doc = recurso(meta, cuerpo, todas)
+            destino = RAIZ / "recursos" / f"{meta['slug']}.html"
+            destino.parent.mkdir(exist_ok=True)
+            destino.write_text(doc, encoding="utf-8")
+            urls.append((url, meta.get("actualizado", meta["fecha"])))
+            print("ok", destino.relative_to(RAIZ))
+            continue
         if meta["tipo"] == "guia":
             url, doc = guia(meta, cuerpo, todas)
             destino = RAIZ / "guias" / f"{meta['slug']}.html"
@@ -257,6 +362,10 @@ def main():
         urls.append((url, meta.get("actualizado", meta["fecha"])))
         print("ok", destino.relative_to(RAIZ))
 
+    if recursos:
+        url, doc = listado_recursos(recursos)
+        (RAIZ / "recursos" / "index.html").write_text(doc, encoding="utf-8")
+        urls.append((url, max(m["fecha"] for m in recursos)))
     guias.sort(key=lambda m: m["fecha"], reverse=True)
     url, doc = listado(guias)
     (RAIZ / "guias" / "index.html").write_text(doc, encoding="utf-8")
