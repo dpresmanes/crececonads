@@ -1,0 +1,79 @@
+<!--{
+"tipo": "guia",
+"slug": "activar-desactivar-agente-ia-whatsapp-business",
+"titulo": "Cómo activar, pausar o desactivar el agente de IA de WhatsApp Business",
+"titulo_seo": "Cómo activar o desactivar el agente de IA de WhatsApp Business | CreceConAds",
+"descripcion": "Paso a paso para activar el agente de IA de Meta en WhatsApp Business, pausarlo, sacarlo de un chat o eliminarlo, en Android, iPhone y la API. Con qué pasa con tus chats en cada caso.",
+"respuesta": "El agente de IA de WhatsApp Business (Meta Business Agent) se maneja solo desde la app del celular, en Herramientas > Meta Business Agent. Para pausarlo: Configuración de respuestas > Desconectar IA (en iPhone, Eliminar tu agente de IA) > Pausar respuestas de IA. Para eliminarlo, en el mismo lugar elegís desconectar y eliminar. Para sacarlo de un solo chat: abrís el chat, tocás el nombre del contacto y quitás la IA. No se puede pausar ni eliminar desde WhatsApp Web, y apagarlo en WhatsApp no lo apaga en Instagram.",
+"fecha": "2026-11-03",
+"tag": "Agentes de IA · WhatsApp",
+"temas": ["Agente de IA", "WhatsApp Business", "Meta Business Agent", "Atención al cliente"],
+"faq": [
+  ["¿Por qué no me aparece el agente de IA en WhatsApp Business?", "Meta lo habilita por etapas, solo para negocios elegibles y en algunos países. Actualizá la app y revisá Herramientas. Si no está, tu cuenta todavía no lo tiene: no hay forma de forzarlo."],
+  ["¿Puedo desactivar el agente de IA desde WhatsApp Web?", "No. Pausarlo, sacarlo de un chat o eliminarlo se hace desde la app de WhatsApp Business en el celular."],
+  ["Si contesto yo un chat, ¿el agente sigue respondiendo?", "No en ese chat: cuando respondés vos a mano, el agente se pausa en esa conversación hasta que lo vuelvas a activar."],
+  ["¿Si lo elimino pierdo los chats?", "No se borran tus conversaciones. Lo que se pierde es la configuración del agente: para volver a usarlo hay que configurarlo de nuevo desde el principio."],
+  ["¿El agente de IA de WhatsApp es gratis?", "Las fuentes no coinciden y Meta lo está cambiando: en la app hay negocios que lo tienen sin cargo y otros con suscripción, y en la API se cobra por uso. Revisá qué te muestra tu cuenta antes de depender de él. Lo explico en la guía del agente de Meta o uno propio."]
+],
+"cta": "agente",
+"cta_titulo": "¿Querés un agente que puedas controlar del todo?"
+}-->
+<p>Meta sumó a WhatsApp Business un agente de IA, <strong>Meta Business Agent</strong>, que responde los chats con la información de tu negocio. Es una de las búsquedas que más crece en Argentina, y casi siempre en dos versiones: cómo activarlo y cómo sacarlo. Acá están los dos caminos, con lo que pasa con tus chats en cada caso.</p>
+
+<p><strong>Importante:</strong> todo se hace desde la <strong>app de WhatsApp Business en el celular</strong>. Desde WhatsApp Web no se puede pausar ni eliminar. Los nombres de los botones pueden cambiar un poco según la versión de la app y el idioma del teléfono.</p>
+
+<figure class="viz" id="pasos-agente">
+  <span class="viz-k">Paso a paso</span>
+  <h3>¿Qué querés hacer con el agente?</h3>
+  <p class="sub">Elegí una opción y seguí los pasos en tu celular.</p>
+  <div class="viz-tabs" role="tablist" id="pa-tabs">
+    <button role="tab" aria-selected="true" data-i="0">Activarlo</button>
+    <button role="tab" aria-selected="false" data-i="1">Pausarlo</button>
+    <button role="tab" aria-selected="false" data-i="2">Sacarlo de un chat</button>
+    <button role="tab" aria-selected="false" data-i="3">Eliminarlo</button>
+    <button role="tab" aria-selected="false" data-i="4">En la API</button>
+  </div>
+  <div class="viz-panel" id="pa-panel" role="tabpanel" aria-live="polite"></div>
+</figure>
+<script>
+(() => {
+  const opciones = [
+    ["Activar el agente", ["Actualizá la app de WhatsApp Business y verificá que tu número esté registrado ahí.", "Entrá a <b>Herramientas</b> y tocá <b>Meta Business Agent</b>.", "Verificá tu identidad y vinculá tu cuenta de Meta si te lo pide. Tocá <b>Confirmar</b>.", "Dejá que aprenda de tus chats anteriores y sumá tu web, tu catálogo o tus listas de precios.", "Probalo desde otro número antes de dejarlo atendiendo clientes."], "Al activarlo pueden desconectarse algunos dispositivos vinculados y dejar de funcionar las listas de difusión o el mensaje de bienvenida. Revisalo en tu cuenta."],
+    ["Pausar el agente (deja de responder chats nuevos)", ["Entrá a <b>Herramientas</b> > <b>Meta Business Agent</b> > <b>Configuración de respuestas</b>.", "Tocá <b>Desconectar IA</b> (en Android) o <b>Eliminar tu agente de IA</b> (en iPhone).", "Elegí <b>Pausar respuestas de IA</b>."], "Pausar no borra nada: lo volvés a activar desde el mismo lugar."],
+    ["Sacar el agente de un solo chat", ["Abrí el chat.", "Tocá el nombre del contacto o del grupo.", "Tocá <b>Incluir tu IA</b> y después <b>Quitar IA</b>."], "En ese chat deja de responder y de aprender de tus respuestas. Además, si contestás vos a mano, el agente se pausa solo en esa conversación."],
+    ["Eliminar el agente", ["Entrá a <b>Herramientas</b> > <b>Meta Business Agent</b> > <b>Configuración de respuestas</b>.", "Tocá <b>Desconectar IA</b> (Android) o <b>Eliminar tu agente de IA</b> (iPhone).", "Elegí <b>Desconectar y eliminar mi IA</b>, respondé la encuesta corta de Meta y confirmá."], "Tus chats no se borran, pero la configuración sí: para volver a usarlo hay que armarlo de cero."],
+    ["Apagarlo si usás la API (WhatsApp Manager)", ["Entrá a <b>WhatsApp Manager</b> > <b>Meta Business Agent</b>.", "Buscá el número y desactivá <b>Permitir que el agente de IA responda</b>.", "Repetilo en cada número donde esté activo."], "En la API se cobra por uso. Si lo usás para probar, Meta deja hacerlo sin cargar un medio de pago."]
+  ];
+  const tabs = document.querySelectorAll("#pa-tabs button"), panel = document.getElementById("pa-panel");
+  function mostrar(i) {
+    tabs.forEach((t) => t.setAttribute("aria-selected", +t.dataset.i === i));
+    const [titulo, pasos, nota] = opciones[i];
+    panel.innerHTML = `<h4 style="margin:0 0 10px">${titulo}</h4><ol>${pasos.map((p) => `<li>${p}</li>`).join("")}</ol><p class="viz-nota">${nota}</p>`;
+    panel.classList.remove("viz-panel"); void panel.offsetWidth; panel.classList.add("viz-panel");
+  }
+  tabs.forEach((t) => t.addEventListener("click", () => mostrar(+t.dataset.i)));
+  mostrar(0);
+})();
+</script>
+
+<h2 id="canales">Cada canal se apaga por separado</h2>
+<p>El agente de Meta puede estar en WhatsApp, Instagram y Messenger. <strong>Apagarlo en WhatsApp no lo apaga en Instagram</strong>, y cada número de WhatsApp se maneja aparte. Si lo activaste en varios lados, revisá cada uno.</p>
+
+<h2 id="antes">Antes de activarlo, revisá tres cosas</h2>
+<ul>
+  <li><strong>Qué información usa.</strong> Tu página de Facebook, tus chats anteriores, tu web y lo que le subas (catálogo, precios, documentos). Si algo está desactualizado, va a responder con eso.</li>
+  <li><strong>Qué temas no tiene que tocar.</strong> Podés pedirle que pase a una persona los temas sensibles o complicados: reclamos, cambios, pagos.</li>
+  <li><strong>Qué se apaga en tu cuenta.</strong> Hay guías que mencionan que se desconectan algunos dispositivos vinculados y dejan de andar las listas de difusión o el mensaje de bienvenida.</li>
+</ul>
+
+<h2 id="por-que">Por qué tanta gente lo desactiva</h2>
+<p>Las razones más comunes: responde algo que no es (un precio viejo, un envío que no hacés), atiende a un cliente que preferías atender vos, o no te avisa cuando aparece alguien listo para comprar. Es un agente pensado para responder preguntas frecuentes, no para vender con tus reglas.</p>
+<p>Si lo que necesitás es que califique consultas, te avise cuando hay un interesado y responda con datos que cambian (stock, pedidos, agenda), conviene un agente propio. Lo comparo en <a href="/guias/agente-ia-whatsapp-business-meta-o-propio">agente de IA en WhatsApp Business: el de Meta o uno propio</a>, con un test para decidir.</p>
+
+<h2 id="fuentes">Fuentes</h2>
+<ul>
+  <li><a href="https://whatsappbusiness.com/products/business-app-ai-agent/" rel="noopener" target="_blank">WhatsApp Business: Meta Business Agent</a> (activación, información que usa, pase a una persona).</li>
+  <li><a href="https://www.useinvent.com/blog/how-to-set-up-turn-off-meta-business-agent-whatsapp-app-api-invent" rel="noopener" target="_blank">Invent: cómo activar y desactivar Meta Business Agent</a> (pausar, eliminar, quitar de un chat, API; octubre de 2026).</li>
+  <li><a href="https://leadsales.io/blog/que-es-business-ai-agent-meta/" rel="noopener" target="_blank">Leadsales: qué es Meta Business Agent</a>.</li>
+</ul>
+<p>Revisado el 3 de noviembre de 2026. Meta cambia los menús seguido: si un botón no coincide, buscalo dentro de Herramientas > Meta Business Agent.</p>

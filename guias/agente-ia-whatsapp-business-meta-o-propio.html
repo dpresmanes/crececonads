@@ -35,7 +35,7 @@
    "headline": "Agente de IA en WhatsApp Business: cómo activar el de Meta y cuándo conviene uno propio",
    "description": "Qué hace el agente de IA que Meta sumó a WhatsApp Business, cómo se activa, qué límites tiene y en qué casos conviene un agente propio. Con un test para decidir.",
    "datePublished": "2026-11-02",
-   "dateModified": "2026-11-02",
+   "dateModified": "2026-11-03",
    "inLanguage": "es-AR",
    "author": {
     "@id": "https://crececonads.site/damian-presmanes#persona"
@@ -85,7 +85,15 @@
      "name": "¿El agente de IA de WhatsApp Business es gratis?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Las fuentes publicadas no coinciden: algunas lo presentan como gratuito y otras hablan de un cupo de respuestas gratis por mes. Antes de depender de él, revisá en la app o en la ayuda oficial de WhatsApp qué aplica a tu cuenta."
+      "text": "Depende de dónde lo uses. En la app, hay negocios que lo tienen sin cargo y otros con suscripción, porque Meta lo está habilitando por etapas. En la API (WhatsApp Manager) se cobra por uso: según las guías publicadas, unos 4 a 5 centavos de dólar por interacción. Revisá qué te muestra tu cuenta antes de depender de él."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "¿Cuánto cuesta un agente de IA propio para WhatsApp?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Tiene tres partes: el modelo de IA (en el agente de CreceConAds, alrededor de 1 centavo de dólar por respuesta), WhatsApp (responder dentro de las 24 horas desde que el cliente escribió no tiene costo de Meta en la API oficial) y el armado y mantenimiento, que depende de qué tenga que hacer el agente."
      }
     },
     {
@@ -133,7 +141,7 @@
 <div class="byline"><img src="/img/damian-presmanes-avatar.jpg" alt="" width="44" height="44">
 <span>Por <a href="/damian-presmanes">Damián Presmanes</a> · 2 de noviembre de 2026</span></div>
 <div class="answer"><span class="k">Respuesta corta</span><p>WhatsApp Business ya trae un agente de IA de Meta que responde con la información de tu negocio (catálogo, horarios, precios y políticas) y se activa desde Herramientas en la app, aunque llega por etapas y no aparece en todas las cuentas. Alcanza para responder preguntas frecuentes. Conviene un agente propio cuando necesitás calificar consultas con tus propias reglas, pasar los interesados a tu equipo con un aviso, conectarlo con tus sistemas o medir cada conversación.</p></div>
-<nav class="toc" aria-label="En esta guía"><b>En esta guía</b><ul><li><a href="#que-es">1. Qué es el agente de IA de WhatsApp Business</a></li><li><a href="#como-activarlo">2. Cómo se activa</a></li><li><a href="#propio">3. Qué cambia con un agente propio</a></li><li><a href="#test">4. Test: ¿cuál te conviene?</a></li><li><a href="#probar">5. Probá un agente propio</a></li><li><a href="#fuentes">Fuentes</a></li></ul></nav>
+<nav class="toc" aria-label="En esta guía"><b>En esta guía</b><ul><li><a href="#que-es">1. Qué es el agente de IA de WhatsApp Business</a></li><li><a href="#como-activarlo">2. Cómo se activa</a></li><li><a href="#propio">3. Qué cambia con un agente propio</a></li><li><a href="#test">4. Test: ¿cuál te conviene?</a></li><li><a href="#costos">5. Cuánto cuesta cada uno</a></li><li><a href="#probar">6. Probá un agente propio</a></li><li><a href="#fuentes">Fuentes</a></li></ul></nav>
 <p>Durante 2026 Meta empezó a sumar un <strong>agente de IA dentro de WhatsApp Business</strong> en Argentina y el resto de la región. Es una de las búsquedas que más crece: “activar agente IA WhatsApp Business”, “agente IA WhatsApp Meta”. Esta guía explica qué hace, cómo se activa y en qué casos conviene un agente propio, con un test al final para decidir.</p>
 
 <h2 id="que-es">1. Qué es el agente de IA de WhatsApp Business</h2>
@@ -214,7 +222,50 @@
 })();
 </script>
 
-<h2 id="probar">5. Probá un agente propio</h2>
+<h2 id="costos">5. Cuánto cuesta cada uno</h2>
+<p>“¿El agente de IA de WhatsApp es gratis?” es de las búsquedas más repetidas. La respuesta corta: <strong>el de Meta puede no costarte nada en la app, pero en la API se paga por uso</strong>, y uno propio tiene un costo por respuesta muy bajo más el armado.</p>
+<ul>
+  <li><strong>Agente de Meta en la app:</strong> Meta lo está habilitando por etapas y muestra una página de suscripción. Hay cuentas que lo tienen sin cargo y otras no: fijate qué te aparece en Herramientas.</li>
+  <li><strong>Agente de Meta en la API:</strong> se cobra por uso. Según las guías publicadas en octubre de 2026, unos <strong>4 a 5 centavos de dólar por interacción</strong>.</li>
+  <li><strong>Agente propio:</strong> el modelo de IA cuesta poco por respuesta (en el agente de CreceConAds, medido, <strong>alrededor de 1 centavo de dólar</strong>). Responder dentro de las 24 horas desde que el cliente escribió no tiene costo de Meta en la API oficial. Lo que sí tiene costo es armarlo y mantenerlo.</li>
+</ul>
+
+<figure class="viz" id="calc-costo-agente">
+  <span class="viz-k">Calculadora</span>
+  <h3>¿Cuánto te costaría responder por mes?</h3>
+  <p class="sub">Solo el costo por uso. No incluye el armado ni el mantenimiento de un agente propio.</p>
+  <div class="viz-grid">
+    <div class="viz-campo"><label for="ca-conv">Conversaciones por mes <output id="ca-conv-o"></output></label><input id="ca-conv" type="range" min="50" max="5000" step="50" value="600"></div>
+    <div class="viz-campo"><label for="ca-resp">Respuestas por conversación <output id="ca-resp-o"></output></label><input id="ca-resp" type="range" min="1" max="15" step="1" value="5"></div>
+    <div class="viz-campo"><label for="ca-meta">Meta en la API, USD por interacción <output id="ca-meta-o"></output></label><input id="ca-meta" type="range" min="0.01" max="0.08" step="0.005" value="0.045"></div>
+    <div class="viz-campo"><label for="ca-prop">Agente propio, USD por respuesta <output id="ca-prop-o"></output></label><input id="ca-prop" type="range" min="0.002" max="0.03" step="0.001" value="0.01"></div>
+  </div>
+  <div class="viz-res">
+    <div><b id="ca-r-meta"></b><span>por mes con Meta en la API (si cada respuesta cuenta como interacción)</span></div>
+    <div><b class="azul" id="ca-r-prop"></b><span>por mes en IA con un agente propio</span></div>
+    <div><b id="ca-r-resp"></b><span>respuestas por mes</span></div>
+  </div>
+  <p class="viz-nota">Estimación con valores de referencia que podés cambiar. Meta no publica una tabla única y cómo cuenta una “interacción” puede variar: verificá el valor en tu cuenta. El costo del agente propio es el medido en el agente de CreceConAds.</p>
+</figure>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const usd = (n) => "USD " + n.toLocaleString("es-AR", { minimumFractionDigits: n < 100 ? 2 : 0, maximumFractionDigits: n < 100 ? 2 : 0 });
+  function calcular() {
+    const conv = +$("ca-conv").value, resp = +$("ca-resp").value, meta = +$("ca-meta").value, prop = +$("ca-prop").value;
+    const total = conv * resp;
+    $("ca-conv-o").textContent = conv.toLocaleString("es-AR"); $("ca-resp-o").textContent = resp;
+    $("ca-meta-o").textContent = meta.toFixed(3).replace(".", ","); $("ca-prop-o").textContent = prop.toFixed(3).replace(".", ",");
+    $("ca-r-meta").textContent = usd(total * meta); $("ca-r-prop").textContent = usd(total * prop);
+    $("ca-r-resp").textContent = total.toLocaleString("es-AR");
+  }
+  ["ca-conv", "ca-resp", "ca-meta", "ca-prop"].forEach((id) => $(id).addEventListener("input", calcular));
+  calcular();
+})();
+</script>
+<p>Si ya lo activaste y querés pausarlo o sacarlo, está el paso a paso en <a href="/guias/activar-desactivar-agente-ia-whatsapp-business">cómo activar, pausar o desactivar el agente de IA de WhatsApp Business</a>.</p>
+
+<h2 id="probar">6. Probá un agente propio</h2>
 <p>El número de WhatsApp de CreceConAds lo atiende un agente propio: responde, hace dos o tres preguntas para entender tu negocio y, si tiene sentido, te ofrece una llamada y me avisa con un resumen. Escribí <strong>AGENTE</strong> y probalo vos mismo. Si querés saber qué tiene que estar listo antes de poner uno en tu tienda, lo explico en <a href="/guias/agente-ia-whatsapp-tienda-online">agentes de IA para WhatsApp en tu tienda online</a>.</p>
 
 <h2 id="fuentes">Fuentes</h2>
@@ -222,11 +273,13 @@
   <li><a href="https://www.coderhouse.com/coderlibrary/meta-agente-ia-whatsapp-business-latam" rel="noopener" target="_blank">Coderhouse: agente de IA de Meta en WhatsApp Business en Latinoamérica</a>.</li>
   <li><a href="https://www.itsitio.com/inteligencia-artificial/whatsapp-business-suma-inteligencia-artificial-como-activar-el-agente-que-atiende-clientes-todo-el-dia/" rel="noopener" target="_blank">ITSitio: cómo activar el agente que atiende clientes</a>.</li>
   <li><a href="https://leadsales.io/blog/que-es-business-ai-agent-meta/" rel="noopener" target="_blank">Leadsales: qué es el agente de IA de Meta</a>.</li>
+  <li><a href="https://www.useinvent.com/blog/how-to-set-up-turn-off-meta-business-agent-whatsapp-app-api-invent" rel="noopener" target="_blank">Invent: Meta Business Agent en la app y en la API, con costos</a> (octubre de 2026).</li>
 </ul>
-<p>Revisado el 2 de noviembre de 2026. Son fuentes de terceros: verificá en tu app qué está disponible para tu cuenta.</p>
+<p>Revisado el 3 de noviembre de 2026. Son fuentes de terceros: verificá en tu app qué está disponible para tu cuenta.</p>
 <h2 id="preguntas">Preguntas frecuentes</h2>
 <div class="faq">
-<details><summary>¿El agente de IA de WhatsApp Business es gratis?</summary><p>Las fuentes publicadas no coinciden: algunas lo presentan como gratuito y otras hablan de un cupo de respuestas gratis por mes. Antes de depender de él, revisá en la app o en la ayuda oficial de WhatsApp qué aplica a tu cuenta.</p></details>
+<details><summary>¿El agente de IA de WhatsApp Business es gratis?</summary><p>Depende de dónde lo uses. En la app, hay negocios que lo tienen sin cargo y otros con suscripción, porque Meta lo está habilitando por etapas. En la API (WhatsApp Manager) se cobra por uso: según las guías publicadas, unos 4 a 5 centavos de dólar por interacción. Revisá qué te muestra tu cuenta antes de depender de él.</p></details>
+<details><summary>¿Cuánto cuesta un agente de IA propio para WhatsApp?</summary><p>Tiene tres partes: el modelo de IA (en el agente de CreceConAds, alrededor de 1 centavo de dólar por respuesta), WhatsApp (responder dentro de las 24 horas desde que el cliente escribió no tiene costo de Meta en la API oficial) y el armado y mantenimiento, que depende de qué tenga que hacer el agente.</p></details>
 <details><summary>¿Por qué no me aparece la opción del agente de IA?</summary><p>Meta lo habilita por etapas y por región. Actualizá la app de WhatsApp Business y revisá la pestaña Herramientas; si no aparece, tu cuenta todavía no está habilitada.</p></details>
 <details><summary>¿Puedo usar el agente de Meta y un agente propio a la vez?</summary><p>En el mismo número, no conviene: dos sistemas respondiendo la misma conversación se pisan. Lo habitual es elegir uno por número.</p></details>
 <details><summary>¿Un agente de IA reemplaza a mi equipo de ventas?</summary><p>No. Responde al toque lo que se repite y filtra a quien quiere comprar; la venta complicada la sigue cerrando una persona. Bien armado, le saca trabajo repetitivo al equipo para que hable solo con los que están listos.</p></details>
@@ -234,9 +287,9 @@
 <section class="cta"><h2>Probá un agente propio funcionando</h2><p>Escribí AGENTE por WhatsApp y te responde mi agente, para que veas cómo atendería tu tienda.</p><div class="row"><a class="btn" data-cta="whatsapp" href="https://wa.me/5491173566942?text=AGENTE" target="_blank" rel="noopener">Escribí AGENTE y probalo</a><a class="btn btn-line" data-cta="agendar" href="https://calendar.app.google/Y7rQAcUQw2EqX5z3A" target="_blank" rel="noopener">Agendar llamada gratis</a></div></section>
 <section class="relacionadas"><h2>Seguí leyendo</h2>
 <div class="cards">
+<a class="card" href="/guias/activar-desactivar-agente-ia-whatsapp-business"><span class="tag">Agentes de IA · WhatsApp</span><h3>Cómo activar, pausar o desactivar el agente de IA de WhatsApp Business</h3></a>
 <a class="card" href="/guias/automatizar-procesos-administrativos-ia-pyme"><span class="tag">Automatización · IA</span><h3>Cómo automatizar procesos administrativos con IA en una pyme: por dónde empezar</h3></a>
 <a class="card" href="/guias/cambios-meta-ads-noviembre-2026"><span class="tag">Meta Ads · Novedades</span><h3>Cambios en la publicidad de Instagram y Facebook en noviembre de 2026: qué hacer en tu tienda online</h3></a>
-<a class="card" href="/guias/cuanto-cuesta-publicidad-instagram-argentina"><span class="tag">Meta Ads · Presupuesto</span><h3>Cuánto cuesta la publicidad en Instagram en Argentina y cuánto invertir para vender</h3></a>
 </div></section>
 <aside class="autor">
   <img src="/img/damian-presmanes-avatar.jpg" alt="Damián Presmanes" width="72" height="72" loading="lazy">
