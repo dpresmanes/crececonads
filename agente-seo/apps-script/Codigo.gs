@@ -160,11 +160,40 @@ function investigarPalabras() {
     }
   });
 
-  const filas = Object.keys(palabras).map(p => [p, palabras[p].semilla, palabras[p].fuente, palabras[p].bing])
-    .sort((a, b) => (Number(b[3]) || 0) - (Number(a[3]) || 0) || a[1].localeCompare(b[1]));
+  let descartadas = 0;
+  const filas = [];
+  Object.keys(palabras).forEach(p => {
+    const tipo = intencion(p, palabras[p].semilla, palabras[p].fuente);
+    if (!tipo) { descartadas++; return; }
+    filas.push([p, tipo, palabras[p].semilla, palabras[p].fuente, palabras[p].bing]);
+  });
+  const orden = { 'Comercial': 0, 'Cómo hacer': 1, 'Informativa': 2 };
+  filas.sort((a, b) => (Number(b[4]) || 0) - (Number(a[4]) || 0) || orden[a[1]] - orden[b[1]] || a[2].localeCompare(b[2]));
   if (!hoja('Palabras clave')) SpreadsheetApp.getActive().insertSheet('Palabras clave');
-  escribir('Palabras clave', [['Palabra clave', 'Semilla', 'Fuente', 'Impresiones Bing AR (3 meses)']].concat(filas));
-  hoja('Palabras clave').getRange('F1').setValue('Actualizado: ' + hoy());
+  escribir('Palabras clave', [['Palabra clave', 'Intención', 'Semilla', 'Fuente', 'Impresiones Bing AR (3 meses)']].concat(filas));
+  hoja('Palabras clave').getRange('G1:G2').setValues([['Actualizado: ' + hoy()], ['Descartadas por ruido: ' + descartadas]]);
+}
+
+// Filtro de ruido: deja solo búsquedas en español de gente que podría ser cliente o lector de una guía.
+// Saca lo de navegación ("whatsapp web", "tienda nube ingresar"), otros idiomas, otros países, marcas
+// ajenas y lo que Bing relaciona pero no tiene que ver (con "automatizar procesos" trae "pjn").
+// Devuelve la intención o null si se descarta.
+const NAVEGACION = /\b(web|login|iniciar sesi[oó]n|ingresar|entrar|descargar|download|apk|app|abrir|logo|icon|png|github|figma|html|beta|instalar|messenger|reddit|open source|template|library|biblioteca|manager|\.com)\b/;
+const OTRO_IDIOMA = /\b(n[aã]o|ativar|desativar|atendimento|vendas|seu|fazer|grátis|é gratuito|advogado|financeiro|quando|libera|brasil|teste|simples|come|togliere|disattivare|su whatsapp|how|for|with|case|study|course|strategy|agency|examples|best|run|build|create|hindi|vs|reminder|help|options|number|free|integration|to)\b/;
+const OTRO_LUGAR = /\b(madrid|barcelona|tenerife|ciudad real|monterrey|colombia|m[eé]xico|chile|per[uú]|guatemala|costa rica|indonesia|ecuador|espa[nñ]a|iess|bancolombia|semovi|renaper|registradur[ií]a|oxxo|telmex|volaris|visa|movistar|claro|coca cola|doritos|frito lay|margarita|detodito|nueva eps|edesur|muthoot|luzia|leifer|sap|qgis|photoshop|android|windows)\b/;
+const VACIAS = ['de', 'en', 'para', 'con', 'el', 'la', 'los', 'las', 'un', 'una', 'y', 'online'];
+
+function intencion(p, semilla, fuente) {
+  if (p.split(/\s+/).length < 2) return null;
+  if (NAVEGACION.test(p) || OTRO_IDIOMA.test(p) || OTRO_LUGAR.test(p)) return null;
+  const nucleo = semilla.split(/\s+/).filter(w => VACIAS.indexOf(w) < 0);
+  const comunes = nucleo.filter(w => p.indexOf(w) >= 0).length;
+  // Bing sugiere cosas lejanas: tiene que compartir al menos dos palabras del núcleo de la semilla.
+  if (fuente === 'Bing' && comunes < Math.min(2, nucleo.length)) return null;
+  if (comunes === 0) return null;
+  if (/\b(precio|cuesta|costo|valor|agencia|contratar|mejor|servicio|empresas?|econ[oó]mico|presupuesto|cotizar)\b/.test(p)) return 'Comercial';
+  if (/\b(c[oó]mo|crear|configurar|activar|desactivar|hacer|armar|usar|poner)\b/.test(p)) return 'Cómo hacer';
+  return 'Informativa';
 }
 
 function autocompletar(q) {
