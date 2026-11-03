@@ -185,7 +185,7 @@ const VACIAS = ['de', 'en', 'para', 'con', 'el', 'la', 'los', 'las', 'un', 'una'
 
 function intencion(p, semilla, fuente) {
   if (p.split(/\s+/).length < 2) return null;
-  if (NAVEGACION.test(p) || OTRO_IDIOMA.test(p) || OTRO_LUGAR.test(p)) return null;
+  if (NAVEGACION.test(p) || OTRO_IDIOMA.test(p) || OTRO_LUGAR.test(p) || /( é |ç|ã|õ)/.test(p)) return null;
   const nucleo = semilla.split(/\s+/).filter(w => VACIAS.indexOf(w) < 0);
   const comunes = nucleo.filter(w => p.indexOf(w) >= 0).length;
   // Bing sugiere cosas lejanas: tiene que compartir al menos dos palabras del núcleo de la semilla.
