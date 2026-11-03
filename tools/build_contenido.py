@@ -277,6 +277,8 @@ INTRO_PILAR = {
     "ventas": "Seguimiento de consultas, cierre y lo legal de vender por redes en Argentina.",
 }
 TEMAS_CON_PAGINA = set()  # lo llena main(): temas con 2 guías o más
+CORTO = {"meta-ads": "Meta Ads", "agentes-ia": "Agentes de IA", "automatizacion": "Automatización",
+         "novedades": "Novedades", "ventas": "Ventas"}  # para el menú, que en celular es angosto
 
 
 def pilar(m):
@@ -305,26 +307,25 @@ def formato(m):
         return "Calculadoras"
     if r.startswith("guía") or " guía de " in r:
         return "Guías rápidas"
-    return "Plantillas para copiar"
+    return "Plantillas"
 
 
 def filtros_html(items, buscar_txt, con_formato=False):
-    """Buscador + filtros por tema (y por formato en recursos). Todo el contenido queda en el HTML: el script
-    solo oculta tarjetas, así Google ve todo igual y sin JavaScript se ve la lista completa."""
-    def chips(nombre, opciones):
-        b = [f'<button type="button" aria-pressed="true" data-{nombre}="">Todos <span>{len(items)}</span></button>']
-        b += [f'<button type="button" aria-pressed="false" data-{nombre}="{esc(v)}">{esc(t)} <span>{n}</span></button>'
-              for v, t, n in opciones]
-        etiqueta = "Filtrar por formato" if nombre == "formato" else "Filtrar por tema"
-        return f'<div class="chips" role="group" aria-label="{etiqueta}">{"".join(b)}</div>'
-    temas = [(k, v, sum(1 for m in items if pilar(m) == k)) for k, v in PILARES]
+    """Buscador + menús de tema (y de formato en recursos). Todo el contenido queda en el HTML: el script solo
+    oculta tarjetas, así Google ve todo igual y sin JavaScript se ve la lista completa."""
+    def menu(nombre, rotulo, opciones):
+        ops = [f'<option value="">{"Tema: todos" if nombre == "pilar" else "Formato: todos"}</option>']
+        ops += [f'<option value="{esc(v)}">{esc(t)} ({n})</option>' for v, t, n in opciones]
+        return (f'<label class="menu"><span class="sr">{rotulo}</span>'
+                f'<select id="f-{nombre}" data-filtro="{nombre}">{"".join(ops)}</select></label>')
+    temas = [(k, CORTO[k], sum(1 for m in items if pilar(m) == k)) for k, _ in PILARES]
     out = ['<div class="filtros">',
            f'<input class="buscar" id="buscar" type="search" placeholder="{esc(buscar_txt)}" aria-label="Buscar" autocomplete="off">',
-           chips("pilar", [t for t in temas if t[2]])]
+           menu("pilar", "Tema", [t for t in temas if t[2]])]
     if con_formato:
         formatos = sorted({formato(m) for m in items})
-        out.append(chips("formato", [(f, f, sum(1 for m in items if formato(m) == f)) for f in formatos]))
-    out.append('<p class="cuenta" id="cuenta" aria-live="polite"></p></div>')
+        out.append(menu("formato", "Formato", [(f, f, sum(1 for m in items if formato(m) == f)) for f in formatos]))
+    out.append('</div><p class="cuenta" id="cuenta" aria-live="polite"></p>')
     return "".join(out)
 
 
@@ -337,17 +338,15 @@ SCRIPT_FILTROS = """<p class="vacio" id="vacio" hidden>No hay nada con ese filtr
   const mas = document.getElementById('ver-mas'), vacio = document.getElementById('vacio');
   const sin = (t) => t.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');
   const estado = { pilar: '', formato: '', texto: '', limite: POR_PAGINA };
-  try { const h = location.hash.slice(1); if (h && document.querySelector('[data-pilar="' + h + '"]')) estado.pilar = h; } catch (e) {}
+  const menus = [...document.querySelectorAll('select[data-filtro]')];
+  try { const h = location.hash.slice(1); const sp = document.getElementById('f-pilar'); if (h && sp && [...sp.options].some((o) => o.value === h)) estado.pilar = h; } catch (e) {}
   function pintar() {
     const t = sin(estado.texto.trim());
     const ok = cards.filter((c) => (!estado.pilar || c.dataset.pilar === estado.pilar)
       && (!estado.formato || c.dataset.formato === estado.formato) && (!t || sin(c.textContent).includes(t)));
     cards.forEach((c) => (c.hidden = true));
     ok.slice(0, estado.limite).forEach((c) => (c.hidden = false));
-    document.querySelectorAll('.chips button').forEach((b) => {
-      const k = 'pilar' in b.dataset ? 'pilar' : 'formato';
-      b.setAttribute('aria-pressed', String(b.dataset[k] === estado[k]));
-    });
+    menus.forEach((m) => { m.value = estado[m.dataset.filtro]; m.classList.toggle('activo', !!m.value); });
     const quedan = ok.length - Math.min(ok.length, estado.limite);
     mas.hidden = quedan <= 0;
     mas.textContent = 'Ver ' + Math.min(quedan, POR_PAGINA) + ' más';
@@ -355,9 +354,9 @@ SCRIPT_FILTROS = """<p class="vacio" id="vacio" hidden>No hay nada con ese filtr
     cuenta.textContent = ok.length === cards.length && ok.length <= estado.limite ? cards.length + ' en total'
       : 'Mostrando ' + Math.min(ok.length, estado.limite) + ' de ' + ok.length;
   }
-  document.querySelectorAll('.chips button').forEach((b) => b.addEventListener('click', () => {
-    const k = 'pilar' in b.dataset ? 'pilar' : 'formato';
-    estado[k] = b.dataset[k]; estado.limite = POR_PAGINA;
+  menus.forEach((m) => m.addEventListener('change', () => {
+    const k = m.dataset.filtro;
+    estado[k] = m.value; estado.limite = POR_PAGINA;
     if (k === 'pilar') { try { history.replaceState(null, '', estado.pilar ? '#' + estado.pilar : location.pathname); } catch (e) {} }
     pintar();
   }));
@@ -412,7 +411,7 @@ def listado_recursos(recursos):
     cuerpo = f'''<p class="crumbs"><a href="/">Inicio</a> / Recursos</p>
 <h1>{meta["titulo"]}</h1>
 <p class="lead">{meta["descripcion"]}</p>
-{filtros_html(recursos, "Buscar un recurso: whatsapp, métricas, seguimiento…", con_formato=True)}
+{filtros_html(recursos, "Buscar un recurso", con_formato=True)}
 <div class="cards" data-filtrable>
 {tarjetas}
 </div>
@@ -463,7 +462,7 @@ def listado(guias):
     cuerpo = f'''<p class="crumbs"><a href="/">Inicio</a> / Guías</p>
 <h1>{meta["titulo"]}</h1>
 <p class="lead">{meta["descripcion"]}</p>
-{filtros_html(guias, "Buscar una guía: presupuesto, agente, automatizar…")}
+{filtros_html(guias, "Buscar una guía")}
 <div class="cards" data-filtrable>
 {tarjetas}
 </div>

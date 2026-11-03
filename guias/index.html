@@ -91,7 +91,7 @@
 <p class="crumbs"><a href="/">Inicio</a> / Guías</p>
 <h1>Guías de Meta Ads, agentes de IA y automatización</h1>
 <p class="lead">Guías prácticas para dueños de tiendas online: campañas de ventas en Meta Ads, agentes de IA para WhatsApp y automatización, con casos y números reales.</p>
-<div class="filtros"><input class="buscar" id="buscar" type="search" placeholder="Buscar una guía: presupuesto, agente, automatizar…" aria-label="Buscar" autocomplete="off"><div class="chips" role="group" aria-label="Filtrar por tema"><button type="button" aria-pressed="true" data-pilar="">Todos <span>7</span></button><button type="button" aria-pressed="false" data-pilar="meta-ads">Meta Ads <span>2</span></button><button type="button" aria-pressed="false" data-pilar="agentes-ia">Agentes de IA y WhatsApp <span>3</span></button><button type="button" aria-pressed="false" data-pilar="automatizacion">Automatización <span>1</span></button><button type="button" aria-pressed="false" data-pilar="novedades">Novedades de Meta <span>1</span></button></div><p class="cuenta" id="cuenta" aria-live="polite"></p></div>
+<div class="filtros"><input class="buscar" id="buscar" type="search" placeholder="Buscar una guía" aria-label="Buscar" autocomplete="off"><label class="menu"><span class="sr">Tema</span><select id="f-pilar" data-filtro="pilar"><option value="">Tema: todos</option><option value="meta-ads">Meta Ads (2)</option><option value="agentes-ia">Agentes de IA (3)</option><option value="automatizacion">Automatización (1)</option><option value="novedades">Novedades (1)</option></select></label></div><p class="cuenta" id="cuenta" aria-live="polite"></p>
 <div class="cards" data-filtrable>
 <a class="card" href="/guias/activar-desactivar-agente-ia-whatsapp-business" data-pilar="agentes-ia" data-formato=""><span class="tag">Agentes de IA · WhatsApp</span><h2>Cómo activar, pausar o desactivar el agente de IA de WhatsApp Business</h2><p>Paso a paso para activar el agente de IA de Meta en WhatsApp Business, pausarlo, sacarlo de un chat o eliminarlo, en Android, iPhone y la API. Con qué pasa con tus chats en cada caso.</p></a>
 <a class="card" href="/guias/agente-ia-whatsapp-business-meta-o-propio" data-pilar="agentes-ia" data-formato=""><span class="tag">Agentes de IA · WhatsApp</span><h2>Agente de IA en WhatsApp Business: cómo activar el de Meta y cuándo conviene uno propio</h2><p>Qué hace el agente de IA que Meta sumó a WhatsApp Business, cómo se activa, qué límites tiene y en qué casos conviene un agente propio. Con un test para decidir.</p></a>
@@ -110,17 +110,15 @@
   const mas = document.getElementById('ver-mas'), vacio = document.getElementById('vacio');
   const sin = (t) => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   const estado = { pilar: '', formato: '', texto: '', limite: POR_PAGINA };
-  try { const h = location.hash.slice(1); if (h && document.querySelector('[data-pilar="' + h + '"]')) estado.pilar = h; } catch (e) {}
+  const menus = [...document.querySelectorAll('select[data-filtro]')];
+  try { const h = location.hash.slice(1); const sp = document.getElementById('f-pilar'); if (h && sp && [...sp.options].some((o) => o.value === h)) estado.pilar = h; } catch (e) {}
   function pintar() {
     const t = sin(estado.texto.trim());
     const ok = cards.filter((c) => (!estado.pilar || c.dataset.pilar === estado.pilar)
       && (!estado.formato || c.dataset.formato === estado.formato) && (!t || sin(c.textContent).includes(t)));
     cards.forEach((c) => (c.hidden = true));
     ok.slice(0, estado.limite).forEach((c) => (c.hidden = false));
-    document.querySelectorAll('.chips button').forEach((b) => {
-      const k = 'pilar' in b.dataset ? 'pilar' : 'formato';
-      b.setAttribute('aria-pressed', String(b.dataset[k] === estado[k]));
-    });
+    menus.forEach((m) => { m.value = estado[m.dataset.filtro]; m.classList.toggle('activo', !!m.value); });
     const quedan = ok.length - Math.min(ok.length, estado.limite);
     mas.hidden = quedan <= 0;
     mas.textContent = 'Ver ' + Math.min(quedan, POR_PAGINA) + ' más';
@@ -128,9 +126,9 @@
     cuenta.textContent = ok.length === cards.length && ok.length <= estado.limite ? cards.length + ' en total'
       : 'Mostrando ' + Math.min(ok.length, estado.limite) + ' de ' + ok.length;
   }
-  document.querySelectorAll('.chips button').forEach((b) => b.addEventListener('click', () => {
-    const k = 'pilar' in b.dataset ? 'pilar' : 'formato';
-    estado[k] = b.dataset[k]; estado.limite = POR_PAGINA;
+  menus.forEach((m) => m.addEventListener('change', () => {
+    const k = m.dataset.filtro;
+    estado[k] = m.value; estado.limite = POR_PAGINA;
     if (k === 'pilar') { try { history.replaceState(null, '', estado.pilar ? '#' + estado.pilar : location.pathname); } catch (e) {} }
     pintar();
   }));
