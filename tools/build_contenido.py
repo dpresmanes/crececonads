@@ -390,6 +390,14 @@ def main():
         llms = re.sub(r"<!-- guias:inicio -->.*?<!-- guias:fin -->", bloque, llms, flags=re.S)
     else:
         llms = llms.replace("## Contacto", bloque + "\n\n## Contacto")
+    if recursos:
+        rec = "## Recursos gratis\n\n" + "\n".join(
+            f"- [{m['recurso']}]({SITIO}/recursos/{m['slug']}): {m['descripcion']}" for m in recursos)
+        rec = "<!-- recursos:inicio -->\n" + rec + "\n<!-- recursos:fin -->"
+        if "<!-- recursos:inicio -->" in llms:
+            llms = re.sub(r"<!-- recursos:inicio -->.*?<!-- recursos:fin -->", rec, llms, flags=re.S)
+        else:
+            llms = llms.replace("## Contacto", rec + "\n\n## Contacto")
     (RAIZ / "llms.txt").write_text(llms, encoding="utf-8")
     print(f"sitemap: {len(urls)} páginas · guías: {len(guias)}")
 
