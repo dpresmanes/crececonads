@@ -37,25 +37,25 @@
    "inLanguage": "es-AR",
    "hasPart": [
     {
-     "@id": "https://crececonads.site/recursos/plantilla-respuestas-whatsapp#recurso"
-    },
-    {
-     "@id": "https://crececonads.site/recursos/checklist-consultas-perdidas#recurso"
-    },
-    {
-     "@id": "https://crececonads.site/recursos/cuanto-te-cuesta-cada-cliente#recurso"
-    },
-    {
-     "@id": "https://crececonads.site/recursos/mensajes-de-seguimiento#recurso"
-    },
-    {
-     "@id": "https://crececonads.site/recursos/vender-por-redes-sin-problemas-legales#recurso"
+     "@id": "https://crececonads.site/recursos/metricas-meta-ads-en-10-minutos#recurso"
     },
     {
      "@id": "https://crececonads.site/recursos/prompt-ia-con-tu-tono#recurso"
     },
     {
-     "@id": "https://crececonads.site/recursos/metricas-meta-ads-en-10-minutos#recurso"
+     "@id": "https://crececonads.site/recursos/vender-por-redes-sin-problemas-legales#recurso"
+    },
+    {
+     "@id": "https://crececonads.site/recursos/mensajes-de-seguimiento#recurso"
+    },
+    {
+     "@id": "https://crececonads.site/recursos/cuanto-te-cuesta-cada-cliente#recurso"
+    },
+    {
+     "@id": "https://crececonads.site/recursos/checklist-consultas-perdidas#recurso"
+    },
+    {
+     "@id": "https://crececonads.site/recursos/plantilla-respuestas-whatsapp#recurso"
     }
    ]
   },
@@ -91,15 +91,57 @@
 <p class="crumbs"><a href="/">Inicio</a> / Recursos</p>
 <h1>Recursos gratis para vender más por redes y WhatsApp</h1>
 <p class="lead">Plantillas, checklists y prompts listos para usar en tu negocio: respuestas de WhatsApp, seguimiento de consultas, métricas de Meta Ads y más.</p>
-<div class="cards">
-<a class="card" href="/recursos/plantilla-respuestas-whatsapp"><span class="tag">Agentes de IA · WhatsApp</span><h2>Tus 20 respuestas frecuentes para WhatsApp.</h2><p>La plantilla para que vos, tu equipo o un agente respondan igual de bien.</p></a>
-<a class="card" href="/recursos/checklist-consultas-perdidas"><span class="tag">Atención · WhatsApp</span><h2>¿Dónde se te pierden las consultas?</h2><p>Un checklist de 12 puntos para encontrar la fuga.</p></a>
-<a class="card" href="/recursos/cuanto-te-cuesta-cada-cliente"><span class="tag">Meta Ads · Presupuesto</span><h2>¿Cuánto te cuesta cada cliente?</h2><p>La cuenta que separa una pauta que gana de una que pierde.</p></a>
-<a class="card" href="/recursos/mensajes-de-seguimiento"><span class="tag">Ventas · Seguimiento</span><h2>10 mensajes de seguimiento que se responden.</h2><p>Para quien te escribió, preguntó y desapareció.</p></a>
-<a class="card" href="/recursos/vender-por-redes-sin-problemas-legales"><span class="tag">Ecommerce · Legal</span><h2>Vender por redes sin problemas legales.</h2><p>Lo básico que tu tienda tiene que tener en Argentina.</p></a>
-<a class="card" href="/recursos/prompt-ia-con-tu-tono"><span class="tag">IA · Atención</span><h2>El prompt para que la IA responda con tu tono.</h2><p>Para que tus respuestas no suenen a robot.</p></a>
-<a class="card" href="/recursos/metricas-meta-ads-en-10-minutos"><span class="tag">Meta Ads · Métricas</span><h2>Leé tus métricas de Meta Ads en 10 minutos.</h2><p>Qué mirar, en qué orden, y qué ignorar.</p></a>
+<div class="filtros"><input class="buscar" id="buscar" type="search" placeholder="Buscar un recurso: whatsapp, métricas, seguimiento…" aria-label="Buscar" autocomplete="off"><div class="chips" role="group" aria-label="Filtrar por tema"><button type="button" aria-pressed="true" data-pilar="">Todos <span>7</span></button><button type="button" aria-pressed="false" data-pilar="meta-ads">Meta Ads <span>2</span></button><button type="button" aria-pressed="false" data-pilar="agentes-ia">Agentes de IA y WhatsApp <span>3</span></button><button type="button" aria-pressed="false" data-pilar="ventas">Ventas y ecommerce <span>2</span></button></div><div class="chips" role="group" aria-label="Filtrar por formato"><button type="button" aria-pressed="true" data-formato="">Todos <span>7</span></button><button type="button" aria-pressed="false" data-formato="Calculadoras">Calculadoras <span>1</span></button><button type="button" aria-pressed="false" data-formato="Checklists">Checklists <span>2</span></button><button type="button" aria-pressed="false" data-formato="Guías rápidas">Guías rápidas <span>1</span></button><button type="button" aria-pressed="false" data-formato="Plantillas para copiar">Plantillas para copiar <span>3</span></button></div><p class="cuenta" id="cuenta" aria-live="polite"></p></div>
+<div class="cards" data-filtrable>
+<a class="card" href="/recursos/metricas-meta-ads-en-10-minutos" data-pilar="meta-ads" data-formato="Guías rápidas"><span class="tag">Meta Ads · Métricas</span><h2>Leé tus métricas de Meta Ads en 10 minutos.</h2><p>Qué mirar, en qué orden, y qué ignorar.</p></a>
+<a class="card" href="/recursos/prompt-ia-con-tu-tono" data-pilar="agentes-ia" data-formato="Plantillas para copiar"><span class="tag">IA · Atención</span><h2>El prompt para que la IA responda con tu tono.</h2><p>Para que tus respuestas no suenen a robot.</p></a>
+<a class="card" href="/recursos/vender-por-redes-sin-problemas-legales" data-pilar="ventas" data-formato="Checklists"><span class="tag">Ecommerce · Legal</span><h2>Vender por redes sin problemas legales.</h2><p>Lo básico que tu tienda tiene que tener en Argentina.</p></a>
+<a class="card" href="/recursos/mensajes-de-seguimiento" data-pilar="ventas" data-formato="Plantillas para copiar"><span class="tag">Ventas · Seguimiento</span><h2>10 mensajes de seguimiento que se responden.</h2><p>Para quien te escribió, preguntó y desapareció.</p></a>
+<a class="card" href="/recursos/cuanto-te-cuesta-cada-cliente" data-pilar="meta-ads" data-formato="Calculadoras"><span class="tag">Meta Ads · Presupuesto</span><h2>¿Cuánto te cuesta cada cliente?</h2><p>La cuenta que separa una pauta que gana de una que pierde.</p></a>
+<a class="card" href="/recursos/checklist-consultas-perdidas" data-pilar="agentes-ia" data-formato="Checklists"><span class="tag">Atención · WhatsApp</span><h2>¿Dónde se te pierden las consultas?</h2><p>Un checklist de 12 puntos para encontrar la fuga.</p></a>
+<a class="card" href="/recursos/plantilla-respuestas-whatsapp" data-pilar="agentes-ia" data-formato="Plantillas para copiar"><span class="tag">Agentes de IA · WhatsApp</span><h2>Tus 20 respuestas frecuentes para WhatsApp.</h2><p>La plantilla para que vos, tu equipo o un agente respondan igual de bien.</p></a>
 </div>
+<p class="vacio" id="vacio" hidden>No hay nada con ese filtro. <button type="button" id="limpiar">Ver todo</button></p>
+<div class="ver-mas-wrap"><button type="button" class="ver-mas" id="ver-mas" hidden></button></div>
+<script>
+(() => {
+  const POR_PAGINA = 12, cards = [...document.querySelectorAll('.cards[data-filtrable] .card')];
+  const q = document.getElementById('buscar'), cuenta = document.getElementById('cuenta');
+  const mas = document.getElementById('ver-mas'), vacio = document.getElementById('vacio');
+  const sin = (t) => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const estado = { pilar: '', formato: '', texto: '', limite: POR_PAGINA };
+  try { const h = location.hash.slice(1); if (h && document.querySelector('[data-pilar="' + h + '"]')) estado.pilar = h; } catch (e) {}
+  function pintar() {
+    const t = sin(estado.texto.trim());
+    const ok = cards.filter((c) => (!estado.pilar || c.dataset.pilar === estado.pilar)
+      && (!estado.formato || c.dataset.formato === estado.formato) && (!t || sin(c.textContent).includes(t)));
+    cards.forEach((c) => (c.hidden = true));
+    ok.slice(0, estado.limite).forEach((c) => (c.hidden = false));
+    document.querySelectorAll('.chips button').forEach((b) => {
+      const k = 'pilar' in b.dataset ? 'pilar' : 'formato';
+      b.setAttribute('aria-pressed', String(b.dataset[k] === estado[k]));
+    });
+    const quedan = ok.length - Math.min(ok.length, estado.limite);
+    mas.hidden = quedan <= 0;
+    mas.textContent = 'Ver ' + Math.min(quedan, POR_PAGINA) + ' más';
+    vacio.hidden = ok.length > 0;
+    cuenta.textContent = ok.length === cards.length && ok.length <= estado.limite ? cards.length + ' en total'
+      : 'Mostrando ' + Math.min(ok.length, estado.limite) + ' de ' + ok.length;
+  }
+  document.querySelectorAll('.chips button').forEach((b) => b.addEventListener('click', () => {
+    const k = 'pilar' in b.dataset ? 'pilar' : 'formato';
+    estado[k] = b.dataset[k]; estado.limite = POR_PAGINA;
+    if (k === 'pilar') { try { history.replaceState(null, '', estado.pilar ? '#' + estado.pilar : location.pathname); } catch (e) {} }
+    pintar();
+  }));
+  q.addEventListener('input', () => { estado.texto = q.value; estado.limite = POR_PAGINA; pintar(); });
+  mas.addEventListener('click', () => { estado.limite += POR_PAGINA; pintar(); });
+  document.getElementById('limpiar').addEventListener('click', () => {
+    estado.pilar = estado.formato = estado.texto = ''; q.value = ''; estado.limite = POR_PAGINA; pintar();
+  });
+  pintar();
+})();
+</script>
 </main>
 <footer class="site-foot"><div class="wrap">
   <span>© 2026 CreceConAds · Damián Presmanes</span>

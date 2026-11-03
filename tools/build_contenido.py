@@ -264,11 +264,147 @@ def recurso(meta, cuerpo, guias):
     return url, documento(meta, url, ld, html_cuerpo)
 
 
+# ---------- temas y filtros de los listados ----------
+# Pilar de cada guía o recurso: el campo "pilar" si lo trae; si no, se deduce del "tag".
+PILARES = [("meta-ads", "Meta Ads"), ("agentes-ia", "Agentes de IA y WhatsApp"), ("automatizacion", "Automatización"),
+           ("novedades", "Novedades de Meta"), ("ventas", "Ventas y ecommerce")]
+NOMBRE_PILAR = dict(PILARES)
+INTRO_PILAR = {
+    "meta-ads": "Campañas de ventas en Instagram y Facebook para tiendas online: presupuesto, creativos, métricas y cómo escalar sin quemar plata.",
+    "agentes-ia": "Agentes de IA para responder por WhatsApp: el de Meta o uno propio, cómo se activan, cuánto cuestan y qué tiene que estar listo.",
+    "automatizacion": "Cómo sacarte de encima las tareas que se repiten: procesos administrativos, contables y de atención, con o sin IA.",
+    "novedades": "Lo que cambia en Meta Ads cada mes, confirmado en fuentes oficiales, y qué hacer en tu cuenta.",
+    "ventas": "Seguimiento de consultas, cierre y lo legal de vender por redes en Argentina.",
+}
+TEMAS_CON_PAGINA = set()  # lo llena main(): temas con 2 guías o más
+
+
+def pilar(m):
+    if m.get("pilar") in NOMBRE_PILAR:
+        return m["pilar"]
+    t = m.get("tag", "").lower()
+    if "novedades" in t:
+        return "novedades"
+    if t.startswith("meta ads"):
+        return "meta-ads"
+    if "automatiz" in t:
+        return "automatizacion"
+    if "agente" in t or "whatsapp" in t or t.startswith("ia"):
+        return "agentes-ia"
+    return "ventas"
+
+
+def formato(m):
+    """Tipo de recurso, para filtrarlos: el campo "formato" o se deduce del nombre."""
+    if m.get("formato"):
+        return m["formato"]
+    r = (m.get("recurso", "") + " " + m.get("titulo", "")).lower()
+    if "checklist" in r:
+        return "Checklists"
+    if "planilla" in r or "calcul" in r:
+        return "Calculadoras"
+    if r.startswith("guía") or " guía de " in r:
+        return "Guías rápidas"
+    return "Plantillas para copiar"
+
+
+def filtros_html(items, buscar_txt, con_formato=False):
+    """Buscador + filtros por tema (y por formato en recursos). Todo el contenido queda en el HTML: el script
+    solo oculta tarjetas, así Google ve todo igual y sin JavaScript se ve la lista completa."""
+    def chips(nombre, opciones):
+        b = [f'<button type="button" aria-pressed="true" data-{nombre}="">Todos <span>{len(items)}</span></button>']
+        b += [f'<button type="button" aria-pressed="false" data-{nombre}="{esc(v)}">{esc(t)} <span>{n}</span></button>'
+              for v, t, n in opciones]
+        etiqueta = "Filtrar por formato" if nombre == "formato" else "Filtrar por tema"
+        return f'<div class="chips" role="group" aria-label="{etiqueta}">{"".join(b)}</div>'
+    temas = [(k, v, sum(1 for m in items if pilar(m) == k)) for k, v in PILARES]
+    out = ['<div class="filtros">',
+           f'<input class="buscar" id="buscar" type="search" placeholder="{esc(buscar_txt)}" aria-label="Buscar" autocomplete="off">',
+           chips("pilar", [t for t in temas if t[2]])]
+    if con_formato:
+        formatos = sorted({formato(m) for m in items})
+        out.append(chips("formato", [(f, f, sum(1 for m in items if formato(m) == f)) for f in formatos]))
+    out.append('<p class="cuenta" id="cuenta" aria-live="polite"></p></div>')
+    return "".join(out)
+
+
+SCRIPT_FILTROS = """<p class="vacio" id="vacio" hidden>No hay nada con ese filtro. <button type="button" id="limpiar">Ver todo</button></p>
+<div class="ver-mas-wrap"><button type="button" class="ver-mas" id="ver-mas" hidden></button></div>
+<script>
+(() => {
+  const POR_PAGINA = 12, cards = [...document.querySelectorAll('.cards[data-filtrable] .card')];
+  const q = document.getElementById('buscar'), cuenta = document.getElementById('cuenta');
+  const mas = document.getElementById('ver-mas'), vacio = document.getElementById('vacio');
+  const sin = (t) => t.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');
+  const estado = { pilar: '', formato: '', texto: '', limite: POR_PAGINA };
+  try { const h = location.hash.slice(1); if (h && document.querySelector('[data-pilar="' + h + '"]')) estado.pilar = h; } catch (e) {}
+  function pintar() {
+    const t = sin(estado.texto.trim());
+    const ok = cards.filter((c) => (!estado.pilar || c.dataset.pilar === estado.pilar)
+      && (!estado.formato || c.dataset.formato === estado.formato) && (!t || sin(c.textContent).includes(t)));
+    cards.forEach((c) => (c.hidden = true));
+    ok.slice(0, estado.limite).forEach((c) => (c.hidden = false));
+    document.querySelectorAll('.chips button').forEach((b) => {
+      const k = 'pilar' in b.dataset ? 'pilar' : 'formato';
+      b.setAttribute('aria-pressed', String(b.dataset[k] === estado[k]));
+    });
+    const quedan = ok.length - Math.min(ok.length, estado.limite);
+    mas.hidden = quedan <= 0;
+    mas.textContent = 'Ver ' + Math.min(quedan, POR_PAGINA) + ' más';
+    vacio.hidden = ok.length > 0;
+    cuenta.textContent = ok.length === cards.length && ok.length <= estado.limite ? cards.length + ' en total'
+      : 'Mostrando ' + Math.min(ok.length, estado.limite) + ' de ' + ok.length;
+  }
+  document.querySelectorAll('.chips button').forEach((b) => b.addEventListener('click', () => {
+    const k = 'pilar' in b.dataset ? 'pilar' : 'formato';
+    estado[k] = b.dataset[k]; estado.limite = POR_PAGINA;
+    if (k === 'pilar') { try { history.replaceState(null, '', estado.pilar ? '#' + estado.pilar : location.pathname); } catch (e) {} }
+    pintar();
+  }));
+  q.addEventListener('input', () => { estado.texto = q.value; estado.limite = POR_PAGINA; pintar(); });
+  mas.addEventListener('click', () => { estado.limite += POR_PAGINA; pintar(); });
+  document.getElementById('limpiar').addEventListener('click', () => {
+    estado.pilar = estado.formato = estado.texto = ''; q.value = ''; estado.limite = POR_PAGINA; pintar();
+  });
+  pintar();
+})();
+</script>"""
+
+
+def tarjeta(m, carpeta):
+    fmt = esc(formato(m)) if carpeta == "recursos" else ""
+    return (f'<a class="card" href="/{carpeta}/{m["slug"]}" data-pilar="{pilar(m)}" data-formato="{fmt}">'
+            f'<span class="tag">{esc(m.get("tag", "Guía"))}</span><h2>{esc(m["titulo"])}</h2><p>{esc(m["descripcion"])}</p></a>')
+
+
+def tema(clave, guias, recursos):
+    """Página de un tema: sus guías y sus recursos, para Google y para quien llega buscando el tema."""
+    url = f"{SITIO}/guias/tema/{clave}"
+    nombre = NOMBRE_PILAR[clave]
+    gs = [m for m in guias if pilar(m) == clave]
+    rs = [m for m in recursos if pilar(m) == clave]
+    meta = {"titulo": f"Guías de {nombre}", "titulo_seo": f"{nombre}: guías y recursos gratis | CreceConAds",
+            "descripcion": INTRO_PILAR[clave], "og_tipo": "website"}
+    otros = " · ".join(f'<a href="/guias/tema/{k}">{esc(v)}</a>' for k, v in PILARES if k != clave and k in TEMAS_CON_PAGINA)
+    partes = [f'<p class="crumbs"><a href="/">Inicio</a> / <a href="/guias">Guías</a> / {esc(nombre)}</p>',
+              f'<h1>{esc(meta["titulo"])}</h1>', f'<p class="lead">{esc(meta["descripcion"])}</p>',
+              '<div class="cards">', "\n".join(tarjeta(m, "guias") for m in gs), '</div>']
+    if rs:
+        partes += [f'<h2 class="sub-listado">Recursos gratis de {esc(nombre)}</h2>', '<div class="cards">',
+                   "\n".join(tarjeta(m, "recursos") for m in rs), '</div>']
+    if otros:
+        partes.append(f'<p class="otros-temas">Otros temas: {otros}</p>')
+    ld = {"@context": "https://schema.org", "@graph": [
+        {"@type": "CollectionPage", "@id": url, "url": url, "name": meta["titulo"], "inLanguage": "es-AR",
+         "about": nombre, "hasPart": [{"@id": f"{SITIO}/guias/{m['slug']}#articulo"} for m in gs]},
+        migas([("Inicio", SITIO + "/"), ("Guías", SITIO + "/guias"), (nombre, url)])]}
+    return url, documento(meta, url, ld, "\n".join(partes))
+
+
 def listado_recursos(recursos):
     url = SITIO + "/recursos"
-    tarjetas = "\n".join(
-        f'<a class="card" href="/recursos/{m["slug"]}"><span class="tag">{esc(m.get("tag", "Recurso"))}</span>'
-        f'<h2>{esc(m["titulo"])}</h2><p>{esc(m["descripcion"])}</p></a>' for m in recursos)
+    recursos = sorted(recursos, key=lambda m: m["fecha"], reverse=True)
+    tarjetas = "\n".join(tarjeta(m, "recursos") for m in recursos)
     meta = {"titulo": "Recursos gratis para vender más por redes y WhatsApp",
             "titulo_seo": "Recursos gratis: plantillas y checklists | CreceConAds",
             "descripcion": "Plantillas, checklists y prompts listos para usar en tu negocio: respuestas de WhatsApp, seguimiento de consultas, métricas de Meta Ads y más.",
@@ -276,9 +412,11 @@ def listado_recursos(recursos):
     cuerpo = f'''<p class="crumbs"><a href="/">Inicio</a> / Recursos</p>
 <h1>{meta["titulo"]}</h1>
 <p class="lead">{meta["descripcion"]}</p>
-<div class="cards">
+{filtros_html(recursos, "Buscar un recurso: whatsapp, métricas, seguimiento…", con_formato=True)}
+<div class="cards" data-filtrable>
 {tarjetas}
-</div>'''
+</div>
+{SCRIPT_FILTROS}'''
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "CollectionPage", "@id": url, "url": url, "name": meta["titulo"], "inLanguage": "es-AR",
          "hasPart": [{"@id": f"{SITIO}/recursos/{m['slug']}#recurso"} for m in recursos]},
@@ -315,19 +453,22 @@ def perfil(meta, cuerpo):
 
 def listado(guias):
     url = SITIO + "/guias"
-    tarjetas = "\n".join(
-        f'<a class="card" href="/guias/{m["slug"]}"><span class="tag">{esc(m.get("tag", "Guía"))}</span>'
-        f'<h2>{esc(m["titulo"])}</h2><p>{esc(m["descripcion"])}</p></a>' for m in guias)
+    tarjetas = "\n".join(tarjeta(m, "guias") for m in guias)
+    por_tema = " · ".join(f'<a href="/guias/tema/{k}">{esc(v)}</a>' for k, v in PILARES if k in TEMAS_CON_PAGINA)
     meta = {"titulo": "Guías de Meta Ads, agentes de IA y automatización",
             "titulo_seo": "Guías de Meta Ads e IA para tiendas online | CreceConAds",
             "descripcion": "Guías prácticas para dueños de tiendas online: campañas de ventas en Meta Ads, agentes de IA para WhatsApp y automatización, con casos y números reales.",
             "og_tipo": "website"}
+    temas_html = f'<p class="otros-temas">Por tema: {por_tema}</p>' if por_tema else ""
     cuerpo = f'''<p class="crumbs"><a href="/">Inicio</a> / Guías</p>
 <h1>{meta["titulo"]}</h1>
 <p class="lead">{meta["descripcion"]}</p>
-<div class="cards">
+{filtros_html(guias, "Buscar una guía: presupuesto, agente, automatizar…")}
+<div class="cards" data-filtrable>
 {tarjetas}
-</div>'''
+</div>
+{SCRIPT_FILTROS}
+{temas_html}'''
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "CollectionPage", "@id": url, "url": url, "name": meta["titulo"], "inLanguage": "es-AR",
          "hasPart": [{"@id": f"{SITIO}/guias/{m['slug']}#articulo"} for m in guias]},
@@ -367,6 +508,16 @@ def main():
         (RAIZ / "recursos" / "index.html").write_text(doc, encoding="utf-8")
         urls.append((url, max(m["fecha"] for m in recursos)))
     guias.sort(key=lambda m: m["fecha"], reverse=True)
+    # Página por tema solo cuando tiene al menos 2 guías (una sola sería una página flaca).
+    TEMAS_CON_PAGINA.clear()
+    TEMAS_CON_PAGINA.update(k for k, _ in PILARES if sum(1 for m in guias if pilar(m) == k) >= 2)
+    for k in sorted(TEMAS_CON_PAGINA):
+        url, doc = tema(k, guias, recursos)
+        destino = RAIZ / "guias" / "tema" / f"{k}.html"
+        destino.parent.mkdir(parents=True, exist_ok=True)
+        destino.write_text(doc, encoding="utf-8")
+        urls.append((url, max(m.get("actualizado", m["fecha"]) for m in guias if pilar(m) == k)))
+        print("ok", destino.relative_to(RAIZ))
     url, doc = listado(guias)
     (RAIZ / "guias" / "index.html").write_text(doc, encoding="utf-8")
     urls.append((url, max([m["fecha"] for m in guias], default="2026-10-30")))
