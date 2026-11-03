@@ -179,8 +179,8 @@ function investigarPalabras() {
 // ajenas y lo que Bing relaciona pero no tiene que ver (con "automatizar procesos" trae "pjn").
 // Devuelve la intención o null si se descarta.
 const NAVEGACION = /\b(web|login|iniciar sesi[oó]n|ingresar|entrar|descargar|download|apk|app|abrir|logo|icon|png|github|figma|html|beta|instalar|messenger|reddit|open source|template|library|biblioteca|manager|\.com)\b/;
-const OTRO_IDIOMA = /\b(n[aã]o|ativar|desativar|atendimento|vendas|seu|fazer|grátis|é gratuito|advogado|financeiro|quando|libera|brasil|teste|simples|come|togliere|disattivare|su whatsapp|how|for|with|case|study|course|strategy|agency|examples|best|run|build|create|hindi|vs|reminder|help|options|number|free|integration|to)\b/;
-const OTRO_LUGAR = /\b(madrid|barcelona|tenerife|ciudad real|monterrey|colombia|m[eé]xico|chile|per[uú]|guatemala|costa rica|indonesia|ecuador|espa[nñ]a|iess|bancolombia|semovi|renaper|registradur[ií]a|oxxo|telmex|volaris|visa|movistar|claro|coca cola|doritos|frito lay|margarita|detodito|nueva eps|edesur|muthoot|luzia|leifer|sap|qgis|photoshop|android|windows)\b/;
+const OTRO_IDIOMA = /\b(n[aã]o|ativar|desativar|atendimento|vendas|seu|fazer|grátis|é gratuito|advogado|financeiro|quando|libera|brasil|teste|simples|come|togliere|disattivare|su whatsapp|no whatsapp|how|for|with|case|study|course|strategy|agency|examples|best|run|build|create|hindi|vs|reminder|help|options|number|free|integration|to)\b/;
+const OTRO_LUGAR = /\b(madrid|barcelona|tenerife|ciudad real|monterrey|colombia|m[eé]xico|chile|per[uú]|guatemala|costa rica|indonesia|ecuador|uruguay|bolivia|venezuela|bol[ií]vares|zinli|nequi|espa[nñ]a|iess|bancolombia|semovi|renaper|registradur[ií]a|oxxo|telmex|volaris|visa|movistar|claro|coca cola|doritos|frito lay|margarita|detodito|nueva eps|edesur|muthoot|luzia|leifer|sap|qgis|photoshop|android|windows)\b/;
 const VACIAS = ['de', 'en', 'para', 'con', 'el', 'la', 'los', 'las', 'un', 'una', 'y', 'online'];
 
 function intencion(p, semilla, fuente) {
