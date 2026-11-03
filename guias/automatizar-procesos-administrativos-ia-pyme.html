@@ -35,7 +35,7 @@
    "headline": "Cómo automatizar procesos administrativos con IA en una pyme: por dónde empezar",
    "description": "Qué tareas administrativas conviene automatizar primero, cuándo alcanza con una automatización simple y cuándo hace falta IA, con una calculadora de horas y un caso real.",
    "datePublished": "2026-11-02",
-   "dateModified": "2026-11-02",
+   "dateModified": "2026-11-03",
    "inLanguage": "es-AR",
    "author": {
     "@id": "https://crececonads.site/damian-presmanes#persona"
@@ -106,6 +106,22 @@
     },
     {
      "@type": "Question",
+     "name": "¿Qué procesos contables se pueden automatizar?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Los repetitivos que hoy se copian a mano: cargar facturas recibidas en una planilla o en el sistema, conciliar los movimientos del banco con las ventas, mandar recordatorios de cobro y armar reportes mensuales. La IA ayuda a leer facturas y comprobantes; la revisión y las decisiones impositivas siguen siendo del contador."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "¿Se puede automatizar procesos con Claude o ChatGPT?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sí, para las partes que son leer o escribir texto: sacar datos de un PDF o un mail, clasificar consultas, redactar respuestas o documentos. Para mover datos entre sistemas se combinan con una automatización (Apps Script, Make, n8n o código propio). El caso de la UTN está armado con Claude sobre Google Sheets."
+     }
+    },
+    {
+     "@type": "Question",
      "name": "¿Cuánto tarda en armarse una automatización?",
      "acceptedAnswer": {
       "@type": "Answer",
@@ -133,7 +149,7 @@
 <div class="byline"><img src="/img/damian-presmanes-avatar.jpg" alt="" width="44" height="44">
 <span>Por <a href="/damian-presmanes">Damián Presmanes</a> · 2 de noviembre de 2026</span></div>
 <div class="answer"><span class="k">Respuesta corta</span><p>Para automatizar procesos administrativos con IA en una pyme, empezá por una sola tarea que se repite todas las semanas y siempre se hace igual: pasar datos de mails o formularios a una planilla, armar un informe, responder las mismas consultas. Medí cuántas horas te lleva, automatizala primero con algo simple (muchas veces no hace falta IA) y sumá IA solo donde hay que leer o redactar texto. Recién cuando funciona, pasá a la siguiente.</p></div>
-<nav class="toc" aria-label="En esta guía"><b>En esta guía</b><ul><li><a href="#cual-primero">1. Qué tarea automatizar primero</a></li><li><a href="#ia-o-no">2. ¿Hace falta IA?</a></li><li><a href="#pasos">3. Cómo hacerlo, paso a paso</a></li><li><a href="#caso">4. Un caso real: trámites universitarios</a></li><li><a href="#errores">5. Errores comunes</a></li></ul></nav>
+<nav class="toc" aria-label="En esta guía"><b>En esta guía</b><ul><li><a href="#cual-primero">1. Qué tarea automatizar primero</a></li><li><a href="#ia-o-no">2. ¿Hace falta IA?</a></li><li><a href="#pasos">3. Cómo hacerlo, paso a paso</a></li><li><a href="#caso">4. Un caso real: trámites universitarios</a></li><li><a href="#contables">5. Procesos contables: qué conviene automatizar</a></li><li><a href="#con-ia">6. Con qué herramientas se hace</a></li><li><a href="#errores">7. Errores comunes</a></li></ul></nav>
 <p>Las búsquedas de “automatizar procesos con IA”, “automatizar procesos administrativos” y “automatizar procesos contables” crecen en Argentina. La mayoría de las pymes no necesita un sistema nuevo: necesita sacarse de encima tres o cuatro tareas que hace igual todas las semanas. Esta guía explica cómo elegir la primera y trae una calculadora para ver cuánto tiempo te devuelve.</p>
 
 <h2 id="cual-primero">1. Qué tarea automatizar primero</h2>
@@ -195,7 +211,21 @@
 <p>En la Dirección de Alumnos de la UTN Facultad Regional Buenos Aires, los trámites de simultaneidad de carreras se hacían a mano: leer cada formulario, cruzar materias, armar el informe de equivalencias para cada departamento y redactar las resoluciones una por una. Hoy <strong>las solicitudes llegan solas a una planilla, el informe de equivalencias se arma solo y las resoluciones colectivas se generan con un clic</strong>.</p>
 <p>No hizo falta cambiar de sistema: se automatizó lo que se repetía, sobre las herramientas que ya usaban. Es el mismo enfoque que sirve para una pyme con trámites, pedidos o consultas que llegan por mail.</p>
 
-<h2 id="errores">5. Errores comunes</h2>
+<h2 id="contables">5. Procesos contables: qué conviene automatizar</h2>
+<p>“Automatizar procesos contables” es de las búsquedas que más crecen. No se trata de reemplazar al contador: se trata de que no tenga que copiar datos a mano. Las tareas típicas:</p>
+<ul>
+  <li><strong>Cargar facturas recibidas.</strong> La IA lee el PDF o la foto (proveedor, CUIT, fecha, importe, IVA) y lo pasa a una planilla o al sistema. Una persona revisa antes de confirmar.</li>
+  <li><strong>Conciliar el banco con las ventas.</strong> Cruzar el extracto con lo cobrado por Mercado Pago, la tienda o transferencias, y marcar lo que no coincide.</li>
+  <li><strong>Recordatorios de cobro.</strong> Un mail o un WhatsApp automático cuando una factura vence, con el link de pago.</li>
+  <li><strong>Reporte mensual.</strong> Ventas, gastos y saldos armados solos a fin de mes, listos para mandar al estudio contable.</li>
+</ul>
+<p>Lo impositivo (cómo se registra, qué se presenta en ARCA) sigue siendo decisión del contador. Información general: consultá tu caso.</p>
+
+<h2 id="con-ia">6. Con qué herramientas se hace</h2>
+<p>Muchos lo buscan como “automatizar procesos con Claude” o “con ChatGPT”. Las IA como Claude, ChatGPT o Gemini hacen bien la parte de <strong>leer y escribir</strong>: entender un mail, sacar datos de un PDF, redactar una respuesta o una resolución. Para <strong>mover los datos</strong> entre la planilla, el mail y el sistema se combinan con una automatización: Apps Script si trabajás con Google, Make o n8n, o código propio cuando hace falta más control.</p>
+<p>El caso de la UTN está armado así: Claude escribe y mantiene los scripts, y las automatizaciones corren sobre las planillas que ya usaban.</p>
+
+<h2 id="errores">7. Errores comunes</h2>
 <ul>
   <li><strong>Automatizar un proceso desordenado.</strong> Si hoy cada uno lo hace distinto, la automatización repite el desorden más rápido.</li>
   <li><strong>Querer automatizar todo de una vez.</strong> Una tarea bien resuelta vale más que cinco a medias.</li>
@@ -208,6 +238,8 @@
 <details><summary>¿Qué procesos administrativos se pueden automatizar?</summary><p>Los que se repiten y siguen siempre los mismos pasos: cargar datos de mails, formularios o facturas en una planilla, mandar recordatorios, armar reportes, responder consultas frecuentes y generar documentos a partir de una plantilla.</p></details>
 <details><summary>¿Necesito IA para automatizar?</summary><p>No siempre. Si la tarea es mover datos de un lugar a otro con reglas claras, alcanza con una automatización simple. La IA suma cuando hay que leer texto libre (un mail, un PDF, un audio), clasificarlo o redactar una respuesta.</p></details>
 <details><summary>¿Es seguro poner datos de clientes en una herramienta de IA?</summary><p>Depende de la herramienta y de cómo se configure. Usá cuentas de empresa, no subas datos sensibles que no hagan falta y revisá quién tiene acceso. Si manejás datos de salud o financieros, consultalo antes con tu asesor.</p></details>
+<details><summary>¿Qué procesos contables se pueden automatizar?</summary><p>Los repetitivos que hoy se copian a mano: cargar facturas recibidas en una planilla o en el sistema, conciliar los movimientos del banco con las ventas, mandar recordatorios de cobro y armar reportes mensuales. La IA ayuda a leer facturas y comprobantes; la revisión y las decisiones impositivas siguen siendo del contador.</p></details>
+<details><summary>¿Se puede automatizar procesos con Claude o ChatGPT?</summary><p>Sí, para las partes que son leer o escribir texto: sacar datos de un PDF o un mail, clasificar consultas, redactar respuestas o documentos. Para mover datos entre sistemas se combinan con una automatización (Apps Script, Make, n8n o código propio). El caso de la UTN está armado con Claude sobre Google Sheets.</p></details>
 <details><summary>¿Cuánto tarda en armarse una automatización?</summary><p>Una tarea simple puede quedar funcionando en días. Lo que más demora no es la tecnología sino definir bien los pasos y las excepciones del proceso.</p></details>
 </div>
 <section class="cta"><h2>¿Vemos qué proceso de tu negocio conviene automatizar primero?</h2><p>En 30 minutos reviso tus campañas y te digo qué haría en tu tienda. Sin compromiso.</p><div class="row"><a class="btn" data-cta="agendar" href="https://calendar.app.google/Y7rQAcUQw2EqX5z3A" target="_blank" rel="noopener">Agendar llamada gratis</a><a class="btn btn-line" data-cta="whatsapp" href="https://wa.me/5491173566942?text=Vengo%20de%20la%20gu%C3%ADa" target="_blank" rel="noopener">Escribime por WhatsApp</a></div></section>
