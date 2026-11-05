@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>window.dataLayer=window.dataLayer||[];dataLayer.push({'gtm.start':Date.now(),event:'gtm.js'});(function(){var c=0;function g(){if(c)return;c=1;var j=document.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id=GTM-TKWHBHB9';document.head.appendChild(j);}['scroll','pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,g,{once:true,passive:true});});addEventListener('load',function(){setTimeout(g,2000);});})();</script>
+<title>Newsletter: Novedades de Meta en 5 minutos | CreceConAds</title>
+<meta name="description" content="Un mail por mes con lo que cambió en los anuncios de Instagram y Facebook, confirmado en fuentes oficiales, y qué conviene hacer.">
+<link rel="canonical" href="https://crececonads.site/newsletter">
+<meta name="robots" content="noindex, follow">
+<meta name="author" content="Damián Presmanes">
+<meta name="theme-color" content="#0A0F1F">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<meta property="og:site_name" content="CreceConAds">
+<meta property="og:url" content="https://crececonads.site/newsletter">
+<meta property="og:title" content="Novedades de Meta en 5 minutos">
+<meta property="og:description" content="Un mail por mes con lo que cambió en los anuncios de Instagram y Facebook y qué conviene hacer.">
+<meta property="og:image" content="https://crececonads.site/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,700&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="/assets/blog.css">
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TKWHBHB9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="top"><div class="wrap">
+  <a class="logo" href="/">Crece<b>Con</b>Ads</a>
+  <nav aria-label="Secciones"><a href="/#resultados">Resultados</a><a href="/#servicios">Servicios</a><a href="/guias">Guías</a><a href="/recursos">Recursos</a><a href="/damian-presmanes">Quién soy</a></nav>
+  <a class="btn btn-sm" data-cta="agendar" href="https://calendar.app.google/Y7rQAcUQw2EqX5z3A" target="_blank" rel="noopener">Agendar llamada</a>
+</div></header>
+<main class="wrap narrow">
+<article class="recurso">
+<span class="chip-recurso">Newsletter gratis · Un mail por mes</span>
+<h1>Novedades de Meta <span class="g">en 5 minutos</span></h1>
+<p class="lead">Lo que cambió ese mes en los anuncios de Instagram y Facebook, confirmado en fuentes oficiales, y qué conviene hacer en tu negocio. Corto y al punto.</p>
+<h2>Qué vas a recibir</h2>
+<ul>
+<li><b>Los cambios del mes</b> en Meta Ads, explicados sin vueltas: qué cambió, desde cuándo y a quién le afecta.</li>
+<li><b>Qué hacer</b> con cada cambio: el paso concreto en tu cuenta, no la noticia sola.</li>
+<li><b>Recursos nuevos</b> de la web antes que nadie: plantillas, checklists y guías.</li>
+</ul>
+<p>Un mail por mes. Sin spam y te das de baja con un clic.</p>
+
+<section class="gate" id="gate">
+  <h2>Sumate al newsletter</h2>
+  <form id="nl-form" novalidate>
+    <label>Nombre<input name="nombre" autocomplete="given-name" required maxlength="80"></label>
+    <label>Mail<input name="email" type="email" autocomplete="email" required maxlength="120"></label>
+    <label class="hp" aria-hidden="true">Web<input name="web" tabindex="-1" autocomplete="off"></label>
+    <label class="acepto"><input type="checkbox" name="acepto" required> Acepto recibir el newsletter de CreceConAds por mail. Me puedo dar de baja cuando quiera. <a href="/privacidad">Privacidad</a></label>
+    <button class="btn" type="submit">Quiero recibirlo</button>
+    <p class="gate-error" id="nl-error" hidden></p>
+  </form>
+</section>
+<section class="gate" id="nl-ok" hidden>
+  <h2>¡Listo, ya estás adentro!</h2>
+  <p>El próximo newsletter te llega a tu mail. Mientras tanto, mirá los <a href="/recursos">recursos gratis</a> y las <a href="/guias">guías</a>.</p>
+</section>
+
+<aside class="autor">
+  <img src="/img/damian-presmanes-avatar.jpg" alt="Damián Presmanes" width="72" height="72" loading="lazy">
+  <div><b><a href="/damian-presmanes">Damián Presmanes</a></b>
+  <p>Especialista en Meta Ads para tiendas online y en agentes de IA. Recibido en Comercio Electrónico y Marketing Digital en la UTN, con formación en programación. Fundador de CreceConAds.</p></div>
+</aside>
+</article>
+<script>
+(() => {
+  const form = document.getElementById("nl-form"), error = document.getElementById("nl-error");
+  const fallo = (t) => { error.textContent = t; error.hidden = false; form.querySelector("button").disabled = false; };
+  form.addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const d = Object.fromEntries(new FormData(form));
+    if (!d.nombre.trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email) || !form.acepto.checked) return fallo("Completá tu nombre, un mail válido y aceptá recibir el newsletter.");
+    form.querySelector("button").disabled = true; error.hidden = true;
+    let ok = false;
+    try {
+      const r = await fetch("/api/suscribir", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre: d.nombre, email: d.email, web: d.web || "", lista: "newsletter", recurso: "newsletter" }) });
+      ok = r.ok;
+    } catch (e) {}
+    if (!ok) return fallo("No pudimos anotarte. Probá de nuevo en un rato o escribime por WhatsApp.");
+    (window.dataLayer = window.dataLayer || []).push({ event: "recurso_desbloqueado", recurso: "newsletter", rubro: "" });
+    document.getElementById("gate").hidden = true; document.getElementById("nl-ok").hidden = false;
+  });
+})();
+</script>
+</main>
+<footer class="site-foot"><div class="wrap">
+  <span>© 2026 CreceConAds · Damián Presmanes</span>
+  <span><a href="/guias">Guías</a> · <a href="/recursos">Recursos</a> · <a href="https://www.instagram.com/crececonads/">Instagram</a> · <a href="https://maps.google.com/?cid=8214692810272884951">Google Maps</a> · <a href="/privacidad">Privacidad</a></span>
+</div></footer>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  document.querySelectorAll("[data-cta]").forEach(a => a.addEventListener("click", () =>
+    window.dataLayer.push({ event: "cta_click", cta_type: a.dataset.cta, cta_text: a.textContent.trim().slice(0, 60), cta_section: location.pathname })));
+</script>
+</body>
+</html>

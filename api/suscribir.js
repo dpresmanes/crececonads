@@ -1,5 +1,6 @@
 // Alta de quien desbloquea un recurso en Sender (grupo de recursos), para la secuencia de mails.
-// Variables en Vercel: SENDER_API_TOKEN y SENDER_GROUP_ID. Sin ellas responde 503 y la página
+// Con lista "newsletter" (página /newsletter) va al grupo SENDER_NEWSLETTER_GROUP_ID, que no dispara la secuencia de recursos.
+// Variables en Vercel: SENDER_API_TOKEN, SENDER_GROUP_ID y SENDER_NEWSLETTER_GROUP_ID. Sin ellas responde 503 y la página
 // igual muestra el recurso (el contenido no depende de que el alta funcione).
 const RUBROS = ["Tienda online", "Inmobiliaria", "Servicios o profesional", "Otro"];
 
@@ -15,7 +16,7 @@ module.exports = async (req, res) => {
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || email.length > 120 || !nombre) return res.status(400).json({ ok: false });
 
   // trim y sin "Bearer " por si se pegó con espacios o con el prefijo.
-  const token = String(process.env.SENDER_API_TOKEN || "").trim().replace(/^Bearer\s+/i, "").replace(/[\s"']/g, ""), grupo = String(process.env.SENDER_GROUP_ID || "").trim();
+  const token = String(process.env.SENDER_API_TOKEN || "").trim().replace(/^Bearer\s+/i, "").replace(/[\s"']/g, ""), grupo = String((b.lista === "newsletter" ? process.env.SENDER_NEWSLETTER_GROUP_ID : process.env.SENDER_GROUP_ID) || "").trim();
   if (!token || !grupo) return res.status(503).json({ ok: false, motivo: "sin_configurar" });
 
   const r = await fetch("https://api.sender.net/v2/subscribers", {
