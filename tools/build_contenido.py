@@ -48,7 +48,7 @@ CABECERA = f'''<header class="top"><div class="wrap">
 
 PIE = '''<footer class="site-foot"><div class="wrap">
   <span>© 2026 CreceConAds · Damián Presmanes</span>
-  <span><a href="/guias">Guías</a> · <a href="/recursos">Recursos</a> · <a href="https://www.instagram.com/crececonads/">Instagram</a> · <a href="https://maps.google.com/?cid=8214692810272884951">Google Maps</a> · <a href="/privacidad">Privacidad</a></span>
+  <span><a href="/guias">Guías</a> · <a href="/recursos">Recursos</a> · <a href="https://www.instagram.com/crececonads/">Instagram</a> · <a href="https://maps.google.com/?cid=8214692810272884951">Google Maps</a> · <a href="/privacidad">Privacidad</a> · <a href="/eliminacion-de-datos">Eliminación de datos</a> · <a href="/terminos">Términos</a></span>
 </div></footer>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -480,7 +480,7 @@ def listado(guias):
 
 
 def main():
-    guias, urls = [], [(SITIO + "/", "2026-10-30"), (SITIO + "/privacidad", "2026-10-30")]
+    guias, urls = [], [(SITIO + "/", "2026-10-30"), (SITIO + "/privacidad", "2026-11-05"), (SITIO + "/eliminacion-de-datos", "2026-11-05"), (SITIO + "/terminos", "2026-11-05")]
     contenidos = [leer(p) for p in sorted((RAIZ / "contenido").glob("*.html"))]
     # Las más nuevas primero: son las que se muestran en "Seguí leyendo" y en la home.
     todas = sorted([m for m, _ in contenidos if m["tipo"] == "guia"], key=lambda m: m["fecha"], reverse=True)
