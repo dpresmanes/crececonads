@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conectá tu negocio | CreceConAds</title>
+<meta name="description" content="Conectá las cuentas de tu negocio en Facebook e Instagram con la aplicación CreceConAds Publicador para que gestionemos tu publicidad y tu contenido.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://crececonads.site/conectar">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,700&display=swap">
+<style>
+:root{--night:#0A0F1F;--night-2:#101731;--edge:#24315A;--text:#EEF1FA;--soft:#A3ACC8;--blue-2:#6D8BFF;--ok:#3DDC97;--warn:#FFB547;
+  --display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;--body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:dark}
+html,body{margin:0}
+body{background:var(--night);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.6}
+.wrap{max-width:720px;margin:0 auto;padding:40px max(16px, env(safe-area-inset-left, 0px)) 80px max(16px, env(safe-area-inset-right, 0px))}
+a{color:var(--blue-2)}
+.logo{font-family:var(--display);font-weight:800;font-size:20px;color:var(--text);text-decoration:none}
+.logo b{color:var(--blue-2)}
+h1{font-family:var(--display);font-size:clamp(32px,6vw,44px);line-height:1.05;letter-spacing:-.02em;margin:32px 0 8px}
+h2{font-family:var(--display);font-size:22px;margin:36px 0 8px}
+p,li{color:var(--soft)}
+.caja{background:var(--night-2);border:1px solid var(--edge);border-radius:14px;padding:22px;margin:28px 0}
+.btn{display:inline-flex;align-items:center;gap:10px;background:#1877F2;color:#fff;border:0;border-radius:10px;padding:14px 22px;font:700 17px var(--body);cursor:pointer}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.estado{margin-top:14px;font-size:15px}
+.estado.ok{color:var(--ok)}
+.estado.warn{color:var(--warn)}
+.lista{margin:10px 0 0;padding-left:20px}
+.en{font-size:14px;color:var(--soft);border-left:3px solid var(--edge);padding-left:12px;margin-top:18px}
+.pie{margin-top:56px;padding-top:20px;border-top:1px solid var(--edge);font-size:14px;color:var(--soft)}
+</style>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script><script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <a class="logo" href="/">Crece<b>Con</b>Ads</a>
+  <h1>Conectá tu negocio</h1>
+  <p>Con este botón le das permiso a la aplicación <b>CreceConAds Publicador</b> para gestionar la publicidad y el contenido de las cuentas de tu negocio que elijas. Meta te muestra cada permiso antes de aceptar y podés quitarlo cuando quieras.</p>
+
+  <div class="caja">
+    <button class="btn" id="conectar" type="button" disabled>
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.88v2.26h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg>
+      Conectar con Facebook
+    </button>
+    <div class="estado" id="estado" role="status" aria-live="polite">Cargando…</div>
+    <div id="resultado"></div>
+    <p class="en">Connect your business with CreceConAds Publicador using Facebook Login for Business. You choose which Pages, Instagram accounts and ad accounts the app can manage.</p>
+  </div>
+
+  <h2>Qué vamos a poder hacer</h2>
+  <ul>
+    <li>Crear, editar y pausar campañas en tus cuentas publicitarias. Nada se activa sin tu aprobación.</li>
+    <li>Leer las métricas de tus anuncios y de tu Instagram para armar los reportes.</li>
+    <li>Publicar en tu Instagram el contenido que aprobaste y responder comentarios y mensajes.</li>
+  </ul>
+
+  <h2>Tus datos</h2>
+  <p>Esta página no guarda ningún dato: solo te muestra qué cuentas conectaste. Cómo tratamos la información está en la <a href="/privacidad">política de privacidad</a>, y cómo quitar el acceso, en <a href="/eliminacion-de-datos">eliminación de datos</a>.</p>
+  <p>¿Dudas? Escribinos a <a href="mailto:damian@crececonads.site">damian@crececonads.site</a>.</p>
+
+  <footer class="pie"><a href="/">Inicio</a> · <a href="/privacidad">Privacidad</a> · <a href="/eliminacion-de-datos">Eliminación de datos</a> · <a href="/terminos">Términos</a></footer>
+</div>
+
+<script>
+// EDITAR ACÁ: ID de la configuración de "Inicio de sesión con Facebook para empresas" de la app.
+var CONFIG_ID = "PENDIENTE";
+var APP_ID = "877840675353208";
+var API = "v26.0";
+
+var btn = document.getElementById("conectar");
+var estado = document.getElementById("estado");
+var resultado = document.getElementById("resultado");
+
+function mostrar(texto, clase) { estado.textContent = texto; estado.className = "estado" + (clase ? " " + clase : ""); }
+
+function lista(titulo, items) {
+  if (!items.length) return "";
+  var li = items.map(function (t) { var e = document.createElement("li"); e.textContent = t; return e.outerHTML; }).join("");
+  return "<p><b>" + titulo + "</b></p><ul class='lista'>" + li + "</ul>";
+}
+
+function cargarActivos() {
+  mostrar("Conectado. Buscando las cuentas que autorizaste…", "ok");
+  var html = "";
+  FB.api("/me/accounts", { fields: "name,instagram_business_account{username}" }, function (pag) {
+    var paginas = (pag && pag.data) || [];
+    html += lista("Páginas", paginas.map(function (p) { return p.name; }));
+    html += lista("Instagram", paginas.filter(function (p) { return p.instagram_business_account; })
+      .map(function (p) { return "@" + p.instagram_business_account.username; }));
+    FB.api("/me/adaccounts", { fields: "name,account_id" }, function (ads) {
+      var cuentas = (ads && ads.data) || [];
+      html += lista("Cuentas publicitarias", cuentas.map(function (c) { return c.name + " (" + c.account_id + ")"; }));
+      resultado.innerHTML = html;
+      mostrar("Listo, tu negocio quedó conectado con CreceConAds Publicador.", "ok");
+    });
+  });
+}
+
+window.fbAsyncInit = function () {
+  FB.init({ appId: APP_ID, cookie: false, xfbml: false, version: API });
+  if (CONFIG_ID === "PENDIENTE") { mostrar("La conexión todavía no está habilitada. Escribinos y te ayudamos.", "warn"); return; }
+  btn.disabled = false;
+  mostrar("Tocá el botón para elegir qué cuentas conectar.");
+  btn.addEventListener("click", function () {
+    FB.login(function (r) {
+      if (r.authResponse) { cargarActivos(); }
+      else { mostrar("No se completó la conexión. Podés intentar de nuevo.", "warn"); }
+    }, { config_id: CONFIG_ID });
+  });
+};
+</script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js"></script>
+</body>
+</html>
