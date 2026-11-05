@@ -23,13 +23,17 @@ CAL = "https://calendar.app.google/Y7rQAcUQw2EqX5z3A"
 PERSONA = SITIO + "/damian-presmanes#persona"
 ORG = SITIO + "/#org"
 
+# Vercel Web Analytics: visitas por página, origen y UTM, sin cookies. Se activa en el proyecto de Vercel.
+VERCEL_ANALYTICS = ('<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>'
+                    '<script defer src="/_vercel/insights/script.js"></script>')
+
 # Tag Manager se carga cuando la persona interactúa o 2 s después de cargar la página: así no
 # compite con el contenido en celulares (Lighthouse: 270 ms de código de terceros en el hilo principal).
 GTM_DIFERIDO = ("<script>window.dataLayer=window.dataLayer||[];dataLayer.push({'gtm.start':Date.now(),event:'gtm.js'});"
                 "(function(){var c=0;function g(){if(c)return;c=1;var j=document.createElement('script');j.async=true;"
                 "j.src='https://www.googletagmanager.com/gtm.js?id=" + GTM + "';document.head.appendChild(j);}"
                 "['scroll','pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,g,{once:true,passive:true});});"
-                "addEventListener('load',function(){setTimeout(g,2000);});})();</script>")
+                "addEventListener('load',function(){setTimeout(g,2000);});})();</script>\n" + VERCEL_ANALYTICS)
 
 FUENTES = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
            '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
