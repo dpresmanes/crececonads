@@ -29,7 +29,7 @@
           }
         ],
         "firingTriggerId": [
-          "2147479553"
+          "12"
         ],
         "tagFiringOption": "ONCE_PER_EVENT"
       },
@@ -180,7 +180,7 @@
           }
         ],
         "firingTriggerId": [
-          "2147479553"
+          "12"
         ],
         "tagFiringOption": "ONCE_PER_EVENT"
       },
@@ -254,6 +254,23 @@
               }
             ]
           }
+        ],
+        "filter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{Page Hostname}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "crececonads.site"
+              }
+            ]
+          }
         ]
       },
       {
@@ -275,6 +292,47 @@
                 "type": "TEMPLATE",
                 "key": "arg1",
                 "value": "recurso_desbloqueado"
+              }
+            ]
+          }
+        ],
+        "filter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{Page Hostname}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "crececonads.site"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "200000000",
+        "triggerId": "12",
+        "name": "PV - crececonads.site",
+        "type": "PAGEVIEW",
+        "filter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{Page Hostname}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "crececonads.site"
               }
             ]
           }
@@ -419,6 +477,12 @@
         "containerId": "200000000",
         "type": "PAGE_PATH",
         "name": "Page Path"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "200000000",
+        "type": "PAGE_HOSTNAME",
+        "name": "Page Hostname"
       }
     ]
   }
