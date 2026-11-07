@@ -9,9 +9,9 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 RAIZ = Path(__file__).resolve().parent.parent
 OUT = RAIZ / "img" / "mails"
-FUENTES = Path("/home/user/crececonads-sistema/sistema-instagram/videos/_fuentes")
+FUENTES = Path(__file__).resolve().parent / "fuentes"
 BRIC = str(FUENTES / "Bricolage-ExtraBold.ttf")
-INTER = "/usr/share/fonts/opentype/inter/Inter-Bold.otf"
+INTER = str(FUENTES / "Inter-Bold.otf")
 
 NOCHE, NOCHE2, BORDE = (10, 15, 31), (24, 33, 63), (36, 49, 90)
 AZUL, AZUL2, VERDE, TEXTO, SUAVE = (47, 91, 255), (109, 139, 255), (47, 208, 143), (238, 241, 250), (163, 172, 200)

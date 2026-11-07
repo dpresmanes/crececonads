@@ -1,0 +1,2 @@
+Fuentes para generar portadas (tools/portadas_og.py, tools/portadas_mails.py).
+Bricolage Grotesque e Inter: SIL Open Font License 1.1.

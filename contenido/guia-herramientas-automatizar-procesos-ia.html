@@ -1,0 +1,92 @@
+<!--{
+"tipo": "guia",
+"slug": "herramientas-automatizar-procesos-ia",
+"titulo": "Herramientas para automatizar procesos con IA: cuál elegir según lo que usás",
+"titulo_seo": "Herramientas para automatizar procesos con IA: cuál elegir | CreceConAds",
+"descripcion": "Apps Script, Make, n8n, Zapier, Power Automate o código, y dónde entran Claude, ChatGPT y Gemini. Qué hace bien cada una y un test para elegir la tuya.",
+"respuesta": "La mejor herramienta para automatizar procesos depende de dónde están tus datos: si trabajás con Google (Gmail, Sheets, Drive), Apps Script; si usás Microsoft 365, Power Automate; si tenés que conectar muchas apps sin programar, Make o Zapier; si querés control total y alojarlo vos, n8n o código. La IA (Claude, ChatGPT o Gemini) no reemplaza a esas herramientas: se suma para leer y escribir texto, y además te ayuda a armar las automatizaciones.",
+"fecha": "2026-11-07",
+"tag": "Automatización · Herramientas",
+"temas": ["Automatización de procesos", "Inteligencia artificial", "Herramientas", "Pymes", "Productividad"],
+"faq": [
+  ["¿Cuál es la mejor IA para automatizar procesos?", "No hay una sola. Claude, ChatGPT y Gemini hacen bien la parte de leer y escribir texto (un mail, un PDF, una respuesta). Para que algo pase solo, se combinan con una herramienta de automatización. Elegí la IA que mejor escribe en tu idioma y tu tono, y la automatización según dónde están tus datos."],
+  ["¿Se puede automatizar procesos gratis?", "Sí, para empezar. Apps Script viene con una cuenta de Google, Power Automate para escritorio viene con Windows, n8n se puede alojar uno mismo, y Make y Zapier tienen planes gratis con límites. Lo que suele costar es el tiempo de armarlo bien."],
+  ["¿Necesito saber programar?", "Para Make, Zapier y Power Automate, no: se arman con bloques. Para Apps Script, n8n avanzado o Python, sí, aunque hoy la IA escribe buena parte del código si le explicás bien el proceso."],
+  ["¿Qué conviene automatizar primero?", "Una tarea que se repite todas las semanas, siempre igual, y que hoy se copia a mano. Lo explico en la guía de cómo automatizar procesos administrativos, con una calculadora de horas."]
+],
+"cta_titulo": "¿Vemos qué herramienta conviene para tu proceso?"
+}-->
+<p>“¿Con qué herramienta automatizo?” es la segunda pregunta que aparece, después de “¿qué automatizo?”. Las búsquedas lo muestran: <em>herramientas para automatizar procesos</em>, <em>mejor IA para automatizar procesos</em>, <em>automatizar procesos con Claude</em>, <em>con n8n</em>, <em>con Excel</em>. Esta guía ordena las opciones por lo que de verdad decide la elección: dónde están tus datos y cuánto querés programar.</p>
+
+<h2 id="dos-piezas">1. Automatizar con IA tiene dos piezas</h2>
+<ul>
+  <li><strong>La automatización</strong> mueve los datos y dispara las acciones: cuando llega un mail, cuando se completa un formulario, todos los lunes a las 9.</li>
+  <li><strong>La IA</strong> hace lo que antes necesitaba que una persona leyera o escribiera: entender un mail, sacar datos de un PDF, clasificar una consulta, redactar una respuesta.</li>
+</ul>
+<p>Por eso “¿Claude o Make?” es una pregunta mal planteada: casi siempre van juntas. Y la IA suma una tercera cosa: <strong>te ayuda a armar la automatización</strong>, escribiendo el script o explicándote cómo configurar cada paso.</p>
+
+<h2 id="herramientas">2. Las herramientas, una por una</h2>
+<ul>
+  <li><strong>Google Apps Script.</strong> Viene con cualquier cuenta de Google y trabaja directo sobre Gmail, Sheets, Docs, Drive y Calendar. Ideal si tu negocio vive en Google. Se programa en JavaScript, pero la IA lo escribe muy bien.</li>
+  <li><strong>Power Automate.</strong> La opción de Microsoft: conecta Outlook, Excel, Teams y SharePoint. La versión de escritorio viene con Windows y automatiza tareas en la compu.</li>
+  <li><strong>Make.</strong> Escenarios visuales que conectan cientos de aplicaciones sin programar. Muy flexible para flujos con varios pasos y condiciones.</li>
+  <li><strong>Zapier.</strong> La más simple para conectar dos apps (“cuando pasa esto acá, hacé esto allá”). Rápida de armar; se encarece con volumen.</li>
+  <li><strong>n8n.</strong> Parecida a Make, pero se puede alojar uno mismo y es más abierta. Conviene cuando hay muchos pasos, datos sensibles o querés control total.</li>
+  <li><strong>Código propio (Python, Node).</strong> Para lo que ninguna herramienta resuelve bien o cuando el proceso es el corazón del negocio. Más trabajo de armado y de mantenimiento.</li>
+</ul>
+
+<figure class="viz" id="elegir-herramienta">
+  <span class="viz-k">Test de 3 preguntas</span>
+  <h3>¿Qué herramienta te conviene?</h3>
+  <p class="sub">Elegí una opción en cada pregunta.</p>
+  <div id="eh-preguntas"></div>
+  <div class="viz-veredicto" id="eh-res" aria-live="polite"></div>
+</figure>
+<script>
+(() => {
+  const preguntas = [
+    ["¿Dónde están tus datos y tus mails?", [["google", "Google (Gmail, Sheets, Drive)"], ["microsoft", "Microsoft (Outlook, Excel)"], ["mezcla", "En varias apps distintas"]]],
+    ["¿Cuánto querés programar?", [["nada", "Nada"], ["poco", "Un poco, si la IA me ayuda"], ["si", "Sin problema"]]],
+    ["¿Qué tan sensible o grande es el proceso?", [["simple", "Simple, pocos pasos"], ["medio", "Varios pasos y condiciones"], ["critico", "Datos sensibles o mucho volumen"]]],
+  ];
+  const caja = document.getElementById("eh-preguntas"), res = document.getElementById("eh-res");
+  const elegido = ["google", "poco", "simple"];
+  caja.innerHTML = preguntas.map(([p, ops], i) => `<p style="margin:14px 0 8px"><b>${p}</b></p><div class="viz-tabs" role="group">${ops.map(([v, t]) => `<button type="button" data-q="${i}" data-v="${v}" aria-selected="${elegido[i] === v}">${t}</button>`).join("")}</div>`).join("");
+  function recomendar() {
+    const [donde, prog, tam] = elegido;
+    let h, por;
+    if (tam === "critico" && prog !== "nada") { h = "n8n alojado por vos, o código propio"; por = "Con datos sensibles o mucho volumen conviene tener el control: dónde corre, quién accede y cuánto cuesta crecer."; }
+    else if (donde === "google" && prog !== "nada") { h = "Google Apps Script"; por = "Ya tenés todo en Google y viene incluido. Pedile a la IA el script describiendo el proceso paso a paso."; }
+    else if (donde === "microsoft") { h = "Power Automate"; por = "Se integra con Outlook, Excel y Teams sin salir de Microsoft."; }
+    else if (tam === "simple" && prog === "nada") { h = "Zapier"; por = "Para conectar dos apps sin programar, es lo más rápido de armar."; }
+    else { h = "Make"; por = "Flujos visuales con varios pasos y condiciones, sin programar."; }
+    res.innerHTML = `<b>Te conviene: ${h}</b>${por} Sumale IA (Claude, ChatGPT o Gemini) para la parte de leer o escribir texto.`;
+  }
+  caja.addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-q]"); if (!b) return;
+    elegido[+b.dataset.q] = b.dataset.v;
+    caja.querySelectorAll(`button[data-q="${b.dataset.q}"]`).forEach((x) => x.setAttribute("aria-selected", x === b));
+    recomendar();
+  });
+  recomendar();
+})();
+</script>
+
+<h2 id="ia">3. Qué IA usar, y para qué</h2>
+<p>Claude, ChatGPT y Gemini hacen bien lo mismo en una automatización: <strong>leer y escribir</strong>. Las diferencias que importan en la práctica:</p>
+<ul>
+  <li><strong>Cómo escribe en tu tono.</strong> Si la IA redacta respuestas a clientes, probá las tres con 5 mensajes reales tuyos y quedate con la que suena más a vos.</li>
+  <li><strong>Con qué se conecta fácil.</strong> Gemini está integrado en Google Workspace; las tres se pueden usar desde Make, n8n o código.</li>
+  <li><strong>Para escribir el código de la automatización</strong>, cualquiera de las tres sirve si le das el proceso bien descrito. El caso de la UTN, por ejemplo, está armado con Claude sobre Apps Script.</li>
+</ul>
+
+<h2 id="excel">4. ¿Y Excel o las planillas?</h2>
+<p>“Automatizar procesos en Excel” suele significar dos cosas distintas. Si son cálculos que se repiten, alcanzan las fórmulas y las tablas dinámicas. Si es <strong>mover datos</strong> (de mails, formularios o sistemas a la planilla), conviene una automatización: Power Automate si usás Excel en Microsoft 365, o pasar la planilla a Google Sheets y usar Apps Script.</p>
+
+<h2 id="errores">5. Errores al elegir</h2>
+<ul>
+  <li><strong>Elegir la herramienta antes que el proceso.</strong> Primero escribí los pasos y las excepciones; la herramienta sale sola.</li>
+  <li><strong>Sumar IA donde alcanza una regla.</strong> Si un dato siempre viene en el mismo lugar, no hace falta que una IA lo “entienda”.</li>
+  <li><strong>No pensar en quién lo mantiene.</strong> Una automatización que nadie entiende se rompe el día que cambia un formulario.</li>
+</ul>
+<p>Si todavía no sabés qué automatizar primero, empezá por <a href="/guias/automatizar-procesos-administrativos-ia-pyme">cómo automatizar procesos administrativos con IA</a>, que trae una calculadora de horas.</p>

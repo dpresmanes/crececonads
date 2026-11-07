@@ -12,6 +12,7 @@ Uso: python3 tools/build_contenido.py
 """
 import html
 import json
+import portadas_og
 import re
 from pathlib import Path
 
@@ -101,7 +102,9 @@ def documento(meta, url, ld, cuerpo):
 <meta property="og:url" content="{url}">
 <meta property="og:title" content="{esc(meta["titulo"])}">
 <meta property="og:description" content="{esc(meta["descripcion"])}">
-<meta property="og:image" content="{SITIO}/img/og.jpg">
+<meta property="og:image" content="{SITIO}{meta.get("og_imagen", "/img/og.jpg")}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 {FUENTES}
 <link rel="stylesheet" href="/assets/blog.css">
@@ -119,6 +122,13 @@ def documento(meta, url, ld, cuerpo):
 </body>
 </html>
 '''
+
+
+# Entrada al newsletter desde guías y listados (el formulario vive en /newsletter, armado aparte).
+NEWS = ('<aside class="news-bloque"><div><span class="k">Newsletter gratis · un mail por mes</span>'
+        '<b>Novedades de Meta en 5 minutos</b><p>Lo que cambió en los anuncios de Instagram y Facebook, '
+        'confirmado en fuentes oficiales, y qué conviene hacer.</p></div>'
+        '<a class="btn" data-cta="newsletter" href="/newsletter">Quiero recibirlo</a></aside>')
 
 
 def faq_html(faq):
@@ -158,6 +168,9 @@ def relacionadas(meta, todas):
 
 def guia(meta, cuerpo, todas=()):
     url = f"{SITIO}/guias/{meta['slug']}"
+    og = portadas_og.asegurar(meta)
+    if og:
+        meta["og_imagen"] = og
     meta["titulo_seo"] = meta.get("titulo_seo", meta["titulo"] + " | CreceConAds")
     cta = meta.get("cta", "agendar")
     if cta == "agente":
@@ -179,6 +192,7 @@ def guia(meta, cuerpo, todas=()):
 {cuerpo}
 {faq_html(meta.get("faq"))}
 <section class="cta"><h2>{esc(meta.get("cta_titulo", "¿Vemos tu caso?"))}</h2><p>{cta_txt}</p><div class="row">{botones}</div></section>
+{NEWS}
 {relacionadas(meta, todas)}
 {AUTOR}
 </article>'''
@@ -419,7 +433,8 @@ def listado_recursos(recursos):
 <div class="cards" data-filtrable>
 {tarjetas}
 </div>
-{SCRIPT_FILTROS}'''
+{SCRIPT_FILTROS}
+{NEWS}'''
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "CollectionPage", "@id": url, "url": url, "name": meta["titulo"], "inLanguage": "es-AR",
          "hasPart": [{"@id": f"{SITIO}/recursos/{m['slug']}#recurso"} for m in recursos]},
@@ -471,7 +486,8 @@ def listado(guias):
 {tarjetas}
 </div>
 {SCRIPT_FILTROS}
-{temas_html}'''
+{temas_html}
+{NEWS}'''
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "CollectionPage", "@id": url, "url": url, "name": meta["titulo"], "inLanguage": "es-AR",
          "hasPart": [{"@id": f"{SITIO}/guias/{m['slug']}#articulo"} for m in guias]},

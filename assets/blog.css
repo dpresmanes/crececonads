@@ -213,3 +213,10 @@ th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacin
 .sub-listado{margin:8px 0 0;font-size:24px}
 .otros-temas{margin:0 0 64px;color:var(--soft)}
 .otros-temas a{color:var(--blue-2)}
+
+/* Entrada al newsletter (NEWS en build_contenido.py) */
+.news-bloque{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;margin:0 0 48px;padding:22px 24px;border-radius:18px;background:var(--night-2);border:1px dashed rgb(47 208 143 / .45)}
+.news-bloque>div{flex:1 1 320px;min-width:0}
+.news-bloque .k{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.news-bloque b{display:block;font-family:var(--display);font-size:22px;line-height:1.2}
+.news-bloque p{margin:6px 0 0;color:var(--soft);font-size:16px}
