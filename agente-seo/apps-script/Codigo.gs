@@ -1,7 +1,7 @@
 /**
  * Agente SEO y GEO de CreceConAds, dentro de la planilla "Agente SEO · CreceConAds".
  *
- * Cada lunes:
+ * Cada lunes (v4.2: trabaja por tandas y retoma solo, porque Google corta cada ejecución a los 6 minutos):
  *  - Búsquedas y Páginas: qué búsquedas de Google muestran crececonads.site (Search Console, últimos 28 días).
  *  - Bing: lo mismo en Bing (Bing Webmaster Tools), que es de donde busca ChatGPT.
  *  - Visibilidad IA: hace a Gemini las preguntas de la pestaña "Preguntas" y anota si te nombra.
@@ -48,28 +48,74 @@ function configurarClaveBing() {
 
 function programar() {
   ScriptApp.getProjectTriggers()
-    .filter(t => t.getHandlerFunction() === 'correrAgente')
+    .filter(t => ['correrAgente', 'seguir'].indexOf(t.getHandlerFunction()) >= 0)
     .forEach(t => ScriptApp.deleteTrigger(t));
   ScriptApp.newTrigger('correrAgente').timeBased().onWeekDay(ScriptApp.WeekDay.MONDAY).atHour(9).create();
   SpreadsheetApp.getUi().alert('Listo: el agente va a correr todos los lunes a las 9.');
 }
 
+// Google corta cada ejecución a los 6 minutos. El agente trabaja por pasos, guarda el avance y,
+// si se acerca al límite, se programa a sí mismo para seguir 1 minuto después (función "seguir").
+const LIMITE_MS = 4.5 * 60 * 1000;
+const PASOS = ['busquedas', 'bing', 'visibilidadIA', 'ideas', 'palabras', 'historial'];
+
 function correrAgente() {
-  const estado = {};
-  [busquedas, bing, visibilidadIA, ideas].forEach(tarea => {
+  borrarContinuaciones();
+  guardarEstado({ paso: 0, pregunta: 0, inicio: hoy() });
+  seguir();
+}
+
+function seguir() {
+  const t0 = Date.now();
+  const estado = leerEstado();
+  if (!estado) return;
+  SIN_CUPO = !!estado.sinCupo;
+  const tareas = { busquedas: busquedas, bing: bing, visibilidadIA: visibilidadIA, ideas: ideas, palabras: palabrasDelMes, historial: historial };
+  while (estado.paso < PASOS.length) {
+    const nombre = PASOS[estado.paso];
+    let terminado = true;
     try {
-      tarea(estado);
+      terminado = tareas[nombre](estado, t0) !== false; // visibilidadIA devuelve false si no llegó a terminar
     } catch (e) {
-      console.error(tarea.name + ' falló: ' + e);
+      console.error(nombre + ' falló: ' + e);
     }
-  });
-  // Una vez por mes alcanza: el volumen de búsquedas no cambia de una semana a otra.
-  if (Number(Utilities.formatDate(new Date(), 'America/Argentina/Buenos_Aires', 'd')) <= 7) {
-    try { investigarPalabras(); } catch (e) { console.error('investigarPalabras falló: ' + e); }
+    estado.sinCupo = SIN_CUPO;
+    if (terminado) estado.paso++;
+    guardarEstado(estado);
+    if (estado.paso < PASOS.length && Date.now() - t0 > LIMITE_MS) {
+      borrarContinuaciones();
+      ScriptApp.newTrigger('seguir').timeBased().after(60 * 1000).create();
+      console.log('Pausa en ' + PASOS[estado.paso] + ': sigue en 1 minuto.');
+      return;
+    }
   }
-  const historial = hoja('Historial');
-  if (!historial.getRange('G1').getValue()) historial.getRange('G1:H1').setValues([['Clics Bing (28 días)', 'Impresiones Bing (28 días)']]);
-  historial.appendRow([hoy(), ...(estado.resumen || ['', '', '']), ...(estado.ia || ['', '']), ...(estado.bing || ['', ''])]);
+  borrarContinuaciones();
+  PropertiesService.getScriptProperties().deleteProperty('CORRIDA');
+  console.log('Agente terminado.');
+}
+
+function palabrasDelMes() {
+  // Una vez por mes alcanza: el volumen de búsquedas no cambia de una semana a otra.
+  if (Number(Utilities.formatDate(new Date(), 'America/Argentina/Buenos_Aires', 'd')) <= 7) investigarPalabras();
+}
+
+function historial(estado) {
+  const h = hoja('Historial');
+  if (!h.getRange('G1').getValue()) h.getRange('G1:H1').setValues([['Clics Bing (28 días)', 'Impresiones Bing (28 días)']]);
+  h.appendRow([estado.inicio, ...(estado.resumen || ['', '', '']), ...(estado.ia || ['', '']), ...(estado.bing || ['', ''])]);
+}
+
+function leerEstado() {
+  const raw = PropertiesService.getScriptProperties().getProperty('CORRIDA');
+  return raw ? JSON.parse(raw) : null;
+}
+
+function guardarEstado(estado) {
+  PropertiesService.getScriptProperties().setProperty('CORRIDA', JSON.stringify(estado));
+}
+
+function borrarContinuaciones() {
+  ScriptApp.getProjectTriggers().filter(t => t.getHandlerFunction() === 'seguir').forEach(t => ScriptApp.deleteTrigger(t));
 }
 
 // ---------- Search Console ----------
@@ -85,7 +131,7 @@ function busquedas(estado) {
   escribir('Páginas', [['Página', 'Clics', 'Impresiones', 'Posición']].concat(
     paginas.map(r => [r.keys[0], r.clicks, r.impressions, redondear(r.position)])));
 
-  estado.busquedas = consultas.map(r => [r.keys[0], r.impressions, redondear(r.position)]);
+  estado.busquedas = consultas.slice(0, 40).map(r => [r.keys[0], r.impressions, redondear(r.position)]);
   estado.resumen = [suma(consultas, 'clicks'), suma(consultas, 'impressions'), consultas.length];
 }
 
@@ -124,7 +170,7 @@ function bing(estado) {
   if (!hoja('Bing')) SpreadsheetApp.getActive().insertSheet('Bing');
   escribir('Bing', [['Búsqueda', 'Clics', 'Impresiones', 'Posición']].concat(filas));
   estado.bing = [filas.reduce((s, f) => s + f[1], 0), filas.reduce((s, f) => s + f[2], 0)];
-  estado.busquedasBing = filas.slice(0, 40).map(f => [f[0], f[2], f[3]]);
+  estado.busquedasBing = filas.slice(0, 30).map(f => [f[0], f[2], f[3]]);
 }
 
 // ---------- Palabras clave ----------
@@ -223,29 +269,34 @@ function bingRelacionadas(clave, q) {
 
 // ---------- Visibilidad en IA ----------
 
-function visibilidadIA(estado) {
+function visibilidadIA(estado, t0) {
   const clave = PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
   if (!clave) throw new Error('falta la clave de Gemini (menú Agente SEO > Configurar clave de Gemini)');
   const preguntas = hoja('Preguntas').getRange('A2:A').getValues().map(f => String(f[0]).trim()).filter(Boolean);
+  const vis = hoja('Visibilidad IA');
+  estado.sinMencion = estado.sinMencion || [];
+  estado.ia = estado.ia || [0, 0];
 
-  const filas = [];
-  estado.sinMencion = [];
-  preguntas.forEach((p, i) => {
-    if (SIN_CUPO) return; // ningún modelo tiene cupo: no tiene sentido seguir preguntando
-    if (i) Utilities.sleep(7000); // el plan gratuito limita las consultas por minuto
+  while (estado.pregunta < preguntas.length) {
+    if (SIN_CUPO) break; // ningún modelo tiene cupo: no tiene sentido seguir preguntando
+    if (Date.now() - t0 > LIMITE_MS) return false; // sigue en la próxima tanda, desde esta pregunta
+    const p = preguntas[estado.pregunta];
+    if (estado.pregunta) Utilities.sleep(7000); // el plan gratuito limita las consultas por minuto
+    estado.pregunta++;
     let r;
     try {
       r = gemini(clave, p + '\nRespondé en español rioplatense. Si recomendás profesionales o empresas, nombralos.', true);
     } catch (e) {
       console.error('Pregunta "' + p + '": ' + e);
-      return;
+      continue;
     }
     const nombra = MARCA.test(r.texto) || r.fuentes.some(f => MARCA.test(f));
     if (!nombra) estado.sinMencion.push(p);
-    filas.push([hoy(), p, nombra ? 'SÍ' : 'no', r.fuentes.join(', ').slice(0, 500), r.texto.replace(/\s+/g, ' ').slice(0, 400)]);
-  });
-  if (filas.length) hoja('Visibilidad IA').getRange(hoja('Visibilidad IA').getLastRow() + 1, 1, filas.length, 5).setValues(filas);
-  estado.ia = [filas.filter(f => f[2] === 'SÍ').length, filas.length];
+    estado.ia = [estado.ia[0] + (nombra ? 1 : 0), estado.ia[1] + 1];
+    // Se escribe cada fila apenas llega: si la ejecución se corta, no se pierde lo hecho.
+    vis.appendRow([hoy(), p, nombra ? 'SÍ' : 'no', r.fuentes.join(', ').slice(0, 500), r.texto.replace(/\s+/g, ' ').slice(0, 400)]);
+    guardarEstado(estado);
+  }
 }
 
 function ideas(estado) {
