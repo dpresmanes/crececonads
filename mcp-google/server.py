@@ -395,7 +395,9 @@ def sitio_bing(s: str | None) -> str:
 def fecha_bing(v) -> str:
     """Bing devuelve fechas como /Date(1699999999000-0800)/."""
     ms = re.search(r"-?\d+", str(v or ""))
-    return datetime.fromtimestamp(int(ms.group()) / 1000, tz=timezone.utc).date().isoformat() if ms else ""
+    if not ms or int(ms.group()) <= 0:  # Bing usa el año 1 para "nunca"
+        return ""
+    return datetime.fromtimestamp(int(ms.group()) / 1000, tz=timezone.utc).date().isoformat()
 
 
 def sumar_bing(filas: list, clave: str, dias: int) -> list[dict]:
