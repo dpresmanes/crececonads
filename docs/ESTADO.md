@@ -1,6 +1,6 @@
 # Estado de la web y del embudo de mails · leer antes de trabajar
 
-Actualizado: 7/11/2026. Si un chat nuevo retoma este trabajo, **arranca acá**: lo que figura como hecho está
+Actualizado: 11/11/2026. Si un chat nuevo retoma este trabajo, **arranca acá**: lo que figura como hecho está
 hecho y probado en producción; no se rehace ni se reescribe. Antes de tocar algo, `git pull origin web-v2`.
 
 ## Cómo funciona la web
@@ -27,18 +27,34 @@ hecho y probado en producción; no se rehace ni se reescribe. Antes de tocar alg
 - Home: título y descripción para "agencia de Meta Ads en Argentina".
 - Agente SEO (Apps Script v4.1, `agente-seo/apps-script/Codigo.gs`): ya pegado y corrido; filtro de ruido e intención.
 
-## Pendiente (en orden)
-1. **Sender, automatización "Secuencia recursos"** (la arma Damián en la web de Sender; Automation → Create from
-   scratch): trigger "Subscriber joins a group" = Recursos → Email 1 → Delay 2 días → Email 2 → Delay 3 → Email 3 →
-   Delay 4 → Email 4 → Delay 5 → Email 5 (opcional: Action → copiar al grupo Newsletter). Cada email: Custom HTML →
-   Import from URL con el link de arriba. Asuntos y vistas previas en `docs/secuencia-mails-recursos.md`.
-   Activar con el SPF en verde en Sender; si sigue rojo, cambiar `~all` por `?all` en Hostinger.
-2. ~~**GTM**~~ (hecho: GTM ya publicado con CE - recurso_desbloqueado, DLV recurso/rubro y GA4 generate_lead; generate_lead marcado como evento clave el 11/11 con el MCP de Google): variables `recurso` y `rubro`, activador evento `recurso_desbloqueado`, etiqueta GA4 `generate_lead`;
-   en GA4 marcarlo como evento clave. Ver también `docs/medicion/`.
-3. ~~**Guías nuevas**~~ (resuelto el 11/11, ver "Estrategia de contenido"): ritmo recomendado 1 por semana (tema del Calendario) + 1 corta de "cómo hacer" cada 2 semanas +
-   1 de Novedades por mes. Decidir si se programa una tarea semanal que escriba la guía y la deje para aprobar.
-   La de Novedades se escribe con el informe del Vigía de diciembre (solo cambios confirmados).
-4. Perfil de X: cuando exista, sumarlo al `sameAs` de `index.html` y del perfil de autor.
+## Pendiente (en orden) · al 11/11
+**De Damián:**
+1. **Instagram semana 2:** en la PC, que el CEO baje `main` (semana 2 ya mergeada), corra `s2_gen.py`, `s2_videos.py render`
+   y `s2_recursos.py`, y que `ig-programador` programe desde el 11/11. Reubicar los posts del 9 y 10/11 (no salieron).
+   Las 13 páginas de recurso de la semana 2 ya están en la web (subidas el 11/11).
+2. **Sender:** confirmar que la automatización "Secuencia recursos" (grupo Recursos, 5 mails, delays 2/3/4/5 días) esté *Active*.
+3. **Apps Script:** borrar los activadores `correrAgente` y `seguir` (lo reemplaza la tarea "SEO semanal"). Código v4.3 en el repo.
+4. **Links externos:** bio de Instagram → crececonads.site/guias, link en Google Business, un post de LinkedIn por guía.
+5. **Google Business API:** pedir acceso (developers.google.com/my-business/content/prereqs, proyecto apt-bonbon-464013-s6).
+6. **Indexación en Google:** pedirla a mano en Search Console (máx. ~10 por día) con la lista que pasa el parte del lunes.
+7. Invitación al newsletter desde Gmail a su lista. Perfil de X (sumarlo al `sameAs` de `index.html` y del perfil de autor).
+8. Aprobar con "OK" la página diaria y la guía semanal (llegan como aviso en la sesión "Estrategia de guías semanales").
+
+**De la web (automático o en curso):**
+- Gemini del MCP dio 429 (cupo del día agotado) el 11/11; se reprueba el 12/11. Si sigue: facturación con tope o preguntas sin búsqueda.
+- Calendario sin temas desde el 30/11: los carga la tarea "SEO semanal" con las ideas del ig-investigador (primeras 15 antes del 20/11).
+
+**Hechos el 11/11 (no rehacer):** GTM y `generate_lead` como evento clave; 13 recursos de la semana 2; web lista para
+novedades diarias (tema Novedades de Meta e IA, NewsArticle, "Seguí leyendo" por tema); MCP de Google y Bing (abajo);
+sitemap reenviado a Google y 39 URLs enviadas a Bing; columnas nuevas en `Ideas` (A–L) para el investigador.
+
+## Tareas programadas (corren en la sesión "Estrategia de guías semanales", que tiene el repo, la planilla y el MCP)
+| Cuándo | Tarea |
+|---|---|
+| Lunes a viernes 9:12 | Página diaria (novedad del Vigía o "cómo hacer") → rama `pagina-AAAA-MM-DD`, se publica con OK |
+| Martes 10:40 | Guía larga del tema de la semana → rama `guia-AAAA-MM-DD`, se publica con OK |
+| Lunes 9:42 | SEO semanal: datos de Google/Bing/GA4 a la planilla, ideas, Calendario, indexación, velocidad, visibilidad IA y parte |
+| Diario 8:23 / lunes 8:47 | Vigía de Meta (actualiza el doc "Meta Ads – Reglas vigentes") |
 
 ## Estrategia de contenido (desde el 11/11/2026)
 Objetivo: que Damián sea referente en IA y marketing para pymes y tiendas online de Argentina, y que cada página lleve a consultas.
@@ -54,9 +70,13 @@ Objetivo: que Damián sea referente en IA y marketing para pymes y tiendas onlin
   Visibilidad IA, completa el volumen de Ideas, carga el Calendario a 4 semanas, revisa indexación y velocidad, y manda el parte.
   Reemplaza al Apps Script (sacarle el activador de los lunes). Ideas: el ig-investigador carga ~30 por mes (columnas A–K).
 
-## MCP de Google (desde el 11/11)
+## MCP de Google y Bing (desde el 11/11)
 Railway, proyecto `mcp-google` (carpeta `mcp-google/`). Cuenta de servicio mcp-crececonads@apt-bonbon-464013-s6.iam.gserviceaccount.com
 con acceso a GA4 465752183 (Editor), Search Console https://crececonads.site/ y GTM-TKWHBHB9. Conector "Google CreceConAds" en claude.ai.
+Variables en Railway: GOOGLE_SA_JSON, MCP_TOKEN, BING_API_KEY, GEMINI_API_KEY, PAGESPEED_API_KEY, GA4_PROPIEDAD, GSC_SITIO, GTM_CUENTA,
+GTM_CONTENEDOR. 28 herramientas (GA4, Search Console, GTM, Bing, IndexNow, PageSpeed, visibilidad IA); ver `mcp-google/README.md`.
+Railway a veces deja las variables "en espera": hay que tocar Deploy (o aplicar con accept-deploy).
+PageSpeed home 11/11: 97/100/100/100 en celular.
 Al 11/11 Google indexó solo la home: las guías y recursos no figuran. Se reenvió el sitemap; pedir indexación a mano en Search Console.
 
 ## Reglas
