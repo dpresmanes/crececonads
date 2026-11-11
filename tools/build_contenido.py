@@ -54,7 +54,7 @@ PIE = '''<footer class="site-foot"><div class="wrap">
 <script>
   window.dataLayer = window.dataLayer || [];
   document.querySelectorAll("[data-cta]").forEach(a => a.addEventListener("click", () =>
-    window.dataLayer.push({ event: "cta_click", cta_type: a.dataset.cta, cta_text: a.textContent.trim().slice(0, 60), cta_section: location.pathname })));
+    window.dataLayer.push({ event: /^agendar(_google)?$/.test(a.dataset.cta) ? "agendar_click" : "cta_click", cta_type: a.dataset.cta, cta_text: a.textContent.trim().slice(0, 60), cta_section: location.pathname })));
 </script>'''
 
 AUTOR = '''<aside class="autor">

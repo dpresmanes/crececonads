@@ -48,7 +48,19 @@
 <div class="agenda">
   <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1k4mwhaaQqjNTbmWRdbUx0S0jtmDT9Tr6LECjgabslVj-eLgB2krgIgYycmlUSwXfuHnEAVYDP?gv=true" title="Elegí día y horario para la llamada" loading="lazy"></iframe>
 </div>
-<p class="agenda-alt">Al confirmar, te llega la invitación por mail con el link de la videollamada. ¿No ves el calendario? <a href="https://calendar.app.google/Y7rQAcUQw2EqX5z3A" target="_blank" rel="noopener">Abrilo en Google Calendar</a> o <a data-cta="whatsapp" href="https://wa.me/5491173566942?text=Quiero%20agendar%20la%20llamada%20de%2030%20minutos" target="_blank" rel="noopener">escribime por WhatsApp</a>.</p>
+<script>
+  // El calendario es de Google (otro dominio): la página no ve la reserva. Cuando la persona toca el
+  // calendario, la ventana pierde el foco y el iframe queda activo: eso se registra una vez como agenda_interaccion.
+  (() => {
+    let enviado = false;
+    addEventListener("blur", () => setTimeout(() => {
+      if (!enviado && document.activeElement && document.activeElement.tagName === "IFRAME") {
+        enviado = true; (window.dataLayer = window.dataLayer || []).push({ event: "agenda_interaccion" });
+      }
+    }, 0));
+  })();
+</script>
+<p class="agenda-alt">Al confirmar, te llega la invitación por mail con el link de la videollamada. ¿No ves el calendario? <a data-cta="agendar_google" href="https://calendar.app.google/Y7rQAcUQw2EqX5z3A" target="_blank" rel="noopener">Abrilo en Google Calendar</a> o <a data-cta="whatsapp" href="https://wa.me/5491173566942?text=Quiero%20agendar%20la%20llamada%20de%2030%20minutos" target="_blank" rel="noopener">escribime por WhatsApp</a>.</p>
 <aside class="autor">
   <img src="/img/damian-presmanes-avatar.jpg" alt="Damián Presmanes" width="72" height="72" loading="lazy">
   <div><b><a href="/damian-presmanes">Damián Presmanes</a></b>
@@ -63,7 +75,7 @@
 <script>
   window.dataLayer = window.dataLayer || [];
   document.querySelectorAll("[data-cta]").forEach(a => a.addEventListener("click", () =>
-    window.dataLayer.push({ event: "cta_click", cta_type: a.dataset.cta, cta_text: a.textContent.trim().slice(0, 60), cta_section: location.pathname })));
+    window.dataLayer.push({ event: /^agendar(_google)?$/.test(a.dataset.cta) ? "agendar_click" : "cta_click", cta_type: a.dataset.cta, cta_text: a.textContent.trim().slice(0, 60), cta_section: location.pathname })));
 </script>
 </body>
 </html>
