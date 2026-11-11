@@ -79,7 +79,7 @@ MAILS = [
         "alt": "¿Lo vemos juntos?",
         "cuerpo": [
             "Si querés que miremos tu caso puntual, te ofrezco una <strong>llamada de diagnóstico de 30 minutos, sin costo</strong>. Reviso tus anuncios y cómo respondés las consultas, y te digo qué haría. Si no tiene sentido trabajar juntos, te lo digo.",
-            ("boton", "Elegir mi horario", "https://calendar.app.google/Y7rQAcUQw2EqX5z3A"),
+            ("boton", "Elegir mi horario", "https://crececonads.site/agendar"),
             ("tip", "¿Preferís escribir?", 'Mandá <strong>AGENTE</strong> por <a href="https://wa.me/5491173566942?text=AGENTE" style="color:' + AZUL + ';font-weight:bold;">WhatsApp al +54 9 11 7356-6942</a> y te responde mi agente de IA: así ves cómo funcionaría en tu negocio.'),
         ],
     },

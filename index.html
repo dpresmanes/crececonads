@@ -724,7 +724,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   // WA_NUMBER: con código de país, sin + ni espacios. Ej: "5491112345678"
   // CAL_URL: link de Calendly, Google Calendar u otro. Si queda vacío, "Agendar" abre WhatsApp.
   const WA_NUMBER = "5491173566942";
-  const CAL_URL = "https://calendar.app.google/Y7rQAcUQw2EqX5z3A";
+  const CAL_URL = "/agendar";
   const VIDEO_URL = "";
   // ======================
   window.dataLayer = window.dataLayer || [];
@@ -734,7 +734,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   const track = (type, a) => window.dataLayer.push({ event: "cta_click", cta_type: type, cta_text: a.textContent.trim().slice(0, 60), cta_section: (a.closest("section,header,.bar") || {}).id || (a.closest("section,header,.bar") || {}).className || "" });
   function wire(root){
     root.querySelectorAll("[data-wa]").forEach(a => { a.href = waUrl(a.dataset.wa); a.target = "_blank"; a.rel = "noopener"; a.addEventListener("click", () => track("whatsapp", a)); });
-    root.querySelectorAll("[data-cal]").forEach(a => { a.href = calUrl(); a.target = "_blank"; a.rel = "noopener"; a.addEventListener("click", () => track(CAL_URL ? "agendar" : "agendar_whatsapp", a)); });
+    root.querySelectorAll("[data-cal]").forEach(a => { a.href = calUrl(); if (!CAL_URL.startsWith("/")) { a.target = "_blank"; a.rel = "noopener"; } a.addEventListener("click", () => track(CAL_URL ? "agendar" : "agendar_whatsapp", a)); });
   }
   wire(document);
   document.querySelectorAll("[data-video]").forEach(a => { if (VIDEO_URL) { a.href = VIDEO_URL; a.target = "_blank"; a.rel = "noopener"; } else a.addEventListener("click", e => e.preventDefault()); });

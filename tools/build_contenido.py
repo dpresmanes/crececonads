@@ -20,7 +20,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 SITIO = "https://crececonads.site"
 GTM = "GTM-TKWHBHB9"
 WA = "https://wa.me/5491173566942?text="
-CAL = "https://calendar.app.google/Y7rQAcUQw2EqX5z3A"
+CAL = "/agendar"
 PERSONA = SITIO + "/damian-presmanes#persona"
 ORG = SITIO + "/#org"
 
@@ -44,7 +44,7 @@ FUENTES = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
 CABECERA = f'''<header class="top"><div class="wrap">
   <a class="logo" href="/">Crece<b>Con</b>Ads</a>
   <nav aria-label="Secciones"><a href="/#resultados">Resultados</a><a href="/#servicios">Servicios</a><a href="/guias">Guías</a><a href="/recursos">Recursos</a><a href="/damian-presmanes">Quién soy</a></nav>
-  <a class="btn btn-sm" data-cta="agendar" href="{CAL}" target="_blank" rel="noopener">Agendar llamada</a>
+  <a class="btn btn-sm" data-cta="agendar" href="{CAL}">Agendar llamada</a>
 </div></header>'''
 
 PIE = '''<footer class="site-foot"><div class="wrap">
@@ -178,10 +178,10 @@ def guia(meta, cuerpo, todas=()):
     cta = meta.get("cta", "agendar")
     if cta == "agente":
         botones = (f'<a class="btn" data-cta="whatsapp" href="{WA}AGENTE" target="_blank" rel="noopener">Escribí AGENTE y probalo</a>'
-                   f'<a class="btn btn-line" data-cta="agendar" href="{CAL}" target="_blank" rel="noopener">Agendar llamada gratis</a>')
+                   f'<a class="btn btn-line" data-cta="agendar" href="{CAL}">Agendar llamada gratis</a>')
         cta_txt = "Escribí AGENTE por WhatsApp y te responde mi agente, para que veas cómo atendería tu tienda."
     else:
-        botones = (f'<a class="btn" data-cta="agendar" href="{CAL}" target="_blank" rel="noopener">Agendar llamada gratis</a>'
+        botones = (f'<a class="btn" data-cta="agendar" href="{CAL}">Agendar llamada gratis</a>'
                    f'<a class="btn btn-line" data-cta="whatsapp" href="{WA}Vengo%20de%20la%20gu%C3%ADa" target="_blank" rel="noopener">Escribime por WhatsApp</a>')
         cta_txt = "En 30 minutos reviso tus campañas y te digo qué haría en tu tienda. Sin compromiso."
     html_cuerpo = f'''<p class="crumbs"><a href="/">Inicio</a> / <a href="/guias">Guías</a></p>
@@ -248,7 +248,7 @@ def recurso(meta, cuerpo, guias):
 </div>
 <section class="relacionadas"><h2>Seguí con esto</h2><div class="cards">{enlace_guia}</div></section>
 <section class="cta"><h2>¿Querés que lo armemos para tu negocio?</h2><p>En 30 minutos vemos tu caso y te digo qué haría. Sin compromiso.</p>
-<div class="row"><a class="btn" data-cta="agendar" href="{CAL}" target="_blank" rel="noopener">Agendar llamada gratis</a>
+<div class="row"><a class="btn" data-cta="agendar" href="{CAL}">Agendar llamada gratis</a>
 <a class="btn btn-line" data-cta="whatsapp" href="{WA}AGENTE" target="_blank" rel="noopener">Escribí AGENTE por WhatsApp</a></div></section>
 {AUTOR}
 </article>
@@ -457,7 +457,7 @@ def perfil(meta, cuerpo):
 {cuerpo}
 {faq_html(meta.get("faq"))}
 <section class="cta"><h2>¿Trabajamos juntos?</h2><p>En 30 minutos reviso tu caso y te digo qué haría. Sin compromiso.</p>
-<div class="row"><a class="btn" data-cta="agendar" href="{CAL}" target="_blank" rel="noopener">Agendar llamada gratis</a>
+<div class="row"><a class="btn" data-cta="agendar" href="{CAL}">Agendar llamada gratis</a>
 <a class="btn btn-line" data-cta="whatsapp" href="{WA}Hola%2C%20vengo%20de%20la%20web" target="_blank" rel="noopener">Escribime por WhatsApp</a></div></section>
 </article>'''
     persona = dict(meta["persona"])

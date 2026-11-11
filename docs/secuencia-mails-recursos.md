@@ -92,7 +92,7 @@ Hola {$firstname},
 
 Si querés que miremos tu caso puntual, te ofrezco una llamada de diagnóstico de 30 minutos, sin costo. Reviso tus anuncios y cómo respondés las consultas, y te digo qué haría. Si no tiene sentido trabajar juntos, te lo digo.
 
-Elegí el horario que te quede mejor: https://calendar.app.google/Y7rQAcUQw2EqX5z3A
+Elegí el horario que te quede mejor: https://crececonads.site/agendar
 
 Y si preferís escribirme, mandá AGENTE por WhatsApp al +54 9 11 7356-6942 y te responde mi agente de IA, para que veas cómo funcionaría en tu negocio.
 
