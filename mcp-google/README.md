@@ -7,6 +7,8 @@ Corre en Railway (proyecto `mcp-google`, carpeta `mcp-google/` de este repo, ram
 - `GOOGLE_SA_JSON`: el JSON completo de la cuenta de servicio de Google Cloud.
 - `MCP_TOKEN`: cadena al azar de 24+ caracteres. La URL del conector es `https://<dominio>/<MCP_TOKEN>/mcp`.
 - `BING_API_KEY`: clave de Bing Webmaster Tools (Configuración → Acceso a la API).
+- `GEMINI_API_KEY`: clave de aistudio.google.com/apikey (para `ia_visibilidad`).
+- `PAGESPEED_API_KEY` (opcional): clave de API de Google Cloud con PageSpeed Insights API habilitada.
 - Opcionales: `GA4_PROPIEDAD`, `GSC_SITIO`, `GTM_CUENTA`, `GTM_CONTENEDOR` (valores por defecto).
 
 ## Cuenta de servicio
@@ -22,4 +24,5 @@ Tag Manager: `gtm_contenedores`, `gtm_listar`, `gtm_crear_variable_capa_datos`, 
 `gtm_crear_etiqueta_evento_ga4`, `gtm_cambios_pendientes`, `gtm_publicar` (solo con `confirmar=True` y el OK de Damián).
 Bing: `bing_busquedas`, `bing_paginas`, `bing_trafico`, `bing_estado_url`, `bing_cupo_envio`, `bing_enviar_urls`,
 `bing_palabras_relacionadas`; `indexnow_enviar` avisa a Bing y otros buscadores.
+`pagespeed`: velocidad y Core Web Vitals. `ia_visibilidad`: si Gemini te nombra.
 `estado_conexion` comprueba todo junto.

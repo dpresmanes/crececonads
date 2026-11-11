@@ -14,6 +14,7 @@ confirmar=True, que solo se usa con el OK explícito de Damián.
 import json
 import os
 import re
+import time
 from datetime import date, datetime, timedelta, timezone
 from urllib.parse import quote
 
@@ -475,6 +476,85 @@ def indexnow_enviar(urls: list[str]) -> dict:
         "keyLocation": f"https://crececonads.site/{INDEXNOW_KEY}.txt", "urlList": urls[:10000]})
     return {"ok": r.status_code in (200, 202), "codigo": r.status_code, "enviadas": len(urls)}
 
+
+# ---------------------------------------------------------------- PageSpeed Insights
+
+
+@mcp.tool()
+def pagespeed(url: str = "https://crececonads.site/", estrategia: str = "mobile") -> dict:
+    """Velocidad de una página (PageSpeed Insights): puntaje de rendimiento y SEO, Core Web Vitals de usuarios reales
+    (si Google tiene datos) y las 5 mejoras con más impacto. estrategia: "mobile" o "desktop"."""
+    params = [("url", url), ("strategy", estrategia), ("locale", "es")] + [("category", c) for c in ("PERFORMANCE", "SEO", "ACCESSIBILITY", "BEST_PRACTICES")]
+    if os.environ.get("PAGESPEED_API_KEY"):
+        params.append(("key", os.environ["PAGESPEED_API_KEY"]))
+    r = requests.get("https://www.googleapis.com/pagespeedonline/v5/runPagespeed", params=params, timeout=120)
+    if r.status_code >= 400:
+        extra = " · Falta PAGESPEED_API_KEY en Railway (sin clave propia se usa un cupo compartido que suele estar agotado)." \
+            if r.status_code == 429 and not os.environ.get("PAGESPEED_API_KEY") else ""
+        raise RuntimeError(f"PageSpeed respondió {r.status_code}: {r.text[:200]}{extra}")
+    d = r.json()
+    lh = d.get("lighthouseResult", {})
+    cats = {k: round((v.get("score") or 0) * 100) for k, v in lh.get("categories", {}).items()}
+    audits = lh.get("audits", {})
+    lab = {k: audits.get(k, {}).get("displayValue") for k in
+           ("largest-contentful-paint", "cumulative-layout-shift", "total-blocking-time", "first-contentful-paint", "speed-index")}
+    campo = {k: {"valor": v.get("percentile"), "categoria": v.get("category")}
+             for k, v in d.get("loadingExperience", {}).get("metrics", {}).items()}
+    mejoras = sorted((a for a in audits.values() if a.get("details", {}).get("type") == "opportunity"
+                      and (a.get("details", {}).get("overallSavingsMs") or 0) > 0),
+                     key=lambda a: -a["details"]["overallSavingsMs"])[:5]
+    return {"url": url, "estrategia": estrategia, "puntajes": cats, "laboratorio": lab,
+            "usuarios_reales": campo or "Google todavía no tiene datos de usuarios reales para esta página",
+            "mejoras": [{"titulo": a.get("title"), "ahorro_ms": round(a["details"]["overallSavingsMs"])} for a in mejoras]}
+
+
+# ---------------------------------------------------------------- Visibilidad en IA (Gemini con búsqueda)
+
+MARCA = re.compile(r"crece\s*con\s*ads|crececonads|presmanes", re.I)
+MODELOS_GEMINI = ["gemini-2.5-flash", "gemini-flash-latest", "gemini-2.5-flash-lite", "gemini-flash-lite-latest"]
+
+
+def gemini_buscar(pregunta: str) -> dict:
+    clave = os.environ.get("GEMINI_API_KEY")
+    if not clave:
+        raise RuntimeError("Falta la variable GEMINI_API_KEY en Railway (aistudio.google.com/apikey).")
+    ultimo = ""
+    for modelo in MODELOS_GEMINI:
+        r = requests.post(f"https://generativelanguage.googleapis.com/v1beta/models/{modelo}:generateContent",
+                          params={"key": clave}, timeout=90, json={
+                              "contents": [{"parts": [{"text": pregunta + "\nRespondé en español rioplatense. Si recomendás profesionales o empresas, nombralos."}]}],
+                              "tools": [{"google_search": {}}]})
+        if r.status_code == 200:
+            c = r.json()["candidates"][0]
+            texto = "".join(p.get("text", "") for p in c.get("content", {}).get("parts", []))
+            fuentes = [g["web"].get("title") or g["web"].get("uri") for g in c.get("groundingMetadata", {}).get("groundingChunks", []) if g.get("web")]
+            return {"modelo": modelo, "texto": texto, "fuentes": fuentes}
+        ultimo = f"{modelo}: {r.status_code} {r.text[:150]}"
+        if r.status_code in (400, 401, 403):
+            break
+    raise RuntimeError("Gemini no respondió. Último intento: " + ultimo)
+
+
+@mcp.tool()
+def ia_visibilidad(preguntas: list[str]) -> dict:
+    """Le hace a Gemini (con búsqueda en Google) las preguntas que haría un cliente y anota si nombra a
+    CreceConAds o a Damián Presmanes, y qué fuentes cita. Máximo 8 preguntas por llamada."""
+    filas = []
+    for i, q in enumerate(preguntas[:8]):
+        if i:
+            time.sleep(6)  # el plan gratuito limita las consultas por minuto
+        try:
+            r = gemini_buscar(q)
+        except RuntimeError as e:
+            filas.append({"pregunta": q, "error": str(e)})
+            if "429" in str(e) or "400" in str(e) or "403" in str(e):
+                break
+            continue
+        nombra = bool(MARCA.search(r["texto"]) or any(MARCA.search(f or "") for f in r["fuentes"]))
+        filas.append({"pregunta": q, "te_nombra": nombra, "fuentes": r["fuentes"][:8], "respuesta_inicio": r["texto"][:400]})
+    hechas = [f for f in filas if "error" not in f]
+    return {"preguntas_hechas": len(hechas), "te_nombra": sum(f["te_nombra"] for f in hechas), "detalle": filas}
+
 # ---------------------------------------------------------------- servidor
 
 
@@ -483,7 +563,8 @@ def estado_conexion() -> dict:
     """Comprueba la conexión: cuenta de servicio y a qué tiene acceso en GA4, Search Console y GTM."""
     salida = {"cuenta_servicio": cuenta_servicio()}
     for nombre, f in (("ga4", ga4_propiedades), ("search_console", gsc_sitios), ("tag_manager", gtm_contenedores),
-                      ("bing", bing_cupo_envio)):
+                      ("bing", bing_cupo_envio),
+                      ("gemini", lambda: "clave cargada" if os.environ.get("GEMINI_API_KEY") else "ERROR: falta GEMINI_API_KEY")):
         try:
             salida[nombre] = f()
         except Exception as e:  # se informa por servicio, sin cortar el resto
