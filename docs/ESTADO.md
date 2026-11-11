@@ -35,10 +35,22 @@ hecho y probado en producción; no se rehace ni se reescribe. Antes de tocar alg
    Activar con el SPF en verde en Sender; si sigue rojo, cambiar `~all` por `?all` en Hostinger.
 2. **GTM**: variables `recurso` y `rubro`, activador evento `recurso_desbloqueado`, etiqueta GA4 `generate_lead`;
    en GA4 marcarlo como evento clave. Ver también `docs/medicion/`.
-3. **Guías nuevas**: ritmo recomendado 1 por semana (tema del Calendario) + 1 corta de "cómo hacer" cada 2 semanas +
+3. ~~**Guías nuevas**~~ (resuelto el 11/11, ver "Estrategia de contenido"): ritmo recomendado 1 por semana (tema del Calendario) + 1 corta de "cómo hacer" cada 2 semanas +
    1 de Novedades por mes. Decidir si se programa una tarea semanal que escriba la guía y la deje para aprobar.
    La de Novedades se escribe con el informe del Vigía de diciembre (solo cambios confirmados).
 4. Perfil de X: cuando exista, sumarlo al `sameAs` de `index.html` y del perfil de autor.
+
+## Estrategia de contenido (desde el 11/11/2026)
+Objetivo: que Damián sea referente en IA y marketing para pymes y tiendas online de Argentina, y que cada página lleve a consultas.
+- **Lunes a viernes, 9:12:** una página nueva (tarea programada "Página diaria", corre en la sesión "Estrategia de guías semanales").
+  Prioridad: novedad confirmada de Meta, WhatsApp o IA (fuente: documento del Vigía "Meta Ads – Reglas vigentes"
+  1P7uys7oTec63vIoG55hLDSUCkucr5DmasPlevTY14T4, que se actualiza a las 8:23); si no hay, "cómo hacer" o pregunta real de la planilla.
+  Tags "Novedades · …" van al tema /guias/tema/novedades (marcado NewsArticle).
+- **Martes 10:40:** guía larga del tema de la semana (Calendario), la misma del principal de Instagram.
+- **Mensual:** resumen de novedades del mes y actualizar 2 guías viejas.
+- Cada página: respuesta corta arriba, FAQ, "qué hacer en tu negocio", 2+ enlaces internos, fuentes. Nada sin fuente oficial.
+- Aprobación: cada borrador queda en una rama (`pagina-AAAA-MM-DD` o `guia-AAAA-MM-DD`) y se publica cuando Damián responde OK.
+- Agente SEO v4.2 (Apps Script, lunes 9:00) trabaja por tandas (límite de 6 minutos de Google). Railway: solo IndexNow.
 
 ## Reglas
 Nada de precios propios ni montos del equipo; no inventar datos (los de Meta, con fuente y "verificalo en tu cuenta");
