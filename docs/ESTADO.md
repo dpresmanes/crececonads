@@ -50,7 +50,9 @@ Objetivo: que Damián sea referente en IA y marketing para pymes y tiendas onlin
 - **Mensual:** resumen de novedades del mes y actualizar 2 guías viejas.
 - Cada página: respuesta corta arriba, FAQ, "qué hacer en tu negocio", 2+ enlaces internos, fuentes. Nada sin fuente oficial.
 - Aprobación: cada borrador queda en una rama (`pagina-AAAA-MM-DD` o `guia-AAAA-MM-DD`) y se publica cuando Damián responde OK.
-- Agente SEO v4.2 (Apps Script, lunes 9:00) trabaja por tandas (límite de 6 minutos de Google). Railway: solo IndexNow.
+- **Lunes 9:42: "SEO semanal"** (tarea en esta sesión, con el MCP de Google y Bing): llena Búsquedas, Páginas, Bing, Historial y
+  Visibilidad IA, completa el volumen de Ideas, carga el Calendario a 4 semanas, revisa indexación y velocidad, y manda el parte.
+  Reemplaza al Apps Script (sacarle el activador de los lunes). Ideas: el ig-investigador carga ~30 por mes (columnas A–K).
 
 ## MCP de Google (desde el 11/11)
 Railway, proyecto `mcp-google` (carpeta `mcp-google/`). Cuenta de servicio mcp-crececonads@apt-bonbon-464013-s6.iam.gserviceaccount.com
