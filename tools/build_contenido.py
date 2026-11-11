@@ -157,7 +157,10 @@ def indice(cuerpo):
 
 
 def relacionadas(meta, todas):
-    otras = [m for m in todas if m["slug"] != meta["slug"]][:3]
+    # Primero las del mismo tema (arma el grupo de páginas que Google lee como un tema), después las más nuevas.
+    resto = [m for m in todas if m["slug"] != meta["slug"]]
+    mismo = [m for m in resto if pilar(m) == pilar(meta)]
+    otras = (mismo + [m for m in resto if m not in mismo])[:3]
     if not otras:
         return ""
     tarjetas = "\n".join(
@@ -197,7 +200,7 @@ def guia(meta, cuerpo, todas=()):
 {AUTOR}
 </article>'''
     grafo = [
-        {"@type": "Article", "@id": url + "#articulo", "headline": meta["titulo"], "description": meta["descripcion"],
+        {"@type": "NewsArticle" if pilar(meta) == "novedades" else "Article", "@id": url + "#articulo", "headline": meta["titulo"], "description": meta["descripcion"],
          "datePublished": meta["fecha"], "dateModified": meta.get("actualizado", meta["fecha"]), "inLanguage": "es-AR",
          "author": {"@id": PERSONA}, "publisher": {"@id": ORG}, "mainEntityOfPage": url, "image": SITIO + "/img/og.jpg",
          "about": meta.get("temas", [])},
@@ -285,13 +288,13 @@ def recurso(meta, cuerpo, guias):
 # ---------- temas y filtros de los listados ----------
 # Pilar de cada guía o recurso: el campo "pilar" si lo trae; si no, se deduce del "tag".
 PILARES = [("meta-ads", "Meta Ads"), ("agentes-ia", "Agentes de IA y WhatsApp"), ("automatizacion", "Automatización"),
-           ("novedades", "Novedades de Meta"), ("ventas", "Ventas y ecommerce")]
+           ("novedades", "Novedades de Meta e IA"), ("ventas", "Ventas y ecommerce")]
 NOMBRE_PILAR = dict(PILARES)
 INTRO_PILAR = {
     "meta-ads": "Campañas de ventas en Instagram y Facebook para tiendas online: presupuesto, creativos, métricas y cómo escalar sin quemar plata.",
     "agentes-ia": "Agentes de IA para responder por WhatsApp: el de Meta o uno propio, cómo se activan, cuánto cuestan y qué tiene que estar listo.",
     "automatizacion": "Cómo sacarte de encima las tareas que se repiten: procesos administrativos, contables y de atención, con o sin IA.",
-    "novedades": "Lo que cambia en Meta Ads cada mes, confirmado en fuentes oficiales, y qué hacer en tu cuenta.",
+    "novedades": "Lo que cambia en Meta Ads, WhatsApp y las herramientas de IA, confirmado en fuentes oficiales, y qué hacer en tu negocio.",
     "ventas": "Seguimiento de consultas, cierre y lo legal de vender por redes en Argentina.",
 }
 TEMAS_CON_PAGINA = set()  # lo llena main(): temas con 2 guías o más
