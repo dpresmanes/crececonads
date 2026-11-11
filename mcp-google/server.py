@@ -13,9 +13,11 @@ confirmar=True, que solo se usa con el OK explícito de Damián.
 """
 import json
 import os
-from datetime import date, timedelta
+import re
+from datetime import date, datetime, timedelta, timezone
 from urllib.parse import quote
 
+import requests
 import uvicorn
 from google.auth.transport.requests import AuthorizedSession
 from google.oauth2 import service_account
@@ -114,8 +116,8 @@ def espacio(cuenta, cont, workspace) -> str:
 
 
 mcp = FastMCP(
-    "CreceConAds Google",
-    instructions=("Google Analytics 4, Search Console y Tag Manager de CreceConAds. Lectura libre. "
+    "CreceConAds Google y Bing",
+    instructions=("Google Analytics 4, Search Console, Tag Manager y Bing Webmaster de CreceConAds. Lectura libre. "
                   "En Tag Manager los cambios quedan en un espacio de trabajo; gtm_publicar solo con el OK explícito de Damián."),
     stateless_http=True,
     json_response=True,
@@ -368,6 +370,109 @@ def gtm_publicar(confirmar: bool, nombre_version: str, notas: str = "", cuenta_i
             "nombre": nombre_version}
 
 
+
+# ---------------------------------------------------------------- Bing Webmaster Tools e IndexNow
+
+BING = "https://ssl.bing.com/webmaster/api.svc/json"
+INDEXNOW_KEY = os.environ.get("INDEXNOW_KEY", "014f905a0d3967e58894626d1e7a2c7c")
+
+
+def bing(metodo: str, http: str = "GET", cuerpo: dict | None = None, **params):
+    clave = os.environ.get("BING_API_KEY")
+    if not clave:
+        raise RuntimeError("Falta la variable BING_API_KEY en Railway (Bing Webmaster > Configuración > Acceso a la API).")
+    params["apikey"] = clave
+    r = requests.request(http, f"{BING}/{metodo}", params=params, json=cuerpo, timeout=60)
+    if r.status_code >= 400:
+        raise RuntimeError(f"Bing respondió {r.status_code}: {r.text[:300]}")
+    return r.json().get("d") if r.content else None
+
+
+def sitio_bing(s: str | None) -> str:
+    return s or os.environ.get("BING_SITIO", "https://crececonads.site/")
+
+
+def fecha_bing(v) -> str:
+    """Bing devuelve fechas como /Date(1699999999000-0800)/."""
+    ms = re.search(r"-?\d+", str(v or ""))
+    return datetime.fromtimestamp(int(ms.group()) / 1000, tz=timezone.utc).date().isoformat() if ms else ""
+
+
+def sumar_bing(filas: list, clave: str, dias: int) -> list[dict]:
+    desde = (date.today() - timedelta(days=dias)).isoformat()
+    tot = {}
+    for f in filas or []:
+        if fecha_bing(f.get("Date")) < desde:
+            continue
+        t = tot.setdefault(f.get(clave), {"clics": 0, "impresiones": 0, "posicion": None})
+        t["clics"] += f.get("Clicks", 0)
+        t["impresiones"] += f.get("Impressions", 0)
+        t["posicion"] = f.get("AvgImpressionPosition")
+    return sorted(({clave.lower(): k, **v} for k, v in tot.items()), key=lambda x: -x["impresiones"])
+
+
+@mcp.tool()
+def bing_busquedas(dias: int = 28, sitio_url: str | None = None, limite: int = 100) -> list[dict]:
+    """Búsquedas de Bing (también las usan ChatGPT y Copilot) que muestran el sitio: clics, impresiones y posición."""
+    return sumar_bing(bing("GetQueryStats", siteUrl=sitio_bing(sitio_url)), "Query", dias)[:limite]
+
+
+@mcp.tool()
+def bing_paginas(dias: int = 28, sitio_url: str | None = None, limite: int = 100) -> list[dict]:
+    """Páginas del sitio que aparecen en Bing: clics, impresiones y posición."""
+    return sumar_bing(bing("GetPageStats", siteUrl=sitio_bing(sitio_url)), "Query", dias)[:limite]
+
+
+@mcp.tool()
+def bing_trafico(sitio_url: str | None = None) -> list[dict]:
+    """Clics e impresiones por día en Bing (últimos 6 meses aprox.)."""
+    return [{"fecha": fecha_bing(f.get("Date")), "clics": f.get("Clicks"), "impresiones": f.get("Impressions")}
+            for f in bing("GetRankAndTrafficStats", siteUrl=sitio_bing(sitio_url)) or []]
+
+
+@mcp.tool()
+def bing_estado_url(url: str, sitio_url: str | None = None) -> dict:
+    """Si Bing conoce una URL: última lectura, código HTTP, si está indexada y links que recibe."""
+    d = bing("GetUrlInfo", siteUrl=sitio_bing(sitio_url), url=url) or {}
+    return {"url": url, "codigo_http": d.get("HttpStatus"), "ultima_lectura": fecha_bing(d.get("LastCrawledDate")),
+            "descubierta": fecha_bing(d.get("DiscoveryDate")), "links_entrantes": d.get("AnchorCount"),
+            "tamano": d.get("DocumentSize"), "conocida": bool(d.get("LastCrawledDate") or d.get("DiscoveryDate"))}
+
+
+@mcp.tool()
+def bing_cupo_envio(sitio_url: str | None = None) -> dict:
+    """Cuántas URLs se pueden enviar hoy y este mes a Bing para indexar."""
+    d = bing("GetUrlSubmissionQuota", siteUrl=sitio_bing(sitio_url)) or {}
+    return {"hoy": d.get("DailyQuota"), "mes": d.get("MonthlyQuota")}
+
+
+@mcp.tool()
+def bing_enviar_urls(urls: list[str], sitio_url: str | None = None) -> dict:
+    """Envía URLs a Bing para que las indexe (permitido por Bing, con cupo diario). Seguro: no cambia el sitio."""
+    if not urls:
+        raise RuntimeError("Pasá al menos una URL.")
+    bing("SubmitUrlBatch", http="POST", cuerpo={"siteUrl": sitio_bing(sitio_url), "urlList": urls[:500]})
+    return {"ok": True, "enviadas": len(urls[:500])}
+
+
+@mcp.tool()
+def bing_palabras_relacionadas(busqueda: str, pais: str = "ar", idioma: str = "es-AR") -> list[dict]:
+    """Palabras clave relacionadas con volumen de impresiones en Bing (últimos 3 meses)."""
+    fin = date.today() - timedelta(days=1)
+    d = bing("GetRelatedKeywords", q=busqueda, country=pais, language=idioma,
+             startDate=(fin - timedelta(days=90)).isoformat(), endDate=fin.isoformat()) or []
+    return sorted(({"palabra": k.get("Query"), "impresiones": k.get("Impressions")} for k in d),
+                  key=lambda x: -(x["impresiones"] or 0))[:100]
+
+
+@mcp.tool()
+def indexnow_enviar(urls: list[str]) -> dict:
+    """Avisa a Bing, Yandex, Seznam y otros buscadores (IndexNow) que estas URLs de crececonads.site son nuevas o cambiaron."""
+    r = requests.post("https://api.indexnow.org/indexnow", timeout=30, json={
+        "host": "crececonads.site", "key": INDEXNOW_KEY,
+        "keyLocation": f"https://crececonads.site/{INDEXNOW_KEY}.txt", "urlList": urls[:10000]})
+    return {"ok": r.status_code in (200, 202), "codigo": r.status_code, "enviadas": len(urls)}
+
 # ---------------------------------------------------------------- servidor
 
 
@@ -375,7 +480,8 @@ def gtm_publicar(confirmar: bool, nombre_version: str, notas: str = "", cuenta_i
 def estado_conexion() -> dict:
     """Comprueba la conexión: cuenta de servicio y a qué tiene acceso en GA4, Search Console y GTM."""
     salida = {"cuenta_servicio": cuenta_servicio()}
-    for nombre, f in (("ga4", ga4_propiedades), ("search_console", gsc_sitios), ("tag_manager", gtm_contenedores)):
+    for nombre, f in (("ga4", ga4_propiedades), ("search_console", gsc_sitios), ("tag_manager", gtm_contenedores),
+                      ("bing", bing_cupo_envio)):
         try:
             salida[nombre] = f()
         except Exception as e:  # se informa por servicio, sin cortar el resto
