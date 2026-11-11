@@ -220,3 +220,14 @@ th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacin
 .news-bloque .k{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
 .news-bloque b{display:block;font-family:var(--display);font-size:22px;line-height:1.2}
 .news-bloque p{margin:6px 0 0;color:var(--soft);font-size:16px}
+
+/* /novedades-meta */
+.nov{margin:28px 0;padding:22px;border-radius:18px;background:var(--night-2);border:1px solid var(--edge)}
+.nov time{font:500 13px var(--mono, monospace);color:var(--soft);letter-spacing:.04em}
+.nov h2{margin:6px 0 12px;font-size:22px}
+.nov p{margin:10px 0}
+.nov-nota{font-size:15px;color:var(--soft);border-left:3px solid var(--edge);padding-left:12px}
+.nov-fuente{font-size:14px;color:var(--soft)}
+.nov-fuente .tag{display:inline-block;margin-right:6px;padding:2px 8px;border-radius:999px;background:rgba(61,220,151,.12);color:#3DDC97;font-size:12px}
+.nov-guia{font-size:15px}
+.nov-pie{font-size:15px;color:var(--soft)}

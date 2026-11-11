@@ -49,7 +49,7 @@ CABECERA = f'''<header class="top"><div class="wrap">
 
 PIE = '''<footer class="site-foot"><div class="wrap">
   <span>© 2026 CreceConAds · Damián Presmanes</span>
-  <span><a href="/guias">Guías</a> · <a href="/recursos">Recursos</a> · <a href="https://www.instagram.com/crececonads/">Instagram</a> · <a href="https://maps.google.com/?cid=8214692810272884951">Google Maps</a> · <a href="/privacidad">Privacidad</a> · <a href="/eliminacion-de-datos">Eliminación de datos</a> · <a href="/terminos">Términos</a></span>
+  <span><a href="/guias">Guías</a> · <a href="/novedades-meta">Novedades de Meta</a> · <a href="/recursos">Recursos</a> · <a href="https://www.instagram.com/crececonads/">Instagram</a> · <a href="https://maps.google.com/?cid=8214692810272884951">Google Maps</a> · <a href="/privacidad">Privacidad</a> · <a href="/eliminacion-de-datos">Eliminación de datos</a> · <a href="/terminos">Términos</a></span>
 </div></footer>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -506,6 +506,50 @@ def listado(guias):
     return url, documento(meta, url, ld, cuerpo)
 
 
+def novedades():
+    """Página /novedades-meta: los cambios de Meta Ads confirmados en fuentes oficiales (datos en contenido/novedades-meta.json)."""
+    datos = json.loads((RAIZ / "contenido" / "novedades-meta.json").read_text(encoding="utf-8"))["novedades"]
+    datos = sorted(datos, key=lambda n: n["fecha"], reverse=True)
+    url = f"{SITIO}/novedades-meta"
+    ultima = datos[0]["fecha"]
+    meta = {"titulo": "Novedades de Meta Ads: los cambios confirmados y qué hacer",
+            "titulo_seo": "Novedades de Meta Ads 2026: cambios confirmados y qué hacer | CreceConAds",
+            "descripcion": "Los cambios de la publicidad de Instagram y Facebook confirmados en fuentes oficiales de Meta, con la fecha, qué cambió y qué hacer en tu tienda online. Se actualiza cada semana.",
+            "og_tipo": "website"}
+    def fid(n, i): return f"n-{n['fecha']}-{i}"
+    items = []
+    for i, n in enumerate(datos):
+        fuentes = " · ".join(f'<a href="{esc(u)}" rel="noopener" target="_blank">{esc(t)}</a>' for t, u in n["fuentes"])
+        guia_link = f'<p class="nov-guia">Más detalle en la guía: <a href="/guias/{n["guia"]}">leer la guía</a></p>' if n.get("guia") else ""
+        nota = f'<p class="nov-nota">{esc(n["nota"])}</p>' if n.get("nota") else ""
+        items.append(f'''<article class="nov" id="{fid(n, i)}">
+  <time datetime="{n["fecha"]}">{fecha_larga(n["fecha"])}</time>
+  <h2>{esc(n["titulo"])}</h2>
+  <p><b>Qué cambió.</b> {esc(n["que_cambio"])}</p>
+  <p><b>Qué hacer.</b> {esc(n["que_hacer"])}</p>
+  {nota}
+  <p class="nov-fuente"><span class="tag">✅ Fuente oficial</span> {fuentes}</p>
+  {guia_link}
+</article>''')
+    cuerpo = f'''<p class="crumbs"><a href="/">Inicio</a> / <a href="/guias">Guías</a> / Novedades de Meta</p>
+<article class="guia">
+<span class="chip-recurso">Meta Ads · Novedades · Actualizado el {fecha_larga(ultima)}</span>
+<h1>Novedades de <span class="g">Meta Ads</span></h1>
+<p class="lead">Los cambios de la publicidad de Instagram y Facebook que Meta confirmó en sus fuentes oficiales (centro de ayuda, páginas legales y blog de ingeniería), con qué cambió y qué hacer en tu tienda. Lo que todavía es rumor o solo lo dice la prensa, no entra.</p>
+{"".join(items)}
+<p class="nov-pie">Reviso las fuentes oficiales de Meta todos los días. Cuando un cambio se confirma, lo sumo acá con su fuente. Para recibirlos una vez por mes, sumate al <a href="/newsletter">newsletter</a>.</p>
+{NEWS}
+</article>'''
+    ld = {"@context": "https://schema.org", "@graph": [
+        {"@type": "CollectionPage", "@id": url + "#pagina", "url": url, "name": meta["titulo"], "description": meta["descripcion"],
+         "inLanguage": "es-AR", "dateModified": ultima, "author": {"@id": PERSONA}, "publisher": {"@id": ORG},
+         "hasPart": [{"@type": "NewsArticle", "@id": f"{url}#{fid(n, i)}", "headline": n["titulo"], "datePublished": n["fecha"],
+                      "description": n["que_cambio"], "author": {"@id": PERSONA}, "publisher": {"@id": ORG},
+                      "citation": [u for _, u in n["fuentes"]]} for i, n in enumerate(datos)]},
+        migas([("Inicio", SITIO + "/"), ("Guías", SITIO + "/guias"), ("Novedades de Meta", url)])]}
+    return url, documento(meta, url, ld, cuerpo), ultima, datos
+
+
 def main():
     guias, urls = [], [(SITIO + "/", "2026-10-30"), (SITIO + "/privacidad", "2026-11-05"), (SITIO + "/eliminacion-de-datos", "2026-11-05"), (SITIO + "/terminos", "2026-11-05")]
     contenidos = [leer(p) for p in sorted((RAIZ / "contenido").glob("*.html"))]
@@ -548,6 +592,10 @@ def main():
         destino.write_text(doc, encoding="utf-8")
         urls.append((url, max(m.get("actualizado", m["fecha"]) for m in guias if pilar(m) == k)))
         print("ok", destino.relative_to(RAIZ))
+    url, doc, ultima_nov, novs = novedades()
+    (RAIZ / "novedades-meta.html").write_text(doc, encoding="utf-8")
+    urls.append((url, ultima_nov))
+    print("ok novedades-meta.html")
     url, doc = listado(guias)
     (RAIZ / "guias" / "index.html").write_text(doc, encoding="utf-8")
     urls.append((url, max([m["fecha"] for m in guias], default="2026-10-30")))
@@ -579,6 +627,13 @@ def main():
             llms = re.sub(r"<!-- recursos:inicio -->.*?<!-- recursos:fin -->", rec, llms, flags=re.S)
         else:
             llms = llms.replace("## Contacto", rec + "\n\n## Contacto")
+    nov = "## Novedades de Meta Ads confirmadas\n\n" + f"Página que se actualiza con cada cambio confirmado en fuentes oficiales de Meta: {SITIO}/novedades-meta\n\n" + "\n".join(
+        f"- {n['fecha']}: {n['titulo']}. {n['que_hacer']} Fuente: {n['fuentes'][0][1]}" for n in novs[:8])
+    nov = "<!-- novedades:inicio -->\n" + nov + "\n<!-- novedades:fin -->"
+    if "<!-- novedades:inicio -->" in llms:
+        llms = re.sub(r"<!-- novedades:inicio -->.*?<!-- novedades:fin -->", lambda _: nov, llms, flags=re.S)
+    else:
+        llms = llms.replace("<!-- guias:inicio -->", nov + "\n\n<!-- guias:inicio -->")
     (RAIZ / "llms.txt").write_text(llms, encoding="utf-8")
     print(f"sitemap: {len(urls)} páginas · guías: {len(guias)}")
 

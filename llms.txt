@@ -18,6 +18,21 @@
 - Guadalupe González y Sofía Maciel (nutricionistas): 1.485 conversaciones. Caso de aprendizaje: el evento gratuito se llenó, pero casi nadie pasó a la oferta paga.
 - UTN Facultad Regional Buenos Aires, Dirección de Alumnos: automatización de trámites de simultaneidad de carreras, de la solicitud a la resolución.
 
+<!-- novedades:inicio -->
+## Novedades de Meta Ads confirmadas
+
+Página que se actualiza con cada cambio confirmado en fuentes oficiales de Meta: https://crececonads.site/novedades-meta
+
+- 2026-11-10: El píxel suma un ajuste que mide conversiones en los dispositivos de los clientes. Entrá al Administrador de eventos y decidí, píxel por píxel, si lo dejás activado. Marcá el 12/11 como corte en tus reportes: si el ROAS sube desde esa fecha, puede ser por la forma de medir y no porque vendas más. Fuente: https://www.facebook.com/business/help/4237575203200036
+- 2026-11-09: En las campañas de Ventas, Meta puede mostrar tu anuncio en otros dispositivos. Si tu tienda necesita un solo sistema operativo (por ejemplo, una app que solo existe para iPhone), desactivala en cada conjunto de anuncios nuevo: Ubicaciones → Dispositivos y sistemas operativos. Fuente: https://www.facebook.com/business/help/1133720472541826
+- 2026-11-07: Los nuevos términos de publicidad del 20/11 quedaron en pausa. No cambies nada por el 20/11. Igual conviene revisar a mano las mejoras de IA de Advantage+ creative antes de publicar: lo que muestra tu anuncio habla por tu tienda. Fuente: https://www.facebook.com/legal/self_service_ads_terms
+- 2026-11-06: Ofertas detectadas: Meta puede mostrar en tus anuncios promociones de tu web. Antes de armar o duplicar los anuncios de Black Friday y Navidad, entrá a Commerce Manager → Configuración → Offer merchandising → "Ofertas detectadas" y decidí si querés que Meta muestre ofertas por su cuenta. Si una promo vence o tiene condiciones (por ejemplo, solo con transferencia), apagalo. Fuente: https://www.facebook.com/business/help/1467642254076258
+- 2026-11-06: Ubicaciones automáticas en las campañas de Ventas, Clientes potenciales y Promoción de app. Definí una vez, a nivel cuenta, qué ubicaciones no querés usar. Prepará cada anuncio en vertical (9:16) y en 4:5 o cuadrado, y mirá el desglose por ubicación las primeras semanas. Fuente: https://www.facebook.com/business/help/196554084569964
+- 2026-11-04: Anuncios en los Estados de WhatsApp: qué se sabe y si ya están en Argentina. Fijate si la ubicación "Estados de WhatsApp" aparece en tu administrador de anuncios. Hasta hoy no hay confirmación oficial de que esté disponible en Argentina. Fuente: https://www.facebook.com/business/help/723817683917948
+- 2026-10-28: Andromeda: el creativo pesa más que la segmentación. Antes que afinar intereses, sumá anuncios con conceptos de verdad distintos (otro ángulo, otro formato, otra persona o escenario). Cambiar solo el color o el título no cuenta como concepto nuevo. Fuente: https://engineering.fb.com/2026/10/28/ml-applications/meta-andromeda-next-gen-ads-retrieval-gpu-co-design/
+- 2026-10-19: GenRecs: Meta lee el texto y la imagen de tu anuncio para entender qué vendés. Que el texto y la imagen digan con claridad qué vendés y para quién. Un anuncio ambiguo le cuesta más a Meta encontrarle el público. Fuente: https://engineering.fb.com/2026/10/19/ml-applications/genrecs-tokenization-transforming-ads-recommendation-at-meta-with-stable-model-vocabulary/
+<!-- novedades:fin -->
+
 <!-- guias:inicio -->
 ## Guías
 

@@ -1,0 +1,67 @@
+{
+  "_como_se_usa": "Una entrada por cambio confirmado en una fuente oficial de Meta (✅ en el documento del Vigía). Lo que está 'en observación' no entra. Las más nuevas arriba. Después de editar: python3 tools/build_contenido.py.",
+  "novedades": [
+    {
+      "fecha": "2026-11-10",
+      "titulo": "El píxel suma un ajuste que mide conversiones en los dispositivos de los clientes",
+      "que_cambio": "Meta agregó al píxel el ajuste \"Medir conversiones en los dispositivos de los clientes\", que viene activado por defecto en el Administrador de eventos (no aplica a personas en la Unión Europea ni el Reino Unido). Suma conversiones que antes no se medían, así que en tus reportes vas a ver más compras y más valor atribuido. La ventana y el modelo de atribución no cambian, y no reemplaza al píxel ni a la API de Conversiones.",
+      "que_hacer": "Entrá al Administrador de eventos y decidí, píxel por píxel, si lo dejás activado. Marcá el 12/11 como corte en tus reportes: si el ROAS sube desde esa fecha, puede ser por la forma de medir y no porque vendas más.",
+      "nota": "El ajuste está en el centro de ayuda de Meta. La fecha de inicio (12/11/2026) la informa la prensa especializada; el artículo oficial todavía no la menciona.",
+      "fuentes": [["Centro de ayuda de Meta: medir conversiones en los dispositivos de los clientes", "https://www.facebook.com/business/help/4237575203200036"]],
+      "guia": "cambios-meta-ads-noviembre-2026"
+    },
+    {
+      "fecha": "2026-11-09",
+      "titulo": "En las campañas de Ventas, Meta puede mostrar tu anuncio en otros dispositivos",
+      "que_cambio": "La opción \"Llegar a más personas en otros dispositivos móviles\" viene activada por defecto en las campañas de Ventas. Si limitás los dispositivos (por ejemplo, solo iOS), Meta puede mostrar el anuncio en otros cuando espera un mejor resultado. No cambia el presupuesto ni la puja, y la mejora puede tardar hasta 6 semanas.",
+      "que_hacer": "Si tu tienda necesita un solo sistema operativo (por ejemplo, una app que solo existe para iPhone), desactivala en cada conjunto de anuncios nuevo: Ubicaciones → Dispositivos y sistemas operativos.",
+      "fuentes": [["Centro de ayuda de Meta: llegar a más personas en otros dispositivos móviles", "https://www.facebook.com/business/help/1133720472541826"]]
+    },
+    {
+      "fecha": "2026-11-07",
+      "titulo": "Los nuevos términos de publicidad del 20/11 quedaron en pausa",
+      "que_cambio": "Meta había anunciado nuevas Condiciones de publicidad de autoservicio para el 20 de noviembre de 2026. Su página oficial ahora dice que esas actualizaciones están en pausa y que los términos actuales siguen vigentes hasta nuevo aviso. Lo mismo pasa con las Condiciones comerciales. No hay fecha nueva.",
+      "que_hacer": "No cambies nada por el 20/11. Igual conviene revisar a mano las mejoras de IA de Advantage+ creative antes de publicar: lo que muestra tu anuncio habla por tu tienda.",
+      "fuentes": [["Meta: Condiciones de publicidad de autoservicio", "https://www.facebook.com/legal/self_service_ads_terms"], ["Meta: Condiciones comerciales", "https://www.facebook.com/legal/commercial_terms"]],
+      "guia": "cambios-meta-ads-noviembre-2026"
+    },
+    {
+      "fecha": "2026-11-06",
+      "titulo": "Ofertas detectadas: Meta puede mostrar en tus anuncios promociones de tu web",
+      "que_cambio": "Con \"Ofertas detectadas\", Meta toma promociones de tu sitio web, de tus otros anuncios y de las ofertas sincronizadas, y puede mostrarlas en tus anuncios de Facebook e Instagram (campañas de Ventas con conversión en el sitio web). No se apaga anuncio por anuncio: se apaga en Commerce Manager. Las ofertas que vienen de Shopify se quitan desincronizando el descuento en Shopify. La configuración se aplica al crear, duplicar o editar un anuncio.",
+      "que_hacer": "Antes de armar o duplicar los anuncios de Black Friday y Navidad, entrá a Commerce Manager → Configuración → Offer merchandising → \"Ofertas detectadas\" y decidí si querés que Meta muestre ofertas por su cuenta. Si una promo vence o tiene condiciones (por ejemplo, solo con transferencia), apagalo.",
+      "fuentes": [["Centro de ayuda de Meta: ofertas detectadas", "https://www.facebook.com/business/help/1467642254076258"], ["Centro de ayuda de Meta: cómo apagarlas", "https://www.facebook.com/business/help/718380518775632"]],
+      "guia": "cambios-meta-ads-noviembre-2026"
+    },
+    {
+      "fecha": "2026-11-06",
+      "titulo": "Ubicaciones automáticas en las campañas de Ventas, Clientes potenciales y Promoción de app",
+      "que_cambio": "Estas campañas pasan a usar ubicaciones Advantage+ por defecto, sin elegir ubicaciones en cada conjunto de anuncios (el despliegue es gradual). Las exclusiones se manejan desde los controles de ubicación de la cuenta publicitaria, y en las ubicaciones excluidas se puede permitir hasta un 5 % del gasto. Reconocimiento, Tráfico e Interacción mantienen la elección manual.",
+      "que_hacer": "Definí una vez, a nivel cuenta, qué ubicaciones no querés usar. Prepará cada anuncio en vertical (9:16) y en 4:5 o cuadrado, y mirá el desglose por ubicación las primeras semanas.",
+      "fuentes": [["Centro de ayuda de Meta: ubicaciones Advantage+", "https://www.facebook.com/business/help/196554084569964"], ["Centro de ayuda de Meta: controles de ubicación de la cuenta", "https://www.facebook.com/business/help/1546753450586085"]],
+      "guia": "cambios-meta-ads-noviembre-2026"
+    },
+    {
+      "fecha": "2026-11-04",
+      "titulo": "Anuncios en los Estados de WhatsApp: qué se sabe y si ya están en Argentina",
+      "que_cambio": "Meta habilitó los anuncios en los Estados de WhatsApp. Funcionan con los objetivos Reconocimiento, Interacción, Tráfico, Clientes potenciales y Ventas, con destino a una web o a mensajes; para usar esa ubicación hay que incluir también las historias de Instagram, y la segmentación es solo por ubicación, idioma y edad. El despliegue es gradual y puede no estar disponible en todos los países.",
+      "que_hacer": "Fijate si la ubicación \"Estados de WhatsApp\" aparece en tu administrador de anuncios. Hasta hoy no hay confirmación oficial de que esté disponible en Argentina.",
+      "fuentes": [["Centro de ayuda de Meta: anuncios en los Estados de WhatsApp", "https://www.facebook.com/business/help/723817683917948"]]
+    },
+    {
+      "fecha": "2026-10-28",
+      "titulo": "Andromeda: el creativo pesa más que la segmentación",
+      "que_cambio": "Meta explicó en su blog de ingeniería la nueva versión de Andromeda, el sistema que elige qué anuncios entran en cada subasta. Evalúa todos los anuncios con señales del contenido del anuncio y del usuario; la segmentación del anunciante se aplica antes, como filtro. Como cada vez hay más anuncios hechos con IA, la competencia crece y la diversidad real de conceptos es la principal palanca.",
+      "que_hacer": "Antes que afinar intereses, sumá anuncios con conceptos de verdad distintos (otro ángulo, otro formato, otra persona o escenario). Cambiar solo el color o el título no cuenta como concepto nuevo.",
+      "fuentes": [["Blog de ingeniería de Meta: Andromeda (28/10/2026)", "https://engineering.fb.com/2026/10/28/ml-applications/meta-andromeda-next-gen-ads-retrieval-gpu-co-design/"]],
+      "guia": "escalar-ventas-tienda-online-meta-ads"
+    },
+    {
+      "fecha": "2026-10-19",
+      "titulo": "GenRecs: Meta lee el texto y la imagen de tu anuncio para entender qué vendés",
+      "que_cambio": "Meta describe cada anuncio, producto y página por su contenido (texto e imagen). Un anuncio nuevo aprovecha lo aprendido de anuncios parecidos, también de campañas anteriores.",
+      "que_hacer": "Que el texto y la imagen digan con claridad qué vendés y para quién. Un anuncio ambiguo le cuesta más a Meta encontrarle el público.",
+      "fuentes": [["Blog de ingeniería de Meta: GenRecs (19/10/2026)", "https://engineering.fb.com/2026/10/19/ml-applications/genrecs-tokenization-transforming-ads-recommendation-at-meta-with-stable-model-vocabulary/"]]
+    }
+  ]
+}
