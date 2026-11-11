@@ -1,0 +1,5 @@
+mcp>=1.20,<2
+google-auth>=2.30
+requests>=2.31
+uvicorn>=0.30
+starlette>=0.37
