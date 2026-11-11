@@ -21,7 +21,7 @@
 <!-- novedades:inicio -->
 ## Novedades de Meta Ads confirmadas
 
-Página que se actualiza con cada cambio confirmado en fuentes oficiales de Meta: https://crececonads.site/novedades-meta
+Página que se actualiza con cada cambio confirmado en fuentes oficiales: https://crececonads.site/novedades-meta
 
 - 2026-11-10: El píxel suma un ajuste que mide conversiones en los dispositivos de los clientes. Entrá al Administrador de eventos y decidí, píxel por píxel, si lo dejás activado. Marcá el 12/11 como corte en tus reportes: si el ROAS sube desde esa fecha, puede ser por la forma de medir y no porque vendas más. Fuente: https://www.facebook.com/business/help/4237575203200036
 - 2026-11-09: En las campañas de Ventas, Meta puede mostrar tu anuncio en otros dispositivos. Si tu tienda necesita un solo sistema operativo (por ejemplo, una app que solo existe para iPhone), desactivala en cada conjunto de anuncios nuevo: Ubicaciones → Dispositivos y sistemas operativos. Fuente: https://www.facebook.com/business/help/1133720472541826
@@ -32,6 +32,21 @@ Página que se actualiza con cada cambio confirmado en fuentes oficiales de Meta
 - 2026-10-28: Andromeda: el creativo pesa más que la segmentación. Antes que afinar intereses, sumá anuncios con conceptos de verdad distintos (otro ángulo, otro formato, otra persona o escenario). Cambiar solo el color o el título no cuenta como concepto nuevo. Fuente: https://engineering.fb.com/2026/10/28/ml-applications/meta-andromeda-next-gen-ads-retrieval-gpu-co-design/
 - 2026-10-19: GenRecs: Meta lee el texto y la imagen de tu anuncio para entender qué vendés. Que el texto y la imagen digan con claridad qué vendés y para quién. Un anuncio ambiguo le cuesta más a Meta encontrarle el público. Fuente: https://engineering.fb.com/2026/10/19/ml-applications/genrecs-tokenization-transforming-ads-recommendation-at-meta-with-stable-model-vocabulary/
 <!-- novedades:fin -->
+
+<!-- novedades-ia:inicio -->
+## Novedades de IA para pymes confirmadas
+
+Página que se actualiza con cada cambio confirmado en fuentes oficiales: https://crececonads.site/novedades-ia
+
+- 2026-11-10: ChatGPT abre perfiles para negocios: cómo aparece tu marca cuando alguien pregunta. Buscá tu marca en ChatGPT y fijate qué dice de vos. Si tu negocio puede reclamar el perfil, hacelo y revisá que los datos (rubro, web, zona) estén bien: cada vez más gente pregunta a la IA antes de comprar. Fuente: https://openai.com/index/introducing-businesses-chatgpt
+- 2026-11-10: Gemini en Gmail llega a todas las cuentas de Google Workspace. Si usás Gmail con tu dominio (Workspace), probalo para responder consultas repetidas y para ponerte al día con hilos largos de proveedores o clientes. Revisá siempre el borrador antes de enviarlo. Fuente: http://workspaceupdates.googleblog.com/2026/11/expanding-gemini-in-gmail-to-more-Google-Workspace-users.html
+- 2026-11-09: Seguimientos automáticos sin código: Workspace Studio suma el paso "Wait until". Armá en un solo flujo lo que hoy hacés a mano: por ejemplo, mandar un mail de seguimiento tres días después de una reunión o un recordatorio el lunes a la mañana. Fuente: http://workspaceupdates.googleblog.com/2026/11/pause-and-schedule-automated-workflows-with-the-new-Wait-until-step-in-Workspace-Studio.html
+- 2026-11-09: Skills en Google Workspace: que Gemini escriba con las reglas de tu negocio. Armá una skill con el tono de tu marca, tus respuestas frecuentes y tus políticas de envío y cambios. Así cualquiera del equipo responde igual. Fuente: http://workspaceupdates.googleblog.com/2026/11/skills-in-workspace.html
+- 2026-11-04: Images 2.6 de OpenAI: imágenes más rápidas, GIF y edición más precisa. Sirve para bocetos, fondos y variantes de piezas. Si las usás en anuncios de Meta, tené en cuenta que Meta puede marcarlas con la etiqueta "Información de IA", y no muestres en una imagen generada algo que tu producto no es. Fuente: https://openai.com/index/introducing-images-2-6
+- 2026-10-29: La app de Gemini crea y edita documentos, PDF y planillas dentro del chat. Usalo para armar un presupuesto, una lista de precios o una presentación de tu negocio y editarla ahí mismo. Revisá los números antes de mandarlo a un cliente. Fuente: https://blog.google/innovation-and-ai/products/gemini-app/edit-files-directly/
+- 2026-10-27: n8n 3.0: si tus automatizaciones corren en n8n, revisá antes de actualizar. Antes de actualizar, abrí el "Migration Report" de tu instalación: te dice qué flujos y configuraciones hay que cambiar. Si alguien te maneja las automatizaciones, pedile que lo revise. Fuente: https://blog.n8n.io/introducing-n8n-v3/
+- 2026-10-20: Gemini suma herramientas para pequeños negocios: marca, finanzas y apps conectadas. Subí tu guía de marca (colores, tipografías, tono) antes de pedirle piezas, así no tenés que corregir cada una. Conectá solo las apps que necesitás y revisá qué datos le das acceso. Fuente: https://blog.google/innovation-and-ai/products/gemini-app/new-tools-small-business-owners/
+<!-- novedades-ia:fin -->
 
 <!-- guias:inicio -->
 ## Guías

@@ -49,7 +49,7 @@ CABECERA = f'''<header class="top"><div class="wrap">
 
 PIE = '''<footer class="site-foot"><div class="wrap">
   <span>© 2026 CreceConAds · Damián Presmanes</span>
-  <span><a href="/guias">Guías</a> · <a href="/novedades-meta">Novedades de Meta</a> · <a href="/recursos">Recursos</a> · <a href="https://www.instagram.com/crececonads/">Instagram</a> · <a href="https://maps.google.com/?cid=8214692810272884951">Google Maps</a> · <a href="/privacidad">Privacidad</a> · <a href="/eliminacion-de-datos">Eliminación de datos</a> · <a href="/terminos">Términos</a></span>
+  <span><a href="/guias">Guías</a> · <a href="/novedades-meta">Novedades de Meta</a> · <a href="/novedades-ia">Novedades de IA</a> · <a href="/recursos">Recursos</a> · <a href="https://www.instagram.com/crececonads/">Instagram</a> · <a href="https://maps.google.com/?cid=8214692810272884951">Google Maps</a> · <a href="/privacidad">Privacidad</a> · <a href="/eliminacion-de-datos">Eliminación de datos</a> · <a href="/terminos">Términos</a></span>
 </div></footer>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -506,16 +506,34 @@ def listado(guias):
     return url, documento(meta, url, ld, cuerpo)
 
 
-def novedades():
-    """Página /novedades-meta: los cambios de Meta Ads confirmados en fuentes oficiales (datos en contenido/novedades-meta.json)."""
-    datos = json.loads((RAIZ / "contenido" / "novedades-meta.json").read_text(encoding="utf-8"))["novedades"]
+# Páginas de novedades: datos en contenido/<archivo>.json, una entrada por cambio confirmado en fuente oficial.
+NOVEDADES = [
+    {"slug": "novedades-meta", "archivo": "novedades-meta.json", "nombre": "Novedades de Meta",
+     "titulo": "Novedades de Meta Ads: los cambios confirmados y qué hacer",
+     "titulo_seo": "Novedades de Meta Ads 2026: cambios confirmados y qué hacer | CreceConAds",
+     "descripcion": "Los cambios de la publicidad de Instagram y Facebook confirmados en fuentes oficiales de Meta, con la fecha, qué cambió y qué hacer en tu tienda online. Se actualiza cada semana.",
+     "chip": "Meta Ads · Novedades", "h1": 'Novedades de <span class="g">Meta Ads</span>',
+     "lead": "Los cambios de la publicidad de Instagram y Facebook que Meta confirmó en sus fuentes oficiales (centro de ayuda, páginas legales y blog de ingeniería), con qué cambió y qué hacer en tu tienda. Lo que todavía es rumor o solo lo dice la prensa, no entra.",
+     "revision": "Reviso las fuentes oficiales de Meta todos los días.",
+     "llms": "Novedades de Meta Ads confirmadas", "marca": "novedades"},
+    {"slug": "novedades-ia", "archivo": "novedades-ia.json", "nombre": "Novedades de IA",
+     "titulo": "Novedades de IA para pymes: automatizaciones, agentes e IA generativa",
+     "titulo_seo": "Novedades de IA para pymes 2026: agentes, automatización y qué hacer | CreceConAds",
+     "descripcion": "Lo nuevo en automatizaciones, agentes que responden solos e IA generativa (OpenAI, Google, Meta, Anthropic, n8n y más), confirmado en fuentes oficiales, con qué hacer en tu negocio. Se actualiza cada semana.",
+     "chip": "IA para pymes · Novedades", "h1": 'Novedades de <span class="g">IA para pymes</span>',
+     "lead": "Lo nuevo en automatizaciones, agentes que responden solos e IA generativa, confirmado en las fuentes oficiales de cada empresa (OpenAI, Google, Meta, Anthropic, Microsoft, n8n, Zapier y Make), con qué cambia para tu negocio en Argentina. Lo que solo dice la prensa o no llega al país, no entra.",
+     "revision": "Reviso las fuentes oficiales de las empresas de IA todos los días.",
+     "llms": "Novedades de IA para pymes confirmadas", "marca": "novedades-ia"},
+]
+
+
+def novedades(cfg):
+    """Página de novedades: los cambios confirmados en fuentes oficiales (datos en contenido/<archivo>)."""
+    datos = json.loads((RAIZ / "contenido" / cfg["archivo"]).read_text(encoding="utf-8"))["novedades"]
     datos = sorted(datos, key=lambda n: n["fecha"], reverse=True)
-    url = f"{SITIO}/novedades-meta"
+    url = f"{SITIO}/{cfg['slug']}"
     ultima = datos[0]["fecha"]
-    meta = {"titulo": "Novedades de Meta Ads: los cambios confirmados y qué hacer",
-            "titulo_seo": "Novedades de Meta Ads 2026: cambios confirmados y qué hacer | CreceConAds",
-            "descripcion": "Los cambios de la publicidad de Instagram y Facebook confirmados en fuentes oficiales de Meta, con la fecha, qué cambió y qué hacer en tu tienda online. Se actualiza cada semana.",
-            "og_tipo": "website"}
+    meta = {"titulo": cfg["titulo"], "titulo_seo": cfg["titulo_seo"], "descripcion": cfg["descripcion"], "og_tipo": "website"}
     def fid(n, i): return f"n-{n['fecha']}-{i}"
     items = []
     for i, n in enumerate(datos):
@@ -531,24 +549,24 @@ def novedades():
   <p class="nov-fuente"><span class="tag">✅ Fuente oficial</span> {fuentes}</p>
   {guia_link}
 </article>''')
-    cuerpo = f'''<p class="crumbs"><a href="/">Inicio</a> / <a href="/guias">Guías</a> / Novedades de Meta</p>
+    otras = " · ".join(f'<a href="/{c["slug"]}">{esc(c["nombre"])}</a>' for c in NOVEDADES if c["slug"] != cfg["slug"])
+    cuerpo = f'''<p class="crumbs"><a href="/">Inicio</a> / <a href="/guias">Guías</a> / {esc(cfg["nombre"])}</p>
 <article class="guia">
-<span class="chip-recurso">Meta Ads · Novedades · Actualizado el {fecha_larga(ultima)}</span>
-<h1>Novedades de <span class="g">Meta Ads</span></h1>
-<p class="lead">Los cambios de la publicidad de Instagram y Facebook que Meta confirmó en sus fuentes oficiales (centro de ayuda, páginas legales y blog de ingeniería), con qué cambió y qué hacer en tu tienda. Lo que todavía es rumor o solo lo dice la prensa, no entra.</p>
+<span class="chip-recurso">{esc(cfg["chip"])} · Actualizado el {fecha_larga(ultima)}</span>
+<h1>{cfg["h1"]}</h1>
+<p class="lead">{esc(cfg["lead"])}</p>
 {"".join(items)}
-<p class="nov-pie">Reviso las fuentes oficiales de Meta todos los días. Cuando un cambio se confirma, lo sumo acá con su fuente. Para recibirlos una vez por mes, sumate al <a href="/newsletter">newsletter</a>.</p>
+<p class="nov-pie">{esc(cfg["revision"])} Cuando un cambio se confirma, lo sumo acá con su fuente. Para recibirlos una vez por mes, sumate al <a href="/newsletter">newsletter</a>. También: {otras}.</p>
 {NEWS}
 </article>'''
     ld = {"@context": "https://schema.org", "@graph": [
-        {"@type": "CollectionPage", "@id": url + "#pagina", "url": url, "name": meta["titulo"], "description": meta["descripcion"],
+        {"@type": "CollectionPage", "@id": url + "#pagina", "url": url, "name": cfg["titulo"], "description": cfg["descripcion"],
          "inLanguage": "es-AR", "dateModified": ultima, "author": {"@id": PERSONA}, "publisher": {"@id": ORG},
          "hasPart": [{"@type": "NewsArticle", "@id": f"{url}#{fid(n, i)}", "headline": n["titulo"], "datePublished": n["fecha"],
                       "description": n["que_cambio"], "author": {"@id": PERSONA}, "publisher": {"@id": ORG},
                       "citation": [u for _, u in n["fuentes"]]} for i, n in enumerate(datos)]},
-        migas([("Inicio", SITIO + "/"), ("Guías", SITIO + "/guias"), ("Novedades de Meta", url)])]}
+        migas([("Inicio", SITIO + "/"), ("Guías", SITIO + "/guias"), (cfg["nombre"], url)])]}
     return url, documento(meta, url, ld, cuerpo), ultima, datos
-
 
 def main():
     guias, urls = [], [(SITIO + "/", "2026-10-30"), (SITIO + "/privacidad", "2026-11-05"), (SITIO + "/eliminacion-de-datos", "2026-11-05"), (SITIO + "/terminos", "2026-11-05")]
@@ -592,10 +610,13 @@ def main():
         destino.write_text(doc, encoding="utf-8")
         urls.append((url, max(m.get("actualizado", m["fecha"]) for m in guias if pilar(m) == k)))
         print("ok", destino.relative_to(RAIZ))
-    url, doc, ultima_nov, novs = novedades()
-    (RAIZ / "novedades-meta.html").write_text(doc, encoding="utf-8")
-    urls.append((url, ultima_nov))
-    print("ok novedades-meta.html")
+    paginas_nov = []
+    for cfg in NOVEDADES:
+        url, doc, ultima_nov, novs = novedades(cfg)
+        (RAIZ / f"{cfg['slug']}.html").write_text(doc, encoding="utf-8")
+        urls.append((url, ultima_nov))
+        paginas_nov.append((cfg, novs))
+        print("ok", f"{cfg['slug']}.html")
     url, doc = listado(guias)
     (RAIZ / "guias" / "index.html").write_text(doc, encoding="utf-8")
     urls.append((url, max([m["fecha"] for m in guias], default="2026-10-30")))
@@ -627,13 +648,15 @@ def main():
             llms = re.sub(r"<!-- recursos:inicio -->.*?<!-- recursos:fin -->", rec, llms, flags=re.S)
         else:
             llms = llms.replace("## Contacto", rec + "\n\n## Contacto")
-    nov = "## Novedades de Meta Ads confirmadas\n\n" + f"Página que se actualiza con cada cambio confirmado en fuentes oficiales de Meta: {SITIO}/novedades-meta\n\n" + "\n".join(
-        f"- {n['fecha']}: {n['titulo']}. {n['que_hacer']} Fuente: {n['fuentes'][0][1]}" for n in novs[:8])
-    nov = "<!-- novedades:inicio -->\n" + nov + "\n<!-- novedades:fin -->"
-    if "<!-- novedades:inicio -->" in llms:
-        llms = re.sub(r"<!-- novedades:inicio -->.*?<!-- novedades:fin -->", lambda _: nov, llms, flags=re.S)
-    else:
-        llms = llms.replace("<!-- guias:inicio -->", nov + "\n\n<!-- guias:inicio -->")
+    for cfg, novs in paginas_nov:
+        m = cfg["marca"]
+        nov = f"## {cfg['llms']}\n\n" + f"Página que se actualiza con cada cambio confirmado en fuentes oficiales: {SITIO}/{cfg['slug']}\n\n" + "\n".join(
+            f"- {n['fecha']}: {n['titulo']}. {n['que_hacer']} Fuente: {n['fuentes'][0][1]}" for n in novs[:8])
+        nov = f"<!-- {m}:inicio -->\n" + nov + f"\n<!-- {m}:fin -->"
+        if f"<!-- {m}:inicio -->" in llms:
+            llms = re.sub(rf"<!-- {m}:inicio -->.*?<!-- {m}:fin -->", lambda _: nov, llms, flags=re.S)
+        else:
+            llms = llms.replace("<!-- guias:inicio -->", nov + "\n\n<!-- guias:inicio -->")
     (RAIZ / "llms.txt").write_text(llms, encoding="utf-8")
     print(f"sitemap: {len(urls)} páginas · guías: {len(guias)}")
 

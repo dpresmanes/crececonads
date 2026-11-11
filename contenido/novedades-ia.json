@@ -1,0 +1,65 @@
+{
+  "_como_se_usa": "Una entrada por novedad de IA para pymes confirmada en una fuente oficial (✅ en ceo/VIGIA-IA.md del repo crececonads-sistema). Temas: automatizaciones, agentes que responden solos e IA generativa. Lo que está 'en observación' no entra. Después de editar: python3 tools/build_contenido.py.",
+  "novedades": [
+    {
+      "fecha": "2026-11-10",
+      "titulo": "ChatGPT abre perfiles para negocios: cómo aparece tu marca cuando alguien pregunta",
+      "que_cambio": "OpenAI lanzó en beta \"Businesses in ChatGPT\": los negocios pueden gestionar su información dentro de ChatGPT, ver cómo aparecen cuando la gente pregunta por lo que venden y convertir ese interés en acciones.",
+      "que_hacer": "Buscá tu marca en ChatGPT y fijate qué dice de vos. Si tu negocio puede reclamar el perfil, hacelo y revisá que los datos (rubro, web, zona) estén bien: cada vez más gente pregunta a la IA antes de comprar.",
+      "nota": "La página de OpenAI no detalla países. Según la prensa, el perfil se puede reclamar en las regiones donde ChatGPT está disponible y con un sitio web, y los agentes de negocio que responden por la marca por ahora son solo para Estados Unidos.",
+      "fuentes": [["OpenAI: Introducing Businesses in ChatGPT", "https://openai.com/index/introducing-businesses-chatgpt"]]
+    },
+    {
+      "fecha": "2026-11-10",
+      "titulo": "Gemini en Gmail llega a todas las cuentas de Google Workspace",
+      "que_cambio": "Google amplió a todos los usuarios de Workspace mayores de 18 años dos funciones de Gemini en Gmail: el resumen al principio de las conversaciones largas y \"Ayudame a escribir\", que arma borradores completos o mejora un texto a partir de una indicación. El administrador de la cuenta las puede desactivar.",
+      "que_hacer": "Si usás Gmail con tu dominio (Workspace), probalo para responder consultas repetidas y para ponerte al día con hilos largos de proveedores o clientes. Revisá siempre el borrador antes de enviarlo.",
+      "fuentes": [["Google Workspace Updates: Gemini en Gmail para más usuarios", "http://workspaceupdates.googleblog.com/2026/11/expanding-gemini-in-gmail-to-more-Google-Workspace-users.html"]],
+      "guia": "automatizar-procesos-administrativos-ia-pyme"
+    },
+    {
+      "fecha": "2026-11-09",
+      "titulo": "Seguimientos automáticos sin código: Workspace Studio suma el paso \"Wait until\"",
+      "que_cambio": "En los flujos de Google Workspace Studio ahora se puede pausar una automatización y retomarla en una fecha u hora, o después de un plazo de hasta 14 días, también dentro de condiciones y repeticiones. Antes había que armar flujos separados.",
+      "que_hacer": "Armá en un solo flujo lo que hoy hacés a mano: por ejemplo, mandar un mail de seguimiento tres días después de una reunión o un recordatorio el lunes a la mañana.",
+      "fuentes": [["Google Workspace Updates: paso \"Wait until\" en Workspace Studio", "http://workspaceupdates.googleblog.com/2026/11/pause-and-schedule-automated-workflows-with-the-new-Wait-until-step-in-Workspace-Studio.html"]],
+      "guia": "automatizar-procesos-administrativos-ia-pyme"
+    },
+    {
+      "fecha": "2026-11-09",
+      "titulo": "Skills en Google Workspace: que Gemini escriba con las reglas de tu negocio",
+      "que_cambio": "Las \"skills\" son instrucciones reutilizables con las reglas, plantillas y archivos de referencia de tu equipo, para que Gemini las aplique al escribir mails, documentos o presentaciones. Se crean y prueban en Workspace Studio y en Google Docs, y se comparten con el equipo.",
+      "que_hacer": "Armá una skill con el tono de tu marca, tus respuestas frecuentes y tus políticas de envío y cambios. Así cualquiera del equipo responde igual.",
+      "fuentes": [["Google Workspace Updates: skills en Google Workspace", "http://workspaceupdates.googleblog.com/2026/11/skills-in-workspace.html"]]
+    },
+    {
+      "fecha": "2026-11-04",
+      "titulo": "Images 2.6 de OpenAI: imágenes más rápidas, GIF y edición más precisa",
+      "que_cambio": "OpenAI lanzó Images 2.6, con generación de imágenes más rápida, creación de GIF, edición más precisa y nuevos controles en ChatGPT, Codex y la API.",
+      "que_hacer": "Sirve para bocetos, fondos y variantes de piezas. Si las usás en anuncios de Meta, tené en cuenta que Meta puede marcarlas con la etiqueta \"Información de IA\", y no muestres en una imagen generada algo que tu producto no es.",
+      "fuentes": [["OpenAI: Introducing Images 2.6", "https://openai.com/index/introducing-images-2-6"]]
+    },
+    {
+      "fecha": "2026-10-29",
+      "titulo": "La app de Gemini crea y edita documentos, PDF y planillas dentro del chat",
+      "que_cambio": "En la app de Gemini ahora se pueden generar, ver y editar documentos, PDF, presentaciones y planillas sin salir de la conversación. Los PDF funcionan en la web y en el celular; los demás formatos, solo en la web. Está en todos los idiomas donde está Gemini, así que también en español.",
+      "que_hacer": "Usalo para armar un presupuesto, una lista de precios o una presentación de tu negocio y editarla ahí mismo. Revisá los números antes de mandarlo a un cliente.",
+      "fuentes": [["Blog de Google: archivos en la app de Gemini", "https://blog.google/innovation-and-ai/products/gemini-app/edit-files-directly/"]]
+    },
+    {
+      "fecha": "2026-10-27",
+      "titulo": "n8n 3.0: si tus automatizaciones corren en n8n, revisá antes de actualizar",
+      "que_cambio": "n8n publicó la beta de la versión 3.0, centrada en estabilidad y seguridad. Trae cambios que pueden romper flujos existentes (por ejemplo, los nodos Cron e Interval pasan a Schedule Trigger y el tiempo máximo del nodo Code baja de 5 a 1 minuto). La versión estable sale a principios de diciembre.",
+      "que_hacer": "Antes de actualizar, abrí el \"Migration Report\" de tu instalación: te dice qué flujos y configuraciones hay que cambiar. Si alguien te maneja las automatizaciones, pedile que lo revise.",
+      "fuentes": [["Blog de n8n: Introducing n8n 3.0", "https://blog.n8n.io/introducing-n8n-v3/"]],
+      "guia": "automatizar-procesos-administrativos-ia-pyme"
+    },
+    {
+      "fecha": "2026-10-20",
+      "titulo": "Gemini suma herramientas para pequeños negocios: marca, finanzas y apps conectadas",
+      "que_cambio": "Google lanzó en Gemini una página para pequeños negocios desde donde se trabaja la marca, las finanzas y lo que dicen los clientes. Se conecta con Google Business Profile, Google Ads y Workspace, y con apps como Shopify y Canva; se puede subir la guía de marca para generar piezas consistentes y ordenar planillas desordenadas. El despliegue es global.",
+      "que_hacer": "Subí tu guía de marca (colores, tipografías, tono) antes de pedirle piezas, así no tenés que corregir cada una. Conectá solo las apps que necesitás y revisá qué datos le das acceso.",
+      "fuentes": [["Blog de Google: nuevas herramientas de Gemini para pequeños negocios", "https://blog.google/innovation-and-ai/products/gemini-app/new-tools-small-business-owners/"]]
+    }
+  ]
+}
