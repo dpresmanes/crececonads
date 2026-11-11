@@ -239,8 +239,16 @@
 </div></footer>
 <script>
   window.dataLayer = window.dataLayer || [];
-  document.querySelectorAll("[data-cta]").forEach(a => a.addEventListener("click", () =>
-    window.dataLayer.push({ event: /^agendar(_google)?$/.test(a.dataset.cta) ? "agendar_click" : "cta_click", cta_type: a.dataset.cta, cta_text: a.textContent.trim().slice(0, 60), cta_section: location.pathname })));
+  document.querySelectorAll("[data-cta]").forEach(a => a.addEventListener("click", (ev) => {
+    const agendar = /^agendar(_google)?$/.test(a.dataset.cta);
+    const datos = { event: agendar ? "agendar_click" : "cta_click", cta_type: a.dataset.cta, cta_text: a.textContent.trim().slice(0, 60), cta_section: location.pathname };
+    // Link interno (/agendar): esperar a que salga el evento antes de cambiar de página (máximo 1 s).
+    if (agendar && (a.getAttribute("href") || "").startsWith("/") && !ev.metaKey && !ev.ctrlKey && !ev.shiftKey && ev.button === 0) {
+      ev.preventDefault(); let ido = false; const ir = () => { if (!ido) { ido = true; location.href = a.href; } };
+      datos.eventCallback = ir; datos.eventTimeout = 1000; setTimeout(ir, 1000);
+    }
+    window.dataLayer.push(datos);
+  }));
 </script>
 </body>
 </html>

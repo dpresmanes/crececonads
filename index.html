@@ -731,10 +731,16 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   const src = new URLSearchParams(location.search).get("utm_content") || "";
   const waUrl = t => "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(t + (src ? " (vengo de " + src + ")" : ""));
   const calUrl = () => CAL_URL || waUrl("Quiero agendar la llamada de 30 minutos");
-  const track = (type, a) => window.dataLayer.push({ event: /^agendar(_google)?$/.test(type) ? "agendar_click" : "cta_click", cta_type: type, cta_text: a.textContent.trim().slice(0, 60), cta_section: (a.closest("section,header,.bar") || {}).id || (a.closest("section,header,.bar") || {}).className || "" });
+  const track = (type, a, alSalir) => window.dataLayer.push({ ...(alSalir ? { eventCallback: alSalir, eventTimeout: 1000 } : {}), event: /^agendar(_google)?$/.test(type) ? "agendar_click" : "cta_click", cta_type: type, cta_text: a.textContent.trim().slice(0, 60), cta_section: (a.closest("section,header,.bar") || {}).id || (a.closest("section,header,.bar") || {}).className || "" });
   function wire(root){
     root.querySelectorAll("[data-wa]").forEach(a => { a.href = waUrl(a.dataset.wa); a.target = "_blank"; a.rel = "noopener"; a.addEventListener("click", () => track("whatsapp", a)); });
-    root.querySelectorAll("[data-cal]").forEach(a => { a.href = calUrl(); if (!CAL_URL.startsWith("/")) { a.target = "_blank"; a.rel = "noopener"; } a.addEventListener("click", () => track(CAL_URL ? "agendar" : "agendar_whatsapp", a)); });
+    root.querySelectorAll("[data-cal]").forEach(a => { a.href = calUrl(); if (!CAL_URL.startsWith("/")) { a.target = "_blank"; a.rel = "noopener"; } a.addEventListener("click", (ev) => {
+      if (CAL_URL.startsWith("/") && !ev.metaKey && !ev.ctrlKey && !ev.shiftKey && ev.button === 0) {
+        // Link interno: esperar a que salga el evento antes de cambiar de página (máximo 1 s).
+        ev.preventDefault(); let ido = false; const ir = () => { if (!ido) { ido = true; location.href = a.href; } };
+        track("agendar", a, ir); setTimeout(ir, 1000);
+      } else track(CAL_URL ? "agendar" : "agendar_whatsapp", a);
+    }); });
   }
   wire(document);
   document.querySelectorAll("[data-video]").forEach(a => { if (VIDEO_URL) { a.href = VIDEO_URL; a.target = "_blank"; a.rel = "noopener"; } else a.addEventListener("click", e => e.preventDefault()); });
