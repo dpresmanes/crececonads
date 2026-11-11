@@ -33,7 +33,7 @@ hecho y probado en producción; no se rehace ni se reescribe. Antes de tocar alg
    Delay 4 → Email 4 → Delay 5 → Email 5 (opcional: Action → copiar al grupo Newsletter). Cada email: Custom HTML →
    Import from URL con el link de arriba. Asuntos y vistas previas en `docs/secuencia-mails-recursos.md`.
    Activar con el SPF en verde en Sender; si sigue rojo, cambiar `~all` por `?all` en Hostinger.
-2. **GTM**: variables `recurso` y `rubro`, activador evento `recurso_desbloqueado`, etiqueta GA4 `generate_lead`;
+2. ~~**GTM**~~ (hecho: GTM ya publicado con CE - recurso_desbloqueado, DLV recurso/rubro y GA4 generate_lead; generate_lead marcado como evento clave el 11/11 con el MCP de Google): variables `recurso` y `rubro`, activador evento `recurso_desbloqueado`, etiqueta GA4 `generate_lead`;
    en GA4 marcarlo como evento clave. Ver también `docs/medicion/`.
 3. ~~**Guías nuevas**~~ (resuelto el 11/11, ver "Estrategia de contenido"): ritmo recomendado 1 por semana (tema del Calendario) + 1 corta de "cómo hacer" cada 2 semanas +
    1 de Novedades por mes. Decidir si se programa una tarea semanal que escriba la guía y la deje para aprobar.
@@ -51,6 +51,11 @@ Objetivo: que Damián sea referente en IA y marketing para pymes y tiendas onlin
 - Cada página: respuesta corta arriba, FAQ, "qué hacer en tu negocio", 2+ enlaces internos, fuentes. Nada sin fuente oficial.
 - Aprobación: cada borrador queda en una rama (`pagina-AAAA-MM-DD` o `guia-AAAA-MM-DD`) y se publica cuando Damián responde OK.
 - Agente SEO v4.2 (Apps Script, lunes 9:00) trabaja por tandas (límite de 6 minutos de Google). Railway: solo IndexNow.
+
+## MCP de Google (desde el 11/11)
+Railway, proyecto `mcp-google` (carpeta `mcp-google/`). Cuenta de servicio mcp-crececonads@apt-bonbon-464013-s6.iam.gserviceaccount.com
+con acceso a GA4 465752183 (Editor), Search Console https://crececonads.site/ y GTM-TKWHBHB9. Conector "Google CreceConAds" en claude.ai.
+Al 11/11 Google indexó solo la home: las guías y recursos no figuran. Se reenvió el sitemap; pedir indexación a mano en Search Console.
 
 ## Reglas
 Nada de precios propios ni montos del equipo; no inventar datos (los de Meta, con fuente y "verificalo en tu cuenta");
