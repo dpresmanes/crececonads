@@ -1,7 +1,7 @@
 /**
  * Agente SEO y GEO de CreceConAds, dentro de la planilla "Agente SEO · CreceConAds".
  *
- * Cada lunes (v4.2: trabaja por tandas y retoma solo, porque Google corta cada ejecución a los 6 minutos):
+ * Cada lunes (v4.3: trabaja por tandas y retoma solo, porque Google corta cada ejecución a los 6 minutos):
  *  - Búsquedas y Páginas: qué búsquedas de Google muestran crececonads.site (Search Console, últimos 28 días).
  *  - Bing: lo mismo en Bing (Bing Webmaster Tools), que es de donde busca ChatGPT.
  *  - Visibilidad IA: hace a Gemini las preguntas de la pestaña "Preguntas" y anota si te nombra.
@@ -69,6 +69,15 @@ function seguir() {
   const t0 = Date.now();
   const estado = leerEstado();
   if (!estado) return;
+  // Seguro: la próxima tanda queda programada ANTES de trabajar. Si Google corta esta ejecución a los 6 minutos,
+  // el agente sigue solo igual. Si termina bien, se borra al final.
+  borrarContinuaciones();
+  ScriptApp.newTrigger('seguir').timeBased().after(7 * 60 * 1000).create();
+  estado.tandas = (estado.tandas || 0) + 1;
+  if (estado.tandas > 15) { // nunca más de 15 tandas: algo anda mal, se corta y queda en el registro
+    console.error('Agente cortado después de 15 tandas en el paso ' + PASOS[estado.paso]);
+    estado.paso = PASOS.indexOf('historial');
+  }
   SIN_CUPO = !!estado.sinCupo;
   const tareas = { busquedas: busquedas, bing: bing, visibilidadIA: visibilidadIA, ideas: ideas, palabras: palabrasDelMes, historial: historial };
   while (estado.paso < PASOS.length) {
@@ -84,7 +93,7 @@ function seguir() {
     guardarEstado(estado);
     if (estado.paso < PASOS.length && Date.now() - t0 > LIMITE_MS) {
       borrarContinuaciones();
-      ScriptApp.newTrigger('seguir').timeBased().after(60 * 1000).create();
+      ScriptApp.newTrigger('seguir').timeBased().after(60 * 1000).create(); // reemplaza al seguro: sigue en 1 minuto
       console.log('Pausa en ' + PASOS[estado.paso] + ': sigue en 1 minuto.');
       return;
     }
@@ -283,6 +292,7 @@ function visibilidadIA(estado, t0) {
     const p = preguntas[estado.pregunta];
     if (estado.pregunta) Utilities.sleep(7000); // el plan gratuito limita las consultas por minuto
     estado.pregunta++;
+    guardarEstado(estado);
     let r;
     try {
       r = gemini(clave, p + '\nRespondé en español rioplatense. Si recomendás profesionales o empresas, nombralos.', true);
@@ -330,7 +340,9 @@ function gemini(clave, prompt, buscar, json) {
   [true, false].forEach(b => MODELOS.forEach(m => combos.push([m, b ? 'buscar' : 'sin'])));
 
   let ultimo = '';
+  const inicio = Date.now();
   for (const [modelo, modo] of combos) {
+    if (Date.now() - inicio > 90 * 1000) { ultimo = 'más de 90 segundos probando modelos; ' + ultimo; break; } // tope por pregunta
     if (!buscar && modo === 'buscar') continue; // sin búsqueda pedida, alcanza con probar cada modelo una vez
     const conBusqueda = modo === 'buscar';
     const body = { contents: [{ parts: [{ text: prompt }] }] };
