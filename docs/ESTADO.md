@@ -51,14 +51,14 @@ sitemap reenviado a Google y 39 URLs enviadas a Bing; columnas nuevas en `Ideas`
 ## Tareas programadas (corren en la sesión "Estrategia de guías semanales", que tiene el repo, la planilla y el MCP)
 | Cuándo | Tarea |
 |---|---|
-| Lunes a viernes 9:12 | Página diaria (novedad del Vigía o "cómo hacer") → rama `pagina-AAAA-MM-DD`, se publica con OK |
+| Martes y jueves 9:12 | Guía corta "cómo hacer" (800–1.200 palabras, búsqueda con evidencia real, sin pisar guías ni /novedades-meta o /novedades-ia) → rama `pagina-AAAA-MM-DD`, se publica con OK. Si no hay tema que cumpla, no se escribe |
 | Martes 10:40 | Guía larga del tema de la semana → rama `guia-AAAA-MM-DD`, se publica con OK |
 | Lunes 9:42 | SEO semanal: datos de Google/Bing/GA4 a la planilla, ideas, Calendario, indexación, velocidad, visibilidad IA y parte |
 | Diario 8:23 / lunes 8:47 | Vigía de Meta (actualiza el doc "Meta Ads – Reglas vigentes") |
 
 ## Estrategia de contenido (desde el 11/11/2026)
 Objetivo: que Damián sea referente en IA y marketing para pymes y tiendas online de Argentina, y que cada página lleve a consultas.
-- **Lunes a viernes, 9:12:** una página nueva (tarea programada "Página diaria", corre en la sesión "Estrategia de guías semanales").
+- **Martes y jueves, 9:12** (desde el 11/11; antes lunes a viernes): una guía corta (tarea programada "Guía corta", corre en la sesión "Estrategia de guías semanales").
   Prioridad: novedad confirmada de Meta, WhatsApp o IA (fuente: documento del Vigía "Meta Ads – Reglas vigentes"
   1P7uys7oTec63vIoG55hLDSUCkucr5DmasPlevTY14T4, que se actualiza a las 8:23); si no hay, "cómo hacer" o pregunta real de la planilla.
   Tags "Novedades · …" van al tema /guias/tema/novedades (marcado NewsArticle).
