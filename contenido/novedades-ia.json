@@ -2,6 +2,13 @@
   "_como_se_usa": "Una entrada por novedad de IA para pymes confirmada en una fuente oficial (✅ en ceo/VIGIA-IA.md del repo crececonads-sistema). Temas: automatizaciones, agentes que responden solos e IA generativa. Lo que está 'en observación' no entra. Después de editar: python3 tools/build_contenido.py.",
   "novedades": [
     {
+      "fecha": "2026-11-11",
+      "titulo": "Google Sheets: las mini apps que arma Gemini con tu planilla ahora se comparten con un link",
+      "que_cambio": "Sheets canvas usa Gemini para convertir los datos de una planilla en mini apps interactivas (tableros, tableros de tareas, calendarios). Ahora se pueden publicar con un link propio: quien lo abre puede usar la mini app sin ver ni editar la planilla original. Se puede elegir que se actualice sola cuando cambia la planilla o publicar una vista fija, y dejar de publicarla cuando quieras. Por ahora, desde Sheets en la computadora.",
+      "que_hacer": "Si tenés Google Workspace Business Standard o Plus, o Google AI Pro, probalo para mostrar a tu equipo (o a quien quieras) un calendario de entregas, una agenda o un tablero de pedidos sin darles acceso a la planilla. Antes de compartirlo, revisá a quién le abriste el link. La función se va habilitando de a poco: puede tardar hasta 15 días en aparecerte.",
+      "fuentes": [["Google Workspace Updates: Publish a Sheets canvas as a standalone link", "http://workspaceupdates.googleblog.com/2026/11/publish-sheets-canvas-as-standalone-link.html"]]
+    },
+    {
       "fecha": "2026-11-10",
       "titulo": "ChatGPT abre perfiles para negocios: cómo aparece tu marca cuando alguien pregunta",
       "que_cambio": "OpenAI lanzó en beta \"Businesses in ChatGPT\": los negocios pueden gestionar su información dentro de ChatGPT, ver cómo aparecen cuando la gente pregunta por lo que venden y convertir ese interés en acciones.",
