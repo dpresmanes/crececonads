@@ -341,6 +341,34 @@ def gtm_crear_etiqueta_evento_ga4(nombre: str, evento_ga4: str, activador_id: st
 
 
 @mcp.tool()
+def gtm_crear(tipo: str, recurso: dict, cuenta_id: str | None = None, contenedor_id: str | None = None,
+              workspace_id: str | None = None) -> dict:
+    """Crea una etiqueta (tags), activador (triggers) o variable (variables) con el JSON completo de la API de
+    Tag Manager v2 (name, type, parameter, firingTriggerId, blockingTriggerId, customEventFilter, filter...).
+    Queda en el espacio de trabajo: no publica."""
+    if tipo not in ("tags", "triggers", "variables"):
+        raise RuntimeError('tipo tiene que ser "tags", "triggers" o "variables".')
+    ws = espacio(cuenta_id, contenedor_id, workspace_id)
+    r = pedir("POST", f"{GTM}/{ws}/{tipo}", json=recurso)
+    clave = {"tags": "tagId", "triggers": "triggerId", "variables": "variableId"}[tipo]
+    return {"ok": True, "id": r.get(clave), "nombre": r.get("name")}
+
+
+@mcp.tool()
+def gtm_editar(tipo: str, id: str, cambios: dict, cuenta_id: str | None = None, contenedor_id: str | None = None,
+               workspace_id: str | None = None) -> dict:
+    """Edita una etiqueta, activador o variable existente: reemplaza solo los campos de primer nivel que vengan en
+    `cambios` (ej. {"blockingTriggerId": ["25"]}). Queda en el espacio de trabajo: no publica."""
+    if tipo not in ("tags", "triggers", "variables"):
+        raise RuntimeError('tipo tiene que ser "tags", "triggers" o "variables".')
+    ws = espacio(cuenta_id, contenedor_id, workspace_id)
+    actual = pedir("GET", f"{GTM}/{ws}/{tipo}/{id}")
+    actual.update(cambios)
+    r = pedir("PUT", f"{GTM}/{ws}/{tipo}/{id}", json=actual, params={"fingerprint": actual.get("fingerprint")})
+    return {"ok": True, "id": id, "nombre": r.get("name"), "campos": list(cambios)}
+
+
+@mcp.tool()
 def gtm_cambios_pendientes(cuenta_id: str | None = None, contenedor_id: str | None = None,
                            workspace_id: str | None = None) -> dict:
     """Muestra qué cambió en el espacio de trabajo respecto de lo publicado (para revisar antes de publicar)."""
