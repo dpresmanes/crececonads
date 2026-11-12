@@ -51,8 +51,8 @@ sitemap reenviado a Google y 39 URLs enviadas a Bing; columnas nuevas en `Ideas`
 ## Tareas programadas (corren en la sesión "Estrategia de guías semanales", que tiene el repo, la planilla y el MCP)
 | Cuándo | Tarea |
 |---|---|
-| Martes y jueves 9:12 | Guía corta "cómo hacer" (800–1.200 palabras, búsqueda con evidencia real, sin pisar guías ni /novedades-meta o /novedades-ia) → rama `pagina-AAAA-MM-DD`, se publica con OK. Si no hay tema que cumpla, no se escribe |
-| Martes 10:40 | Guía larga del tema de la semana → rama `guia-AAAA-MM-DD`, se publica con OK |
+| Martes y jueves 9:12 | Guía corta "cómo hacer" (800–1.200 palabras, búsqueda con evidencia real, sin pisar guías ni /novedades-meta o /novedades-ia) → borrador en `contenido/borradores/`, se publica con OK. Si no hay tema que cumpla, no se escribe |
+| Martes 10:40 | Guía larga del tema de la semana → borrador en `contenido/borradores/`, se publica con OK |
 | Lunes 9:42 | SEO semanal: datos de Google/Bing/GA4 a la planilla, ideas, Calendario, indexación, velocidad, visibilidad IA y parte |
 | Diario 8:23 / lunes 8:47 | Vigía de Meta (actualiza el doc "Meta Ads – Reglas vigentes") |
 
@@ -65,7 +65,8 @@ Objetivo: que Damián sea referente en IA y marketing para pymes y tiendas onlin
 - **Martes 10:40:** guía larga del tema de la semana (Calendario), la misma del principal de Instagram.
 - **Mensual:** resumen de novedades del mes y actualizar 2 guías viejas.
 - Cada página: respuesta corta arriba, FAQ, "qué hacer en tu negocio", 2+ enlaces internos, fuentes. Nada sin fuente oficial.
-- Aprobación: cada borrador queda en una rama (`pagina-AAAA-MM-DD` o `guia-AAAA-MM-DD`) y se publica cuando Damián responde OK.
+- Aprobación: cada borrador queda en `contenido/borradores/` (en web-v2, no se publica) y se mueve a `contenido/` cuando Damián responde OK.
+  No se usan ramas: el entorno en la nube no puede borrar ramas de GitHub.
 - **Lunes 9:42: "SEO semanal"** (tarea en esta sesión, con el MCP de Google y Bing): llena Búsquedas, Páginas, Bing, Historial y
   Visibilidad IA, completa el volumen de Ideas, carga el Calendario a 4 semanas, revisa indexación y velocidad, y manda el parte.
   Reemplaza al Apps Script (sacarle el activador de los lunes). Ideas: el ig-investigador carga ~30 por mes (columnas A–K).
