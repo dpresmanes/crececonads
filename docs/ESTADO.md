@@ -3,6 +3,10 @@
 Actualizado: 11/11/2026. Si un chat nuevo retoma este trabajo, **arranca acá**: lo que figura como hecho está
 hecho y probado en producción; no se rehace ni se reescribe. Antes de tocar algo, `git pull origin web-v2`.
 
+## Organigrama (desde el 13/11)
+Esta sesión es el departamento 1 (web, guías, SEO y novedades). Al terminar un trabajo, además de este archivo, actualizar la fila
+"Web, guías y SEO" de la sección 1 de `ceo/ESTADO.md` (repo crececonads-sistema, main), en una línea. Ver `ceo/ORGANIGRAMA.md`.
+
 ## Cómo funciona la web
 - Repo `dpresmanes/crececonads`, rama **`web-v2`**. Vercel (proyecto "project") publica solo cada push a esa rama
   (conectado el 3/11; la landing vieja `dycLandingLeads` ya no está conectada).
@@ -78,7 +82,8 @@ Variables en Railway: GOOGLE_SA_JSON, MCP_TOKEN, BING_API_KEY, GEMINI_API_KEY, P
 GTM_CONTENEDOR. 28 herramientas (GA4, Search Console, GTM, Bing, IndexNow, PageSpeed, visibilidad IA); ver `mcp-google/README.md`.
 Railway a veces deja las variables "en espera": hay que tocar Deploy (o aplicar con accept-deploy).
 PageSpeed home 11/11: 97/100/100/100 en celular.
-Al 11/11 Google indexó solo la home: las guías y recursos no figuran. Se reenvió el sitemap; pedir indexación a mano en Search Console.
+Indexación al 13/11: 16 páginas en Google (home, perfil, /guias, /recursos, 3 temas, 2 novedades y 7 de 9 guías). Faltan
+agente-ia-whatsapp-tienda-online y escalar-ventas-tienda-online-meta-ads ("descubiertas, sin indexar") y los 21 recursos (Google no los conoce).
 
 ## Reglas
 Nada de precios propios ni montos del equipo; no inventar datos (los de Meta, con fuente y "verificalo en tu cuenta");
