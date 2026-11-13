@@ -2,6 +2,14 @@
   "_como_se_usa": "Una entrada por novedad de IA para pymes confirmada en una fuente oficial (✅ en ceo/VIGIA-IA.md del repo crececonads-sistema). Temas: automatizaciones, agentes que responden solos e IA generativa. Lo que está 'en observación' no entra. Después de editar: python3 tools/build_contenido.py.",
   "novedades": [
     {
+      "fecha": "2026-11-12",
+      "titulo": "Claude se suma a tus reuniones de Google Meet: toma notas y arma documentos en vivo",
+      "que_cambio": "Anthropic lanzó en beta Claude Meetings para los planes Team y Enterprise. Agregás a Claude a una llamada de Google Meet desde tu calendario y entra como un participante más, a la vista de todos: toma notas, responde preguntas (le hablás diciendo \"Claude\" o le escribís en el chat de Meet) y arma documentos, pizarras o presentaciones durante la llamada. Al terminar queda una página con el resumen, las tareas, la transcripción y todo lo que se armó, y los de tu equipo invitados reciben un mail con el link.",
+      "que_hacer": "Si tu equipo usa Claude Team y Google Meet, probalo en una reunión interna o con un proveedor para no perder acuerdos ni tareas. Antes de sumarlo, avisá a todos que la llamada se transcribe. En el plan Team viene activado y puede entrar a llamadas con invitados de afuera: si no querés eso, el dueño de la cuenta lo cambia en la configuración de la organización.",
+      "fuentes": [["Claude Help Center: Release notes (12/11/2026)", "https://support.claude.com/en/articles/12138966-release-notes"], ["Claude Help Center: Use Claude Meetings", "https://support.claude.com/en/articles/18325154-use-claude-meetings"]],
+      "guia": "automatizar-procesos-administrativos-ia-pyme"
+    },
+    {
       "fecha": "2026-11-11",
       "titulo": "Google Sheets: las mini apps que arma Gemini con tu planilla ahora se comparten con un link",
       "que_cambio": "Sheets canvas usa Gemini para convertir los datos de una planilla en mini apps interactivas (tableros, tableros de tareas, calendarios). Ahora se pueden publicar con un link propio: quien lo abre puede usar la mini app sin ver ni editar la planilla original. Se puede elegir que se actualice sola cuando cambia la planilla o publicar una vista fija, y dejar de publicarla cuando quieras. Por ahora, desde Sheets en la computadora.",
