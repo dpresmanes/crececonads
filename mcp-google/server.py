@@ -414,7 +414,10 @@ def bing(metodo: str, http: str = "GET", cuerpo: dict | None = None, **params):
     r = requests.request(http, f"{BING}/{metodo}", params=params, json=cuerpo, timeout=60)
     if r.status_code >= 400:
         raise RuntimeError(f"Bing respondió {r.status_code}: {r.text[:300]}")
-    return r.json().get("d") if r.content else None
+    try:  # Bing responde vacío cuando todavía no tiene datos del sitio o de la URL
+        return r.json().get("d") if r.text.strip() else None
+    except ValueError:
+        return None
 
 
 def sitio_bing(s: str | None) -> str:
