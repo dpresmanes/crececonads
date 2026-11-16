@@ -42,8 +42,7 @@ Esta sesión es el departamento 1 (web, guías, SEO y novedades). Al terminar un
 5. **Google Business API:** pedir acceso (developers.google.com/my-business/content/prereqs, proyecto apt-bonbon-464013-s6).
 6. **Indexación en Google:** pedirla a mano en Search Console (máx. ~10 por día) con la lista que pasa el parte del lunes.
 7. Invitación al newsletter desde Gmail a su lista. Perfil de X (sumarlo al `sameAs` de `index.html` y del perfil de autor).
-8. **Página /agentes (16/11):** revisar la vista previa de la rama `agentes` y dar OK para pasarla a `web-v2`.
-9. Aprobar con "OK" la página diaria y la guía semanal (llegan como aviso en la sesión "Estrategia de guías semanales").
+8. Aprobar con "OK" la página diaria y la guía semanal (llegan como aviso en la sesión "Estrategia de guías semanales").
 
 **De la web (automático o en curso):**
 - Gemini del MCP dio 429 (cupo del día agotado) el 11/11; se reprueba el 12/11. Si sigue: facturación con tope o preguntas sin búsqueda.
@@ -53,13 +52,13 @@ Esta sesión es el departamento 1 (web, guías, SEO y novedades). Al terminar un
 novedades diarias (tema Novedades de Meta e IA, NewsArticle, "Seguí leyendo" por tema); MCP de Google y Bing (abajo);
 sitemap reenviado a Google y 39 URLs enviadas a Bing; columnas nuevas en `Ideas` (A–L) para el investigador.
 
-**Página /agentes (16/11, rama `agentes`, sin publicar):** oficina animada del equipo de agentes a partir del prototipo
+**Página /agentes (publicada el 16/11 con OK de Damián, merge de la rama `agentes`):** oficina animada del equipo de agentes a partir del prototipo
 aprobado (artifact U7nHsnpCS271RxGSprsnFR). Horarios reales de las tareas, sin Prospector, sin clientes ni montos.
 Fuente `contenido/pagina-agentes.html` (tipo nuevo `"pagina"` en el generador: CSS/JS propios, `"ancho": true`,
 `og_sitio`), `assets/agentes.css|js`. CTA `data-cta="agendar"` → `/agendar` (`agendar_click`). La animación se frena
 fuera de pantalla y con la pestaña oculta (probado: 0 cuadros por segundo). Link desde la home y entrada en el sitemap.
 PageSpeed en celular en la vista previa: 100 / 100 / 100 / SEO 92 (el 92 es el `noindex` que Vercel pone en las vistas previas).
-Al recibir el OK: `git merge agentes` en `web-v2`, push, IndexNow y pedir indexación de /agentes.
+Avisada a IndexNow y Bing el 16/11. Falta pedir la indexación en Google (Search Console).
 Pendiente para después: resumen diario de datos en la misma página.
 
 ## Tareas programadas (corren en la sesión "Estrategia de guías semanales", que tiene el repo, la planilla y el MCP)
