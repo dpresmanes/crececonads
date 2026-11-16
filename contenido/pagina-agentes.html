@@ -1,0 +1,55 @@
+<!--{
+"tipo": "pagina",
+"slug": "agentes",
+"titulo": "Así trabaja nuestro equipo de agentes de IA",
+"titulo_seo": "Equipo de agentes de IA de CreceConAds, en vivo | CreceConAds",
+"descripcion": "Mirá en vivo cómo trabaja el equipo de agentes de IA de CreceConAds: quién investiga, diseña, publica, atiende por WhatsApp y revisa las campañas, según sus horarios reales.",
+"tag": "Agentes de IA · En vivo",
+"fecha": "2026-11-16",
+"ancho": true,
+"css": "/assets/agentes.css",
+"js": "/assets/agentes.js",
+"og_sitio": "crececonads.site/agentes"
+}-->
+<div class="oficina">
+  <div class="of-head">
+    <div>
+      <p class="of-eyebrow">Equipo de agentes · en vivo</p>
+      <h1>Así trabaja nuestro <em>equipo de IA</em></h1>
+      <p class="of-sub">Cada personaje es un agente de IA de CreceConAds y trabaja según su horario real. Tocá uno para ver qué está haciendo.</p>
+    </div>
+    <div class="of-reloj" aria-live="polite"><span id="hora">--:--</span><small id="dia">Buenos Aires</small></div>
+  </div>
+
+  <div class="of-escena">
+    <canvas id="lienzo" width="1100" height="640" tabindex="0" aria-label="Oficina con los agentes de CreceConAds trabajando"></canvas>
+    <div class="of-ficha" id="ficha" hidden></div>
+  </div>
+
+  <div class="of-controles">
+    <button id="enVivo" type="button" aria-pressed="true">Ahora</button>
+    <button id="play" type="button" aria-pressed="false">Ver el día en 1 minuto</button>
+    <label for="dia-sel">Día</label>
+    <select id="dia-sel">
+      <option value="1">Lunes</option><option value="2">Martes</option><option value="3">Miércoles</option>
+      <option value="4">Jueves</option><option value="5">Viernes</option><option value="6">Sábado</option><option value="0">Domingo</option>
+    </select>
+    <label for="slider">Hora</label>
+    <input id="slider" type="range" min="0" max="1439" step="1" value="600">
+  </div>
+
+  <div class="of-numeros">
+    <div class="of-num"><strong id="nTrab">0</strong><span>agentes trabajando en este momento</span></div>
+    <div class="of-num"><strong id="nHechas">0</strong><span>tareas del día terminadas según el horario</span></div>
+    <div class="of-num"><strong id="nPubli">0 de 4</strong><span>publicaciones de Instagram del día</span></div>
+    <div class="of-num"><strong>24 h</strong><span>atención de los bots de Instagram y WhatsApp</span></div>
+  </div>
+
+  <div class="of-deptos" id="deptos"></div>
+
+  <section class="of-cierre">
+    <div><h2>¿Querés un equipo así trabajando para tu negocio?</h2><p>En 30 minutos revisamos tu caso y te digo qué agentes te sirven.</p></div>
+    <a class="btn" data-cta="agendar" href="/agendar">Agendar llamada gratis</a>
+  </section>
+  <p class="of-nota">Los horarios son los de las tareas programadas reales de la agencia (hora de Buenos Aires). No se muestran clientes, montos ni conversaciones.</p>
+</div>

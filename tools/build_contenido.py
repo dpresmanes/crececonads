@@ -116,18 +116,18 @@ def documento(meta, url, ld, cuerpo):
 <meta name="twitter:card" content="summary_large_image">
 {FUENTES}
 <link rel="stylesheet" href="/assets/blog.css">
-<script type="application/ld+json">
+{f'<link rel="stylesheet" href="{meta["css"]}">\n' if meta.get("css") else ""}<script type="application/ld+json">
 {json.dumps(ld, ensure_ascii=False, indent=1)}
 </script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={GTM}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 {CABECERA}
-<main class="wrap narrow">
+<main class="wrap{"" if meta.get("ancho") else " narrow"}">
 {cuerpo}
 </main>
 {PIE}
-</body>
+{f'<script src="{meta["js"]}" defer></script>\n' if meta.get("js") else ""}</body>
 </html>
 '''
 
@@ -570,6 +570,21 @@ def novedades(cfg):
         migas([("Inicio", SITIO + "/"), ("Guías", SITIO + "/guias"), (cfg["nombre"], url)])]}
     return url, documento(meta, url, ld, cuerpo), ultima, datos
 
+
+def pagina(meta, cuerpo):
+    """Página suelta con su propio CSS y JS (ej. /agentes), con la cabecera, el pie y la medición de siempre."""
+    url = f"{SITIO}/{meta['slug']}"
+    meta["og_tipo"] = "website"
+    og = portadas_og.asegurar(meta)
+    if og:
+        meta["og_imagen"] = og
+    ld = {"@context": "https://schema.org", "@graph": [
+        {"@type": "WebPage", "@id": url + "#pagina", "url": url, "name": meta["titulo"], "description": meta["descripcion"],
+         "inLanguage": "es-AR", "dateModified": meta.get("actualizado", meta["fecha"]), "author": {"@id": PERSONA},
+         "publisher": {"@id": ORG}, "isPartOf": {"@id": ORG}},
+        migas([("Inicio", SITIO + "/"), (meta["titulo"], url)])]}
+    return url, documento(meta, url, ld, cuerpo)
+
 def main():
     guias, urls = [], [(SITIO + "/", "2026-10-30"), (SITIO + "/privacidad", "2026-11-05"), (SITIO + "/eliminacion-de-datos", "2026-11-05"), (SITIO + "/terminos", "2026-11-05")]
     contenidos = [leer(p) for p in sorted((RAIZ / "contenido").glob("*.html"))]
@@ -585,7 +600,10 @@ def main():
             urls.append((url, meta.get("actualizado", meta["fecha"])))
             print("ok", destino.relative_to(RAIZ))
             continue
-        if meta["tipo"] == "guia":
+        if meta["tipo"] == "pagina":
+            url, doc = pagina(meta, cuerpo)
+            destino = RAIZ / f"{meta['slug']}.html"
+        elif meta["tipo"] == "guia":
             url, doc = guia(meta, cuerpo, todas)
             destino = RAIZ / "guias" / f"{meta['slug']}.html"
             guias.append(meta)
