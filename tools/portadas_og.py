@@ -24,7 +24,7 @@ def _partir(d, texto, fuente, ancho):
     return lineas + [linea]
 
 
-def portada(titulo, tag, destino):
+def portada(titulo, tag, destino, sitio="crececonads.site/guias"):
     from PIL import Image, ImageDraw, ImageFilter, ImageFont
     im = Image.new("RGB", (W * S, H * S), NOCHE)
     g = Image.new("RGB", im.size, NOCHE)
@@ -59,7 +59,6 @@ def portada(titulo, tag, destino):
     d.text((x * S, 552 * S), "Con", font=pie, fill=AZUL2)
     x += d.textlength("Con", font=pie) / S
     d.text((x * S, 552 * S), "Ads", font=pie, fill=TEXTO)
-    sitio = "crececonads.site/guias"
     d.text(((1130 - d.textlength(sitio, font=pie) / S) * S, 552 * S), sitio, font=pie, fill=SUAVE)
     destino.parent.mkdir(parents=True, exist_ok=True)
     im.resize((W, H), Image.LANCZOS).save(destino, optimize=True)
@@ -70,7 +69,7 @@ def asegurar(meta):
     destino = RAIZ / "img" / "og" / f"{meta['slug']}.png"
     if not destino.exists():
         try:
-            portada(meta["titulo"], meta.get("tag", "Guía"), destino)
+            portada(meta["titulo"], meta.get("tag", "Guía"), destino, meta.get("og_sitio", "crececonads.site/guias"))
         except ImportError:
             return None
     return f"/img/og/{meta['slug']}.png"
