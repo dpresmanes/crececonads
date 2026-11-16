@@ -366,8 +366,8 @@ function puntitos(a,seg){if(!a._head)return;const s=TW/56,x=a._head[0]+11*s,y=a.
 function zzz(a,seg){if(!a._head)return;const s=TW/56;ctx.fillStyle="rgba(238,241,250,.85)";ctx.font=F(500,11*s,"m");ctx.textAlign="left";for(let i=0;i<2;i++){const k=(seg*.6+i*.5+a.fase)%1;ctx.globalAlpha=1-k;ctx.fillText("z",a._head[0]+8*s+k*8*s,a._head[1]-6*s-k*16*s)}ctx.globalAlpha=1}
 
 // Botones para probar los bots (medidos como los otros: cta_click con data-cta)
-const PROBAR={bwa:`<a class="of-probar" data-cta="whatsapp" href="https://wa.me/5491173566942?text=AGENTE" target="_blank" rel="noopener">Probá el agente: escribí AGENTE</a>`,
-  big:`<a class="of-probar" data-cta="instagram" href="https://www.instagram.com/crececonads/" target="_blank" rel="noopener">Comentá una palabra en cualquier post</a>`};
+const PROBAR={bwa:`<a class="btn btn-sm of-probar" data-cta="whatsapp" href="https://wa.me/5491173566942?text=AGENTE" target="_blank" rel="noopener">Probá el agente: escribí AGENTE</a>`,
+  big:`<a class="btn btn-sm btn-line of-probar" data-cta="instagram" href="https://www.instagram.com/crececonads/" target="_blank" rel="noopener">Comentá una palabra en cualquier post</a>`};
 OF.addEventListener("click",ev=>{const a=ev.target.closest("a.of-probar");if(!a)return;
   (window.dataLayer=window.dataLayer||[]).push({event:"cta_click",cta_type:a.dataset.cta,cta_text:a.textContent.trim().slice(0,60),cta_section:location.pathname})});
 

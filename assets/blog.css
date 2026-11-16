@@ -27,7 +27,9 @@ a{color:var(--blue-2)}
 .top nav{display:flex;gap:20px;font-size:15px}
 .top nav a{color:var(--soft);text-decoration:none}
 .top nav a:hover{color:var(--text)}
-@media (max-width:720px){.top nav{display:none}}
+.top nav a,.top .btn-sm{white-space:nowrap}
+@media (max-width:940px){.top nav{gap:14px;font-size:14px}}
+@media (max-width:800px){.top nav{display:none}}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;color:#fff;background:var(--blue);transition:transform .15s ease}
 .btn:hover{transform:translateY(-2px)}
 .btn:focus-visible{outline:3px solid var(--blue-2);outline-offset:3px}
@@ -220,8 +222,6 @@ th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacin
 .news-bloque .k{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
 .news-bloque b{display:block;font-family:var(--display);font-size:22px;line-height:1.2}
 .news-bloque p{margin:6px 0 0;color:var(--soft);font-size:16px}
-.agentes-bloque{border-color:rgb(91 124 255 / .5)}
-.agentes-bloque .k{color:var(--blue-2,#8FA6FF)}
 
 /* /novedades-meta */
 .nov{margin:28px 0;padding:22px;border-radius:18px;background:var(--night-2);border:1px solid var(--edge)}
