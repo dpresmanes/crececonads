@@ -472,7 +472,9 @@ def perfil(meta, cuerpo):
     persona.update({"@type": "Person", "@id": PERSONA, "url": url, "worksFor": {"@id": ORG},
                     "image": SITIO + "/img/damian-presmanes.webp", "mainEntityOfPage": url})
     grafo = [{"@type": "ProfilePage", "@id": url, "url": url, "name": meta["titulo"], "inLanguage": "es-AR",
-              "mainEntity": {"@id": PERSONA}, "dateModified": meta["fecha"]},
+              "mainEntity": {"@id": PERSONA},
+              # Google pide fecha Y hora en ProfilePage: "2026-10-30" sola da "dateModified no es válido"
+              "dateModified": meta["fecha"] if "T" in meta["fecha"] else meta["fecha"] + "T00:00:00-03:00"},
              persona,
              migas([("Inicio", SITIO + "/"), ("Quién soy", url)])]
     if meta.get("faq"):
