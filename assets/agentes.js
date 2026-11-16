@@ -365,6 +365,12 @@ function partir(txt,maxW){const out=[];let l="";for(const p of txt.split(" ")){c
 function puntitos(a,seg){if(!a._head)return;const s=TW/56,x=a._head[0]+11*s,y=a._top+4*s;ctx.fillStyle="#18213F";ctx.strokeStyle="#24315A";ctx.lineWidth=1;rr(x,y-8*s,22*s,12*s,6*s);ctx.fill();ctx.stroke();for(let i=0;i<3;i++){ctx.fillStyle=Math.floor(seg*3)%3===i?"#2FD08F":"#4A5788";ctx.beginPath();ctx.arc(x+5*s+i*6*s,y-2*s,1.7*s,0,7);ctx.fill()}}
 function zzz(a,seg){if(!a._head)return;const s=TW/56;ctx.fillStyle="rgba(238,241,250,.85)";ctx.font=F(500,11*s,"m");ctx.textAlign="left";for(let i=0;i<2;i++){const k=(seg*.6+i*.5+a.fase)%1;ctx.globalAlpha=1-k;ctx.fillText("z",a._head[0]+8*s+k*8*s,a._head[1]-6*s-k*16*s)}ctx.globalAlpha=1}
 
+// Botones para probar los bots (medidos como los otros: cta_click con data-cta)
+const PROBAR={bwa:`<a class="of-probar" data-cta="whatsapp" href="https://wa.me/5491173566942?text=AGENTE" target="_blank" rel="noopener">Probá el agente: escribí AGENTE</a>`,
+  big:`<a class="of-probar" data-cta="instagram" href="https://www.instagram.com/crececonads/" target="_blank" rel="noopener">Comentá una palabra en cualquier post</a>`};
+OF.addEventListener("click",ev=>{const a=ev.target.closest("a.of-probar");if(!a)return;
+  (window.dataLayer=window.dataLayer||[]).push({event:"cta_click",cta_type:a.dataset.cta,cta_text:a.textContent.trim().slice(0,60),cta_section:location.pathname})});
+
 // Lista por departamento
 function armarLista(){
   const cont=$("deptos");cont.innerHTML="";
@@ -372,7 +378,7 @@ function armarLista(){
     const box=document.createElement("section");box.className="of-depto";
     box.innerHTML=`<h2><i style="background:var(${DEP[d].c})"></i>${DEP[d].n}</h2><ul></ul>`;
     AG.filter(a=>a.dep===d).forEach(a=>{const li=document.createElement("li");
-      li.innerHTML=`<button type="button" data-id="${a.id}"><span class="of-estado"></span><span class="of-nom">${a.n}</span><span class="of-que"></span></button>`;
+      li.innerHTML=`<button type="button" data-id="${a.id}"><span class="of-estado"></span><span class="of-nom">${a.n}</span><span class="of-que"></span></button>${PROBAR[a.id]||""}`;
       li.querySelector("button").addEventListener("click",()=>elegir(a,true));box.querySelector("ul").appendChild(li)});
     cont.appendChild(box)});
 }
@@ -381,7 +387,7 @@ function refrescarLista(T){
     b.querySelector(".of-estado").classList.toggle("on",e.on);
     const q=b.querySelector(".of-que");const txt=e.on?e.txt:e.txt;if(q.textContent!==txt)q.textContent=txt;
     b.setAttribute("aria-current",a===sel?"true":"false")});
-  if(sel){const e=estado(sel,T);$("ficha").innerHTML=`<b>${sel.n}</b><span class="of-dep">${DEP[sel.dep].n} · ${e.on?"trabajando":"en pausa"}</span><p>${e.txt}</p><p class="of-dep">${sel.rol}</p>`}
+  if(sel){const e=estado(sel,T),h=`<b>${sel.n}</b><span class="of-dep">${DEP[sel.dep].n} · ${e.on?"trabajando":"en pausa"}</span><p>${e.txt}</p><p class="of-dep">${sel.rol}</p>${PROBAR[sel.id]||""}`;const f=$("ficha");if(f._h!==h){f._h=h;f.innerHTML=h}}
 }
 function elegir(a,scroll){sel=sel===a?null:a;setTimeout(()=>{if(!corriendo)cuadro(performance.now())},0);$("ficha").hidden=!sel;if(sel&&scroll)document.querySelector(".of-escena").scrollIntoView({behavior:"smooth",block:"nearest"})}
 

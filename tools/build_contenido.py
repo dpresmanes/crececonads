@@ -43,13 +43,13 @@ FUENTES = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
 
 CABECERA = f'''<header class="top"><div class="wrap">
   <a class="logo" href="/">Crece<b>Con</b>Ads</a>
-  <nav aria-label="Secciones"><a href="/#resultados">Resultados</a><a href="/#servicios">Servicios</a><a href="/guias">Guías</a><a href="/recursos">Recursos</a><a href="/damian-presmanes">Quién soy</a></nav>
+  <nav aria-label="Secciones"><a href="/#resultados">Resultados</a><a href="/#servicios">Servicios</a><a href="/guias">Guías</a><a href="/agentes">Equipo en vivo</a><a href="/recursos">Recursos</a><a href="/damian-presmanes">Quién soy</a></nav>
   <a class="btn btn-sm" data-cta="agendar" href="{CAL}">Agendar llamada</a>
 </div></header>'''
 
 PIE = '''<footer class="site-foot"><div class="wrap">
   <span>© 2026 CreceConAds · Damián Presmanes</span>
-  <span><a href="/guias">Guías</a> · <a href="/novedades-meta">Novedades de Meta</a> · <a href="/novedades-ia">Novedades de IA</a> · <a href="/recursos">Recursos</a> · <a href="https://www.instagram.com/crececonads/">Instagram</a> · <a href="https://maps.google.com/?cid=8214692810272884951">Google Maps</a> · <a href="/privacidad">Privacidad</a> · <a href="/eliminacion-de-datos">Eliminación de datos</a> · <a href="/terminos">Términos</a></span>
+  <span><a href="/guias">Guías</a> · <a href="/agentes">Equipo en vivo</a> · <a href="/novedades-meta">Novedades de Meta</a> · <a href="/novedades-ia">Novedades de IA</a> · <a href="/recursos">Recursos</a> · <a href="https://www.instagram.com/crececonads/">Instagram</a> · <a href="https://maps.google.com/?cid=8214692810272884951">Google Maps</a> · <a href="/privacidad">Privacidad</a> · <a href="/eliminacion-de-datos">Eliminación de datos</a> · <a href="/terminos">Términos</a></span>
 </div></footer>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -139,6 +139,13 @@ NEWS = ('<aside class="news-bloque"><div><span class="k">Newsletter gratis · un
         '<a class="btn" data-cta="newsletter" href="/newsletter">Quiero recibirlo</a></aside>')
 
 
+# Recuadro hacia /agentes en las guías de agentes de IA y automatización y en el tema "Agentes de IA".
+AGENTES_BLOQUE = ('<aside class="news-bloque agentes-bloque"><div><span class="k">● En vivo</span>'
+                  '<b>Mirá a mis agentes de IA trabajando ahora</b><p>Una oficina animada con el equipo de agentes de '
+                  'CreceConAds y lo que hace cada uno según su horario real.</p></div>'
+                  '<a class="btn" href="/agentes">Ver el equipo en vivo</a></aside>')
+
+
 def faq_html(faq):
     if not faq:
         return ""
@@ -203,7 +210,7 @@ def guia(meta, cuerpo, todas=()):
 {cuerpo}
 {faq_html(meta.get("faq"))}
 <section class="cta"><h2>{esc(meta.get("cta_titulo", "¿Vemos tu caso?"))}</h2><p>{cta_txt}</p><div class="row">{botones}</div></section>
-{NEWS}
+{AGENTES_BLOQUE + chr(10) if pilar(meta) in ("agentes-ia", "automatizacion") else ""}{NEWS}
 {relacionadas(meta, todas)}
 {AUTOR}
 </article>'''
@@ -420,6 +427,8 @@ def tema(clave, guias, recursos):
     if rs:
         partes += [f'<h2 class="sub-listado">Recursos gratis de {esc(nombre)}</h2>', '<div class="cards">',
                    "\n".join(tarjeta(m, "recursos") for m in rs), '</div>']
+    if clave == "agentes-ia":
+        partes.append(AGENTES_BLOQUE)
     if otros:
         partes.append(f'<p class="otros-temas">Otros temas: {otros}</p>')
     ld = {"@context": "https://schema.org", "@graph": [
