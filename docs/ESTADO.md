@@ -66,6 +66,8 @@ para que no se parta; en las páginas generadas el menú se oculta por debajo de
 /guias/tema/agentes-ia; en /agentes, botón "Probá el agente: escribí AGENTE" (wa.me, `data-cta="whatsapp"`) en la ficha y la
 lista del Bot de WhatsApp y link a Instagram en el Bot de Instagram (`cta_click`, clases btn btn-sm / btn-line); borrado
 `recursos/_prueba.html` (da 404). Avisado a IndexNow y Bing.
+**Menú de la home (16/11, OK de Damián):** 5 opciones (Servicios, Resultados, Guías, Quién soy, ● Equipo en vivo con punto verde,
+clase `nav-vivo`); fuera Automatizaciones, Cómo funciona y Preguntas (siguen como secciones de la home).
 
 ## Tareas programadas (corren en la sesión "Estrategia de guías semanales", que tiene el repo, la planilla y el MCP)
 | Cuándo | Tarea |
