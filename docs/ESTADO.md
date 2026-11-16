@@ -46,7 +46,7 @@ Esta sesión es el departamento 1 (web, guías, SEO y novedades). Al terminar un
 
 **De la web (automático o en curso):**
 - Gemini del MCP dio 429 (cupo del día agotado) el 11/11; se reprueba el 12/11. Si sigue: facturación con tope o preguntas sin búsqueda.
-- Calendario sin temas desde el 30/11: los carga la tarea "SEO semanal" con las ideas del ig-investigador (primeras 15 antes del 20/11).
+- Calendario con temas cargados hasta el 25/01. La guía semanal toma la primera fila sin publicar desde el lunes próximo (17/11: se adelanta Navidad, semana del 30/11, por decisión de Damián).
 
 **Hechos el 11/11 (no rehacer):** GTM y `generate_lead` como evento clave; 13 recursos de la semana 2; web lista para
 novedades diarias (tema Novedades de Meta e IA, NewsArticle, "Seguí leyendo" por tema); MCP de Google y Bing (abajo);
