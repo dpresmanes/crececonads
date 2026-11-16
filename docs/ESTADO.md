@@ -60,6 +60,11 @@ fuera de pantalla y con la pestaña oculta (probado: 0 cuadros por segundo). Lin
 PageSpeed en celular en la vista previa: 100 / 100 / 100 / SEO 92 (el 92 es el `noindex` que Vercel pone en las vistas previas).
 Avisada a IndexNow y Bing el 16/11. Falta pedir la indexación en Google (Search Console).
 Pendiente para después: resumen diario de datos en la misma página.
+**Enlaces a /agentes (16/11, rama `agentes-enlaces`, esperando OK de Damián):** "Equipo en vivo" en el menú (home y páginas
+generadas; en la home "Cómo funciona" y "Preguntas" se ocultan por debajo de 1240 px y "Automatizaciones" por debajo de 980 px
+para que no se parta) y en el pie; recuadro `AGENTES_BLOQUE` en las guías de los temas agentes-ia y automatizacion y en
+/guias/tema/agentes-ia; en /agentes, botón "Probá el agente: escribí AGENTE" (wa.me, `data-cta="whatsapp"`) en la ficha y la
+lista del Bot de WhatsApp y link a Instagram en el Bot de Instagram (`cta_click`); borrado `recursos/_prueba.html`.
 
 ## Tareas programadas (corren en la sesión "Estrategia de guías semanales", que tiene el repo, la planilla y el MCP)
 | Cuándo | Tarea |
