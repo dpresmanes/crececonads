@@ -45,3 +45,6 @@
 .oficina .of-cierre .btn{min-height:54px;padding:0 22px;border-radius:14px}
 .oficina .of-nota{font-size:12px;color:var(--soft);margin:0;font-family:var(--mono)}
 @media (prefers-reduced-motion:reduce){.oficina *{transition:none!important}}
+
+.oficina .of-probar{margin:10px 0 2px;max-width:100%;white-space:normal;text-align:center;line-height:1.25}
+.oficina .of-depto li .of-probar{margin:2px 0 8px 26px}
