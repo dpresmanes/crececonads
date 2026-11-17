@@ -2,6 +2,23 @@
   "_como_se_usa": "Una entrada por cambio confirmado en una fuente oficial de Meta (✅ en el documento del Vigía). Lo que está 'en observación' no entra. Las más nuevas arriba. Después de editar: python3 tools/build_contenido.py.",
   "novedades": [
     {
+      "fecha": "2026-11-17",
+      "titulo": "Ahora podés pedir videos vistos de 6 segundos, no solo de 15",
+      "que_cambio": "En las campañas de Reconocimiento e Interacción, cuando el objetivo de rendimiento es ThruPlay (reproducciones completas), ahora podés elegir que cuente como vista una reproducción de al menos 6 segundos, además de la opción de 15 segundos. Con 6 segundos, Meta busca a las personas con más probabilidad de mirar al menos 6 segundos de tu video (o el 97 % si el video dura menos). Esta opción se cobra solo por impresiones (CPM).",
+      "que_hacer": "Si hacés videos cortos para Reels o Historias y querés que mucha gente vea tu producto, probá la opción de 6 segundos. No compares el costo por ThruPlay de 6 segundos con el de 15: miden cosas distintas. Para vender, seguí usando campañas de Ventas.",
+      "nota": "Según la prensa especializada, la opción apareció en el Administrador de anuncios el 16/11/2026. Meta no publicó una fecha ni en qué países está disponible: verificalo en tu cuenta.",
+      "fuentes": [
+        [
+          "Centro de ayuda de Meta: acerca de ThruPlay",
+          "https://www.facebook.com/business/help/2051461368219124"
+        ],
+        [
+          "Centro de ayuda de Meta: ThruPlays de 6 segundos",
+          "https://www.facebook.com/business/help/1441620301326177"
+        ]
+      ]
+    },
+    {
       "fecha": "2026-11-12",
       "titulo": "Una audiencia para cada creativo dentro del mismo conjunto de anuncios",
       "que_cambio": "Con el ajuste \"Elegir una audiencia por cada creativo\", activado en la sección Audiencia del conjunto de anuncios, podés armar varios anuncios en un mismo conjunto y elegir para qué edad y género es más adecuada cada imagen o video (por ejemplo, un suéter de mujer para mujeres y uno de hombre para hombres). Mientras está activado se ocultan la edad y el género del conjunto, y Meta aclara que el anuncio puede llegar también a otras personas con probabilidad de responder.",
