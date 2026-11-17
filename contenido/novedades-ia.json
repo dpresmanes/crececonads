@@ -2,6 +2,21 @@
   "_como_se_usa": "Una entrada por novedad de IA para pymes confirmada en una fuente oficial (✅ en ceo/VIGIA-IA.md del repo crececonads-sistema). Temas: automatizaciones, agentes que responden solos e IA generativa. Lo que está 'en observación' no entra. Después de editar: python3 tools/build_contenido.py.",
   "novedades": [
     {
+      "fecha": "2026-11-16",
+      "titulo": "Automatizaciones en Google Sheets y Gmail pidiéndoselas a Gemini en castellano, sin saber programar",
+      "que_cambio": "Gemini dentro de Apps Script (la herramienta de Google para automatizar Sheets, Docs, Slides y Forms, en Extensiones > Apps Script) ya está disponible para todos, después de la beta. Describís con tus palabras la tarea repetida y Gemini escribe el código: por ejemplo, crear eventos en el Calendario a partir de mails urgentes de Gmail o pasar una tabla de Sheets a un informe en Docs. Podés pedirle que corra solo cada cierto tiempo, aceptar o rechazar cada parte del código antes de guardar y, si algo falla, tocar \"Fix errors\" para que te explique el problema y proponga el arreglo. Los scripts corren con los permisos de tu cuenta.",
+      "que_hacer": "Si tenés Google Workspace Business Standard o Plus, o Google AI Pro o Ultra, abrí una planilla que hoy completás a mano, entrá a Extensiones > Apps Script y pedile a Gemini esa tarea. Probalo primero con una copia de la planilla y leé qué permisos te pide antes de aceptarlos. Se habilita de a poco desde el 12/11: puede tardar hasta 15 días en aparecerte.",
+      "fuentes": [["Google Workspace Updates: Gemini in Apps Script", "http://workspaceupdates.googleblog.com/2026/11/customize-and-extend-workspace-with-apps-script.html"]],
+      "guia": "automatizar-procesos-administrativos-ia-pyme"
+    },
+    {
+      "fecha": "2026-11-16",
+      "titulo": "Las skills de Gemini ahora se comparten con tu equipo y pueden usar archivos de Drive",
+      "que_cambio": "En la app de Gemini, las skills (instrucciones guardadas que Gemini aplica cuando corresponde) se pueden compartir con otras personas, con permiso para ver o para editar. Además, al crear una skill podés sumarle archivos de Google Drive, Gemini Notebook y Google Photos, no solo de tu compu: los de Drive y Notebook se actualizan solos, así la skill siempre trabaja con la última versión. Compartir y administrar accesos, por ahora, solo desde la web, no desde la app del celular. Hasta 100 MB de archivos subidos por skill.",
+      "que_hacer": "Armá una skill con el tono de tu marca que lea tu guía de marca o tu lista de precios desde Drive y compartila con quien te ayuda a responder clientes o a escribir publicaciones: así todos escriben igual. Acordate de compartir también los archivos de Drive que usa. Está para todas las cuentas de Google Workspace y cuentas personales de Google, y se habilita de a poco desde el 12/11 (hasta 15 días).",
+      "fuentes": [["Google Workspace Updates: compartir skills y sumar archivos en la app de Gemini", "http://workspaceupdates.googleblog.com/2026/11/share-skills-add-files-from-Drive-Notebook-Photos-to-skills-Gemini-app.html"]]
+    },
+    {
       "fecha": "2026-11-12",
       "titulo": "Claude se suma a tus reuniones de Google Meet: toma notas y arma documentos en vivo",
       "que_cambio": "Anthropic lanzó en beta Claude Meetings para los planes Team y Enterprise. Agregás a Claude a una llamada de Google Meet desde tu calendario y entra como un participante más, a la vista de todos: toma notas, responde preguntas (le hablás diciendo \"Claude\" o le escribís en el chat de Meet) y arma documentos, pizarras o presentaciones durante la llamada. Al terminar queda una página con el resumen, las tareas, la transcripción y todo lo que se armó, y los de tu equipo invitados reciben un mail con el link.",
