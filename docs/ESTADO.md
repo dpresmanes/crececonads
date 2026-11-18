@@ -70,8 +70,8 @@ lista del Bot de WhatsApp y link a Instagram en el Bot de Instagram (`cta_click`
 clase `nav-vivo`); fuera Automatizaciones, Cómo funciona y Preguntas (siguen como secciones de la home).
 
 **17/11:** guía corta publicada `/guias/mejor-dia-hora-publicidad-instagram` (OK de Damián; IndexNow y Bing avisados; fila en Ideas).
-Guía semanal de Navidad (semana del 30/11) en `contenido/borradores/guia-publicidad-instagram-navidad-tienda-online.html`,
-Calendario en "Borrador para aprobar": **espera el OK de Damián**.
+**18/11:** guía semanal de Navidad publicada `/guias/publicidad-instagram-navidad-tienda-online` (OK de Damián; Calendario
+fila 30/11 en "Publicada"; IndexNow y Bing avisados).
 
 ## Tareas programadas (corren en la sesión "Estrategia de guías semanales", que tiene el repo, la planilla y el MCP)
 | Cuándo | Tarea |
