@@ -2,6 +2,23 @@
   "_como_se_usa": "Una entrada por cambio confirmado en una fuente oficial de Meta (✅ en el documento del Vigía). Lo que está 'en observación' no entra. Las más nuevas arriba. Después de editar: python3 tools/build_contenido.py.",
   "novedades": [
     {
+      "fecha": "2026-11-18",
+      "titulo": "Ya podés ver cuánto vende y cuánto gasta cada producto de tu catálogo",
+      "que_cambio": "Meta tiene una sección llamada Product insights (estadísticas por producto) dentro de los informes del Administrador de anuncios. Ahí ves, producto por producto, cuántas veces se vio, cuántos clics recibió, cuántas compras sumó, cuánto se gastó en anuncios que lo muestran y cuántos pedidos se le atribuyen. Podés filtrar por producto, marca o categoría, ver el rendimiento por conjunto de productos y compararte con negocios parecidos de tu rubro y tu país. Está en beta: todavía no aparece en todas las cuentas.",
+      "que_hacer": "Si vendés con catálogo, entrá a Informes de anuncios y buscá la pestaña Product insights (o abrí una campaña, elegí Desglose y después ID del producto). Fijate qué productos se llevan el gasto y cuáles venden. Para que funcione, el píxel o la API de Conversiones tienen que mandar en cada compra qué productos se compraron, con su ID, cantidad y precio. No esperes que los números coincidan con los del anuncio: un pedido puede tener varios productos y el gasto se asigna al primer producto que se vio.",
+      "nota": "Según la prensa especializada, algunas cuentas también ven un panel de los productos más destacados de la campaña en los gráficos de rendimiento. Meta no lo menciona en su centro de ayuda.",
+      "fuentes": [
+        [
+          "Centro de ayuda de Meta: acerca de Product insights",
+          "https://www.facebook.com/business/help/1163663955834371"
+        ],
+        [
+          "Centro de ayuda de Meta: métricas de entrega de Product insights",
+          "https://www.facebook.com/business/help/26275855602085917"
+        ]
+      ]
+    },
+    {
       "fecha": "2026-11-17",
       "titulo": "Ahora podés pedir videos vistos de 6 segundos, no solo de 15",
       "que_cambio": "En las campañas de Reconocimiento e Interacción, cuando el objetivo de rendimiento es ThruPlay (reproducciones completas), ahora podés elegir que cuente como vista una reproducción de al menos 6 segundos, además de la opción de 15 segundos. Con 6 segundos, Meta busca a las personas con más probabilidad de mirar al menos 6 segundos de tu video (o el 97 % si el video dura menos). Esta opción se cobra solo por impresiones (CPM).",
