@@ -73,6 +73,11 @@ clase `nav-vivo`); fuera Automatizaciones, Cómo funciona y Preguntas (siguen co
 **18/11:** guía semanal de Navidad publicada `/guias/publicidad-instagram-navidad-tienda-online` (OK de Damián; Calendario
 fila 30/11 en "Publicada"; IndexNow y Bing avisados).
 
+**18/11, pie legal (OK de Damián):** en todas las páginas, "© 2026 CreceConAds® · Damián Presmanes · CUIT 20-33488306-0",
+"CreceConAds® es marca registrada" (marca concedida, confirmado por Damián) y QR de Data Fiscal de ARCA (F.960/NM, link
+`qr.afip.gob.ar/?qr=00BDHbA6FI6aH0XpUoj7bw,,`). En el generador (PIE) y a mano en index, agendar, newsletter y páginas legales.
+`legalName` y `taxID` en el marcado de la home. Botón de arrepentimiento y link a Defensa del Consumidor: Damián lo consulta con su contador.
+
 ## Tareas programadas (corren en la sesión "Estrategia de guías semanales", que tiene el repo, la planilla y el MCP)
 | Cuándo | Tarea |
 |---|---|
