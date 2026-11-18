@@ -1,6 +1,6 @@
 # Estado de la web y del embudo de mails · leer antes de trabajar
 
-Actualizado: 16/11/2026. Si un chat nuevo retoma este trabajo, **arranca acá**: lo que figura como hecho está
+Actualizado: 18/11/2026. Si un chat nuevo retoma este trabajo, **arranca acá**: lo que figura como hecho está
 hecho y probado en producción; no se rehace ni se reescribe. Antes de tocar algo, `git pull origin web-v2`.
 
 ## Organigrama (desde el 13/11)
@@ -68,6 +68,10 @@ lista del Bot de WhatsApp y link a Instagram en el Bot de Instagram (`cta_click`
 `recursos/_prueba.html` (da 404). Avisado a IndexNow y Bing.
 **Menú de la home (16/11, OK de Damián):** 5 opciones (Servicios, Resultados, Guías, Quién soy, ● Equipo en vivo con punto verde,
 clase `nav-vivo`); fuera Automatizaciones, Cómo funciona y Preguntas (siguen como secciones de la home).
+
+**17/11:** guía corta publicada `/guias/mejor-dia-hora-publicidad-instagram` (OK de Damián; IndexNow y Bing avisados; fila en Ideas).
+Guía semanal de Navidad (semana del 30/11) en `contenido/borradores/guia-publicidad-instagram-navidad-tienda-online.html`,
+Calendario en "Borrador para aprobar": **espera el OK de Damián**.
 
 ## Tareas programadas (corren en la sesión "Estrategia de guías semanales", que tiene el repo, la planilla y el MCP)
 | Cuándo | Tarea |
