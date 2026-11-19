@@ -1,6 +1,6 @@
 # Estado de la web y del embudo de mails · leer antes de trabajar
 
-Actualizado: 18/11/2026. Si un chat nuevo retoma este trabajo, **arranca acá**: lo que figura como hecho está
+Actualizado: 19/11/2026. Si un chat nuevo retoma este trabajo, **arranca acá**: lo que figura como hecho está
 hecho y probado en producción; no se rehace ni se reescribe. Antes de tocar algo, `git pull origin web-v2`.
 
 ## Organigrama (desde el 13/11)
@@ -72,6 +72,9 @@ clase `nav-vivo`); fuera Automatizaciones, Cómo funciona y Preguntas (siguen co
 **17/11:** guía corta publicada `/guias/mejor-dia-hora-publicidad-instagram` (OK de Damián; IndexNow y Bing avisados; fila en Ideas).
 **18/11:** guía semanal de Navidad publicada `/guias/publicidad-instagram-navidad-tienda-online` (OK de Damián; Calendario
 fila 30/11 en "Publicada"; IndexNow y Bing avisados).
+
+**19/11:** guía corta publicada `/guias/como-pagar-publicidad-instagram-argentina` (OK de Damián; IndexNow y Bing; fila en Ideas).
+**Novedades IA trabadas:** el Vigía de IA deja sus propuestas en ramas `novedades-ia-AAAA-MM-DD` y nadie las ve; `novedades-ia-2026-11-17` (2 ✅ de Google Workspace) espera el OK de Damián y su decisión: publicación automática como Meta, o que el Vigía le pase la propuesta a esta sesión.
 
 **18/11, pie legal (OK de Damián):** en todas las páginas, "© 2026 CreceConAds® · Damián Presmanes · CUIT 20-33488306-0",
 "CreceConAds® es marca registrada" (marca concedida, confirmado por Damián) y QR de Data Fiscal de ARCA (F.960/NM, link
