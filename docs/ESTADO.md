@@ -76,6 +76,8 @@ fila 30/11 en "Publicada"; IndexNow y Bing avisados).
 **19/11:** guía corta publicada `/guias/como-pagar-publicidad-instagram-argentina` (OK de Damián; IndexNow y Bing; fila en Ideas).
 **Novedades IA (19/11):** se publica sola con lo ✅ del Vigía de IA (decisión de Damián en ceo/DECISIONES.md; tarea del Vigía actualizada). Publicadas las 3 propuestas trabadas (Gemini en Apps Script, skills de Gemini, Gemini Notebook). Las ramas `novedades-ia-*` viejas quedan sin uso (el entorno no puede borrarlas).
 
+**19/11, interactivos (OK de Damián):** las guías de pagos, Navidad y horarios tienen su `<figure class="viz">` (elegir medio de pago, línea de tiempo de diciembre que marca la semana actual, simulador de presupuesto). Las tareas de guía corta y semanal piden un interactivo obligatorio en cada guía. Novedades (Meta e IA): banda por herramienta/tema (`herramienta()` en el generador, campo opcional "herramienta"), filtros, botón Compartir (`cta_click` compartir_novedad), imagen para redes por novedad (`img/novedades/<pagina>-<id>.jpg`, `portadas_og.novedad`, og:image de la página = la última) y anclas estables `n-<fecha>-<k>` (k contado desde la más vieja del día).
+
 **18/11, pie legal (OK de Damián):** en todas las páginas, "© 2026 CreceConAds® · Damián Presmanes · CUIT 20-33488306-0",
 "CreceConAds® es marca registrada" (marca concedida, confirmado por Damián) y QR de Data Fiscal de ARCA (F.960/NM, link
 `qr.afip.gob.ar/?qr=00BDHbA6FI6aH0XpUoj7bw,,`). En el generador (PIE) y a mano en index, agendar, newsletter y páginas legales.
