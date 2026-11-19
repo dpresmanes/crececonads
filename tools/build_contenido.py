@@ -539,34 +539,99 @@ NOVEDADES = [
 ]
 
 
+# Herramienta o área de cada novedad, para el filtro y la imagen. Se puede fijar con el campo "herramienta".
+HERRAMIENTAS_IA = [("workspaceupdates", "Google Gemini"), ("blog.google", "Google Gemini"), ("gemini", "Google Gemini"),
+                   ("openai", "ChatGPT"), ("claude", "Claude"), ("anthropic", "Claude"), ("n8n", "n8n"),
+                   ("zapier", "Zapier"), ("make.com", "Make"), ("microsoft", "Microsoft Copilot"),
+                   ("whatsapp", "WhatsApp"), ("business-messaging", "WhatsApp"), ("tiendanube", "Tiendanube"),
+                   ("meta", "Meta IA"), ("facebook", "Meta IA")]
+AREAS_META = [("whatsapp", "WhatsApp"), ("píxel", "Medición"), ("pixel", "Medición"), ("conversion", "Medición"),
+              ("medi", "Medición"), ("catálogo", "Catálogo"), ("catalogo", "Catálogo"), ("términos", "Reglas"),
+              ("creativ", "Creativos"), ("video", "Creativos"), ("ubicacion", "Entrega"), ("ubicación", "Entrega"),
+              ("dispositiv", "Entrega")]
+
+
+def herramienta(n, cfg):
+    if n.get("herramienta"):
+        return n["herramienta"]
+    if cfg["slug"] == "novedades-ia":
+        texto = (n["fuentes"][0][1] + " " + n["titulo"]).lower()
+        return next((h for clave, h in HERRAMIENTAS_IA if clave in texto), "IA")
+    texto = (n["titulo"] + " " + n["que_cambio"]).lower()
+    return next((h for clave, h in AREAS_META if clave in texto), "Anuncios")
+
+
+def ids_novedades(datos):
+    """Ancla estable por novedad: n-<fecha>-<k>, con k contado desde la más vieja de ese día.
+    Sumar una novedad nueva arriba no cambia las anclas de las anteriores (las usan los posts de redes)."""
+    ids, cuenta = {}, {}
+    for n in reversed(datos):
+        k = cuenta.get(n["fecha"], 0)
+        cuenta[n["fecha"]] = k + 1
+        ids[id(n)] = f"n-{n['fecha']}-{k}"
+    return ids
+
+
 def novedades(cfg):
     """Página de novedades: los cambios confirmados en fuentes oficiales (datos en contenido/<archivo>)."""
-    datos = json.loads((RAIZ / "contenido" / cfg["archivo"]).read_text(encoding="utf-8"))["novedades"]
-    datos = sorted(datos, key=lambda n: n["fecha"], reverse=True)
+    crudos = json.loads((RAIZ / "contenido" / cfg["archivo"]).read_text(encoding="utf-8"))["novedades"]
+    ids = ids_novedades(crudos)
+    datos = sorted(crudos, key=lambda n: n["fecha"], reverse=True)
     url = f"{SITIO}/{cfg['slug']}"
     ultima = datos[0]["fecha"]
     meta = {"titulo": cfg["titulo"], "titulo_seo": cfg["titulo_seo"], "descripcion": cfg["descripcion"], "og_tipo": "website"}
-    def fid(n, i): return f"n-{n['fecha']}-{i}"
-    items = []
+    def fid(n, i=None): return ids[id(n)]
+    sitio_img = f"crececonads.site/{cfg['slug']}"
+    items, conteo = [], {}
     for i, n in enumerate(datos):
+        h = herramienta(n, cfg)
+        conteo[h] = conteo.get(h, 0) + 1
         fuentes = " · ".join(f'<a href="{esc(u)}" rel="noopener" target="_blank">{esc(t)}</a>' for t, u in n["fuentes"])
         guia_link = f'<p class="nov-guia">Más detalle en la guía: <a href="/guias/{n["guia"]}">leer la guía</a></p>' if n.get("guia") else ""
         nota = f'<p class="nov-nota">{esc(n["nota"])}</p>' if n.get("nota") else ""
-        items.append(f'''<article class="nov" id="{fid(n, i)}">
-  <time datetime="{n["fecha"]}">{fecha_larga(n["fecha"])}</time>
+        archivo = f"{cfg['slug']}-{fid(n)}.jpg"
+        fecha_corta = "/".join(reversed(n["fecha"].split("-")[1:]))
+        portadas_og.novedad(n["titulo"], f"{h} · {fecha_corta}", RAIZ / "img" / "novedades" / archivo, sitio_img)
+        items.append(f'''<article class="nov" id="{fid(n)}" data-h="{esc(h)}">
+  <div class="nov-banda"><b>{esc(h)}</b></div>
+  <p class="nov-meta"><time datetime="{n["fecha"]}">{fecha_larga(n["fecha"])}</time></p>
   <h2>{esc(n["titulo"])}</h2>
   <p><b>Qué cambió.</b> {esc(n["que_cambio"])}</p>
   <p><b>Qué hacer.</b> {esc(n["que_hacer"])}</p>
   {nota}
   <p class="nov-fuente"><span class="tag">✅ Fuente oficial</span> {fuentes}</p>
   {guia_link}
+  <p class="nov-acciones"><button type="button" class="nov-compartir" data-cta="compartir_novedad" data-t="{esc(n["titulo"])}">Compartir</button> <a href="/img/novedades/{archivo}" download>Descargar imagen</a></p>
 </article>''')
+    orden = sorted(conteo.items(), key=lambda x: (-x[1], x[0]))
+    chips = "".join(f'<button type="button" role="tab" aria-selected="false" data-f="{esc(h)}">{esc(h)} <small>{c}</small></button>' for h, c in orden)
+    filtro = (f'<div class="viz-tabs nov-filtro" role="tablist" aria-label="Filtrar por {"herramienta" if cfg["slug"] == "novedades-ia" else "tema"}">'
+              f'<button type="button" role="tab" aria-selected="true" data-f="">Todas <small>{len(datos)}</small></button>{chips}</div>'
+              '''<script>
+(() => {
+  const bs = document.querySelectorAll(".nov-filtro button");
+  bs.forEach(b => b.addEventListener("click", () => {
+    bs.forEach(x => x.setAttribute("aria-selected", x === b ? "true" : "false"));
+    document.querySelectorAll("article.nov").forEach(n => { n.hidden = !!b.dataset.f && n.dataset.h !== b.dataset.f; });
+  }));
+  document.addEventListener("click", async (ev) => {
+    const b = ev.target.closest(".nov-compartir"); if (!b) return;
+    const url = location.origin + location.pathname + "#" + b.closest("article").id;
+    (window.dataLayer = window.dataLayer || []).push({ event: "cta_click", cta_type: "compartir_novedad", cta_text: b.dataset.t.slice(0, 60), cta_section: location.pathname });
+    if (navigator.share) { try { await navigator.share({ title: b.dataset.t, url }); } catch (e) {} return; }
+    try { await navigator.clipboard.writeText(url); b.textContent = "Link copiado"; setTimeout(() => (b.textContent = "Compartir"), 2000); } catch (e) { location.hash = b.closest("article").id; }
+  });
+})();
+</script>''')
+    if (RAIZ / "img" / "novedades" / f"{cfg['slug']}-{fid(datos[0])}.jpg").exists():
+        meta["og_imagen"] = f"/img/novedades/{cfg['slug']}-{fid(datos[0])}.jpg"
     otras = " · ".join(f'<a href="/{c["slug"]}">{esc(c["nombre"])}</a>' for c in NOVEDADES if c["slug"] != cfg["slug"])
     cuerpo = f'''<p class="crumbs"><a href="/">Inicio</a> / <a href="/guias">Guías</a> / {esc(cfg["nombre"])}</p>
 <article class="guia">
 <span class="chip-recurso">{esc(cfg["chip"])} · Actualizado el {fecha_larga(ultima)}</span>
 <h1>{cfg["h1"]}</h1>
 <p class="lead">{esc(cfg["lead"])}</p>
+{filtro}
 {"".join(items)}
 <p class="nov-pie">{esc(cfg["revision"])} Cuando un cambio se confirma, lo sumo acá con su fuente. Para recibirlos una vez por mes, sumate al <a href="/newsletter">newsletter</a>. También: {otras}.</p>
 {NEWS}
@@ -574,9 +639,10 @@ def novedades(cfg):
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "CollectionPage", "@id": url + "#pagina", "url": url, "name": cfg["titulo"], "description": cfg["descripcion"],
          "inLanguage": "es-AR", "dateModified": ultima, "author": {"@id": PERSONA}, "publisher": {"@id": ORG},
-         "hasPart": [{"@type": "NewsArticle", "@id": f"{url}#{fid(n, i)}", "headline": n["titulo"], "datePublished": n["fecha"],
+         "hasPart": [{"@type": "NewsArticle", "@id": f"{url}#{fid(n)}", "headline": n["titulo"], "datePublished": n["fecha"],
                       "description": n["que_cambio"], "author": {"@id": PERSONA}, "publisher": {"@id": ORG},
-                      "citation": [u for _, u in n["fuentes"]]} for i, n in enumerate(datos)]},
+                      "image": f"{SITIO}/img/novedades/{cfg['slug']}-{fid(n)}.jpg",
+                      "citation": [u for _, u in n["fuentes"]]} for n in datos]},
         migas([("Inicio", SITIO + "/"), ("Guías", SITIO + "/guias"), (cfg["nombre"], url)])]}
     return url, documento(meta, url, ld, cuerpo), ultima, datos
 

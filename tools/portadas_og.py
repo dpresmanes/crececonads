@@ -61,7 +61,11 @@ def portada(titulo, tag, destino, sitio="crececonads.site/guias"):
     d.text((x * S, 552 * S), "Ads", font=pie, fill=TEXTO)
     d.text(((1130 - d.textlength(sitio, font=pie) / S) * S, 552 * S), sitio, font=pie, fill=SUAVE)
     destino.parent.mkdir(parents=True, exist_ok=True)
-    im.resize((W, H), Image.LANCZOS).save(destino, optimize=True)
+    final = im.resize((W, H), Image.LANCZOS)
+    if destino.suffix == ".jpg":
+        final.save(destino, quality=82, optimize=True, progressive=True)
+    else:
+        final.save(destino, optimize=True)
 
 
 def asegurar(meta):
@@ -73,3 +77,14 @@ def asegurar(meta):
         except ImportError:
             return None
     return f"/img/og/{meta['slug']}.png"
+
+
+def novedad(titulo, etiqueta, destino, sitio):
+    """Imagen de una novedad (img/novedades/<pagina>-<id>.jpg): la herramienta y la fecha en la etiqueta."""
+    if destino.exists():
+        return True
+    try:
+        portada(titulo, etiqueta, destino, sitio)
+        return True
+    except ImportError:
+        return False

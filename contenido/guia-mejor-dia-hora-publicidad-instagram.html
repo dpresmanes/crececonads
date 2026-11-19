@@ -28,6 +28,37 @@
 </ul>
 <p>Traducido: si ponés el anuncio a correr toda la semana, Meta ya está “eligiendo el día y la hora” por vos, con datos que vos no tenés. Por eso prenderlo y apagarlo a mano según el horario no suele mejorar nada y puede empeorar las cosas.</p>
 
+<figure class="viz" id="viz-presupuesto-semana">
+  <span class="viz-k">Simulador</span>
+  <h3>¿Cuánto puede gastar Meta por día y por semana?</h3>
+  <p class="sub">Poné tu presupuesto diario y mirá los límites que fija Meta. Nada se guarda ni se envía.</p>
+  <div class="viz-grid">
+    <div class="viz-campo"><label for="ps-diario">Presupuesto diario <output id="ps-diario-o"></output></label><input id="ps-diario" type="range" min="1000" max="200000" step="1000" value="20000"></div>
+    <div class="viz-campo"><label for="ps-alta">Aumento en un período de alta demanda <output id="ps-alta-o"></output></label><input id="ps-alta" type="range" min="0" max="700" step="25" value="100"></div>
+  </div>
+  <div class="viz-res">
+    <div><b id="ps-dia"></b><span>lo máximo que puede gastar un día (hasta 75 % más)</span></div>
+    <div><b class="azul" id="ps-semana"></b><span>tope de la semana, de domingo a sábado (7 veces el diario)</span></div>
+    <div><b id="ps-pico"></b><span>presupuesto en el período de alta demanda (tope: 8 veces el diario)</span></div>
+  </div>
+  <p class="viz-nota" id="ps-aviso"></p>
+  <p class="viz-nota">Reglas de Meta: el diario es un promedio semanal; un día puede gastar hasta 75 % más, la semana no pasa de 7 veces el diario; la programación del presupuesto permite hasta 8 veces el diario en períodos de 3 horas o más.</p>
+</figure>
+<script>
+(() => {
+  const $ = id => document.getElementById(id), plata = n => "$" + Math.round(n).toLocaleString("es-AR");
+  function calc() {
+    const d = +$("ps-diario").value, a = +$("ps-alta").value;
+    $("ps-diario-o").textContent = plata(d); $("ps-alta-o").textContent = "+" + a + "\u00a0%";
+    $("ps-dia").textContent = plata(d * 1.75); $("ps-semana").textContent = plata(d * 7);
+    $("ps-pico").textContent = plata(d * (1 + a / 100));
+    $("ps-aviso").textContent = a > 700 ? "" : "Aunque un día gaste más, en la semana no pasa del tope: lo que gasta de más un día lo gasta de menos otro.";
+  }
+  ["ps-diario", "ps-alta"].forEach(id => $(id).addEventListener("input", calc));
+  calc();
+})();
+</script>
+
 <h2 id="cuando-lanzar">2. Cuándo lanzar el anuncio: uno o dos días antes</h2>
 <p>El día que importa no es el que pagás, sino el día en que necesitás que venda. Un anuncio nuevo pasa por la revisión de Meta y después por la <strong>fase de aprendizaje</strong>, en la que el sistema prueba cómo entregarlo y los resultados son menos estables. Meta indica que un conjunto de anuncios suele salir del aprendizaje después de unos 50 resultados en la semana posterior al último cambio importante.</p>
 <p>Por eso, si tenés una promo para el viernes, <strong>no lo lances el viernes a la mañana</strong>. Cargalo con uno o dos días de margen. Si te preocupa que salga antes de tiempo, programá la fecha de inicio: el anuncio pasa la revisión y queda listo para arrancar cuando elegiste. En la guía de <a href="/guias/publicidad-instagram-no-aparece">qué revisar si pagaste publicidad y no aparece</a> están los tiempos de revisión.</p>

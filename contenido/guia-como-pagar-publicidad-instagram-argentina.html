@@ -6,6 +6,7 @@
 "descripcion": "Qué medios de pago acepta Meta en Argentina para la publicidad de Instagram (tarjeta, PayPal, Mercado Pago, Rapipago, Pago Fácil), cómo funciona cada uno, cómo pagar en pesos o sin tarjeta y qué impuestos se suman.",
 "respuesta": "En Argentina podés pagar la publicidad de Instagram con tarjeta de crédito o débito (Visa, Mastercard o American Express), con PayPal o con medios manuales: Mercado Pago, Rapipago, Pago Fácil y tarjetas locales. Con tarjeta o PayPal, Meta te cobra a medida que gastás. Con los medios manuales cargás saldo antes y Meta lo va descontando. Ojo: los medios manuales solo aparecen si la cuenta publicitaria es de Argentina, está en pesos y los elegiste al crearla. Y siempre se suma el IVA.",
 "fecha": "2026-11-19",
+"actualizado": "2026-11-19",
 "tag": "Meta Ads · Pagos",
 "temas": ["Publicidad en Instagram", "Meta Ads", "Medios de pago", "Mercado Pago"],
 "faq": [
@@ -35,6 +36,40 @@
   <li><strong>Saldo prepago (Mercado Pago, Rapipago, Pago Fácil).</strong> Cargás plata antes y Meta la descuenta día a día mientras tus anuncios salen. No hay umbral: cuando el saldo se termina, los anuncios se frenan. El saldo no vence.</li>
 </ul>
 <p>Criterio práctico: si querés que los anuncios <strong>no se corten nunca</strong>, el pago automático es más cómodo. Si querés <strong>controlar exactamente cuánto gastás</strong> o no tenés tarjeta, el saldo prepago te ordena. Con saldo prepago, eso sí, tenés que estar atento: si se termina en plena promo, los anuncios se frenan.</p>
+
+<figure class="viz" id="viz-medio-pago">
+  <span class="viz-k">Elegí en 3 preguntas</span>
+  <h3>¿Con qué te conviene pagar la publicidad?</h3>
+  <p class="sub">Respondé y te digo qué medio usar, según lo que dice Meta para Argentina. Nada se guarda ni se envía.</p>
+  <div class="viz-campo"><label>1. ¿Ya creaste la cuenta publicitaria?</label>
+    <div class="viz-opciones" data-p="cuenta"><button type="button" data-v="no">Todavía no</button><button type="button" data-v="tarjeta">Sí, con tarjeta o PayPal</button><button type="button" data-v="manual">Sí, con Mercado Pago u otro manual</button></div></div>
+  <div class="viz-campo" style="margin-top:16px"><label>2. ¿Tenés una tarjeta de crédito o débito habilitada para compras online?</label>
+    <div class="viz-opciones" data-p="tarjeta"><button type="button" data-v="si">Sí</button><button type="button" data-v="no">No</button></div></div>
+  <div class="viz-campo" style="margin-top:16px"><label>3. ¿Qué te importa más?</label>
+    <div class="viz-opciones" data-p="prioridad"><button type="button" data-v="continuidad">Que los anuncios no se corten nunca</button><button type="button" data-v="control">Controlar cada peso que gasto</button></div></div>
+  <div class="viz-veredicto" id="mp-res" aria-live="polite"><b>Respondé las 3 preguntas</b><span>y acá aparece el medio que te conviene.</span></div>
+  <p class="viz-nota">Medios manuales (Mercado Pago, Rapipago, Pago Fácil): solo en cuentas de Argentina en pesos, y si se eligen al crear la cuenta (Meta).</p>
+</figure>
+<script>
+(() => {
+  const r = {}, box = document.getElementById("mp-res");
+  const marcar = (g, b) => g.querySelectorAll("button").forEach(x => x.style.cssText = x === b ? "background:var(--blue);border-color:var(--blue);color:#fff" : "");
+  function decidir() {
+    if (!r.cuenta || !r.tarjeta || !r.prioridad) return;
+    let t, d;
+    if (r.cuenta === "manual") { t = "Seguí con saldo prepago (Mercado Pago, Rapipago o Pago Fácil)"; d = "Tu cuenta ya funciona con saldo: cargá con margen antes de las fechas fuertes y hacelo desde el navegador, no desde la app del iPhone, para evitar la comisión de la App Store."; }
+    else if (r.cuenta === "no" && (r.tarjeta === "no" || r.prioridad === "control")) { t = "Creá la cuenta en pesos y elegí Mercado Pago"; d = "Con saldo prepago gastás solo lo que cargaste y no necesitás tarjeta. Importante: el medio manual se elige al crear la cuenta, con Argentina como país y pesos como moneda."; }
+    else if (r.tarjeta === "si" && r.prioridad === "continuidad") { t = "Tarjeta con pago automático"; d = "Los anuncios no se cortan por falta de saldo. Poné un umbral de pago máximo en la configuración de pagos para controlar los cobros. Si la tarjeta es Visa y la cuenta está en pesos, tiene que ser de un banco argentino."; }
+    else if (r.tarjeta === "si") { t = "Tarjeta, con un umbral máximo y un límite de gasto"; d = "Tu cuenta ya está con pago automático, así que puede que no te aparezcan los medios manuales. Para controlar cada peso, poné un umbral de pago máximo y un límite de gasto de la cuenta."; }
+    else { t = "PayPal"; d = "Si tu cuenta ya se creó con tarjeta y no tenés una habilitada, PayPal es la alternativa que acepta Meta en Argentina. Los medios manuales solo se eligen al crear la cuenta: verificalo en tu cuenta."; }
+    box.innerHTML = "<b>" + t + "</b><span>" + d + "</span>";
+    (window.dataLayer = window.dataLayer || []).push({ event: "viz_resultado", viz: "medio_pago", resultado: t });
+  }
+  document.querySelectorAll("#viz-medio-pago .viz-opciones").forEach(g => g.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return; r[g.dataset.p] = b.dataset.v; marcar(g, b); decidir();
+  }));
+})();
+</script>
 
 <h2 id="paso-a-paso">3. Paso a paso para cargar el medio de pago</h2>
 <p><strong>Si vas a pagar con tarjeta o PayPal:</strong></p>

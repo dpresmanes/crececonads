@@ -20,6 +20,43 @@
 <p>Si querés vender más en Navidad con publicidad en Instagram, la clave no es cuánto ponés el 20 de diciembre, sino <strong>qué tenés funcionando desde la primera semana</strong>. Instagram ya es un canal central para las tiendas online: según el Radar D2C de Tiendanube de octubre de 2026, el 41,4 % de los pedidos de sus tiendas se originan ahí. En diciembre, además, todos publican a la vez, y el que llega tarde paga anuncios que todavía están aprendiendo justo en la semana que más importa.</p>
 <p>Esta guía te lleva semana por semana: qué preparar, qué lanzar, qué no tocar y cuándo cortar. Todo lo que dice sobre cómo funciona Meta está tomado de su centro de ayuda.</p>
 
+<figure class="viz" id="viz-diciembre">
+  <span class="viz-k">Tu diciembre, hoy</span>
+  <h3>¿En qué semana estás y qué te toca hacer?</h3>
+  <p class="sub">La etapa en verde es la de hoy. Tocá cualquier otra para ver qué hacer en esa semana.</p>
+  <div class="viz-linea" id="dic-linea"></div>
+  <div class="viz-veredicto" id="dic-res" aria-live="polite"></div>
+</figure>
+<script>
+(() => {
+  const E = [
+    ["Antes del 30/11", null, "2026-11-29", "Prepará la base", "Probá el píxel con una compra de prueba, confirmá la fecha límite de envío con tu correo, probá los medios de pago y elegí los productos o combos que vas a empujar."],
+    ["30/11 al 6/12", "2026-11-30", "2026-12-06", "Lanzá todo lo de diciembre", "Publicá las campañas con creativos de regalo (imagen y video corto) y dejá cargados con fecha de inicio los anuncios de las semanas 3 y 4."],
+    ["7/12 al 13/12", "2026-12-07", "2026-12-13", "No toques lo que funciona", "Subí el presupuesto de a poco y sumá un conjunto aparte para quienes visitaron tu tienda o dejaron el carrito, en vez de editar lo que anda."],
+    ["14/12 al 20/12", "2026-12-14", "2026-12-20", "La semana fuerte", "Programá más presupuesto en los días fuertes (el aguinaldo vence el 18/12), poné la fecha límite de envío en todos lados y respondé rápido."],
+    ["21/12 al 24/12", "2026-12-21", "2026-12-24", "La última compra", "Pasá a retiro en el local, envío en el día o regalo digital. Si no tenés nada de eso, bajá los anuncios que prometen envío."],
+    ["Del 25/12", "2026-12-25", null, "No apagues todo de golpe", "Bajá el presupuesto de forma gradual. Si pausás 7 días o más, el conjunto vuelve a aprender cuando lo reactivás."]
+  ];
+  const hoy = new Date().toLocaleDateString("sv-SE", { timeZone: "America/Argentina/Buenos_Aires" });
+  let actual = E.findIndex(e => (!e[1] || hoy >= e[1]) && (!e[2] || hoy <= e[2]));
+  if (actual < 0) actual = hoy < "2026-11-30" ? 0 : E.length - 1;
+  const linea = document.getElementById("dic-linea"), res = document.getElementById("dic-res");
+  function mostrar(i) {
+    linea.querySelectorAll("div").forEach((d, k) => d.style.background = k === i ? "rgba(47,91,255,.12)" : "");
+    res.innerHTML = "<b>" + (i === actual ? "Hoy te toca: " : "") + E[i][3] + "</b><span>" + E[i][4] + "</span>";
+  }
+  E.forEach((e, i) => {
+    const d = document.createElement("div");
+    if (i === actual) d.className = "hoy";
+    d.style.cssText = "cursor:pointer;border-radius:10px;padding-left:8px";
+    d.innerHTML = "<time>" + e[0] + "</time><span><b>" + e[3] + "</b>" + (i === actual ? " · <span style=\"color:var(--green)\">estás acá</span>" : "") + "</span>";
+    d.addEventListener("click", () => mostrar(i));
+    linea.appendChild(d);
+  });
+  mostrar(actual);
+})();
+</script>
+
 <h2 id="antes">Antes de empezar: lo que tiene que estar listo</h2>
 <p>Antes del 30 de noviembre, revisá esto. Si falla algo de acá, ningún presupuesto lo arregla:</p>
 <ul>
