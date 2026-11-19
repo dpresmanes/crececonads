@@ -2,6 +2,14 @@
   "_como_se_usa": "Una entrada por novedad de IA para pymes confirmada en una fuente oficial (✅ en ceo/VIGIA-IA.md del repo crececonads-sistema). Temas: automatizaciones, agentes que responden solos e IA generativa. Lo que está 'en observación' no entra. Después de editar: python3 tools/build_contenido.py.",
   "novedades": [
     {
+      "fecha": "2026-11-18",
+      "titulo": "Gemini Notebook arma sitios interactivos con tus notas y archivos: tableros, seguimientos de tareas y más",
+      "que_cambio": "En Gemini Notebook ahora le escribís \"make me a site\" (haceme un sitio) en el chat, con una descripción de lo que querés, y Gemini convierte tus fuentes en un sitio interactivo: por ejemplo, un tablero para revisar las ventas del trimestre o un seguimiento de tareas y fechas de un proyecto. Lo abrís en otra pestaña para usarlo o lo compartís con otros. Está disponible en todo el mundo, en la web, para mayores de 18 con cuentas personales de Google y todos los clientes de Google Workspace; en el celular llega más adelante. Se va habilitando de a poco desde el 16/11 (puede tardar hasta 15 días en aparecer).",
+      "que_hacer": "Si ya guardás en Gemini Notebook tus números de ventas, listas de pedidos o el plan de un lanzamiento, probá pedirle un tablero o un seguimiento de tareas para mostrarle a tu equipo, en lugar de mandar la planilla. Antes de compartirlo, revisá que el sitio no muestre datos de clientes o precios que no querés que vea cualquiera. Si usás Google Workspace, el administrador decide quién puede usar Gemini Notebook.",
+      "fuentes": [["Google Workspace Updates: Gemini Notebook arma sitios interactivos (18/11/2026)", "http://workspaceupdates.googleblog.com/2026/11/transform-your-notes-and-research-into-dynamic-tools-with-Gemini-Notebook.html"]],
+      "guia": "herramientas-automatizar-procesos-ia"
+    },
+    {
       "fecha": "2026-11-12",
       "titulo": "Claude se suma a tus reuniones de Google Meet: toma notas y arma documentos en vivo",
       "que_cambio": "Anthropic lanzó en beta Claude Meetings para los planes Team y Enterprise. Agregás a Claude a una llamada de Google Meet desde tu calendario y entra como un participante más, a la vista de todos: toma notas, responde preguntas (le hablás diciendo \"Claude\" o le escribís en el chat de Meet) y arma documentos, pizarras o presentaciones durante la llamada. Al terminar queda una página con el resumen, las tareas, la transcripción y todo lo que se armó, y los de tu equipo invitados reciben un mail con el link.",
