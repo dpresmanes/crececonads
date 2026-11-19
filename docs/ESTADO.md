@@ -78,6 +78,8 @@ fila 30/11 en "Publicada"; IndexNow y Bing avisados).
 
 **19/11, interactivos (OK de Damián):** las guías de pagos, Navidad y horarios tienen su `<figure class="viz">` (elegir medio de pago, línea de tiempo de diciembre que marca la semana actual, simulador de presupuesto). Las tareas de guía corta y semanal piden un interactivo obligatorio en cada guía. Novedades (Meta e IA): banda por herramienta/tema (`herramienta()` en el generador, campo opcional "herramienta"), filtros, botón Compartir (`cta_click` compartir_novedad), imagen para redes por novedad (`img/novedades/<pagina>-<id>.jpg`, `portadas_og.novedad`, og:image de la página = la última) y anclas estables `n-<fecha>-<k>` (k contado desde la más vieja del día).
 
+**19/11, guía «no aparece» (OK de Damián):** 48 impresiones y 0 clics en Google, visitas de 2-3 s. Nuevo titulo_seo y descripción ("Qué hacer según el estado") y diagnóstico interactivo por estado (`viz-estado-anuncio`, evento `viz_resultado`). Medir CTR en 1-2 semanas. /agentes: las sesiones de 0 s entran directo desde Facebook/Google (vistas previas); quien llega desde la web se queda (518 s en 8 vistas).
+
 **18/11, pie legal (OK de Damián):** en todas las páginas, "© 2026 CreceConAds® · Damián Presmanes · CUIT 20-33488306-0",
 "CreceConAds® es marca registrada" (marca concedida, confirmado por Damián) y QR de Data Fiscal de ARCA (F.960/NM, link
 `qr.afip.gob.ar/?qr=00BDHbA6FI6aH0XpUoj7bw,,`). En el generador (PIE) y a mano en index, agendar, newsletter y páginas legales.
