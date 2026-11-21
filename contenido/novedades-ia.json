@@ -2,6 +2,35 @@
   "_como_se_usa": "Una entrada por novedad de IA para pymes confirmada en una fuente oficial (✅ en ceo/VIGIA-IA.md del repo crececonads-sistema). Temas: automatizaciones, agentes que responden solos e IA generativa. Lo que está 'en observación' no entra. Después de editar: python3 tools/build_contenido.py.",
   "novedades": [
     {
+      "fecha": "2026-11-20",
+      "titulo": "Claude ya puede usar las apps de tu computadora en los planes Team y Enterprise (beta)",
+      "que_cambio": "Anthropic habilitó en beta el \"uso de la computadora\" (computer use) para los planes Team y Enterprise de Claude. Claude ve la pantalla y trabaja en las apps de escritorio que vos le permitas: hace clics y escribe como lo harías vos, desde Claude Desktop (Mac con macOS 14 o posterior y Windows), y también desde Claude en la web o en el celular si tenés la computadora con Claude Desktop abierto y el acceso a la computadora activado. Viene apagado: lo prende el dueño de la cuenta en la configuración de la organización. Se va habilitando de a poco, así que puede que todavía no te aparezca.",
+      "que_hacer": "Si tu equipo usa Claude Team, pensá en una tarea repetida que hoy se hace a mano en una app de la compu (pasar datos de un mail a una planilla, cargar pedidos en un sistema) y probala primero en una computadora sin datos sensibles. Tené en cuenta lo que advierte Anthropic: no hay una barrera entre Claude y tus apps, puede abrir, cambiar o borrar archivos a través de las apps que le permitas, y lo que aparece en pantalla (un mail o una web) puede hacer que haga algo que no pediste. Además, las capturas de pantalla que toma quedan guardadas en el chat. Permitile solo las apps que necesita y mirá lo que hace.",
+      "fuentes": [
+        [
+          "Claude Help Center: Release notes (20/11/2026)",
+          "https://support.claude.com/en/articles/12138966-release-notes"
+        ],
+        [
+          "Claude Help Center: Set up computer use for Team and Enterprise plans",
+          "https://support.claude.com/en/articles/18483812-set-up-computer-use-for-team-and-enterprise-plans"
+        ]
+      ],
+      "guia": "automatizar-procesos-administrativos-ia-pyme"
+    },
+    {
+      "fecha": "2026-11-20",
+      "titulo": "Google Vids guarda tus fotos, videos y audios para reusarlos al generar videos con IA",
+      "que_cambio": "Cuando generás videos con IA en Google Vids (con Gemini Omni), el material que usás ahora queda guardado en una sección nueva, \"Assets\" (recursos), y lo podés volver a elegir como ingrediente para los próximos videos del mismo proyecto. Acepta imágenes, videos y audio. Viene activado para todos, sin configurar nada. Se va habilitando de a poco desde el 17/11 en las cuentas de Google Workspace con lanzamiento rápido y desde el 02/12 en el resto. Está en los planes Business Starter, Standard y Plus, Enterprise, y en cuentas personales de Google con Google AI Pro y Ultra.",
+      "que_hacer": "Si hacés videos de producto o de promociones en Vids, subí una vez las fotos de tus productos, tu logo y la música que usás, y reusalas en cada video nuevo del proyecto para que todos salgan con la misma imagen de marca, sin volver a cargarlas cada vez.",
+      "fuentes": [
+        [
+          "Google Workspace Updates: Google Vids reusa tu material al generar videos (20/11/2026)",
+          "http://workspaceupdates.googleblog.com/2026/11/google-vids-now-lets-you-reuse-your-media-in-video-generation.html"
+        ]
+      ]
+    },
+    {
       "fecha": "2026-11-18",
       "titulo": "Gemini Notebook arma sitios interactivos con tus notas y archivos: tableros, seguimientos de tareas y más",
       "que_cambio": "En Gemini Notebook ahora le escribís \"make me a site\" (haceme un sitio) en el chat, con una descripción de lo que querés, y Gemini convierte tus fuentes en un sitio interactivo: por ejemplo, un tablero para revisar las ventas del trimestre o un seguimiento de tareas y fechas de un proyecto. Lo abrís en otra pestaña para usarlo o lo compartís con otros. Está disponible en todo el mundo, en la web, para mayores de 18 con cuentas personales de Google y todos los clientes de Google Workspace; en el celular llega más adelante. Se va habilitando de a poco desde el 16/11 (puede tardar hasta 15 días en aparecer).",
