@@ -2,6 +2,42 @@
   "_como_se_usa": "Una entrada por cambio confirmado en una fuente oficial de Meta (✅ en el documento del Vigía). Lo que está 'en observación' no entra. Las más nuevas arriba. Después de editar: python3 tools/build_contenido.py.",
   "novedades": [
     {
+      "fecha": "2026-11-23",
+      "titulo": "Anuncios que llevan a WhatsApp: el período para responder gratis puede durar hasta 7 días",
+      "que_cambio": "Cuando alguien te escribe desde un anuncio que abre WhatsApp (desde la app del celular, Android o iPhone) y le respondés a tiempo, se abre un período en el que Meta no cobra los mensajes que mandás: ni los de marketing, ni los de utilidad, ni los de autenticación, ni los de servicio. Antes ese período duraba 72 horas; ahora puede quedar abierto hasta 7 días. Empieza cuando respondés, no cuando te escribe el cliente. Aplica a la plataforma de WhatsApp Business (la API), y los mensajes que manda el agente de IA de Meta se siguen cobrando. Meta aclara que puede no estar disponible todavía para todas las cuentas, y algunos artículos de su centro de ayuda todavía dicen 72 horas.",
+      "que_hacer": "Si hacés anuncios que llevan a WhatsApp, respondé rápido cada consulta que llega del anuncio y usá esos días para el seguimiento: mandar la foto que te pidieron, recordar lo que quedó en el carrito o avisar cuando vuelve un talle. Antes de contar con los 7 días, fijate en WhatsApp Manager, en Estadísticas, cuántos mensajes te figuran como gratis.",
+      "fuentes": [
+        [
+          "Centro de ayuda de Meta: período de mensajes gratis en anuncios que llevan a mensajes",
+          "https://www.facebook.com/business/help/1633888728080924"
+        ],
+        [
+          "Meta for Developers: precios de la plataforma de WhatsApp Business",
+          "https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing"
+        ],
+        [
+          "Meta for Developers: changelog de la plataforma de WhatsApp Business",
+          "https://developers.facebook.com/documentation/business-messaging/whatsapp/changelog"
+        ]
+      ]
+    },
+    {
+      "fecha": "2026-11-23",
+      "titulo": "WhatsApp: cada número tiene 1.000 mensajes de servicio gratis por mes",
+      "que_cambio": "Desde el 1 de octubre de 2026 Meta cobra las respuestas que mandás por la plataforma de WhatsApp Business (la API) dentro de las 24 horas desde que el cliente te escribió, que Meta llama mensajes de servicio. Cada número de teléfono tiene 1.000 de esos mensajes gratis por mes y se cobra desde el 1.001. Los que no usás no se acumulan: el contador vuelve a cero cada mes. Si la cuenta de WhatsApp no tiene un medio de pago cargado, cuando se terminan los 1.000 Meta deja de entregar esas respuestas.",
+      "que_hacer": "Si atendés clientes por la API de WhatsApp (por ejemplo, con un sistema de atención o un agente de IA), cargá un medio de pago en la cuenta para que las respuestas no se corten a mitad de mes, y mirá en WhatsApp Manager cuántos mensajes de servicio mandás por mes.",
+      "fuentes": [
+        [
+          "Meta for Developers: precios de la plataforma de WhatsApp Business",
+          "https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing"
+        ],
+        [
+          "Meta for Developers: changelog de la plataforma de WhatsApp Business",
+          "https://developers.facebook.com/documentation/business-messaging/whatsapp/changelog"
+        ]
+      ]
+    },
+    {
       "fecha": "2026-11-18",
       "titulo": "Ya podés ver cuánto vende y cuánto gasta cada producto de tu catálogo",
       "que_cambio": "Meta tiene una sección llamada Product insights (estadísticas por producto) dentro de los informes del Administrador de anuncios. Ahí ves, producto por producto, cuántas veces se vio, cuántos clics recibió, cuántas compras sumó, cuánto se gastó en anuncios que lo muestran y cuántos pedidos se le atribuyen. Podés filtrar por producto, marca o categoría, ver el rendimiento por conjunto de productos y compararte con negocios parecidos de tu rubro y tu país. Está en beta: todavía no aparece en todas las cuentas.",
