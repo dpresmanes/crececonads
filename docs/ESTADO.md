@@ -1,6 +1,6 @@
 # Estado de la web y del embudo de mails · leer antes de trabajar
 
-Actualizado: 23/11/2026. Si un chat nuevo retoma este trabajo, **arranca acá**: lo que figura como hecho está
+Actualizado: 24/11/2026. Si un chat nuevo retoma este trabajo, **arranca acá**: lo que figura como hecho está
 hecho y probado en producción; no se rehace ni se reescribe. Antes de tocar algo, `git pull origin web-v2`.
 
 ## Organigrama (desde el 13/11)
@@ -77,6 +77,8 @@ fila 30/11 en "Publicada"; IndexNow y Bing avisados).
 **Novedades IA (19/11):** se publica sola con lo ✅ del Vigía de IA (decisión de Damián en ceo/DECISIONES.md; tarea del Vigía actualizada). Publicadas las 3 propuestas trabadas (Gemini en Apps Script, skills de Gemini, Gemini Notebook). Las ramas `novedades-ia-*` viejas quedan sin uso (el entorno no puede borrarlas).
 
 **19/11, interactivos (OK de Damián):** las guías de pagos, Navidad y horarios tienen su `<figure class="viz">` (elegir medio de pago, línea de tiempo de diciembre que marca la semana actual, simulador de presupuesto). Las tareas de guía corta y semanal piden un interactivo obligatorio en cada guía. Novedades (Meta e IA): banda por herramienta/tema (`herramienta()` en el generador, campo opcional "herramienta"), filtros, botón Compartir (`cta_click` compartir_novedad), imagen para redes por novedad (`img/novedades/<pagina>-<id>.jpg`, `portadas_og.novedad`, og:image de la página = la última) y anclas estables `n-<fecha>-<k>` (k contado desde la más vieja del día).
+
+**24/11 (OK de Damián):** publicadas `/guias/como-promocionar-publicacion-instagram` (guía corta, interactivo "¿desde dónde promocionar?") y `/guias/whatsapp-inmobiliaria-alquileres-verano` (semanal del 07/12, checklist de temporada; Calendario en Publicada); botón de WhatsApp debajo del diagnóstico en "no aparece" (`data-cta=whatsapp`). IndexNow y Bing avisados.
 
 **23/11, parte SEO:** 42 sesiones (16-22/11, +75%), Google 305 impresiones y 6 clics en 28 días (antes 46 y 3), 18 de 19 páginas indexadas (falta agente-ia-whatsapp-tienda-online), 0 contactos. "No aparece" pasó de 2 s a 208 s promedio con el diagnóstico. Bing sin datos (respuesta vacía) y Visibilidad IA sin medir (Gemini 429). 5 ideas nuevas en Ideas; Calendario cubierto hasta el 25/01.
 
