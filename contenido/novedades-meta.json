@@ -19,7 +19,8 @@
           "Meta for Developers: changelog de la plataforma de WhatsApp Business",
           "https://developers.facebook.com/documentation/business-messaging/whatsapp/changelog"
         ]
-      ]
+      ],
+      "slug": "anuncios-que-llevan-a-whatsapp-el-periodo-para-responder-gratis-puede"
     },
     {
       "fecha": "2026-11-23",
@@ -35,7 +36,8 @@
           "Meta for Developers: changelog de la plataforma de WhatsApp Business",
           "https://developers.facebook.com/documentation/business-messaging/whatsapp/changelog"
         ]
-      ]
+      ],
+      "slug": "whatsapp-cada-numero-tiene-1-000-mensajes-de-servicio-gratis-por-mes"
     },
     {
       "fecha": "2026-11-18",
@@ -52,7 +54,8 @@
           "Centro de ayuda de Meta: métricas de entrega de Product insights",
           "https://www.facebook.com/business/help/26275855602085917"
         ]
-      ]
+      ],
+      "slug": "ya-podes-ver-cuanto-vende-y-cuanto-gasta-cada-producto-de-tu-catalogo"
     },
     {
       "fecha": "2026-11-17",
@@ -69,7 +72,8 @@
           "Centro de ayuda de Meta: ThruPlays de 6 segundos",
           "https://www.facebook.com/business/help/1441620301326177"
         ]
-      ]
+      ],
+      "slug": "ahora-podes-pedir-videos-vistos-de-6-segundos-no-solo-de-15"
     },
     {
       "fecha": "2026-11-12",
@@ -87,7 +91,8 @@
           "https://www.facebook.com/business/help/836650262236158"
         ]
       ],
-      "guia": "escalar-ventas-tienda-online-meta-ads"
+      "guia": "escalar-ventas-tienda-online-meta-ads",
+      "slug": "una-audiencia-para-cada-creativo-dentro-del-mismo-conjunto-de-anuncios"
     },
     {
       "fecha": "2026-11-10",
@@ -101,7 +106,8 @@
           "https://www.facebook.com/business/help/4237575203200036"
         ]
       ],
-      "guia": "cambios-meta-ads-noviembre-2026"
+      "guia": "cambios-meta-ads-noviembre-2026",
+      "slug": "el-pixel-suma-un-ajuste-que-mide-conversiones-en-los-dispositivos-de"
     },
     {
       "fecha": "2026-11-09",
@@ -113,7 +119,8 @@
           "Centro de ayuda de Meta: llegar a más personas en otros dispositivos móviles",
           "https://www.facebook.com/business/help/1133720472541826"
         ]
-      ]
+      ],
+      "slug": "en-las-campanas-de-ventas-meta-puede-mostrar-tu-anuncio-en-otros"
     },
     {
       "fecha": "2026-11-07",
@@ -130,7 +137,8 @@
           "https://www.facebook.com/legal/commercial_terms"
         ]
       ],
-      "guia": "cambios-meta-ads-noviembre-2026"
+      "guia": "cambios-meta-ads-noviembre-2026",
+      "slug": "los-nuevos-terminos-de-publicidad-del-20-11-quedaron-en-pausa"
     },
     {
       "fecha": "2026-11-06",
@@ -147,7 +155,8 @@
           "https://www.facebook.com/business/help/718380518775632"
         ]
       ],
-      "guia": "cambios-meta-ads-noviembre-2026"
+      "guia": "cambios-meta-ads-noviembre-2026",
+      "slug": "ofertas-detectadas-meta-puede-mostrar-en-tus-anuncios-promociones-de"
     },
     {
       "fecha": "2026-11-06",
@@ -164,7 +173,8 @@
           "https://www.facebook.com/business/help/1546753450586085"
         ]
       ],
-      "guia": "cambios-meta-ads-noviembre-2026"
+      "guia": "cambios-meta-ads-noviembre-2026",
+      "slug": "ubicaciones-automaticas-en-las-campanas-de-ventas-clientes"
     },
     {
       "fecha": "2026-11-04",
@@ -176,7 +186,8 @@
           "Centro de ayuda de Meta: anuncios en los Estados de WhatsApp",
           "https://www.facebook.com/business/help/723817683917948"
         ]
-      ]
+      ],
+      "slug": "anuncios-en-los-estados-de-whatsapp-que-se-sabe-y-si-ya-estan-en"
     },
     {
       "fecha": "2026-10-28",
@@ -189,7 +200,8 @@
           "https://engineering.fb.com/2026/10/28/ml-applications/meta-andromeda-next-gen-ads-retrieval-gpu-co-design/"
         ]
       ],
-      "guia": "escalar-ventas-tienda-online-meta-ads"
+      "guia": "escalar-ventas-tienda-online-meta-ads",
+      "slug": "andromeda-el-creativo-pesa-mas-que-la-segmentacion"
     },
     {
       "fecha": "2026-10-19",
@@ -201,7 +213,8 @@
           "Blog de ingeniería de Meta: GenRecs (19/10/2026)",
           "https://engineering.fb.com/2026/10/19/ml-applications/genrecs-tokenization-transforming-ads-recommendation-at-meta-with-stable-model-vocabulary/"
         ]
-      ]
+      ],
+      "slug": "genrecs-meta-lee-el-texto-y-la-imagen-de-tu-anuncio-para-entender-que"
     }
   ]
 }

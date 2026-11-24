@@ -259,3 +259,8 @@ th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacin
 .barra-wa span b{color:var(--green);font-weight:700}
 .barra-wa .btn{flex:none}
 @media (prefers-reduced-motion:reduce){.barra-wa{transition:none}}
+/* novedad con página propia */
+.nov h2 a{color:inherit;text-decoration:none}
+.nov h2 a:hover{text-decoration:underline;text-decoration-color:var(--blue-2)}
+.nov-sola h1{font-family:var(--display);font-size:clamp(28px,4.4vw,40px);line-height:1.12;letter-spacing:-.02em;margin:6px 0 18px}
+.nov-volver{margin-top:22px;font-weight:600}

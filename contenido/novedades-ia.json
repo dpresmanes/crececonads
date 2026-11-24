@@ -12,7 +12,8 @@
           "https://learn.microsoft.com/en-us/power-platform/important-changes-coming"
         ]
       ],
-      "guia": "herramientas-automatizar-procesos-ia"
+      "guia": "herramientas-automatizar-procesos-ia",
+      "slug": "power-automate-saca-el-copilot-del-disenador-de-flujos-y-describe-it"
     },
     {
       "fecha": "2026-11-20",
@@ -24,7 +25,8 @@
           "OpenAI Help Center: ChatGPT release notes (20/11/2026)",
           "https://help.openai.com/en/articles/6825453-chatgpt-release-notes"
         ]
-      ]
+      ],
+      "slug": "chatgpt-space-llega-al-plan-plus-paginas-y-presentaciones-que-se"
     },
     {
       "fecha": "2026-11-20",
@@ -41,7 +43,8 @@
           "https://support.claude.com/en/articles/18483812-set-up-computer-use-for-team-and-enterprise-plans"
         ]
       ],
-      "guia": "automatizar-procesos-administrativos-ia-pyme"
+      "guia": "automatizar-procesos-administrativos-ia-pyme",
+      "slug": "claude-ya-puede-usar-las-apps-de-tu-computadora-en-los-planes-team-y"
     },
     {
       "fecha": "2026-11-20",
@@ -53,7 +56,8 @@
           "Google Workspace Updates: Google Vids reusa tu material al generar videos (20/11/2026)",
           "http://workspaceupdates.googleblog.com/2026/11/google-vids-now-lets-you-reuse-your-media-in-video-generation.html"
         ]
-      ]
+      ],
+      "slug": "google-vids-guarda-tus-fotos-videos-y-audios-para-reusarlos-al"
     },
     {
       "fecha": "2026-11-18",
@@ -66,7 +70,8 @@
           "http://workspaceupdates.googleblog.com/2026/11/transform-your-notes-and-research-into-dynamic-tools-with-Gemini-Notebook.html"
         ]
       ],
-      "guia": "herramientas-automatizar-procesos-ia"
+      "guia": "herramientas-automatizar-procesos-ia",
+      "slug": "gemini-notebook-arma-sitios-interactivos-con-tus-notas-y-archivos"
     },
     {
       "fecha": "2026-11-16",
@@ -79,7 +84,8 @@
           "http://workspaceupdates.googleblog.com/2026/11/customize-and-extend-workspace-with-apps-script.html"
         ]
       ],
-      "guia": "automatizar-procesos-administrativos-ia-pyme"
+      "guia": "automatizar-procesos-administrativos-ia-pyme",
+      "slug": "automatizaciones-en-google-sheets-y-gmail-pidiendoselas-a-gemini-en"
     },
     {
       "fecha": "2026-11-16",
@@ -91,7 +97,8 @@
           "Google Workspace Updates: compartir skills y sumar archivos en la app de Gemini",
           "http://workspaceupdates.googleblog.com/2026/11/share-skills-add-files-from-Drive-Notebook-Photos-to-skills-Gemini-app.html"
         ]
-      ]
+      ],
+      "slug": "las-skills-de-gemini-ahora-se-comparten-con-tu-equipo-y-pueden-usar"
     },
     {
       "fecha": "2026-11-12",
@@ -108,7 +115,8 @@
           "https://support.claude.com/en/articles/18325154-use-claude-meetings"
         ]
       ],
-      "guia": "automatizar-procesos-administrativos-ia-pyme"
+      "guia": "automatizar-procesos-administrativos-ia-pyme",
+      "slug": "claude-se-suma-a-tus-reuniones-de-google-meet-toma-notas-y-arma"
     },
     {
       "fecha": "2026-11-11",
@@ -120,7 +128,8 @@
           "Google Workspace Updates: Publish a Sheets canvas as a standalone link",
           "http://workspaceupdates.googleblog.com/2026/11/publish-sheets-canvas-as-standalone-link.html"
         ]
-      ]
+      ],
+      "slug": "google-sheets-las-mini-apps-que-arma-gemini-con-tu-planilla-ahora-se"
     },
     {
       "fecha": "2026-11-10",
@@ -133,7 +142,8 @@
           "OpenAI: Introducing Businesses in ChatGPT",
           "https://openai.com/index/introducing-businesses-chatgpt"
         ]
-      ]
+      ],
+      "slug": "chatgpt-abre-perfiles-para-negocios-como-aparece-tu-marca-cuando"
     },
     {
       "fecha": "2026-11-10",
@@ -146,7 +156,8 @@
           "http://workspaceupdates.googleblog.com/2026/11/expanding-gemini-in-gmail-to-more-Google-Workspace-users.html"
         ]
       ],
-      "guia": "automatizar-procesos-administrativos-ia-pyme"
+      "guia": "automatizar-procesos-administrativos-ia-pyme",
+      "slug": "gemini-en-gmail-llega-a-todas-las-cuentas-de-google-workspace"
     },
     {
       "fecha": "2026-11-09",
@@ -159,7 +170,8 @@
           "http://workspaceupdates.googleblog.com/2026/11/pause-and-schedule-automated-workflows-with-the-new-Wait-until-step-in-Workspace-Studio.html"
         ]
       ],
-      "guia": "automatizar-procesos-administrativos-ia-pyme"
+      "guia": "automatizar-procesos-administrativos-ia-pyme",
+      "slug": "seguimientos-automaticos-sin-codigo-workspace-studio-suma-el-paso"
     },
     {
       "fecha": "2026-11-09",
@@ -171,7 +183,8 @@
           "Google Workspace Updates: skills en Google Workspace",
           "http://workspaceupdates.googleblog.com/2026/11/skills-in-workspace.html"
         ]
-      ]
+      ],
+      "slug": "skills-en-google-workspace-que-gemini-escriba-con-las-reglas-de-tu"
     },
     {
       "fecha": "2026-11-04",
@@ -183,7 +196,8 @@
           "OpenAI: Introducing Images 2.6",
           "https://openai.com/index/introducing-images-2-6"
         ]
-      ]
+      ],
+      "slug": "images-2-6-de-openai-imagenes-mas-rapidas-gif-y-edicion-mas-precisa"
     },
     {
       "fecha": "2026-10-29",
@@ -195,7 +209,8 @@
           "Blog de Google: archivos en la app de Gemini",
           "https://blog.google/innovation-and-ai/products/gemini-app/edit-files-directly/"
         ]
-      ]
+      ],
+      "slug": "la-app-de-gemini-crea-y-edita-documentos-pdf-y-planillas-dentro-del"
     },
     {
       "fecha": "2026-10-27",
@@ -208,7 +223,8 @@
           "https://blog.n8n.io/introducing-n8n-v3/"
         ]
       ],
-      "guia": "automatizar-procesos-administrativos-ia-pyme"
+      "guia": "automatizar-procesos-administrativos-ia-pyme",
+      "slug": "n8n-3-0-si-tus-automatizaciones-corren-en-n8n-revisa-antes-de"
     },
     {
       "fecha": "2026-10-20",
@@ -220,7 +236,8 @@
           "Blog de Google: nuevas herramientas de Gemini para pequeños negocios",
           "https://blog.google/innovation-and-ai/products/gemini-app/new-tools-small-business-owners/"
         ]
-      ]
+      ],
+      "slug": "gemini-suma-herramientas-para-pequenos-negocios-marca-finanzas-y-apps"
     }
   ]
 }
