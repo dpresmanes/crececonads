@@ -682,22 +682,16 @@ def novedades(cfg):
     for i, n in enumerate(datos):
         h = herramienta(n, cfg)
         conteo[h] = conteo.get(h, 0) + 1
-        fuentes = " · ".join(f'<a href="{esc(u)}" rel="noopener" target="_blank">{esc(t)}</a>' for t, u in n["fuentes"])
-        guia_link = f'<p class="nov-guia">Más detalle en la guía: <a href="/guias/{n["guia"]}">leer la guía</a></p>' if n.get("guia") else ""
-        nota = f'<p class="nov-nota">{esc(n["nota"])}</p>' if n.get("nota") else ""
         archivo = f"{cfg['slug']}-{fid(n)}.jpg"
         fecha_corta = "/".join(reversed(n["fecha"].split("-")[1:]))
         portadas_og.novedad(n["titulo"], f"{h} · {fecha_corta}", RAIZ / "img" / "novedades" / archivo, sitio_img)
-        items.append(f'''<article class="nov" id="{fid(n)}" data-h="{esc(h)}">
+        resumen = n["que_cambio"] if len(n["que_cambio"]) <= 230 else n["que_cambio"][:227].rsplit(" ", 1)[0] + "…"
+        items.append(f'''<article class="nov nov-item" id="{fid(n)}" data-h="{esc(h)}">
   <div class="nov-banda"><b>{esc(h)}</b></div>
   <p class="nov-meta"><time datetime="{n["fecha"]}">{fecha_larga(n["fecha"])}</time></p>
   <h2><a href="/{cfg["slug"]}/{n["slug"]}">{esc(n["titulo"])}</a></h2>
-  <p><b>Qué cambió.</b> {esc(n["que_cambio"])}</p>
-  <p><b>Qué hacer.</b> {esc(n["que_hacer"])}</p>
-  {nota}
-  <p class="nov-fuente"><span class="tag">✅ Fuente oficial</span> {fuentes}</p>
-  {guia_link}
-  <p class="nov-acciones"><a href="/{cfg["slug"]}/{n["slug"]}">Ver la novedad sola</a> <button type="button" class="nov-compartir" data-cta="compartir_novedad" data-u="/{cfg["slug"]}/{n["slug"]}" data-t="{esc(n["titulo"])}">Compartir</button> <a href="/img/novedades/{archivo}" download>Descargar imagen</a></p>
+  <p>{esc(resumen)}</p>
+  <p class="nov-acciones"><a class="nov-leer" href="/{cfg["slug"]}/{n["slug"]}">Leer la novedad →</a> <button type="button" class="nov-compartir" data-cta="compartir_novedad" data-u="/{cfg["slug"]}/{n["slug"]}" data-t="{esc(n["titulo"])}">Compartir</button></p>
 </article>''')
         paginas.append(novedad_pagina(cfg, n, h, archivo, fid(n)) + (n,))
     orden = sorted(conteo.items(), key=lambda x: (-x[1], x[0]))
