@@ -12,6 +12,11 @@
       ],
       "destination": "https://crececonads.site/:path*",
       "permanent": true
+    },
+    {
+      "source": "/portfolio-automatizaciones-k7q2",
+      "destination": "/portfolio-damian-presmanes",
+      "permanent": true
     }
   ],
   "headers": [
