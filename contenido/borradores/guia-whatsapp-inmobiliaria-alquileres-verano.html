@@ -1,0 +1,123 @@
+<!--{
+"tipo": "guia",
+"slug": "whatsapp-inmobiliaria-alquileres-verano",
+"titulo": "Alquileres de verano: cómo responder las consultas de WhatsApp de tu inmobiliaria sin perder reservas",
+"titulo_seo": "WhatsApp para inmobiliarias: responder consultas de alquiler en verano | CreceConAds",
+"descripcion": "Cómo preparar el WhatsApp Business de tu inmobiliaria para la temporada: perfil, catálogo, etiquetas, respuestas rápidas, mensaje de ausencia y cuándo sumar un agente de IA, con lo que dice Meta.",
+"respuesta": "En temporada, la reserva suele quedársela la inmobiliaria que responde primero y bien. Antes de diciembre, dejá listo el WhatsApp Business: perfil completo, catálogo con las propiedades, etiquetas para ordenar cada consulta, respuestas rápidas para las preguntas que llegan siempre y mensaje de ausencia para la noche. Si las consultas te superan, sumá un agente de IA que responda las preguntas básicas y te pase la conversación cuando hace falta una persona.",
+"fecha": "2026-12-07",
+"tag": "Agentes de IA · WhatsApp",
+"pilar": "agentes-ia",
+"temas": ["WhatsApp Business", "Inmobiliarias", "Alquileres temporarios", "Agente de IA", "Chatbot de WhatsApp"],
+"faq": [
+  ["¿Puedo mandar el mismo mensaje a muchos interesados a la vez?", "Sí, con las herramientas oficiales. WhatsApp Business tiene difusiones para empresas, que mandan un mensaje personalizado a varias personas y muestran cuántas lo leyeron y respondieron. Meta advierte que usar herramientas no autorizadas para envíos masivos va contra sus condiciones y puede terminar en la restricción de la cuenta."],
+  ["¿El agente de IA de Meta reemplaza al mensaje de ausencia?", "Mientras el agente de IA está activo en un chat, Meta pausa algunas automatizaciones como el mensaje de ausencia, porque interfieren con sus respuestas. El agente aprende de esas automatizaciones y las retoma cuando sale del chat. Además, solo responde si puede contestar la pregunta; si no, te avisa para que tomes la conversación."],
+  ["¿El cliente sabe que le está respondiendo una IA?", "Sí. Según Meta, el cliente ve un aviso de que el negocio usa IA de Meta para generar mensajes, y en WhatsApp los mensajes generados por IA aparecen marcados. Además, la persona puede pedir en cualquier momento hablar con alguien del equipo."],
+  ["¿Puedo cargar las propiedades en el catálogo de WhatsApp Business?", "El catálogo de WhatsApp Business sirve para mostrar productos y servicios, así que podés usarlo para mostrar cada propiedad con fotos y descripción. Verificá en tu app cómo se muestra y mantenelo actualizado: una propiedad que ya está reservada y sigue en el catálogo genera consultas que terminan en un no."],
+  ["¿Tengo que usar la categoría especial de vivienda en los anuncios de alquileres?", "Según Meta, los anuncios de alquileres son anuncios de vivienda, y la categoría especial es obligatoria si el anunciante está en Estados Unidos o si el anuncio apunta a Estados Unidos, Canadá o ciertos países de Europa. Si anunciás desde Argentina para público argentino, no es obligatoria. Igual, verificalo al crear la campaña."]
+],
+"cta_titulo": "¿Armamos el WhatsApp de tu inmobiliaria para la temporada?"
+}-->
+<p>En temporada de verano, la reserva se la queda la inmobiliaria que <strong>responde primero y bien</strong>. Una consulta que espera horas se va a otra inmobiliaria, y en enero no hay segunda oportunidad. La buena noticia es que la mayor parte del trabajo se puede dejar lista antes de diciembre: un WhatsApp Business ordenado, con respuestas preparadas para lo que pregunta todo el mundo, y un agente de IA si las consultas te superan.</p>
+
+<h2 id="por-que">1. Por qué el WhatsApp define la temporada</h2>
+<p>Las reservas se adelantan. Según datos de la plataforma Propio publicados por iProfesional en octubre, para el verano 2027 el centro y La Perla de Mar del Plata ya tenían reservado el <strong>74 % de las noches</strong> de la primera quincena de enero, y Pinamar el 67 % de la segunda. En cambio, Villa Gesell tenía el 35 % de las noches reservadas: hay destinos y semanas donde todavía se juega todo.</p>
+<p>Y la gente espera respuestas rápidas: un estudio de Meta citado por El Cronista indica que el <strong>58 %</strong> espera respuestas más rápidas por WhatsApp que por otros canales. Si tu inmobiliaria tarda, el interesado ya le escribió a otras tres.</p>
+
+<figure class="viz" id="viz-whatsapp-temporada">
+  <span class="viz-k">Checklist de temporada</span>
+  <h3>¿Está listo el WhatsApp de tu inmobiliaria?</h3>
+  <p class="sub">Marcá lo que ya tenés y te digo qué conviene hacer primero. Nada se guarda ni se envía.</p>
+  <ul class="viz-chk" id="wt-lista">
+    <li><label><input type="checkbox" data-k="0"> Perfil de empresa completo (horario, dirección, web)</label></li>
+    <li><label><input type="checkbox" data-k="1"> Catálogo con las propiedades disponibles</label></li>
+    <li><label><input type="checkbox" data-k="2"> Etiquetas para ordenar las consultas</label></li>
+    <li><label><input type="checkbox" data-k="3"> Respuestas rápidas para las preguntas de siempre</label></li>
+    <li><label><input type="checkbox" data-k="4"> Mensaje de ausencia para fuera de horario</label></li>
+    <li><label><input type="checkbox" data-k="5"> Alguien (o un agente de IA) que responda en los picos</label></li>
+  </ul>
+  <div class="viz-barra"><i id="wt-barra"></i></div>
+  <div class="viz-veredicto" id="wt-res" aria-live="polite"></div>
+</figure>
+<script>
+(() => {
+  const P = [
+    ["Completá el perfil de empresa", "Horario, dirección, descripción y web. Es lo primero que mira quien te escribe y lo que usa el agente de IA de Meta para aprender de tu negocio.", "ordenar"],
+    ["Armá el catálogo con las propiedades", "Fotos, ubicación y lo principal de cada una. Así mandás la propiedad en un toque en vez de buscar fotos en la galería.", "ordenar"],
+    ["Creá etiquetas para cada etapa", "Por ejemplo: nueva consulta, enero, febrero, seña pendiente, reservado. En plena temporada, es la forma de no perder a nadie.", "ordenar"],
+    ["Prepará las respuestas rápidas", "Una por cada pregunta que llega siempre: disponibilidad, capacidad, mascotas, condiciones de reserva. Pueden incluir fotos y videos.", "respuestas"],
+    ["Activá el mensaje de ausencia", "Para que quien escribe a la noche sepa que lo viste y cuándo le respondés. Podés elegir a quién se manda y en qué horario.", "ordenar"],
+    ["Definí quién responde en los picos", "Si las consultas te superan, un agente de IA puede responder las preguntas básicas y pasarte el chat cuando hace falta una persona.", "agente"]
+  ];
+  const cs = [...document.querySelectorAll("#wt-lista input")], res = document.getElementById("wt-res"), barra = document.getElementById("wt-barra");
+  function calc() {
+    const hechos = cs.filter(c => c.checked).length, falta = cs.findIndex(c => !c.checked);
+    barra.style.width = Math.round(hechos / cs.length * 100) + "%";
+    res.innerHTML = falta < 0
+      ? "<b>Tu WhatsApp está listo para la temporada</b><span>Ahora el foco es medir: cuántas consultas entran por día y cuántas terminan en seña.</span>"
+      : "<b>" + hechos + " de " + cs.length + " · Lo próximo: " + P[falta][0] + "</b><span>" + P[falta][1] + " <a href=\"#" + P[falta][2] + "\">Ver cómo</a></span>";
+  }
+  cs.forEach(c => c.addEventListener("change", () => { calc(); if (cs.every(x => x.checked)) (window.dataLayer = window.dataLayer || []).push({ event: "viz_resultado", viz: "whatsapp_temporada", resultado: "completo" }); }));
+  calc();
+})();
+</script>
+
+<h2 id="ordenar">2. Ordená el WhatsApp Business antes de diciembre</h2>
+<p>La app de WhatsApp Business es gratuita y, según Meta, está pensada para que un negocio chico atienda a sus clientes uno a uno. Tiene cinco herramientas que en temporada hacen la diferencia:</p>
+<ol>
+  <li><strong>Perfil de empresa.</strong> Horario, dirección, descripción y web. Es lo que ve el interesado antes de escribirte.</li>
+  <li><strong>Catálogo.</strong> Sirve para mostrar productos y servicios: cargá cada propiedad con sus fotos y lo principal. Sacá las que ya están reservadas para no generar consultas que terminan en un no.</li>
+  <li><strong>Etiquetas.</strong> Para ordenar y responder rápido. Una idea: “nueva consulta”, “enero”, “febrero”, “seña pendiente”, “reservado”. Al final del día, filtrás por “seña pendiente” y ves a quién seguir.</li>
+  <li><strong>Respuestas rápidas.</strong> Atajos para los mensajes que mandás siempre, que pueden incluir fotos y videos. Las armamos en el punto 3.</li>
+  <li><strong>Mensaje de ausencia.</strong> Se manda solo a quien te escribe fuera de horario. Podés elegir a qué clientes se manda y cuándo. Decí cuándo vas a responder, no solo “estamos cerrados”.</li>
+</ol>
+<p>Una advertencia de Meta: usar herramientas no autorizadas para mandar mensajes masivos va contra sus condiciones y puede terminar en la restricción de la cuenta. Para escribirles a varios interesados a la vez, usá las <strong>difusiones para empresas</strong>, que son la herramienta oficial.</p>
+
+<h2 id="respuestas">3. Las preguntas que llegan siempre, respondidas de antemano</h2>
+<p>En alquileres temporarios, la mayoría de las consultas repiten las mismas preguntas. Prepará una respuesta rápida para cada una, con tus datos reales:</p>
+<ul>
+  <li><strong>Disponibilidad:</strong> qué fechas quedan libres. Si cambia todos los días, que la respuesta pida las fechas y la cantidad de personas en un solo mensaje.</li>
+  <li><strong>Capacidad:</strong> cuántas personas entran y cómo se distribuyen las camas.</li>
+  <li><strong>Mascotas, cochera, distancia al mar:</strong> las tres preguntas que más filtran.</li>
+  <li><strong>Condiciones:</strong> cómo se reserva, qué seña se pide, qué pasa si se cancela.</li>
+  <li><strong>Fotos y ubicación:</strong> el link al catálogo o a la ficha de tu web.</li>
+</ul>
+<p>Un consejo práctico: terminá cada respuesta con una pregunta que haga avanzar la conversación (“¿para qué fechas lo buscás?”). Para escribirlas en tu tono, te sirven <a href="/recursos/plantilla-respuestas-whatsapp">las plantillas de respuestas para WhatsApp</a>, y para los que preguntan y desaparecen, <a href="/recursos/mensajes-de-seguimiento">los mensajes de seguimiento</a>.</p>
+
+<h2 id="agente">4. Cuándo sumar un agente de IA</h2>
+<p>Si en enero te escriben más personas de las que podés atender, un agente de IA puede responder las preguntas básicas a cualquier hora. Meta tiene el suyo, <strong>Meta Business Agent</strong>, que se activa desde la app de WhatsApp Business (Herramientas → Meta Business Agent). Según Meta:</p>
+<ul>
+  <li>Aprende de tu perfil, tu web, tu catálogo y la información que le cargues (formas de pago, condiciones).</li>
+  <li><strong>Solo responde si puede contestar la pregunta</strong>; si no, te avisa para que tomes el chat.</li>
+  <li>El cliente ve que le responde una IA y puede pedir hablar con una persona en cualquier momento.</li>
+  <li>Mientras está activo en un chat, pausa automatizaciones como el mensaje de ausencia.</li>
+  <li>Puede no estar disponible todavía en todas las cuentas, y Meta aclara que algunas respuestas pueden ser incorrectas: revisalas los primeros días.</li>
+</ul>
+<p>La otra opción es un agente propio, con reglas y datos tuyos (por ejemplo, conectado a tu planilla de disponibilidad). Las diferencias, cómo se activa cada uno y cómo pausarlo están en <a href="/guias/agente-ia-whatsapp-business-meta-o-propio">el agente de Meta o uno propio</a>, <a href="/guias/activar-desactivar-agente-ia-whatsapp-business">cómo activar o desactivar el agente de IA</a> y <a href="/guias/agente-ia-whatsapp-tienda-online">cómo atender las 24 horas con un agente de IA</a>.</p>
+
+<h2 id="anuncios">5. Anuncios que llevan al WhatsApp para las semanas libres</h2>
+<p>Enero suele llenarse solo en los destinos más buscados; las semanas que quedan libres son las que conviene empujar. Los <strong>anuncios que llevan a WhatsApp</strong> agregan un botón de mensaje en Instagram y Facebook que abre el chat con tu inmobiliaria. Funcionan con la app de WhatsApp Business, conectándola a tu página de Facebook.</p>
+<p>Dos cosas a tener en cuenta: según Meta, los anuncios de alquileres son anuncios de vivienda y la categoría especial es obligatoria si apuntás a Estados Unidos, Canadá o ciertos países de Europa (no para público argentino). Y si el WhatsApp no está ordenado, el anuncio solo te trae más consultas sin responder: primero el punto 2, después los anuncios.</p>
+
+<h2 id="ejemplo">6. Un ejemplo de inmobiliaria</h2>
+<p>Una inmobiliaria de la costa con veinte propiedades en alquiler temporario arma su WhatsApp en noviembre. Carga cada propiedad en el catálogo, crea las etiquetas “enero”, “febrero” y “seña pendiente”, y prepara seis respuestas rápidas para las preguntas de siempre. El mensaje de ausencia dice que responden a partir de las 9. En enero, cuando las consultas se multiplican, activa el agente de IA para que responda disponibilidad, capacidad y condiciones a cualquier hora, y la persona del mostrador se dedica a los que ya pidieron seña. Las semanas de febrero que quedan libres las empuja con un anuncio que lleva al WhatsApp.</p>
+
+<h2 id="que-hacer">Qué hacer en tu negocio</h2>
+<ul>
+  <li><strong>Esta semana:</strong> completá el perfil, cargá el catálogo y creá las etiquetas. Es una tarde de trabajo.</li>
+  <li><strong>Antes de diciembre:</strong> escribí las respuestas rápidas con tus datos reales y activá el mensaje de ausencia.</li>
+  <li><strong>Medí desde el día uno:</strong> cuántas consultas entran, cuántas responden con fechas y cuántas terminan en seña. Con <a href="/recursos/checklist-consultas-perdidas">la checklist de consultas perdidas</a> encontrás dónde se caen.</li>
+  <li><strong>Si en los picos no llegás,</strong> sumá un agente de IA antes de que las consultas se acumulen, no después.</li>
+  <li><strong>Seguí las novedades</strong> de WhatsApp y de los agentes de IA en <a href="/novedades-ia">Novedades de IA</a>.</li>
+</ul>
+
+<h2 id="fuentes">Fuentes</h2>
+<ul>
+  <li>Meta: <a href="https://www.facebook.com/business/help/338665938087159" rel="noopener" target="_blank">Diferencias entre la app y la plataforma de WhatsApp Business</a>.</li>
+  <li>Meta: <a href="https://www.facebook.com/business/help/4060647954192893" rel="noopener" target="_blank">Conectar con clientes con las herramientas oficiales de WhatsApp</a> (respuestas rápidas, mensaje de ausencia, difusiones y envíos masivos).</li>
+  <li>Meta: <a href="https://www.facebook.com/business/help/1505847033372169" rel="noopener" target="_blank">Información sobre Meta Business Agent</a> y <a href="https://www.facebook.com/business/help/834508185328904" rel="noopener" target="_blank">cómo configurarlo en WhatsApp</a>.</li>
+  <li>Meta: <a href="https://www.facebook.com/business/help/1198401317374558" rel="noopener" target="_blank">Anuncios de vivienda</a>.</li>
+  <li>iProfesional, con datos de Propio (24/10/2026): <a href="https://www.iprofesional.com/recreo/467032-verano-2027-los-destinos-de-la-costa-que-ya-tienen-mas-reservas" rel="noopener" target="_blank">Verano 2027: los destinos de la costa que ya tienen más reservas</a>.</li>
+  <li>El Cronista (18/5/2026), estudio de Meta: <a href="https://www.cronista.com/infotechnology/it-business/asi-funciona-la-novedad-de-whatsapp-que-usan-las-pymes-para-vender-mas-sin-sumar-personal/" rel="noopener" target="_blank">La novedad de WhatsApp que usan las pymes para vender más sin sumar personal</a>.</li>
+</ul>
+<p>Las funciones de WhatsApp Business y del agente de IA pueden variar según la cuenta y el país: verificalo en tu app.</p>
