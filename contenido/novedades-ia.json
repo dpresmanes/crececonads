@@ -2,6 +2,19 @@
   "_como_se_usa": "Una entrada por novedad de IA para pymes confirmada en una fuente oficial (✅ en ceo/VIGIA-IA.md del repo crececonads-sistema). Temas: automatizaciones, agentes que responden solos e IA generativa. Lo que está 'en observación' no entra. Después de editar: python3 tools/build_contenido.py.",
   "novedades": [
     {
+      "fecha": "2026-11-23",
+      "titulo": "Power Automate saca el Copilot del diseñador de flujos y \"Describe it to design it\" el 30 de noviembre",
+      "que_cambio": "Microsoft confirmó en su documentación oficial que el 30/11/2026 retira dos funciones de IA de Power Automate para todos los clientes. Una es el Copilot del diseñador de flujos de nube y flujos de agente: el panel donde armabas o cambiabas un flujo chateando, le hacías preguntas sobre el flujo, te ayudaba a escribir expresiones y a resolver errores. La otra es \"Describe it to design it\", la opción para crear un flujo nuevo describiendo con palabras lo que querés automatizar. Desde esa fecha no se van a poder usar. Tus flujos no se borran, no se mueven ni se cambian, aunque los hayas armado con Copilot, y vas a poder seguir creándolos, editándolos, probándolos y usándolos en el diseñador visual o a partir de plantillas.",
+      "que_hacer": "Si en tu negocio usan Power Automate, revisá esta semana que los flujos importantes funcionen y que alguien del equipo sepa editarlos a mano en el diseñador (bloques, plantillas y el editor de expresiones), sin depender del chat. Si tenés instructivos internos que dicen \"pedíselo a Copilot\" o \"describilo y lo arma solo\", actualizalos. Microsoft propone, para seguir armando flujos con lenguaje común, usar el plugin de Power Automate en un asistente de IA aprobado por tu organización, como GitHub Copilot.",
+      "fuentes": [
+        [
+          "Microsoft Learn: Important changes (deprecations) coming in Power Platform (actualizado el 23/11/2026)",
+          "https://learn.microsoft.com/en-us/power-platform/important-changes-coming"
+        ]
+      ],
+      "guia": "herramientas-automatizar-procesos-ia"
+    },
+    {
       "fecha": "2026-11-20",
       "titulo": "ChatGPT Space llega al plan Plus: páginas y presentaciones que se actualizan solas y se arman en equipo",
       "que_cambio": "OpenAI empezó a habilitar ChatGPT Space para los usuarios del plan Plus mayores de 18, en todo el mundo. En Space le pedís a ChatGPT que arme páginas interactivas y presentaciones, y podés invitar a otras personas para que trabajen con vos. Las páginas y las diapositivas se pueden configurar para que se actualicen solas con la información de las apps y herramientas que tengas conectadas (por ejemplo, una lista de tareas o un plan de proyecto que toma las decisiones de Slack). Para pedir cambios, mencionás a ChatGPT en un comentario. Ojo con compartir: para abrir una página o presentación hay que tener permiso y una cuenta Plus, Pro, Business o Enterprise con Space; los usuarios del plan gratis no pueden abrirlas y no hay links públicos. Space reemplaza a la Biblioteca (Library) en la barra lateral y ahí quedan tus páginas, presentaciones, imágenes y archivos. Funciona en la web, la app de escritorio y las apps de iOS y Android.",
