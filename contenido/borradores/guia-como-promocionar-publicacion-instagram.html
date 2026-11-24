@@ -1,0 +1,125 @@
+<!--{
+"tipo": "guia",
+"slug": "como-promocionar-publicacion-instagram",
+"titulo": "Cómo promocionar una publicación en Instagram: desde la app, desde la compu o desde Meta",
+"titulo_seo": "Cómo promocionar una publicación en Instagram, paso a paso | CreceConAds",
+"descripcion": "Paso a paso para promocionar una publicación en Instagram desde el celular, desde la compu (instagram.com) o desde el Administrador de anuncios de Meta, si se puede sin Facebook y qué no se puede cambiar después.",
+"respuesta": "Para promocionar una publicación en Instagram necesitás una cuenta profesional. Entrás a tu perfil, abrís la publicación, tocás Promocionar y elegís objetivo, público, presupuesto diario y duración. Se puede hacer desde la app o desde instagram.com en la compu, y la primera vez se puede hacer sin conectar Facebook. Si lo que buscás son ventas en tu web medidas con el píxel, conviene usar la misma publicación desde el Administrador de anuncios de Meta.",
+"fecha": "2026-11-24",
+"tag": "Meta Ads · Paso a paso",
+"temas": ["Publicidad en Instagram", "Promocionar publicación", "Meta Ads", "Administrador de anuncios"],
+"faq": [
+  ["¿Por qué no me aparece el botón Promocionar en Instagram?", "Según Instagram, puede ser porque tu cuenta no es profesional (de empresa o de creador), porque esa publicación no se puede promocionar o porque la cuenta no está lista para anunciar. Primero pasá la cuenta a profesional y revisá los requisitos."],
+  ["¿Se puede promocionar una publicación de Instagram sin Facebook?", "Sí, la primera vez. Instagram permite promocionar sin conectar una cuenta publicitaria de Meta ni una página de Facebook solo a quienes promocionan por primera vez. En ese caso cargás el pago en Instagram y gestionás todo desde ahí, pero no tenés algunas funciones del Administrador de anuncios, como los públicos guardados."],
+  ["¿Puedo promocionar una publicación desde la compu?", "Sí. En instagram.com, entrás a tu perfil, elegís la publicación y hacés clic en Promocionar. Además, si usás iPhone, desde la compu evitás la comisión de la App Store que puede cobrarse al cargar saldo desde la app de Instagram para iOS."],
+  ["¿Puedo cambiar el público o el texto después de promocionar?", "No. Según Meta, una vez promocionada la publicación no se pueden cambiar el objetivo, el público ni el contenido. Solo podés subir el presupuesto o extender la duración. Para bajar el presupuesto o cambiar el público, tenés que finalizar la promoción y crear una nueva."],
+  ["¿Es lo mismo promocionar que hacer una campaña en el Administrador de anuncios?", "No. Promocionar es la forma rápida desde Instagram. En el Administrador de anuncios podés usar la misma publicación pero con una campaña completa: por ejemplo, de Ventas optimizada a compras con el píxel, varios anuncios y más control. Para vender en una tienda online, suele convenir más."]
+],
+"cta_titulo": "¿Querés que te ayudemos a elegir qué promocionar?"
+}-->
+<p>Para <strong>promocionar una publicación en Instagram</strong> necesitás una cuenta profesional. Entrás a tu perfil, abrís la publicación, tocás <strong>Promocionar</strong> y elegís cuatro cosas: el objetivo, el público, el presupuesto diario y la duración. Se puede hacer desde el celular, desde la compu y hasta sin conectar Facebook la primera vez. Pero ojo: promocionar no siempre es la mejor opción. Si lo que querés son ventas en tu web, la misma publicación rinde más usada desde el Administrador de anuncios de Meta.</p>
+
+<figure class="viz" id="viz-donde-promocionar">
+  <span class="viz-k">Elegí en 3 preguntas</span>
+  <h3>¿Desde dónde te conviene promocionar?</h3>
+  <p class="sub">Respondé y te digo por dónde hacerlo, según lo que indican Instagram y Meta. Nada se guarda ni se envía.</p>
+  <div class="viz-campo"><label>1. ¿Qué querés lograr con la publicación?</label>
+    <div class="viz-opciones" data-p="meta"><button type="button" data-v="alcance">Que la vea más gente, visitas al perfil o mensajes</button><button type="button" data-v="ventas">Ventas en mi tienda online</button></div></div>
+  <div class="viz-campo" style="margin-top:16px"><label>2. ¿Desde dónde lo vas a hacer?</label>
+    <div class="viz-opciones" data-p="equipo"><button type="button" data-v="iphone">iPhone</button><button type="button" data-v="android">Celular Android</button><button type="button" data-v="pc">Compu</button></div></div>
+  <div class="viz-campo" style="margin-top:16px"><label>3. ¿Ya promocionaste antes o tenés la cuenta conectada a Facebook?</label>
+    <div class="viz-opciones" data-p="fb"><button type="button" data-v="si">Sí</button><button type="button" data-v="no">No, es la primera vez</button></div></div>
+  <div class="viz-veredicto" id="dp-res" aria-live="polite"><b>Respondé las 3 preguntas</b><span>y acá aparece por dónde te conviene hacerlo.</span></div>
+  <p class="viz-nota">Comisión de Apple: según Instagram, en la mayoría de los países puede cobrarse al cargar saldo desde la app para iOS. Desde instagram.com no se cobra.</p>
+</figure>
+<script>
+(() => {
+  const r = {}, box = document.getElementById("dp-res");
+  const marcar = (g, b) => g.querySelectorAll("button").forEach(x => x.style.cssText = x === b ? "background:var(--blue);border-color:var(--blue);color:#fff" : "");
+  function decidir() {
+    if (!r.meta || !r.equipo || !r.fb) return;
+    let t, d;
+    if (r.meta === "ventas") {
+      t = "Usá la publicación en el Administrador de anuncios";
+      d = "Para ventas, armá una campaña de Ventas en el Administrador de anuncios (desde la compu) y elegí «Usar publicación existente». Así optimizás a compras con el píxel y podés sumar otros anuncios." + (r.fb === "no" ? " Para eso vas a necesitar conectar tu Instagram a una cuenta publicitaria de Meta." : "");
+    } else if (r.equipo === "iphone") {
+      t = "Promocioná desde instagram.com";
+      d = "Desde la app de iPhone puede cobrarse la comisión de Apple al cargar saldo. Entrá a instagram.com desde la compu, abrí la publicación y tocá Promocionar.";
+    } else {
+      t = r.equipo === "pc" ? "Promocioná desde instagram.com" : "Promocioná desde la app de Instagram";
+      d = "Abrí tu perfil, elegí la publicación y tocá Promocionar. Completá objetivo, público, presupuesto diario y duración, y revisá la vista previa antes de confirmar.";
+    }
+    if (r.meta !== "ventas" && r.fb === "no") d += " Como es la primera vez, podés hacerlo sin conectar Facebook, aunque así no tenés los públicos guardados.";
+    box.innerHTML = "<b>" + t + "</b><span>" + d + "</span>";
+    (window.dataLayer = window.dataLayer || []).push({ event: "viz_resultado", viz: "donde_promocionar", resultado: t });
+  }
+  document.querySelectorAll("#viz-donde-promocionar .viz-opciones").forEach(g => g.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return; r[g.dataset.p] = b.dataset.v; marcar(g, b); decidir();
+  }));
+})();
+</script>
+
+<h2 id="antes">1. Lo que necesitás antes de promocionar</h2>
+<ul>
+  <li><strong>Una cuenta profesional</strong> (de empresa o de creador). Si tu cuenta es personal, pasala a profesional desde la configuración. Sin eso no aparece el botón Promocionar.</li>
+  <li><strong>Un medio de pago.</strong> La primera vez que promocionás, Instagram te pide elegir una cuenta publicitaria o cargar el pago. En Argentina podés pagar con tarjeta, PayPal o medios manuales como Mercado Pago: lo explicamos en <a href="/guias/como-pagar-publicidad-instagram-argentina">cómo pagar publicidad en Instagram en Argentina</a>.</li>
+  <li><strong>Una publicación que valga la pena empujar.</strong> Promocionar no arregla una publicación que no interesa: elegí una que ya haya tenido buena respuesta orgánica o que muestre claro tu producto.</li>
+</ul>
+
+<h2 id="desde-la-app">2. Cómo promocionar desde la app de Instagram</h2>
+<ol>
+  <li>Andá a tu perfil y tocá la publicación que querés promocionar.</li>
+  <li>Debajo de la imagen, tocá <strong>Promocionar</strong>.</li>
+  <li>Completá los datos: el <strong>objetivo</strong> (qué querés que haga la gente), el <strong>público</strong> (a quién querés llegar), el <strong>presupuesto</strong> diario y la <strong>duración</strong>. Tocá Siguiente.</li>
+  <li>Tocá <strong>Vista previa</strong> para ver cómo y dónde se va a mostrar.</li>
+  <li>Tocá <strong>Promocionar publicación</strong> para confirmar.</li>
+</ol>
+<p>Después de confirmar, el anuncio pasa por la revisión de Meta y empieza a mostrarse cuando lo aprueban. Instagram te avisa con notificaciones en cada etapa. Si pasa el tiempo y no lo ves, seguí la guía de <a href="/guias/publicidad-instagram-no-aparece">qué hacer si pagaste publicidad en Instagram y no aparece</a>.</p>
+
+<h2 id="desde-la-compu">3. Cómo promocionar desde la compu</h2>
+<ol>
+  <li>Entrá a <strong>instagram.com</strong> y hacé clic en tu foto de perfil.</li>
+  <li>Elegí la publicación y hacé clic en <strong>Promocionar</strong>.</li>
+  <li>Elegí objetivo, público, presupuesto diario y duración.</li>
+  <li>Confirmá con <strong>Promocionar publicación</strong>.</li>
+</ol>
+<p>Un dato si usás iPhone: según Instagram, en la mayoría de los países puede cobrarse una comisión de Apple cuando cargás saldo desde la app para iOS, y para promocionar un reel desde esa app hay que pagar con saldo. Desde instagram.com no pasa.</p>
+
+<h2 id="sin-facebook">4. ¿Se puede sin Facebook?</h2>
+<p>Sí, pero con una condición: Instagram permite promocionar <strong>sin conectar una cuenta publicitaria de Meta ni una página de Facebook</strong> solo a quienes promocionan por primera vez. En ese caso cargás el pago en Instagram y ves los resultados ahí mismo.</p>
+<p>La contra es que te perdés funciones del Administrador de anuncios, como los públicos guardados. Si vas a anunciar seguido, conviene conectar tu Instagram a una cuenta publicitaria de Meta.</p>
+
+<h2 id="despues">5. Lo que no podés cambiar después</h2>
+<p>Una vez promocionada la publicación, según Meta:</p>
+<ul>
+  <li><strong>No podés cambiar</strong> el objetivo, el público ni el contenido.</li>
+  <li><strong>Sí podés subir</strong> el presupuesto diario o extender la duración, desde el panel profesional → Herramientas de anuncios.</li>
+  <li><strong>Para bajar el presupuesto</strong> o cambiar el público, tenés que finalizar la promoción y crear una nueva.</li>
+</ul>
+<p>Por eso conviene revisar bien la vista previa antes de confirmar.</p>
+
+<h2 id="administrador">6. Cuándo conviene el Administrador de anuncios</h2>
+<p>Promocionar es la forma rápida. Pero si querés <strong>ventas en tu tienda online</strong>, la misma publicación rinde más dentro de una campaña del Administrador de anuncios: creás una campaña de Ventas, en el anuncio elegís <strong>Usar publicación existente</strong> y seleccionás el posteo de tu Instagram. Así optimizás a compras con el píxel, probás varios anuncios y medís mejor.</p>
+<p>Dos detalles de Meta: las historias solo se pueden usar si siguen activas (de las últimas 24 horas), y las imágenes de más de 8 MB no sirven para crear el anuncio.</p>
+
+<h2 id="ejemplo">7. Un ejemplo de tienda online</h2>
+<p>Una tienda de deco publica un reel mostrando una lámpara nueva y tiene buena respuesta. Para que lo vea más gente de su zona y le escriban, lo promociona desde instagram.com (usa iPhone y así evita la comisión), con objetivo de mensajes y una duración corta. Para vender la lámpara en su web, en cambio, usa ese mismo reel en una campaña de Ventas del Administrador de anuncios, junto con otros dos creativos. Misma pieza, dos usos distintos según lo que busca.</p>
+
+<h2 id="que-hacer">Qué hacer en tu negocio</h2>
+<ul>
+  <li><strong>Promocioná para dar visibilidad o conseguir mensajes;</strong> para vender en la web, usá el Administrador de anuncios.</li>
+  <li><strong>Elegí publicaciones que ya funcionaron</strong> orgánicamente: es más probable que también rindan pagas.</li>
+  <li><strong>Si usás iPhone, promocioná desde instagram.com</strong> para evitar la comisión de Apple.</li>
+  <li><strong>Revisá la vista previa</strong> antes de confirmar: después no podés cambiar el público ni el contenido.</li>
+  <li><strong>Pensá el presupuesto con tus números.</strong> La guía de <a href="/guias/cuanto-cuesta-publicidad-instagram-argentina">cuánto cuesta la publicidad en Instagram</a> trae una calculadora, y la de <a href="/guias/mejor-dia-hora-publicidad-instagram">qué día y a qué hora pagar</a> explica cómo reparte Meta el gasto.</li>
+</ul>
+
+<h2 id="fuentes">Fuentes</h2>
+<ul>
+  <li>Instagram: <a href="https://help.instagram.com/2090822074310288" rel="noopener" target="_blank">Cómo promocionar una publicación en Instagram</a>.</li>
+  <li>Instagram: <a href="https://help.instagram.com/1338916436473267" rel="noopener" target="_blank">Opciones de cuenta publicitaria para promocionar en Instagram</a> (promocionar sin Facebook).</li>
+  <li>Instagram: <a href="https://help.instagram.com/202248364737659" rel="noopener" target="_blank">Promocionar con una cuenta de Meta</a>.</li>
+  <li>Meta: <a href="https://www.facebook.com/business/help/380757175862444" rel="noopener" target="_blank">Cómo editar un anuncio de Instagram</a>.</li>
+  <li>Meta: <a href="https://www.facebook.com/business/help/335794480564358" rel="noopener" target="_blank">Convertir publicaciones de Instagram en anuncios en el Administrador de anuncios</a>.</li>
+</ul>
+<p>Los nombres de los botones pueden cambiar según la versión de la app y el país: verificalo en tu cuenta.</p>
