@@ -114,7 +114,7 @@ def documento(meta, url, ld, cuerpo):
 <title>{esc(meta["titulo_seo"])}</title>
 <meta name="description" content="{esc(meta["descripcion"])}">
 <link rel="canonical" href="{url}">
-<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="robots" content="{"noindex, nofollow" if meta.get("oculta") else "index, follow, max-image-preview:large"}">
 <meta name="author" content="Damián Presmanes">
 <meta name="theme-color" content="#0A0F1F">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -706,7 +706,8 @@ def main():
             destino = RAIZ / f"{meta['slug']}.html"
         destino.parent.mkdir(exist_ok=True)
         destino.write_text(doc, encoding="utf-8")
-        urls.append((url, meta.get("actualizado", meta["fecha"])))
+        if not meta.get("oculta"):  # oculta: solo con el link, fuera del sitemap y con noindex
+            urls.append((url, meta.get("actualizado", meta["fecha"])))
         print("ok", destino.relative_to(RAIZ))
 
     if recursos:
