@@ -80,6 +80,8 @@ fila 30/11 en "Publicada"; IndexNow y Bing avisados).
 
 **24/11, conversión (OK de Damián):** barra fija de WhatsApp (`barra_wa()` en el generador, `meta["barra"]`) en todas las guías y en /novedades-meta y /novedades-ia: aparece después de 700 px y se esconde cerca de `section.cta`/pie; el mensaje lleva el título de la página; `data-cta=whatsapp` → `cta_click` con la página. /agentes suma "Escribime por WhatsApp" en el cierre. Medir clics en el parte del 30/11.
 
+**24/11, portfolio oculto (OK de Damián):** /portfolio-automatizaciones-k7q2 para presentar a un consultor junto con el CV (CV adaptado aparte, en PDF). Perfil con foto, resultados de clientes ya publicados, caso UTN con demo de planilla (datos inventados), líneas de montaje de Meta orgánico, Meta Ads clientes y SEO, "Cómo podemos trabajar juntos". Campo nuevo `"oculta": true` en el generador: noindex y fuera del sitemap. Pendiente: /damian-presmanes dice "me recibí" y la tecnicatura tiene la defensa pendiente (corregir con OK).
+
 **24/11 (OK de Damián):** publicadas `/guias/como-promocionar-publicacion-instagram` (guía corta, interactivo "¿desde dónde promocionar?") y `/guias/whatsapp-inmobiliaria-alquileres-verano` (semanal del 07/12, checklist de temporada; Calendario en Publicada); botón de WhatsApp debajo del diagnóstico en "no aparece" (`data-cta=whatsapp`). IndexNow y Bing avisados.
 
 **23/11, parte SEO:** 42 sesiones (16-22/11, +75%), Google 305 impresiones y 6 clics en 28 días (antes 46 y 3), 18 de 19 páginas indexadas (falta agente-ia-whatsapp-tienda-online), 0 contactos. "No aparece" pasó de 2 s a 208 s promedio con el diagnóstico. Bing sin datos (respuesta vacía) y Visibilidad IA sin medir (Gemini 429). 5 ideas nuevas en Ideas; Calendario cubierto hasta el 25/01.
