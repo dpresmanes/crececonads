@@ -102,3 +102,23 @@
   .pf-demo-head .btn{width:100%}
 }
 @media (prefers-reduced-motion:reduce){.pf *{animation:none!important;transition:none!important}}
+
+/* versión para consultores: hero con foto, resultados y trabajo conjunto */
+.pf-hero-cv{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:center;margin-bottom:24px}
+.pf-hero-cv h1{margin-bottom:8px}
+.pf-rol{font-size:19px;font-weight:600;margin:0 0 12px;max-width:640px}
+.pf-hero-cv .pf-sub{margin-bottom:20px}
+.pf-foto{margin:0;max-width:360px;justify-self:center}
+.pf-res{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+.pf-res div{background:var(--night-2);border:1px solid var(--edge);border-radius:16px;padding:18px}
+.pf-res strong{display:block;font-family:var(--display);font-size:30px;line-height:1.1;color:var(--green);margin-bottom:6px}
+.pf-res span{color:var(--soft);font-size:16px}
+.pf-res span b{color:var(--text)}
+.pf-h3{font-family:var(--display);font-size:22px;margin:28px 0 8px}
+.pf-lista{margin:0;padding-left:20px;color:var(--soft)}
+.pf-lista li{margin:4px 0}
+@media (max-width:800px){
+  .pf-hero-cv{grid-template-columns:1fr}
+  .pf-foto{order:-1;max-width:240px}
+  .pf-res{grid-template-columns:1fr}
+}
