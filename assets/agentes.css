@@ -48,3 +48,4 @@
 
 .oficina .of-probar{margin:10px 0 2px;max-width:100%;white-space:normal;text-align:center;line-height:1.25}
 .oficina .of-depto li .of-probar{margin:2px 0 8px 26px}
+.oficina .of-botones{display:flex;flex-wrap:wrap;gap:10px}

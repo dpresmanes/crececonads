@@ -244,6 +244,14 @@
 </aside>
 </article>
 </main>
+<div class="barra-wa" id="barra-wa"><div class="in"><img src="/img/damian-presmanes-avatar.jpg" alt="" width="40" height="40" loading="lazy"><span>¿Lo vemos en tu caso?<br><b>Te respondo yo, por WhatsApp</b></span><a class="btn btn-sm" data-cta="whatsapp" href="https://wa.me/5491173566942?text=Hola%2C%20vengo%20de%20la%20gu%C3%ADa%20%C2%ABC%C3%B3mo%20escalar%20las%20ventas%20de%20tu%20tienda%20online%20con%20Meta%20Ads%20sin%20quemar%20presupuesto%C2%BB" target="_blank" rel="noopener">Escribime</a></div></div>
+<script>
+(() => {
+  const b = document.getElementById("barra-wa");
+  const upd = () => b.classList.toggle("show", scrollY > 700 && ![...document.querySelectorAll("section.cta, .of-cierre, footer.site-foot")].some(f => f.getBoundingClientRect().top < innerHeight));
+  addEventListener("scroll", upd, { passive: true }); addEventListener("resize", upd); upd();
+})();
+</script>
 <footer class="site-foot"><div class="wrap">
   <span>© 2026 CreceConAds® · Damián Presmanes · <span style="white-space:nowrap">CUIT 20-33488306-0</span><br><span class="legal">CreceConAds® es marca registrada.</span></span>
   <a class="datafiscal" href="http://qr.afip.gob.ar/?qr=00BDHbA6FI6aH0XpUoj7bw,," target="_F960AFIPInfo" rel="noopener"><img src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" alt="Data Fiscal de ARCA" width="44" height="60" loading="lazy"></a>

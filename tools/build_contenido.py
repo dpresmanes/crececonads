@@ -89,6 +89,21 @@ def fecha_larga(iso):
     return f"{int(d)} de {meses[int(m) - 1]} de {a}"
 
 
+def barra_wa(meta):
+    """Barra fija abajo con WhatsApp en guías y novedades: aparece al leer y se esconde cerca del cierre."""
+    from urllib.parse import quote
+    texto = meta.get("barra_texto") or f"Hola, vengo de «{meta['titulo']}»"
+    return f'''<div class="barra-wa" id="barra-wa"><div class="in"><img src="/img/damian-presmanes-avatar.jpg" alt="" width="40" height="40" loading="lazy"><span>{esc(meta.get("barra_titulo", "¿Lo vemos en tu caso?"))}<br><b>Te respondo yo, por WhatsApp</b></span><a class="btn btn-sm" data-cta="whatsapp" href="{WA}{quote(texto)}" target="_blank" rel="noopener">Escribime</a></div></div>
+<script>
+(() => {{
+  const b = document.getElementById("barra-wa");
+  const upd = () => b.classList.toggle("show", scrollY > 700 && ![...document.querySelectorAll("section.cta, .of-cierre, footer.site-foot")].some(f => f.getBoundingClientRect().top < innerHeight));
+  addEventListener("scroll", upd, {{ passive: true }}); addEventListener("resize", upd); upd();
+}})();
+</script>
+'''
+
+
 def documento(meta, url, ld, cuerpo):
     return f'''<!doctype html>
 <html lang="es-AR">
@@ -127,7 +142,7 @@ def documento(meta, url, ld, cuerpo):
 <main class="wrap{"" if meta.get("ancho") else " narrow"}">
 {cuerpo}
 </main>
-{PIE}
+{barra_wa(meta) if meta.get("barra") else ""}{PIE}
 {f'<script src="{meta["js"]}" defer></script>\n' if meta.get("js") else ""}</body>
 </html>
 '''
@@ -187,6 +202,8 @@ def relacionadas(meta, todas):
 
 def guia(meta, cuerpo, todas=()):
     url = f"{SITIO}/guias/{meta['slug']}"
+    meta["barra"] = True
+    meta.setdefault("barra_texto", f"Hola, vengo de la guía «{meta['titulo']}»")
     og = portadas_og.asegurar(meta)
     if og:
         meta["og_imagen"] = og
@@ -579,7 +596,8 @@ def novedades(cfg):
     datos = sorted(crudos, key=lambda n: n["fecha"], reverse=True)
     url = f"{SITIO}/{cfg['slug']}"
     ultima = datos[0]["fecha"]
-    meta = {"titulo": cfg["titulo"], "titulo_seo": cfg["titulo_seo"], "descripcion": cfg["descripcion"], "og_tipo": "website"}
+    meta = {"titulo": cfg["titulo"], "titulo_seo": cfg["titulo_seo"], "descripcion": cfg["descripcion"], "og_tipo": "website",
+            "barra": True, "barra_titulo": "¿Cómo te afecta este cambio?", "barra_texto": f"Hola, vengo de {cfg['nombre']}"}
     def fid(n, i=None): return ids[id(n)]
     sitio_img = f"crececonads.site/{cfg['slug']}"
     items, conteo = [], {}
