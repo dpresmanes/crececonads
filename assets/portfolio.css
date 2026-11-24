@@ -122,3 +122,6 @@
   .pf-foto{order:-1;max-width:240px}
   .pf-res{grid-template-columns:1fr}
 }
+.pf-demo-head .btn{border:0;outline:0;box-shadow:none;font-family:var(--body);cursor:pointer}
+.pf-demo-head .btn:focus-visible{outline:2px solid var(--blue-2);outline-offset:2px}
+.pf-demo-head .btn:disabled{opacity:.6;cursor:wait}
