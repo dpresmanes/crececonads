@@ -1,31 +1,50 @@
 <!--{
 "tipo": "guia",
 "slug": "herramientas-automatizar-procesos-ia",
-"titulo": "Herramientas para automatizar procesos con IA: cuál elegir según lo que usás",
-"titulo_seo": "Herramientas para automatizar procesos con IA: cuál elegir | CreceConAds",
-"descripcion": "Apps Script, Make, n8n, Zapier, Power Automate o código, y dónde entran Claude, ChatGPT y Gemini. Qué hace bien cada una y un test para elegir la tuya.",
-"respuesta": "La mejor herramienta para automatizar procesos depende de dónde están tus datos: si trabajás con Google (Gmail, Sheets, Drive), Apps Script; si usás Microsoft 365, Power Automate; si tenés que conectar muchas apps sin programar, Make o Zapier; si querés control total y alojarlo vos, n8n o código. La IA (Claude, ChatGPT o Gemini) no reemplaza a esas herramientas: se suma para leer y escribir texto, y además te ayuda a armar las automatizaciones.",
+"titulo": "IA para automatizar procesos: qué se puede automatizar y con qué herramienta",
+"titulo_seo": "IA para automatizar procesos: qué se puede y con qué herramienta",
+"descripcion": "Qué procesos de una pyme se pueden automatizar con IA, cómo empezar en 4 pasos y qué herramienta usar (Make, n8n, Zapier, Apps Script) con ChatGPT, Claude o Gemini.",
+"respuesta": "Para usar IA para automatizar procesos se combinan dos piezas: una herramienta de automatización que mueve los datos y dispara las acciones, y una IA (ChatGPT, Claude o Gemini) que hace lo que antes necesitaba que alguien leyera o escribiera, como entender un mail, sacar datos de un PDF o redactar una respuesta. La herramienta depende de dónde están tus datos: si trabajás con Google (Gmail, Sheets, Drive), Apps Script; si usás Microsoft 365, Power Automate; si tenés que conectar muchas apps sin programar, Make o Zapier; si querés control total y alojarlo vos, n8n o código. La IA (Claude, ChatGPT o Gemini) no reemplaza a esas herramientas: se suma para leer y escribir texto, y además te ayuda a armar las automatizaciones.",
 "fecha": "2026-11-07",
+"actualizado": "2026-11-25",
 "tag": "Automatización · Herramientas",
 "temas": ["Automatización de procesos", "Inteligencia artificial", "Herramientas", "Pymes", "Productividad"],
 "faq": [
+  ["¿Qué procesos se pueden automatizar con IA?", "Los que se repiten igual todas las semanas y hoy alguien hace leyendo o copiando a mano: clasificar consultas que llegan por mail o WhatsApp, pasar datos de facturas o formularios a una planilla, responder preguntas frecuentes, armar reportes semanales y hacer seguimiento a clientes. Lo que requiere criterio en cada caso conviene dejarlo para una persona, con la IA preparando el borrador."],
   ["¿Cuál es la mejor IA para automatizar procesos?", "No hay una sola. Claude, ChatGPT y Gemini hacen bien la parte de leer y escribir texto (un mail, un PDF, una respuesta). Para que algo pase solo, se combinan con una herramienta de automatización. Elegí la IA que mejor escribe en tu idioma y tu tono, y la automatización según dónde están tus datos."],
   ["¿Se puede automatizar procesos gratis?", "Sí, para empezar. Apps Script viene con una cuenta de Google, Power Automate para escritorio viene con Windows, n8n se puede alojar uno mismo, y Make y Zapier tienen planes gratis con límites. Lo que suele costar es el tiempo de armarlo bien."],
   ["¿Necesito saber programar?", "Para Make, Zapier y Power Automate, no: se arman con bloques. Para Apps Script, n8n avanzado o Python, sí, aunque hoy la IA escribe buena parte del código si le explicás bien el proceso."],
   ["¿Qué conviene automatizar primero?", "Una tarea que se repite todas las semanas, siempre igual, y que hoy se copia a mano. Lo explico en la guía de cómo automatizar procesos administrativos, con una calculadora de horas."]
 ],
-"cta_titulo": "¿Vemos qué herramienta conviene para tu proceso?"
+"cta_titulo": "¿Vemos qué proceso de tu negocio conviene automatizar con IA?"
 }-->
-<p>“¿Con qué herramienta automatizo?” es la segunda pregunta que aparece, después de “¿qué automatizo?”. Las búsquedas lo muestran: <em>herramientas para automatizar procesos</em>, <em>mejor IA para automatizar procesos</em>, <em>automatizar procesos con Claude</em>, <em>con n8n</em>, <em>con Excel</em>. Esta guía ordena las opciones por lo que de verdad decide la elección: dónde están tus datos y cuánto querés programar.</p>
-
-<h2 id="dos-piezas">1. Automatizar con IA tiene dos piezas</h2>
+<p><strong>Usar IA para automatizar procesos</strong> significa que las tareas que hoy alguien hace leyendo, copiando y respondiendo a mano pasen solas: una herramienta de automatización mueve los datos y una IA (ChatGPT, Claude o Gemini) hace la parte de leer y escribir. Esta guía muestra qué procesos de una pyme se pueden automatizar, cómo empezar con uno en 4 pasos y qué herramienta elegir según dónde están tus datos y cuánto querés programar.</p>
+<h2 id="que-procesos">1. Qué procesos se pueden automatizar con IA</h2>
+<p>Los mejores candidatos se repiten igual todas las semanas y hoy dependen de que alguien lea o escriba algo:</p>
+<ul>
+  <li><strong>Consultas de clientes.</strong> Leer cada mail o mensaje de WhatsApp, clasificarlo (venta, reclamo, pregunta frecuente) y dejar lista una respuesta o derivarlo a quien corresponde.</li>
+  <li><strong>Carga de datos.</strong> Sacar los datos de facturas, remitos, PDF o formularios y pasarlos a una planilla o a tu sistema, sin tipear.</li>
+  <li><strong>Respuestas frecuentes.</strong> Precios de envío, horarios, medios de pago, estado de un pedido: la IA responde con tu información y tu tono.</li>
+  <li><strong>Reportes.</strong> Juntar los números de la semana (ventas, anuncios, consultas) y escribir un resumen con lo que cambió.</li>
+  <li><strong>Seguimiento.</strong> Avisar cuando un presupuesto no tuvo respuesta, cuando un cliente puede volver a comprar o cuando vence algo.</li>
+  <li><strong>Trámites internos.</strong> Revisar pedidos, cruzar información y generar documentos con un formato fijo. Por ejemplo, en la Dirección de Alumnos de la UTN Facultad Regional Buenos Aires automaticé con Apps Script el circuito de simultaneidad de carreras, de la solicitud a la resolución: el trabajo pasó de 4 a 5 horas por día a 2 como mucho.</li>
+</ul>
+<p>Lo que requiere criterio en cada caso (un reclamo delicado, un precio especial) conviene que lo decida una persona, con la IA preparando el borrador.</p>
+<h2 id="como-empezar">2. Cómo empezar a automatizar un proceso con IA, en 4 pasos</h2>
+<ol>
+  <li><strong>Elegí un solo proceso</strong> que se repita todas las semanas y escribí sus pasos como se los explicarías a alguien nuevo, con las excepciones.</li>
+  <li><strong>Separá lo mecánico de lo que hay que leer o escribir.</strong> Lo mecánico (mover datos, avisar, guardar) lo hace la automatización; lo de leer y escribir, la IA.</li>
+  <li><strong>Elegí la herramienta</strong> según dónde están tus datos (el test de abajo te ayuda) y armá una primera versión chica.</li>
+  <li><strong>Probala una o dos semanas con revisión humana</strong> antes de dejarla sola, y anotá quién la mantiene si algo cambia.</li>
+</ol>
+<h2 id="dos-piezas">3. Automatizar con IA tiene dos piezas</h2>
 <ul>
   <li><strong>La automatización</strong> mueve los datos y dispara las acciones: cuando llega un mail, cuando se completa un formulario, todos los lunes a las 9.</li>
   <li><strong>La IA</strong> hace lo que antes necesitaba que una persona leyera o escribiera: entender un mail, sacar datos de un PDF, clasificar una consulta, redactar una respuesta.</li>
 </ul>
 <p>Por eso “¿Claude o Make?” es una pregunta mal planteada: casi siempre van juntas. Y la IA suma una tercera cosa: <strong>te ayuda a armar la automatización</strong>, escribiendo el script o explicándote cómo configurar cada paso.</p>
 
-<h2 id="herramientas">2. Las herramientas, una por una</h2>
+<h2 id="herramientas">4. Herramientas para automatizar procesos con IA, una por una</h2>
 <ul>
   <li><strong>Google Apps Script.</strong> Viene con cualquier cuenta de Google y trabaja directo sobre Gmail, Sheets, Docs, Drive y Calendar. Ideal si tu negocio vive en Google. Se programa en JavaScript, pero la IA lo escribe muy bien.</li>
   <li><strong>Power Automate.</strong> La opción de Microsoft: conecta Outlook, Excel, Teams y SharePoint. La versión de escritorio viene con Windows y automatiza tareas en la compu.</li>
@@ -72,7 +91,7 @@
 })();
 </script>
 
-<h2 id="ia">3. Qué IA usar, y para qué</h2>
+<h2 id="ia">5. Qué IA usar para automatizar procesos, y para qué</h2>
 <p>Claude, ChatGPT y Gemini hacen bien lo mismo en una automatización: <strong>leer y escribir</strong>. Las diferencias que importan en la práctica:</p>
 <ul>
   <li><strong>Cómo escribe en tu tono.</strong> Si la IA redacta respuestas a clientes, probá las tres con 5 mensajes reales tuyos y quedate con la que suena más a vos.</li>
@@ -80,10 +99,10 @@
   <li><strong>Para escribir el código de la automatización</strong>, cualquiera de las tres sirve si le das el proceso bien descrito. El caso de la UTN, por ejemplo, está armado con Claude sobre Apps Script.</li>
 </ul>
 
-<h2 id="excel">4. ¿Y Excel o las planillas?</h2>
+<h2 id="excel">6. ¿Y Excel o las planillas?</h2>
 <p>“Automatizar procesos en Excel” suele significar dos cosas distintas. Si son cálculos que se repiten, alcanzan las fórmulas y las tablas dinámicas. Si es <strong>mover datos</strong> (de mails, formularios o sistemas a la planilla), conviene una automatización: Power Automate si usás Excel en Microsoft 365, o pasar la planilla a Google Sheets y usar Apps Script.</p>
 
-<h2 id="errores">5. Errores al elegir</h2>
+<h2 id="errores">7. Errores al elegir</h2>
 <ul>
   <li><strong>Elegir la herramienta antes que el proceso.</strong> Primero escribí los pasos y las excepciones; la herramienta sale sola.</li>
   <li><strong>Sumar IA donde alcanza una regla.</strong> Si un dato siempre viene en el mismo lugar, no hace falta que una IA lo “entienda”.</li>
