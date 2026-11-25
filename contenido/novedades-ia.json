@@ -2,6 +2,40 @@
   "_como_se_usa": "Una entrada por novedad de IA para pymes confirmada en una fuente oficial (✅ en ceo/VIGIA-IA.md del repo crececonads-sistema). Temas: automatizaciones, agentes que responden solos e IA generativa. Lo que está 'en observación' no entra. Después de editar: python3 tools/build_contenido.py.",
   "novedades": [
     {
+      "fecha": "2026-11-24",
+      "titulo": "Claude ya manda archivos a tus apps conectadas y los trae de ellas (beta)",
+      "que_cambio": "Anthropic habilitó en beta que Claude mande un archivo a una app que tengas conectada (por ejemplo, subir a tu almacenamiento en la nube una presentación que acaba de hacer) y que traiga un archivo de esa app para trabajarlo en el chat (por ejemplo, un contrato para revisarlo juntos). Se está habilitando de a poco en los planes Pro, Max y Ultra; en Team y Enterprise viene apagado hasta que el dueño de la cuenta lo active, y el plan gratis lo va a tener más adelante. Funciona en la web, Claude Desktop, las apps de iOS y Android y Claude Code, pero no en chats de incógnito ni en tareas programadas. La app tiene que estar en el directorio de conectores y su desarrollador tiene que haber sumado el soporte de archivos: los conectores propios o servidores MCP que agregues vos no sirven para esto. Claude pide permiso antes de mandar el primer archivo a cada app; después puede mandar sin preguntar, según los permisos que configures. Se pueden mandar hasta 10 archivos por vez (500 MB en total) y traer hasta 10 archivos de hasta 500 MB cada uno. Los archivos pasan por los servidores de Anthropic, que guarda una copia temporal cifrada; borrar el chat no borra el archivo de la app conectada.",
+      "que_hacer": "Si pagás Claude Pro, Max o Ultra, probalo con una tarea que hoy hacés a mano: pedile que guarde el presupuesto o la presentación que armó en tu carpeta de la nube, o que traiga un archivo de ahí para revisarlo. Si tu equipo usa Claude Team o Enterprise, el dueño de la cuenta decide si lo activa. Revisá los permisos de cada conector para que no mande archivos sin preguntarte, y conectá solo apps de confianza: Anthropic avisa que un archivo puede traer texto escrito para engañar a Claude.",
+      "fuentes": [
+        [
+          "Claude Help Center: Release notes (24/11/2026)",
+          "https://support.claude.com/en/articles/12138966-release-notes"
+        ],
+        [
+          "Claude Help Center: Send files to connected apps and save files from them",
+          "https://support.claude.com/en/articles/18534325"
+        ]
+      ],
+      "slug": "claude-ya-manda-archivos-a-tus-apps-conectadas-y-los-trae-de-ellas"
+    },
+    {
+      "fecha": "2026-11-24",
+      "titulo": "Claude convierte lo que te arma en una app para tu computadora (beta)",
+      "que_cambio": "Anthropic habilitó en beta que un artefacto que te hace Claude se instale como app en tu Mac o en tu PC con Windows: queda con su ventana y su ícono y se abre como cualquier otro programa. Se pide en el chat con palabras, por ejemplo \"Hacé una app de Windows que renombre las fotos de una carpeta por fecha\" o \"una app que me recuerde estirar cada hora\", y después se instala con \"Install as app\". Está llegando en beta a los planes Free, Pro, Max, Ultra, Team y Enterprise y necesita Claude para Mac o Windows versión 6.28899.0 o posterior. En Team viene activado, pero el permiso más alto (acceso completo a la computadora) está apagado hasta que lo active un admin; en Enterprise está todo apagado hasta que lo active el dueño. La app pide permiso antes de mandar notificaciones, usar atajos de teclado o correr programas y leer o borrar archivos. Para abrirla tenés que estar conectado y con la sesión iniciada en Claude Desktop. Anthropic no revisa las apps antes de que las instales.",
+      "que_hacer": "Si tenés una tarea chica y repetida en la computadora (renombrar fotos de productos, un recordatorio, un contador), pedile a Claude que te arme una app para eso e instalala desde Claude Desktop. Dale solo los permisos que hagan falta y no le des \"acceso completo a esta computadora\" a una app que no sepas quién escribió: con ese permiso puede correr programas y cambiar o borrar tus archivos.",
+      "fuentes": [
+        [
+          "Claude Help Center: Release notes (24/11/2026)",
+          "https://support.claude.com/en/articles/12138966-release-notes"
+        ],
+        [
+          "Claude Help Center: Install an artifact as an app",
+          "https://support.claude.com/en/articles/18516354-install-an-artifact-as-an-app"
+        ]
+      ],
+      "slug": "claude-convierte-lo-que-te-arma-en-una-app-para-tu-computadora-beta"
+    },
+    {
       "fecha": "2026-11-23",
       "titulo": "Power Automate saca el Copilot del diseñador de flujos y \"Describe it to design it\" el 30 de noviembre",
       "que_cambio": "Microsoft confirmó en su documentación oficial que el 30/11/2026 retira dos funciones de IA de Power Automate para todos los clientes. Una es el Copilot del diseñador de flujos de nube y flujos de agente: el panel donde armabas o cambiabas un flujo chateando, le hacías preguntas sobre el flujo, te ayudaba a escribir expresiones y a resolver errores. La otra es \"Describe it to design it\", la opción para crear un flujo nuevo describiendo con palabras lo que querés automatizar. Desde esa fecha no se van a poder usar. Tus flujos no se borran, no se mueven ni se cambian, aunque los hayas armado con Copilot, y vas a poder seguir creándolos, editándolos, probándolos y usándolos en el diseñador visual o a partir de plantillas.",
