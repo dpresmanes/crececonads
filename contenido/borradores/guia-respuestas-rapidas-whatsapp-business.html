@@ -1,0 +1,131 @@
+<!--{
+"tipo": "guia",
+"slug": "respuestas-rapidas-whatsapp-business",
+"titulo": "Respuestas rápidas en WhatsApp Business: cómo crearlas, ejemplos y qué hacer si no funcionan",
+"titulo_seo": "Respuestas rápidas en WhatsApp Business: cómo crearlas y ejemplos",
+"descripcion": "Paso a paso para crear respuestas rápidas en WhatsApp Business en Android y iPhone, cómo usarlas con /, ejemplos para tu tienda y por qué no se guardan.",
+"respuesta": "Para crear respuestas rápidas en WhatsApp Business entrás a la pestaña Herramientas, tocás Respuestas rápidas y después el botón para agregar una. Escribís el mensaje, le ponés un atajo (sin espacios, de hasta 25 caracteres) y guardás. En cualquier chat escribís / y elegís la respuesta. Podés tener hasta 50 y pueden incluir fotos o videos, aunque en WhatsApp Web y Escritorio los archivos multimedia no funcionan.",
+"fecha": "2026-11-26",
+"tag": "WhatsApp Business · Paso a paso",
+"temas": ["WhatsApp Business", "Respuestas rápidas", "Atención al cliente", "Ventas por WhatsApp"],
+"faq": [
+  ["¿Cuántas respuestas rápidas puedo tener en WhatsApp Business?", "Hasta 50, según el Centro de ayuda de WhatsApp. Si llegaste al límite, borrá las que no usás antes de crear otra."],
+  ["¿Por qué no me deja guardar una respuesta rápida?", "Casi siempre es el formato: el atajo no puede tener espacios y tiene un máximo de 25 caracteres, y cada respuesta acepta hasta 3 palabras clave de hasta 15 caracteres, sin espacios ni símbolos. También puede ser que ya tengas 50 guardadas."],
+  ["¿Las respuestas rápidas funcionan en WhatsApp Web?", "Sí, pero sin archivos: WhatsApp aclara que las fotos y videos de las respuestas rápidas no funcionan en WhatsApp Web ni en Escritorio. El texto lo podés usar igual escribiendo /."],
+  ["¿Se puede recuperar una respuesta rápida borrada?", "No. WhatsApp indica que una respuesta rápida eliminada no se puede recuperar y que hay que volver a crearla. Por eso conviene guardar una copia de tus textos fuera de la app."],
+  ["¿Las respuestas rápidas responden solas?", "No. Te ahorran escribir, pero las mandás vos desde cada chat. Si querés que alguien conteste solo a cualquier hora, eso es un agente de IA o un mensaje automático."]
+],
+"cta_titulo": "¿Querés que tu WhatsApp responda solo, con tu tono?"
+}-->
+<p>Para crear <strong>respuestas rápidas en WhatsApp Business</strong> entrás a la pestaña <strong>Herramientas</strong>, tocás <strong>Respuestas rápidas</strong> y agregás una nueva: escribís el mensaje, le ponés un atajo y guardás. Después, en cualquier chat, escribís <strong>/</strong> y elegís la respuesta. Podés tener hasta 50, pueden llevar fotos o videos, y el atajo no puede tener espacios ni pasar de 25 caracteres. Bien armadas, te ahorran escribir lo mismo veinte veces por día y hacen que respondas más rápido, que es lo que más pesa cuando alguien te consulta por un producto.</p>
+
+<figure class="viz" id="viz-atajo">
+  <span class="viz-k">Probador de atajos</span>
+  <h3>Armá tu respuesta rápida y probala antes de cargarla</h3>
+  <p class="sub">Escribí el atajo y el mensaje: te digo si WhatsApp lo va a aceptar y cómo se ve en el chat. Nada se guarda ni se envía.</p>
+  <div class="viz-campo"><label for="ra-atajo">Atajo <output id="ra-cont">0/25</output></label>
+    <input id="ra-atajo" type="text" value="envios" maxlength="40" autocomplete="off" style="width:100%;background:var(--night);border:1px solid var(--edge);border-radius:10px;color:var(--text);font:500 17px var(--mono);padding:10px 12px"></div>
+  <div class="viz-campo" style="margin-top:14px"><label for="ra-msj">Mensaje</label>
+    <textarea id="ra-msj" rows="3" style="width:100%;background:var(--night);border:1px solid var(--edge);border-radius:10px;color:var(--text);font:400 16px var(--body);padding:10px 12px;resize:vertical">¡Hola! Hacemos envíos a todo el país. Pasame tu código postal y te digo cuánto tarda y cuánto sale.</textarea></div>
+  <div class="viz-opciones" id="ra-ej" aria-label="Ejemplos"><button type="button" data-a="envios">Envíos</button><button type="button" data-a="pagos">Medios de pago</button><button type="button" data-a="talles">Talles</button><button type="button" data-a="gracias">Después de la compra</button></div>
+  <div class="viz-veredicto" id="ra-res" aria-live="polite"></div>
+  <div class="viz-chat" id="ra-chat" style="margin-top:14px;min-height:0"></div>
+  <p class="viz-nota">Reglas del Centro de ayuda de WhatsApp: atajo sin espacios y de hasta 25 caracteres, máximo 50 respuestas guardadas. Los ejemplos son modelos para adaptar.</p>
+</figure>
+<script>
+(() => {
+  const ej = {
+    envios: "¡Hola! Hacemos envíos a todo el país. Pasame tu código postal y te digo cuánto tarda y cuánto sale.",
+    pagos: "Podés pagar con tarjeta, transferencia o Mercado Pago. Si querés, te paso el link de pago del producto que elegiste.",
+    talles: "Te paso la guía de talles 👇 Si me decís tu medida de busto y cadera, te recomiendo el talle.",
+    gracias: "¡Gracias por tu compra! Te aviso por acá cuando despachemos el pedido. Cualquier duda, escribime."
+  };
+  const at = document.getElementById("ra-atajo"), ms = document.getElementById("ra-msj"), res = document.getElementById("ra-res"),
+        chat = document.getElementById("ra-chat"), cont = document.getElementById("ra-cont");
+  const esc = t => t.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+  let t0;
+  function revisar() {
+    const a = at.value.replace(/^\/+/, ""), m = ms.value.trim(), errores = [];
+    cont.textContent = a.length + "/25";
+    if (!a) errores.push("Falta el atajo.");
+    if (/\s/.test(a)) errores.push("El atajo no puede tener espacios: escribilo todo junto (por ejemplo, /mediosdepago).");
+    if (a.length > 25) errores.push("El atajo pasa los 25 caracteres: acortalo.");
+    if (!m) errores.push("Falta el mensaje.");
+    if (errores.length) {
+      res.innerHTML = "<b>WhatsApp no lo va a guardar</b><span>" + errores.join(" ") + "</span>";
+      chat.innerHTML = "";
+      return;
+    }
+    res.innerHTML = "<b>Listo para cargar</b><span>En el chat escribís <strong>/" + esc(a) + "</strong> (o solo / para ver todas) y tocás la respuesta.</span>";
+    chat.innerHTML = '<p class="sis">Así lo vas a usar</p><p class="bot">Hola, una consulta sobre un producto 🙂</p><p class="yo">/' + esc(a) + "</p>";
+    clearTimeout(t0);
+    t0 = setTimeout(() => { chat.lastElementChild.textContent = m; }, 700);
+  }
+  at.addEventListener("input", revisar);
+  ms.addEventListener("input", revisar);
+  document.getElementById("ra-ej").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    at.value = b.dataset.a; ms.value = ej[b.dataset.a]; revisar();
+    (window.dataLayer = window.dataLayer || []).push({ event: "viz_resultado", viz: "respuestas_rapidas", resultado: b.dataset.a });
+  });
+  revisar();
+})();
+</script>
+
+<h2 id="crear">1. Cómo crear una respuesta rápida</h2>
+<p><strong>En Android:</strong></p>
+<ol>
+  <li>Abrí WhatsApp Business y entrá a la pestaña <strong>Herramientas</strong>.</li>
+  <li>Tocá <strong>Respuestas rápidas</strong> y después el botón <strong>+</strong> para agregar una.</li>
+  <li>En <strong>Mensaje</strong>, escribí el texto. Si querés, sumá una foto o un video.</li>
+  <li>En <strong>Acceso directo</strong>, escribí el atajo: una palabra corta, sin espacios, de hasta 25 caracteres.</li>
+  <li>Tocá <strong>Guardar</strong>.</li>
+</ol>
+<p><strong>En iPhone</strong> el camino es el mismo: pestaña <strong>Herramientas</strong> &gt; <strong>Respuestas rápidas</strong> &gt; agregar, escribís el mensaje, definís el atajo y guardás.</p>
+<p>WhatsApp Business además arma algunas respuestas por defecto con los datos de tu perfil de empresa, como el horario o la dirección. Aparecen junto con las tuyas cuando escribís /.</p>
+
+<h2 id="usar">2. Cómo usarlas en un chat</h2>
+<ul>
+  <li><strong>Con el atajo:</strong> en el campo del mensaje escribí <strong>/</strong>. Aparecen todas tus respuestas rápidas; tocás la que querés o seguís escribiendo el atajo para filtrar.</li>
+  <li><strong>Desde adjuntar:</strong> tocá el clip y elegí <strong>Respuesta rápida</strong>.</li>
+  <li>La respuesta queda en el campo de texto <strong>antes de enviarse</strong>: aprovechá para agregar el nombre del cliente o el dato puntual que te pidió.</li>
+</ul>
+
+<h2 id="borrar">3. Cómo cambiarlas o borrarlas</h2>
+<p>Desde <strong>Herramientas</strong> &gt; <strong>Respuestas rápidas</strong>, mantené presionada la que querés borrar (en iPhone, tocala) y elegí <strong>Eliminar</strong>. Ojo: <strong>una respuesta borrada no se puede recuperar</strong>. Guardá tus textos en una nota o una planilla, así los volvés a cargar si cambiás de celular o se borran.</p>
+
+<h2 id="no-funciona">4. Si no se guardan o no funcionan</h2>
+<p>Según WhatsApp, cuando una respuesta rápida no se guarda casi siempre es por el formato. Revisá:</p>
+<ul>
+  <li><strong>Que no tengas ya 50</strong> guardadas: es el máximo.</li>
+  <li><strong>Que el atajo no tenga espacios</strong> y no pase los <strong>25 caracteres</strong>.</li>
+  <li><strong>Las palabras clave</strong>, si las usás: hasta 3 por respuesta, de hasta 15 caracteres cada una, sin espacios ni símbolos.</li>
+  <li><strong>Si estás en WhatsApp Web o Escritorio</strong>, las fotos y videos de las respuestas rápidas no funcionan ahí: el texto sí.</li>
+</ul>
+
+<h2 id="ejemplos">5. Ejemplos para una tienda online</h2>
+<p>Las mejores respuestas rápidas son las de las preguntas que te hacen todos los días. En una tienda de ropa, por ejemplo, suelen ser cinco o seis:</p>
+<ul>
+  <li><strong>/envios:</strong> a dónde envían y qué dato necesitás para cotizar (el código postal).</li>
+  <li><strong>/pagos:</strong> qué medios de pago aceptás y si mandás link de pago.</li>
+  <li><strong>/talles:</strong> la guía de talles en imagen y la pregunta por las medidas.</li>
+  <li><strong>/stock:</strong> cómo avisás cuando vuelve un producto.</li>
+  <li><strong>/gracias:</strong> el mensaje después de la compra, con el aviso de despacho.</li>
+</ul>
+<p>Escribilas como hablás vos y terminá cada una con una pregunta o un próximo paso: «¿Querés que te pase el link?» vende más que un texto que cierra la charla. Si querés una base para arrancar, en el recurso gratis de <a href="/recursos/plantilla-respuestas-whatsapp">tus 20 respuestas frecuentes para WhatsApp</a> tenés modelos listos para copiar.</p>
+
+<h2 id="que-hacer">Qué hacer en tu negocio</h2>
+<ul>
+  <li><strong>Mirá tus últimos 30 chats</strong> y anotá las 5 preguntas que más se repiten: esas son tus primeras respuestas rápidas.</li>
+  <li><strong>Usá atajos fáciles de recordar</strong> y del mismo estilo (todos en minúscula, sin tildes).</li>
+  <li><strong>Revisalas cuando cambie algo:</strong> medios de pago, horarios o envíos. Una respuesta vieja confunde más que no responder.</li>
+  <li><strong>Las respuestas rápidas no contestan solas.</strong> Si las consultas te llegan a toda hora y no llegás, el paso siguiente es un agente de IA que responda con tus mismos textos: lo comparamos en <a href="/guias/agente-ia-whatsapp-business-meta-o-propio">agente de IA de WhatsApp Business: el de Meta o uno propio</a>.</li>
+</ul>
+
+<h2 id="fuentes">Fuentes</h2>
+<ul>
+  <li>WhatsApp: <a href="https://faq.whatsapp.com/smba/account-and-profile/how-to-use-quick-replies" rel="noopener" target="_blank">Cómo usar las respuestas rápidas</a> (Android y iPhone).</li>
+  <li>WhatsApp: <a href="https://faq.whatsapp.com/625086225949121" rel="noopener" target="_blank">No puedo guardar una respuesta rápida</a> (reglas de formato y recuperación).</li>
+  <li>WhatsApp Business: <a href="https://whatsappbusiness.com/es-la/products/business-app-features/" rel="noopener" target="_blank">Funciones de la aplicación de WhatsApp Business</a>.</li>
+</ul>
+<p>Los nombres de los menús pueden cambiar según la versión de la app: verificalo en tu celular.</p>
