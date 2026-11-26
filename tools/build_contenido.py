@@ -47,6 +47,12 @@ CABECERA = f'''<header class="top"><div class="wrap">
   <a class="btn btn-sm" data-cta="agendar" href="{CAL}">Agendar llamada</a>
 </div></header>'''
 
+# Landing de pauta: sin menú ni botón de agendar, para que la única acción sea el formulario.
+CABECERA_LANDING = '''<header class="top"><div class="wrap">
+  <a class="logo" href="/">Crece<b>Con</b>Ads</a>
+  <a class="btn btn-sm" href="#pedido">Quiero mis 3 fugas</a>
+</div></header>'''
+
 PIE = '''<footer class="site-foot"><div class="wrap">
   <span>© 2026 CreceConAds® · Damián Presmanes · <span style="white-space:nowrap">CUIT 20-33488306-0</span><br><span class="legal">CreceConAds® es marca registrada.</span></span>
   <a class="datafiscal" href="http://qr.afip.gob.ar/?qr=00BDHbA6FI6aH0XpUoj7bw,," target="_F960AFIPInfo" rel="noopener"><img src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" alt="Data Fiscal de ARCA" width="44" height="60" loading="lazy"></a>
@@ -138,7 +144,7 @@ def documento(meta, url, ld, cuerpo):
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={GTM}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-{CABECERA}
+{CABECERA_LANDING if meta.get("landing") else CABECERA}
 <main class="wrap{"" if meta.get("ancho") else " narrow"}">
 {cuerpo}
 </main>
