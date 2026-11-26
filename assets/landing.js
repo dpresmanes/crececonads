@@ -7,6 +7,9 @@
   const utm = {};
   ["utm_source", "utm_medium", "utm_campaign", "utm_content", "fbclid", "gclid"].forEach((k) => { if (qs.get(k)) utm[k.replace("utm_", "")] = qs.get(k); });
   const error = (t) => { err.textContent = t; err.hidden = !t; };
+  const galleta = (n) => { const m = document.cookie.match(new RegExp("(?:^|; )" + n + "=([^;]*)")); return m ? decodeURIComponent(m[1]) : ""; };
+  // Mismo id en el píxel y en la API de Conversiones: Meta cuenta el Lead una sola vez.
+  const eventId = "rx-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8);
 
   document.querySelectorAll(".ld-opc").forEach((g) => g.addEventListener("click", (e) => {
     const b = e.target.closest("button"); if (!b) return;
@@ -35,14 +38,15 @@
     const boton = $("#ld-enviar"); boton.disabled = true; boton.textContent = "Enviando…"; error("");
     const cuerpo = { nombre, whatsapp: wa, email: mail, web: $("#ld-web").value.trim(), instagram: $("#ld-ig").value.trim(),
       inversion: datos.inversion, vende: datos.vende, mensaje: $("#ld-msj").value.trim(), empresa_web: form.empresa_web.value,
-      oferta: "Radiografía de 3 fugas", utm };
+      oferta: "Radiografía de 3 fugas", utm, event_id: eventId, url: location.href.split("#")[0],
+      fbp: galleta("_fbp"), fbc: galleta("_fbc") || (utm.fbclid ? "fb.1." + Date.now() + "." + utm.fbclid : "") };
     try {
       const r = await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cuerpo) });
       const j = await r.json().catch(() => ({}));
       if (!r.ok || !j.ok) throw new Error("envio");
-      (window.dataLayer = window.dataLayer || []).push({ event: "recurso_desbloqueado", recurso: "radiografia-3-fugas", rubro: datos.vende, calificado: j.calificado ? "si" : "no" });
+      (window.dataLayer = window.dataLayer || []).push({ event: "recurso_desbloqueado", recurso: "radiografia-3-fugas", rubro: datos.vende, calificado: j.calificado ? "si" : "no", event_id: eventId });
       // Invierte $ 2.000.000 o más por mes: evento aparte para medir (y optimizar) el costo por lead calificado.
-      if (j.calificado) window.dataLayer.push({ event: "lead_calificado", recurso: "radiografia-3-fugas", rubro: datos.vende, inversion: datos.inversion });
+      if (j.calificado) window.dataLayer.push({ event: "lead_calificado", recurso: "radiografia-3-fugas", rubro: datos.vende, inversion: datos.inversion, event_id: eventId + "-c" });
       form.hidden = true;
       const ok = $("#ld-ok"); ok.hidden = false;
       ok.innerHTML = j.calificado

@@ -1,5 +1,6 @@
 // Formulario público de la oferta (página /oferta): crea el contacto en el CRM con origen "pauta" (o "web" sin UTM de anuncio).
 const { crear, leerCuerpo, txt } = require("./_crm");
+const avisos = require("./_avisos");
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") return res.status(405).json({ ok: false });
@@ -24,5 +25,11 @@ module.exports = async (req, res) => {
     console.error("CRM: no se pudo guardar el lead", e && e.message);
     return res.status(502).json({ ok: false });
   }
+  // Avisos en paralelo y con tope de tiempo: si fallan, el lead ya quedó guardado.
+  const lead = { ...b, email, whatsapp, utm, event_id: txt(b.event_id, 80), fbp: txt(b.fbp, 200), fbc: txt(b.fbc, 300), url: txt(b.url, 300) };
+  const tope = (p) => Promise.race([p, new Promise((r) => setTimeout(() => r("tiempo"), 7000))]);
+  const [m, c] = await Promise.allSettled([tope(avisos.mail(lead, calificado)), tope(avisos.capi(lead, calificado, req))]);
+  if (m.status === "rejected") console.error("Aviso por mail:", m.reason && m.reason.message);
+  if (c.status === "rejected") console.error("CAPI:", c.reason && c.reason.message);
   return res.status(200).json({ ok: true, calificado });
 };
