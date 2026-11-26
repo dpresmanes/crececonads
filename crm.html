@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>CRM · CreceConAds</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* CRM privado: seguimientos arriba, tablero por etapa abajo, ficha en panel. Mismos tokens que la web. */
+:root{--night:#0A0F1F;--night-2:#101731;--night-3:#18213F;--edge:#24315A;--text:#EEF1FA;--soft:#A3ACC8;--blue:#2F5BFF;--blue-2:#6D8BFF;--green:#2FD08F;--green-bg:rgba(47,208,143,.12);--warn:#F2B544;--bad:#FF7A70;
+--display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;--body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--night);color:var(--text);font:15px/1.5 var(--body);-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:1400px;margin:0 auto;padding:18px max(16px,env(safe-area-inset-left,0px)) 60px max(16px,env(safe-area-inset-right,0px))}
+h1{font-family:var(--display);font-size:24px;margin:0;letter-spacing:-.02em}
+h2{font-family:var(--display);font-size:18px;margin:0 0 10px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.top .acc{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:10px;padding:9px 14px;background:var(--blue);color:#fff;font-weight:700;cursor:pointer}
+.btn.l{background:transparent;box-shadow:inset 0 0 0 1.5px var(--edge);color:var(--text)}
+.btn:focus-visible,.card:focus-visible{outline:2px solid var(--blue-2);outline-offset:2px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px}
+.kpi{background:var(--night-2);border:1px solid var(--edge);border-radius:12px;padding:12px}
+.kpi b{display:block;font:500 22px var(--mono)}
+.kpi span{color:var(--soft);font-size:13px}
+.hoy{background:var(--night-2);border:1px solid var(--edge);border-radius:14px;padding:14px;margin-bottom:16px}
+.hoy ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.hoy li{display:flex;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:10px;background:var(--night);cursor:pointer;flex-wrap:wrap}
+.hoy li.vencido{box-shadow:inset 3px 0 0 var(--bad)}
+.hoy small{color:var(--soft)}
+.filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.filtros input,.filtros select{background:var(--night-2);border:1px solid var(--edge);border-radius:10px;padding:8px 10px}
+.tablero{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(250px,1fr);gap:10px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--night-2);border:1px solid var(--edge);border-radius:14px;padding:10px;min-height:120px}
+.col h3{font:600 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin:2px 4px 10px;display:flex;justify-content:space-between}
+.card{display:block;width:100%;text-align:left;border:1px solid var(--edge);background:var(--night);border-radius:10px;padding:10px;margin-bottom:8px;cursor:pointer}
+.card b{display:block}
+.card .m{color:var(--soft);font-size:13px}
+.tag{display:inline-block;font:500 11px var(--mono);padding:1px 7px;border-radius:99px;background:var(--night-3);color:var(--soft);margin-top:6px;margin-right:4px}
+.tag.pauta{background:rgba(47,91,255,.18);color:var(--blue-2)}
+.tag.prospeccion{background:var(--green-bg);color:var(--green)}
+.tag.vence{background:rgba(255,122,112,.15);color:var(--bad)}
+dialog{background:var(--night-2);color:var(--text);border:1px solid var(--edge);border-radius:16px;width:min(680px,94vw);padding:18px}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--soft)}
+label input,label select,label textarea{background:var(--night);border:1px solid var(--edge);border-radius:10px;padding:8px 10px;color:var(--text)}
+.hist{max-height:180px;overflow:auto;border-top:1px solid var(--edge);margin-top:12px;padding-top:8px;font-size:13px}
+.hist p{margin:0 0 6px}.hist time{color:var(--soft);font-family:var(--mono);font-size:12px}
+.pie{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+.login{max-width:360px;margin:12vh auto;background:var(--night-2);border:1px solid var(--edge);border-radius:16px;padding:22px;display:grid;gap:12px}
+.err{color:var(--bad);font-size:14px}
+.vacio{color:var(--soft);font-size:14px;padding:6px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap" id="app">
+  <form class="login" id="login">
+    <h1>CRM · CreceConAds</h1>
+    <label>Clave<input id="clave" type="password" autocomplete="current-password" required></label>
+    <button class="btn" type="submit">Entrar</button>
+    <p class="err" id="login-err" hidden></p>
+  </form>
+</main>
+
+<dialog id="ficha">
+  <form method="dialog" id="ficha-form">
+    <h2 id="ficha-tit">Contacto</h2>
+    <div class="grid2">
+      <label>Nombre<input id="f-nombre"></label>
+      <label>Marca o empresa<input id="f-marca"></label>
+      <label>Web<input id="f-web"></label>
+      <label>Instagram<input id="f-instagram"></label>
+      <label>WhatsApp<input id="f-whatsapp"></label>
+      <label>Mail<input id="f-email" type="email"></label>
+      <label>Qué vende<input id="f-vende"></label>
+      <label>Inversión en Meta por mes<input id="f-inversion"></label>
+      <label>Etapa<select id="f-etapa"></select></label>
+      <label>Origen<select id="f-origen"><option value="pauta">Pauta</option><option value="prospeccion">Prospección</option><option value="web">Web</option><option value="referido">Referido</option><option value="otro">Otro</option></select></label>
+      <label>Próximo paso<input id="f-proximo_paso" placeholder="Ej.: mandar las 3 fugas"></label>
+      <label>Fecha del próximo paso<input id="f-proximo_fecha" type="date"></label>
+      <label>Valor mensual de la propuesta<input id="f-valor" placeholder="Solo si hay propuesta"></label>
+      <label>Motivo si se perdió<input id="f-motivo_perdida"></label>
+    </div>
+    <label style="margin-top:10px">Notas<textarea id="f-notas" rows="3"></textarea></label>
+    <label style="margin-top:10px">Agregar al historial<input id="f-nota" placeholder="Ej.: le mandé el seguimiento por mail"></label>
+    <div class="hist" id="f-hist"></div>
+    <div class="pie"><button class="btn l" value="cancelar" type="submit">Cerrar</button><button class="btn" value="guardar" id="f-guardar" type="submit">Guardar</button></div>
+  </form>
+</dialog>
+
+<script>
+(() => {
+  const ETAPAS = ["Nuevo", "Contactado", "Ideas enviadas", "Llamada", "Propuesta", "Ganado", "Perdido"];
+  const ABIERTAS = ETAPAS.slice(0, 5);
+  const $ = (s) => document.querySelector(s);
+  const esc = (t) => String(t == null ? "" : t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const hoy = () => new Date().toISOString().slice(0, 10);
+  let clave = "", contactos = [], actual = null, filtro = { q: "", origen: "" };
+  try { clave = sessionStorage.getItem("crm-clave") || ""; } catch (e) {}
+
+  async function api(metodo, cuerpo) {
+    const r = await fetch("/api/crm", { method: metodo, headers: { "Content-Type": "application/json", "x-crm-clave": clave }, body: cuerpo ? JSON.stringify(cuerpo) : undefined });
+    if (r.status === 401) throw new Error("clave");
+    if (r.status === 503) throw new Error("sin_configurar");
+    if (!r.ok) throw new Error("error");
+    return r.json();
+  }
+
+  async function cargar() {
+    const d = await api("GET");
+    contactos = d.contactos || [];
+    pintar();
+  }
+
+  function pintar() {
+    const q = filtro.q.toLowerCase();
+    const vis = contactos.filter((c) => (!filtro.origen || c.origen === filtro.origen) &&
+      (!q || [c.nombre, c.marca, c.web, c.instagram, c.vende, c.notas].join(" ").toLowerCase().includes(q)));
+    const abiertos = contactos.filter((c) => ABIERTAS.includes(c.etapa));
+    const pend = abiertos.filter((c) => c.proximo_fecha && c.proximo_fecha <= hoy()).sort((a, b) => a.proximo_fecha.localeCompare(b.proximo_fecha));
+    const sinPaso = abiertos.filter((c) => !c.proximo_fecha && c.etapa !== "Nuevo");
+    const cuenta = (f) => contactos.filter(f).length;
+    const llegaron = (e) => cuenta((c) => ETAPAS.indexOf(c.etapa) >= ETAPAS.indexOf(e) && c.etapa !== "Perdido");
+    $("#app").innerHTML = `
+      <div class="top"><h1>CRM · CreceConAds</h1><div class="acc">
+        <button class="btn" id="nuevo">Agregar contacto</button>
+        <label class="btn l" style="flex-direction:row;cursor:pointer">Importar pipeline (CSV)<input id="csv" type="file" accept=".csv" hidden></label>
+        <button class="btn l" id="salir">Salir</button></div></div>
+      <div class="kpis">
+        <div class="kpi"><b>${contactos.length}</b><span>contactos</span></div>
+        <div class="kpi"><b>${cuenta((c) => c.origen === "pauta")}</b><span>de pauta</span></div>
+        <div class="kpi"><b>${cuenta((c) => c.origen === "prospeccion")}</b><span>de prospección</span></div>
+        <div class="kpi"><b>${llegaron("Llamada")}</b><span>llegaron a llamada</span></div>
+        <div class="kpi"><b>${llegaron("Propuesta")}</b><span>con propuesta</span></div>
+        <div class="kpi"><b>${cuenta((c) => c.etapa === "Ganado")}</b><span>clientes ganados</span></div>
+      </div>
+      <section class="hoy"><h2>Seguimientos para hoy (${pend.length})</h2>
+        ${pend.length ? `<ul>${pend.map((c) => `<li data-id="${c.id}" class="${c.proximo_fecha < hoy() ? "vencido" : ""}"><span><b>${esc(c.marca || c.nombre)}</b> · ${esc(c.proximo_paso || "Sin detalle")}</span><small>${esc(c.etapa)} · ${esc(c.proximo_fecha)}</small></li>`).join("")}</ul>` : `<p class="vacio">No hay seguimientos vencidos.</p>`}
+        ${sinPaso.length ? `<p class="vacio">${sinPaso.length} contacto(s) abiertos sin próximo paso con fecha.</p>` : ""}
+      </section>
+      <div class="filtros"><input id="q" placeholder="Buscar marca, web, Instagram…" value="${esc(filtro.q)}">
+        <select id="orig"><option value="">Todos los orígenes</option>${["pauta", "prospeccion", "web", "referido", "otro"].map((o) => `<option ${filtro.origen === o ? "selected" : ""}>${o}</option>`).join("")}</select></div>
+      <div class="tablero">${ETAPAS.map((e) => { const l = vis.filter((c) => c.etapa === e); return `<div class="col"><h3>${e}<span>${l.length}</span></h3>${l.map(tarjeta).join("") || `<p class="vacio">—</p>`}</div>`; }).join("")}</div>`;
+    $("#nuevo").onclick = () => abrir(null);
+    $("#salir").onclick = () => { try { sessionStorage.removeItem("crm-clave"); } catch (e) {} location.reload(); };
+    $("#q").oninput = (e) => { filtro.q = e.target.value; pintar(); const i = $("#q"); i.focus(); i.setSelectionRange(i.value.length, i.value.length); };
+    $("#orig").onchange = (e) => { filtro.origen = e.target.value; pintar(); };
+    $("#csv").onchange = importar;
+    document.querySelectorAll("[data-id]").forEach((el) => el.addEventListener("click", () => abrir(contactos.find((c) => c.id === el.dataset.id))));
+  }
+
+  function tarjeta(c) {
+    const vence = c.proximo_fecha && c.proximo_fecha <= hoy() && ABIERTAS.includes(c.etapa);
+    return `<button class="card" type="button" data-id="${c.id}"><b>${esc(c.marca || c.nombre || "(sin nombre)")}</b>
+      <span class="m">${esc(c.vende || c.instagram || c.web || "")}</span>
+      <span class="tag ${esc(c.origen)}">${esc(c.origen)}</span>${c.inversion ? `<span class="tag">${esc(c.inversion)}</span>` : ""}${vence ? `<span class="tag vence">seguir ${esc(c.proximo_fecha)}</span>` : ""}</button>`;
+  }
+
+  const CAMPOS = ["nombre", "marca", "web", "instagram", "whatsapp", "email", "vende", "inversion", "etapa", "origen", "proximo_paso", "proximo_fecha", "valor", "motivo_perdida", "notas"];
+  $("#f-etapa").innerHTML = ETAPAS.map((e) => `<option>${e}</option>`).join("");
+  function abrir(c) {
+    actual = c;
+    $("#ficha-tit").textContent = c ? (c.marca || c.nombre || "Contacto") : "Nuevo contacto";
+    CAMPOS.forEach((k) => { $("#f-" + k).value = c ? (c[k] || "") : (k === "etapa" ? "Nuevo" : k === "origen" ? "otro" : ""); });
+    $("#f-nota").value = "";
+    $("#f-hist").innerHTML = c && c.historial ? c.historial.slice().reverse().map((h) => `<p><time>${esc(h.fecha.slice(0, 16).replace("T", " "))}</time> ${esc(h.texto)}</p>`).join("") : "";
+    $("#ficha").showModal();
+  }
+  $("#ficha-form").addEventListener("submit", async (ev) => {
+    if (ev.submitter && ev.submitter.value !== "guardar") return;
+    ev.preventDefault();
+    const d = Object.fromEntries(CAMPOS.map((k) => [k, $("#f-" + k).value]));
+    d.nota = $("#f-nota").value;
+    $("#f-guardar").disabled = true;
+    try {
+      const r = actual ? await api("PATCH", { id: actual.id, ...d }) : await api("POST", d);
+      const i = contactos.findIndex((c) => c.id === r.contacto.id);
+      if (i >= 0) contactos[i] = r.contacto; else contactos.unshift(r.contacto);
+      $("#ficha").close(); pintar();
+    } catch (e) { alertar("No se pudo guardar. Probá de nuevo."); }
+    $("#f-guardar").disabled = false;
+  });
+  function alertar(t) { const p = document.createElement("p"); p.className = "err"; p.textContent = t; $("#ficha-form").prepend(p); setTimeout(() => p.remove(), 4000); }
+
+  // Importa prospeccion-moda/pipeline.csv (columnas id, marca, instagram, web, fit, angulo, dolor, estado, fecha_envio, seg3, seg7, respuesta, proximo_paso, notas)
+  function csv(texto) {
+    const filas = []; let f = [], v = "", q = false;
+    for (let i = 0; i < texto.length; i++) {
+      const ch = texto[i];
+      if (q) { if (ch === '"' && texto[i + 1] === '"') { v += '"'; i++; } else if (ch === '"') q = false; else v += ch; }
+      else if (ch === '"') q = true; else if (ch === ",") { f.push(v); v = ""; }
+      else if (ch === "\n" || ch === "\r") { if (ch === "\r" && texto[i + 1] === "\n") i++; f.push(v); filas.push(f); f = []; v = ""; }
+      else v += ch;
+    }
+    if (v || f.length) { f.push(v); filas.push(f); }
+    const cab = filas.shift() || [];
+    return filas.filter((r) => r.length > 1).map((r) => Object.fromEntries(cab.map((k, i) => [k.trim(), (r[i] || "").trim()])));
+  }
+  const ETAPA_PIPE = { mensaje_listo: "Nuevo", enviado: "Contactado", ideas_entregadas: "Ideas enviadas", propuesta_enviada: "Propuesta", perdido: "Perdido", descartado: "Perdido" };
+  async function importar(ev) {
+    const archivo = ev.target.files[0]; if (!archivo) return;
+    const filas = csv(await archivo.text());
+    const lote = filas.filter((r) => r.marca).map((r) => ({
+      marca: r.marca, instagram: r.instagram, web: r.web, origen: "prospeccion",
+      etapa: ETAPA_PIPE[r.estado] || "Nuevo",
+      proximo_paso: r.proximo_paso, notas: [r.dolor && "Dolor: " + r.dolor, r.fit && "Fit: " + r.fit, r.respuesta && "Respuesta: " + r.respuesta, r.notas].filter(Boolean).join("\n"),
+      motivo_perdida: ETAPA_PIPE[r.estado] === "Perdido" ? r.respuesta || r.estado : "",
+      nota_inicial: "Importado del pipeline (estado: " + r.estado + (r.fecha_envio ? ", DM del " + r.fecha_envio : "") + ")",
+    }));
+    try { const r = await api("POST", { importar: lote }); await cargar(); $("#app").insertAdjacentHTML("afterbegin", `<p class="vacio">Importados ${r.importados} contactos nuevos (los repetidos se saltean).</p>`); }
+    catch (e) { $("#app").insertAdjacentHTML("afterbegin", `<p class="err">No se pudo importar. Revisá el archivo.</p>`); }
+  }
+
+  async function entrar() {
+    try { await cargar(); try { sessionStorage.setItem("crm-clave", clave); } catch (e) {} }
+    catch (e) {
+      const err = $("#login-err");
+      if (err) { err.hidden = false; err.textContent = e.message === "sin_configurar" ? "El CRM todavía no tiene clave cargada en Vercel (CRM_CLAVE)." : "Clave incorrecta."; }
+    }
+  }
+  $("#login").addEventListener("submit", (ev) => { ev.preventDefault(); clave = $("#clave").value; entrar(); });
+  if (clave) entrar();
+})();
+</script>
+</body>
+</html>

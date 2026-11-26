@@ -50,11 +50,30 @@
           "value": "strict-origin-when-cross-origin"
         }
       ]
+    },
+    {
+      "source": "/crm",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     }
   ],
   "functions": {
     "api/suscribir.js": {
       "maxDuration": 10
+    },
+    "api/lead.js": {
+      "maxDuration": 10
+    },
+    "api/crm.js": {
+      "maxDuration": 30
     }
   }
 }
