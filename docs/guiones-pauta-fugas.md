@@ -22,18 +22,18 @@ Para grabar hoy. Vertical 9:16, entre 25 y 40 segundos, con la cámara trasera m
 
 ---
 
-## Video 2 · Error común
+## Video 2 · Visitas que no compran
 
-**Texto en pantalla, los primeros 2 segundos:** «Tus anuncios traen mensajes, no ventas»
+**Texto en pantalla, los primeros 2 segundos:** «Tus anuncios traen visitas, no ventas»
 
 **Lo que decís:**
-1. (gancho) «Si tus anuncios te traen mensajes pero no ventas, el problema no es el algoritmo.»
-2. «Es lo que le pediste. Si la campaña busca conversaciones, Meta te trae gente que escribe, compre o no.»
-3. «Y si Meta no sabe quién te compró, nunca va a aprender a traerte compradores.»
+1. (gancho) «Si tus anuncios te traen visitas a la tienda pero casi nadie compra, el problema casi nunca es el algoritmo.»
+2. «Muchas veces Meta está buscando gente que hace clic, no gente que compra, porque no le llega bien el dato de quién te compró.»
+3. «Y si el anuncio promete algo que la tienda no muestra rápido, como precio, envío o cuotas, la visita se va.»
 4. (cierre) «Mandame tu tienda y en 48 horas te digo dónde se te está yendo la plata en tus anuncios. Gratis. Tocá el botón.»
 
 **Texto en pantalla al final:** «3 fugas de plata en 48 h → botón»
-**Toma:** vos a cámara. En el punto 2, opcional: el celular con un chat de WhatsApp («¿precio?», «¿hacen envíos?») y sin respuesta de compra.
+**Toma:** vos a cámara. En el punto 1, opcional: el celular entrando a una tienda y saliendo sin comprar (sin mostrar ninguna marca real).
 
 ---
 
