@@ -41,6 +41,8 @@
       const j = await r.json().catch(() => ({}));
       if (!r.ok || !j.ok) throw new Error("envio");
       (window.dataLayer = window.dataLayer || []).push({ event: "recurso_desbloqueado", recurso: "radiografia-3-fugas", rubro: datos.vende, calificado: j.calificado ? "si" : "no" });
+      // Invierte $ 2.000.000 o más por mes: evento aparte para medir (y optimizar) el costo por lead calificado.
+      if (j.calificado) window.dataLayer.push({ event: "lead_calificado", recurso: "radiografia-3-fugas", rubro: datos.vende, inversion: datos.inversion });
       form.hidden = true;
       const ok = $("#ld-ok"); ok.hidden = false;
       ok.innerHTML = j.calificado
