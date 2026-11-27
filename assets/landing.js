@@ -26,7 +26,7 @@
     if (!datos.inversion) return error("Elegí cuánto invertís en Meta por mes.");
     if (!datos.vende) return error("Elegí qué vendés.");
     error(""); paso(2);
-    (window.dataLayer = window.dataLayer || []).push({ event: "cta_click", cta_type: "radiografia_paso2", cta_section: location.pathname });
+    (window.dataLayer = window.dataLayer || []).push({ event: "radiografia_paso2", cta_section: location.pathname }); // evento propio: no dispara Contact en Meta ni el cta_click clave de GA4
   });
   $("#ld-volver").addEventListener("click", () => paso(1));
 
