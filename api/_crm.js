@@ -1,12 +1,13 @@
 // Guardado del CRM en Vercel Blob (store privado "crececonads-crm"). Un archivo JSON por contacto: crm/contactos/<id>.json
-const { put, get, list } = require("@vercel/blob");
+const { put, get, list, del } = require("@vercel/blob");
 const crypto = require("crypto");
 
 const PREFIJO = "crm/contactos/";
 const ETAPAS = ["Nuevo", "Contactado", "Ideas enviadas", "Llamada", "Propuesta", "Ganado", "Perdido"];
 const ORIGENES = ["pauta", "prospeccion", "web", "referido", "otro"];
+const CANALES = ["instagram", "linkedin", "mail", "whatsapp", "web", "otro"];
 const CAMPOS = ["nombre", "marca", "web", "instagram", "email", "whatsapp", "vende", "inversion", "notas",
-  "proximo_paso", "proximo_fecha", "valor", "motivo_perdida"];
+  "proximo_paso", "proximo_fecha", "valor", "motivo_perdida", "linkedin"];
 
 const txt = (v, max = 400) => String(v == null ? "" : v).trim().slice(0, max);
 const ahora = () => new Date().toISOString();
@@ -17,6 +18,7 @@ function limpiar(d, base = {}) {
   for (const k of CAMPOS) if (k in d) c[k] = txt(d[k], k === "notas" ? 4000 : 400);
   if ("etapa" in d && ETAPAS.includes(d.etapa)) c.etapa = d.etapa;
   if ("origen" in d && ORIGENES.includes(d.origen)) c.origen = d.origen;
+  if ("canal" in d) c.canal = CANALES.includes(String(d.canal).toLowerCase()) ? String(d.canal).toLowerCase() : "";
   if (d.utm && typeof d.utm === "object") c.utm = Object.fromEntries(Object.entries(d.utm).slice(0, 6).map(([k, v]) => [txt(k, 30), txt(v, 120)]));
   return c;
 }
@@ -33,6 +35,10 @@ async function leer(id) {
   const r = await get(PREFIJO + id.replace(/[^a-z0-9-]/g, "") + ".json", { access: "private", useCache: false });
   if (!r) return null;
   return JSON.parse(await new Response(r.stream).text());
+}
+
+async function borrar(id) {
+  await del(PREFIJO + String(id).replace(/[^a-z0-9-]/g, "") + ".json");
 }
 
 async function todos() {
@@ -65,4 +71,4 @@ function leerCuerpo(req) {
   try { return JSON.parse(req.body || "{}"); } catch (e) { return {}; }
 }
 
-module.exports = { ETAPAS, ORIGENES, limpiar, guardar, leer, todos, crear, leerCuerpo, txt, ahora };
+module.exports = { ETAPAS, ORIGENES, CANALES, limpiar, guardar, leer, borrar, todos, crear, leerCuerpo, txt, ahora };

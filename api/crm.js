@@ -1,7 +1,8 @@
 // API privada del CRM. Clave en la variable de entorno CRM_CLAVE (la carga Damián en Vercel); se manda en el header x-crm-clave.
 // GET: todos los contactos. POST: crear (o importar con {importar:[...]}). PATCH: actualizar {id, ...campos, nota}.
+// DELETE: borrar {id} (baja definitiva).
 const crypto = require("crypto");
-const { crear, leer, guardar, todos, limpiar, leerCuerpo, txt, ahora } = require("./_crm");
+const { crear, leer, guardar, borrar, todos, limpiar, leerCuerpo, txt, ahora } = require("./_crm");
 
 function autorizado(req) {
   const clave = String(process.env.CRM_CLAVE || "");
@@ -24,13 +25,15 @@ module.exports = async (req, res) => {
     const b = leerCuerpo(req);
     if (req.method === "POST") {
       if (Array.isArray(b.importar)) {
-        const existentes = new Set((await todos()).map((c) => (c.instagram || c.web || "").toLowerCase()).filter(Boolean));
+        // Dedupe por Instagram, LinkedIn o web: si cualquiera ya existe, se saltea.
+        const claves = (c) => [c.instagram, c.linkedin, c.web].map((v) => txt(v).toLowerCase().replace(/\/+$/, "")).filter(Boolean);
+        const existentes = new Set((await todos()).flatMap(claves));
         let n = 0;
         for (const d of b.importar.slice(0, 500)) {
-          const k = (txt(d.instagram) || txt(d.web)).toLowerCase();
-          if (k && existentes.has(k)) continue;
+          const ks = claves(d);
+          if (ks.some((k) => existentes.has(k))) continue;
           await crear(d, d.origen || "prospeccion", txt(d.nota_inicial, 500) || "Importado del pipeline de prospección");
-          existentes.add(k); n++;
+          ks.forEach((k) => existentes.add(k)); n++;
         }
         return res.status(200).json({ ok: true, importados: n });
       }
@@ -46,6 +49,12 @@ module.exports = async (req, res) => {
       if (nuevo.etapa !== antes) nuevo.historial.push({ fecha: ahora(), texto: "Etapa: " + antes + " → " + nuevo.etapa });
       if (txt(b.nota)) nuevo.historial.push({ fecha: ahora(), texto: txt(b.nota, 1000) });
       return res.status(200).json({ ok: true, contacto: await guardar(nuevo) });
+    }
+    if (req.method === "DELETE") {
+      const c = await leer(txt(b.id, 60));
+      if (!c) return res.status(404).json({ ok: false });
+      await borrar(c.id);
+      return res.status(200).json({ ok: true, borrado: c.id });
     }
     return res.status(405).json({ ok: false });
   } catch (e) {
