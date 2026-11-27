@@ -38,7 +38,7 @@ async function mail(lead, calificado) {
 }
 
 async function capi(lead, calificado, req) {
-  const pixel = process.env.META_PIXEL_ID, token = process.env.META_CAPI_TOKEN;
+  const pixel = String(process.env.META_PIXEL_ID || "").replace(/\D/g, ""), token = String(process.env.META_CAPI_TOKEN || "").trim().replace(/^["']|["']$/g, "");
   if (!pixel || !token || !lead.event_id) return "sin_configurar";
   const nombre = String(lead.nombre || "").trim().split(/\s+/);
   const ud = {
