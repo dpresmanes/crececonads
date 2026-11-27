@@ -1,5 +1,5 @@
 // API privada del CRM. Clave en la variable de entorno CRM_CLAVE (la carga Damián en Vercel); se manda en el header x-crm-clave.
-// GET: todos los contactos. POST: crear (o importar con {importar:[...]}). PATCH: actualizar {id, ...campos, nota}.
+// GET: todos los contactos. POST: crear (o importar con {importar:[...]}). PATCH: actualizar {id, ...campos, nota}. Campos de texto largo: notas y mensaje (texto listo para enviar), asunto para mail.
 // DELETE: borrar {id} (baja definitiva).
 const crypto = require("crypto");
 const { crear, leer, guardar, borrar, todos, limpiar, leerCuerpo, txt, ahora } = require("./_crm");
@@ -47,7 +47,7 @@ module.exports = async (req, res) => {
       const nuevo = limpiar(b, c);
       nuevo.historial = Array.isArray(c.historial) ? c.historial : [];
       if (nuevo.etapa !== antes) nuevo.historial.push({ fecha: ahora(), texto: "Etapa: " + antes + " → " + nuevo.etapa });
-      if (txt(b.nota)) nuevo.historial.push({ fecha: ahora(), texto: txt(b.nota, 1000) });
+      if (txt(b.nota)) nuevo.historial.push({ fecha: ahora(), texto: txt(b.nota, 4000) });
       return res.status(200).json({ ok: true, contacto: await guardar(nuevo) });
     }
     if (req.method === "DELETE") {

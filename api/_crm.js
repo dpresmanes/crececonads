@@ -7,7 +7,7 @@ const ETAPAS = ["Nuevo", "Contactado", "Ideas enviadas", "Llamada", "Propuesta",
 const ORIGENES = ["pauta", "prospeccion", "web", "referido", "otro"];
 const CANALES = ["instagram", "linkedin", "mail", "whatsapp", "web", "otro"];
 const CAMPOS = ["nombre", "marca", "web", "instagram", "email", "whatsapp", "vende", "inversion", "notas",
-  "proximo_paso", "proximo_fecha", "valor", "motivo_perdida", "linkedin"];
+  "proximo_paso", "proximo_fecha", "valor", "motivo_perdida", "linkedin", "mensaje", "asunto"];
 
 const txt = (v, max = 400) => String(v == null ? "" : v).trim().slice(0, max);
 const ahora = () => new Date().toISOString();
@@ -15,7 +15,7 @@ const nuevoId = () => Date.now().toString(36) + "-" + crypto.randomBytes(3).toSt
 
 function limpiar(d, base = {}) {
   const c = { ...base };
-  for (const k of CAMPOS) if (k in d) c[k] = txt(d[k], k === "notas" ? 4000 : 400);
+  for (const k of CAMPOS) if (k in d) c[k] = txt(d[k], k === "notas" || k === "mensaje" ? 4000 : 400);
   if ("etapa" in d && ETAPAS.includes(d.etapa)) c.etapa = d.etapa;
   if ("origen" in d && ORIGENES.includes(d.origen)) c.origen = d.origen;
   if ("canal" in d) c.canal = CANALES.includes(String(d.canal).toLowerCase()) ? String(d.canal).toLowerCase() : "";

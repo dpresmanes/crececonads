@@ -45,7 +45,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .hoy{display:grid;gap:14px}
 .lista{background:var(--night-2);border:1px solid var(--edge);border-radius:14px;padding:12px}
 .lista h2{display:flex;align-items:center;gap:8px}
-.lista h2 .n{font:500 13px var(--mono);color:var(--soft)}
+.tanda h2 .n,.lista h2 .n{font:500 13px var(--mono);color:var(--soft)}
 .lista.vencidos h2{color:var(--bad)}
 .filas{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .fila{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;align-items:center;background:var(--night);border-radius:10px;padding:8px 10px}
@@ -77,6 +77,24 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .card{border:1px solid var(--edge);background:var(--night);border-radius:10px;padding:10px;display:grid;grid-template-columns:minmax(0,1fr);gap:6px;min-width:0}
 .card .fila-abrir b{font-size:15px}
 .card .acciones{justify-content:flex-start}
+/* Tanda de mensajes */
+.tanda{background:var(--night-2);border:1px solid var(--edge);border-radius:14px;padding:12px}
+.restan{font:600 15px var(--body);margin:0 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.restan .barra{flex:1;min-width:120px;height:8px;border-radius:99px;background:var(--night-3);overflow:hidden}
+.restan .barra i{display:block;height:100%;background:var(--green)}
+.msj{background:var(--night);border-radius:12px;padding:12px;display:grid;gap:10px;min-width:0}
+.msj + .msj{margin-top:10px}
+.msj .texto{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--night-2);border:1px solid var(--edge);border-radius:10px;padding:10px 12px;font-size:15px;line-height:1.5;margin:0}
+.msj .asunto{font-size:13px;color:var(--soft);margin:0;overflow-wrap:anywhere}
+.tres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tres button,.tres a{display:flex;align-items:center;justify-content:center;text-align:center;min-height:48px;padding:6px 10px;border-radius:10px;border:1px solid var(--edge);background:var(--night-2);color:var(--text);font-weight:700;font-size:15px;text-decoration:none;cursor:pointer}
+.tres .copiar{background:var(--blue,#2F5BFF);border-color:transparent;color:#fff}
+.tres .copiar.ok{background:var(--green-bg);color:var(--green)}
+.tres .enviado{background:var(--green-bg);border-color:rgba(47,208,143,.4);color:var(--green)}
+.tres [aria-disabled=true]{opacity:.45;cursor:not-allowed}
+.secund{display:flex;gap:6px;flex-wrap:wrap}
+.secund button{min-height:44px;padding:0 12px;border-radius:9px;border:1px solid var(--edge);background:none;color:var(--soft);font-weight:700;font-size:13px;cursor:pointer}
+.aviso .deshacer{text-decoration:underline;margin-left:auto}
 /* Diálogos */
 dialog{background:var(--night-2);color:var(--text);border:1px solid var(--edge);border-radius:16px;width:min(720px,94vw);padding:18px}
 dialog::backdrop{background:rgba(0,0,0,.6)}
@@ -85,7 +103,7 @@ label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--soft
 label input,label select,label textarea{background:var(--night);border:1px solid var(--edge);border-radius:10px;padding:8px 10px;color:var(--text);min-height:44px}
 .enlaces{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
 .hist{max-height:300px;overflow:auto;border-top:1px solid var(--edge);margin-top:12px;padding-top:8px;font-size:13px}
-.hist p{margin:0 0 6px}.hist time{color:var(--soft);font-family:var(--mono);font-size:12px}
+.hist p{margin:0 0 6px;white-space:pre-wrap;overflow-wrap:anywhere}.hist time{color:var(--soft);font-family:var(--mono);font-size:12px}
 .pie{display:flex;justify-content:space-between;gap:8px;margin-top:14px;flex-wrap:wrap}
 .pie div{display:flex;gap:8px;flex-wrap:wrap}
 .atajos{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
@@ -95,7 +113,8 @@ label input,label select,label textarea{background:var(--night);border:1px solid
 @media (max-width:640px){.grid2{grid-template-columns:1fr}.fila{grid-template-columns:1fr}.acciones{justify-content:flex-start}
   h1{font-size:20px}.top .btn{min-height:40px;padding:6px 12px;font-size:14px}
   .kpis{grid-template-columns:repeat(3,1fr);gap:6px}.kpi{padding:8px}.kpi b{font-size:17px}.kpi span{font-size:11px;line-height:1.3;display:block}
-  .filtros input{flex:1 1 100%;min-width:0}.filtros select{flex:1 1 0;min-width:0}}
+  .filtros input{flex:1 1 100%;min-width:0}.filtros select{flex:1 1 0;min-width:0}
+  .tres{grid-template-columns:1fr}.tres button,.tres a{min-height:48px}.msj .texto{font-size:14px}}
 </style>
 </head>
 <body>
@@ -130,6 +149,8 @@ label input,label select,label textarea{background:var(--night);border:1px solid
       <label>Valor mensual de la propuesta<input id="f-valor" placeholder="Solo si hay propuesta"></label>
       <label>Motivo si se perdió<input id="f-motivo_perdida"></label>
     </div>
+    <label style="margin-top:10px">Mensaje para enviar hoy<textarea id="f-mensaje" rows="5" placeholder="El texto listo para copiar y mandar"></textarea></label>
+    <label style="margin-top:10px">Asunto (solo si va por mail)<input id="f-asunto"></label>
     <label style="margin-top:10px">Notas<textarea id="f-notas" rows="7"></textarea></label>
     <label style="margin-top:10px">Agregar al historial<input id="f-nota" placeholder="Ej.: le mandé el seguimiento por mail"></label>
     <div class="hist" id="f-hist" aria-label="Historial"></div>
@@ -204,6 +225,30 @@ label input,label select,label textarea{background:var(--night);border:1px solid
     if (w && !/linkedin\.com/i.test(w)) out.push(["Web", /^https?:/i.test(w) ? w : "https://" + w]);
     return out;
   }
+  const usuarioIg = (c) => String(c.instagram || "").trim().replace(/^@/, "").replace(/^https?:\/\/(www\.)?instagram\.com\//i, "").split(/[/?#\s]/)[0];
+  // Enlace a la conversación según el canal del contacto (no envía nada: solo abre el chat o el perfil).
+  function conversacion(c) {
+    const ig = usuarioIg(c), li = linkedinDe(c), wa = telefono(c.whatsapp), mail = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.email || "") ? c.email : "";
+    const op = {
+      instagram: ig && "https://ig.me/m/" + encodeURIComponent(ig),
+      linkedin: li && (/^https?:/i.test(li) ? li : "https://" + li),
+      whatsapp: wa.length > 10 && "https://wa.me/" + wa,
+      mail: mail && "mailto:" + mail + (c.asunto ? "?subject=" + encodeURIComponent(c.asunto) : ""),
+    };
+    const canal = canalDe(c);
+    if (op[canal]) return [CANAL_TXT[canal], op[canal]];
+    for (const k of ["instagram", "linkedin", "whatsapp", "mail"]) if (op[k]) return [CANAL_TXT[k], op[k]];
+    return null;
+  }
+  const deHoy = (h) => String(h.fecha || "").slice(0, 10) === hoy() || new Date(new Date(h.fecha).getTime() - 3 * 3600e3).toISOString().slice(0, 10) === hoy();
+  const pendienteHoy = (c) => ABIERTAS.includes(c.etapa) && (!!String(c.mensaje || "").trim() || (c.proximo_fecha && c.proximo_fecha <= hoy()));
+  const resueltoHoy = (c) => (c.historial || []).some((h) => deHoy(h) && /^(Mensaje enviado|Hecho|Respondió|Perdido)/.test(h.texto || ""));
+  async function copiar(t) {
+    try { await navigator.clipboard.writeText(t); return true; } catch (e) {
+      const a = document.createElement("textarea"); a.value = t; a.setAttribute("readonly", ""); a.style.position = "fixed"; a.style.opacity = "0";
+      document.body.appendChild(a); a.select(); let ok = false; try { ok = document.execCommand("copy"); } catch (e2) {} a.remove(); return ok;
+    }
+  }
   const linksHtml = (c) => enlaces(c).map(([t, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener" aria-label="${t} de ${esc(nombre(c))}">${t}</a>`).join("");
   const nombre = (c) => c.marca || c.nombre || "(sin nombre)";
   const ordenar = (a, b) => (a.proximo_fecha || "9999").localeCompare(b.proximo_fecha || "9999") || tamano(b) - tamano(a);
@@ -216,18 +261,19 @@ label input,label select,label textarea{background:var(--night);border:1px solid
     if (!r.ok) throw new Error("error");
     return r.json();
   }
-  async function guardarCambios(id, cambios, texto) {
+  async function guardarCambios(id, cambios, texto, callado) {
     const r = await api("PATCH", { id, ...cambios });
     const i = contactos.findIndex((c) => c.id === r.contacto.id);
     if (i >= 0) contactos[i] = r.contacto;
-    pintar(); avisar(texto || "Guardado", "ok");
+    pintar(); if (!callado) avisar(texto || "Guardado", "ok");
   }
-  function avisar(t, tipo) {
+  function avisar(t, tipo, deshacer) {
     const a = $("#aviso"); if (!a) return;
     a.className = "aviso " + tipo; a.hidden = false;
-    a.innerHTML = `<span>${esc(t)}</span><button type="button" aria-label="Cerrar aviso">✕</button>`;
-    a.querySelector("button").onclick = () => (a.hidden = true);
-    clearTimeout(avisar.t); if (tipo === "ok") avisar.t = setTimeout(() => (a.hidden = true), 3000);
+    a.innerHTML = `<span>${esc(t)}</span>${deshacer ? `<button type="button" class="deshacer">Deshacer</button>` : ""}<button type="button" class="cerrar" aria-label="Cerrar aviso">✕</button>`;
+    a.querySelector(".cerrar").onclick = () => (a.hidden = true);
+    if (deshacer) a.querySelector(".deshacer").onclick = () => { a.hidden = true; deshacer(); };
+    clearTimeout(avisar.t); if (tipo === "ok") avisar.t = setTimeout(() => (a.hidden = true), deshacer ? 8000 : 3000);
   }
 
   // ---------- estructura fija (no se redibuja al buscar) ----------
@@ -260,6 +306,9 @@ label input,label select,label textarea{background:var(--night);border:1px solid
       if (b.dataset.acc === "plegar") { estado.plegadas[b.dataset.etapa] = !estado.plegadas[b.dataset.etapa]; return pintar(); }
       if (!c) return;
       if (b.dataset.acc === "abrir") abrir(c, b);
+      else if (b.dataset.acc === "copiar") copiarMensaje(c, b);
+      else if (b.dataset.acc === "enviado") enviado(c, b);
+      else if (b.dataset.acc === "conversacion") { if (b.getAttribute("aria-disabled") === "true") ev.preventDefault(); }
       else rapida(b.dataset.acc, c, b);
     });
   }
@@ -267,7 +316,7 @@ label input,label select,label textarea{background:var(--night);border:1px solid
   function visibles() {
     const q = estado.q.toLowerCase().trim();
     return contactos.filter((c) => (!estado.origen || c.origen === estado.origen) && (!estado.canal || canalDe(c) === estado.canal) &&
-      (!q || [c.nombre, c.marca, c.web, c.instagram, c.linkedin, c.vende, c.notas, c.proximo_paso].join(" ").toLowerCase().includes(q)));
+      (!q || [c.nombre, c.marca, c.web, c.instagram, c.linkedin, c.vende, c.notas, c.proximo_paso, c.mensaje].join(" ").toLowerCase().includes(q)));
   }
 
   function pintar() {
@@ -292,19 +341,41 @@ label input,label select,label textarea{background:var(--night);border:1px solid
   }
   const accionesHtml = (c) => `<div class="acciones">${linksHtml(c)}
       <button type="button" class="hecho" data-acc="hecho" data-id="${c.id}">Hecho</button>
+      <button type="button" data-acc="respondio" data-id="${c.id}">Respondió</button>
       <button type="button" data-acc="mover" data-id="${c.id}">Mover</button>
       ${c.etapa !== "Perdido" ? `<button type="button" class="perdido" data-acc="perdido" data-id="${c.id}">Perdido</button>` : ""}</div>`;
   const abrirHtml = (c) => `<button type="button" class="fila-abrir" data-acc="abrir" data-id="${c.id}"><b>${esc(nombre(c))}</b>
       <span class="paso">${esc(c.proximo_paso || "Sin próximo paso")}</span>${metaHtml(c)}</button>`;
 
+  function tandaHtml(vis) {
+    const conMsj = vis.filter((c) => ABIERTAS.includes(c.etapa) && String(c.mensaje || "").trim()).sort(ordenar);
+    const pend = contactos.filter(pendienteHoy).length;
+    const total = pend + contactos.filter((c) => !pendienteHoy(c) && resueltoHoy(c)).length;
+    const pct = total ? Math.round(((total - pend) / total) * 100) : 100;
+    const cab = `<p class="restan" role="status">${total ? `Te quedan ${pend} de ${total} para hoy` : "No hay nada para hoy"}<span class="barra" aria-hidden="true"><i style="width:${pct}%"></i></span></p>`;
+    if (!conMsj.length) return `<section class="tanda" aria-label="Tanda del día">${cab}<p class="vacio">No hay mensajes listos para enviar.</p></section>`;
+    return `<section class="tanda" aria-label="Tanda del día">${cab}<h2>Mensajes para enviar <span class="n">${conMsj.length}</span></h2>${conMsj.map((c) => {
+      const conv = conversacion(c), canal = canalDe(c);
+      return `<article class="msj" aria-label="${esc(nombre(c))}">${abrirHtml(c)}
+        ${c.asunto ? `<p class="asunto"><b>Asunto:</b> ${esc(c.asunto)}</p>` : ""}<p class="texto">${esc(c.mensaje)}</p>
+        <div class="tres">
+          <button type="button" class="copiar" data-acc="copiar" data-id="${c.id}">Copiar mensaje</button>
+          ${conv ? `<a href="${esc(conv[1])}" target="_blank" rel="noopener" data-acc="conversacion" data-id="${c.id}">Abrir conversación<span class="sr"> en ${conv[0]}</span></a>`
+                 : `<a role="link" aria-disabled="true" data-acc="conversacion" data-id="${c.id}" title="Falta el usuario o el contacto del canal">Sin enlace${canal ? " de " + CANAL_TXT[canal] : ""}</a>`}
+          <button type="button" class="enviado" data-acc="enviado" data-id="${c.id}">Enviado</button>
+        </div>
+        <div class="secund"><button type="button" data-acc="respondio" data-id="${c.id}">Respondió</button><button type="button" data-acc="abrir" data-id="${c.id}">Ficha</button></div></article>`;
+    }).join("")}</section>`;
+  }
+
   function vistaHoy(vis) {
-    const ab = vis.filter((c) => ABIERTAS.includes(c.etapa));
+    const ab = vis.filter((c) => ABIERTAS.includes(c.etapa) && !String(c.mensaje || "").trim());
     const listas = [
       ["vencidos", "Vencidos", ab.filter((c) => c.proximo_fecha && c.proximo_fecha < hoy()).sort(ordenar), "No hay seguimientos vencidos."],
       ["parahoy", "Para hoy", ab.filter((c) => c.proximo_fecha === hoy()).sort(ordenar), "Nada agendado para hoy."],
       ["sinpaso", "Abiertos sin próximo paso", ab.filter((c) => !c.proximo_fecha).sort((a, b) => tamano(b) - tamano(a)), "Todos los abiertos tienen próximo paso."],
     ];
-    return `<div class="hoy">${listas.map(([cl, t, l, v]) => `<section class="lista ${cl}"><h2>${t} <span class="n">${l.length}</span></h2>
+    return `<div class="hoy">${tandaHtml(vis)}${listas.map(([cl, t, l, v]) => `<section class="lista ${cl}"><h2>${t} <span class="n">${l.length}</span></h2>
       ${l.length ? `<ul class="filas">${l.map((c) => `<li class="fila">${abrirHtml(c)}${accionesHtml(c)}</li>`).join("")}</ul>` : `<p class="vacio">${v}</p>`}</section>`).join("")}</div>`;
   }
 
@@ -319,11 +390,32 @@ label input,label select,label textarea{background:var(--night);border:1px solid
     }).join("")}</div>`;
   }
 
+  // ---------- tanda: copiar y enviado ----------
+  async function copiarMensaje(c, b) {
+    const ok = await copiar(String(c.mensaje || ""));
+    if (!ok) return avisar("No se pudo copiar. Abrí la ficha y copialo a mano.", "err");
+    b.textContent = "Copiado ✓"; b.classList.add("ok");
+    setTimeout(() => { if (document.contains(b)) { b.textContent = "Copiar mensaje"; b.classList.remove("ok"); } }, 2500);
+  }
+  async function enviado(c, b) {
+    const antes = { mensaje: c.mensaje || "", asunto: c.asunto || "", etapa: c.etapa, proximo_paso: c.proximo_paso || "", proximo_fecha: c.proximo_fecha || "" };
+    b.disabled = true;
+    try {
+      await guardarCambios(c.id, { nota: "Mensaje enviado" + (antes.asunto ? " (asunto: " + antes.asunto + ")" : "") + ":\n" + antes.mensaje, mensaje: "", asunto: "",
+        etapa: c.etapa === "Nuevo" ? "Contactado" : c.etapa, proximo_paso: "Esperar respuesta", proximo_fecha: sumar(3) }, "", true);
+      avisar("Enviado · " + nombre(c), "ok", async () => {
+        try { await guardarCambios(c.id, { ...antes, nota: "Deshecho: el mensaje no se había enviado" }, "Deshecho"); }
+        catch (e) { avisar("No se pudo deshacer. Abrí la ficha y corregilo.", "err"); }
+      });
+      const sig = document.querySelector(".msj [data-acc=copiar]"); if (sig) sig.focus();
+    } catch (e) { b.disabled = false; avisar("No se pudo guardar. Revisá la conexión y probá de nuevo.", "err"); }
+  }
+
   // ---------- acciones rápidas ----------
   let rapidaCtx = null;
   function rapida(tipo, c, origen) {
     rapidaCtx = { tipo, c, origen };
-    const t = { hecho: "Hecho", mover: "Mover de etapa", perdido: "Marcar como perdido" }[tipo];
+    const t = { hecho: "Hecho", mover: "Mover de etapa", perdido: "Marcar como perdido", respondio: "Respondió" }[tipo];
     $("#rapida-tit").textContent = t + " · " + nombre(c);
     let html = "";
     if (tipo === "hecho") html = `<label>¿Qué hiciste?<input id="r-nota" placeholder="Ej.: le mandé el DM de seguimiento"></label>
@@ -332,11 +424,12 @@ label input,label select,label textarea{background:var(--night);border:1px solid
       <div class="atajos" role="group" aria-label="Atajos de fecha"><button type="button" data-d="3">+3 días</button><button type="button" data-d="7">+7 días</button><button type="button" data-d="0">Sin fecha</button></div>`;
     if (tipo === "mover") html = `<label>Etapa<select id="r-etapa">${ETAPAS.map((e) => `<option ${e === c.etapa ? "selected" : ""}>${e}</option>`).join("")}</select></label>
       <label style="margin-top:10px">Nota (opcional)<input id="r-nota"></label>`;
+    if (tipo === "respondio") html = `<label>Pegá la respuesta<textarea id="r-resp" rows="6" placeholder="Lo que te contestó"></textarea></label>`;
     if (tipo === "perdido") html = `<label>Motivo<input id="r-motivo" placeholder="Ej.: no respondió, ya tiene agencia" required></label>`;
     $("#rapida-cuerpo").innerHTML = html;
     $("#rapida-cuerpo").querySelectorAll("[data-d]").forEach((b) => (b.onclick = () => { $("#r-fecha").value = b.dataset.d === "0" ? "" : sumar(+b.dataset.d); }));
     $("#rapida").showModal();
-    const f = $("#rapida-cuerpo").querySelector("input,select"); if (f) f.focus();
+    const f = $("#rapida-cuerpo").querySelector("input,select,textarea"); if (f) f.focus();
   }
   $("#rapida-form").addEventListener("submit", async (ev) => {
     if (!ev.submitter || ev.submitter.value !== "guardar") return;
@@ -344,6 +437,7 @@ label input,label select,label textarea{background:var(--night);border:1px solid
     const { tipo, c } = rapidaCtx; let cambios = {}, texto = "Guardado";
     if (tipo === "hecho") { const n = $("#r-nota").value.trim(); cambios = { nota: "Hecho" + (n ? ": " + n : ""), proximo_paso: $("#r-paso").value.trim(), proximo_fecha: $("#r-fecha").value }; texto = "Registrado"; }
     if (tipo === "mover") { cambios = { etapa: $("#r-etapa").value, nota: $("#r-nota").value.trim() }; texto = "Movido a " + cambios.etapa; }
+    if (tipo === "respondio") { const r = $("#r-resp").value.trim(); if (!r) return $("#r-resp").focus(); cambios = { nota: "Respondió:\n" + r, proximo_paso: "Respondió: preparar contestación", proximo_fecha: hoy() }; texto = "Respuesta guardada"; }
     if (tipo === "perdido") { const m = $("#r-motivo").value.trim(); if (!m) return $("#r-motivo").focus(); cambios = { etapa: "Perdido", motivo_perdida: m, proximo_fecha: "", nota: "Perdido: " + m }; texto = "Marcado como perdido"; }
     $("#rapida-ok").disabled = true;
     try { await guardarCambios(c.id, cambios, texto); $("#rapida").close(); }
@@ -353,7 +447,7 @@ label input,label select,label textarea{background:var(--night);border:1px solid
   $("#rapida").addEventListener("close", () => { if (rapidaCtx && rapidaCtx.origen && document.contains(rapidaCtx.origen)) rapidaCtx.origen.focus(); });
 
   // ---------- ficha ----------
-  const CAMPOS = ["nombre", "marca", "canal", "origen", "instagram", "linkedin", "web", "whatsapp", "email", "vende", "inversion", "etapa", "proximo_paso", "proximo_fecha", "valor", "motivo_perdida", "notas"];
+  const CAMPOS = ["nombre", "marca", "canal", "origen", "instagram", "linkedin", "web", "whatsapp", "email", "vende", "inversion", "etapa", "proximo_paso", "proximo_fecha", "valor", "motivo_perdida", "notas", "mensaje", "asunto"];
   $("#f-etapa").innerHTML = ETAPAS.map((e) => `<option>${e}</option>`).join("");
   let fichaOrigen = null;
   function abrir(c, origen) {
