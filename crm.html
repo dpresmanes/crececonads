@@ -225,6 +225,7 @@ label input,label select,label textarea{background:var(--night);border:1px solid
     if (w && !/linkedin\.com/i.test(w)) out.push(["Web", /^https?:/i.test(w) ? w : "https://" + w]);
     return out;
   }
+  const CUENTA_GMAIL = "damian@crececonads.site";
   const usuarioIg = (c) => String(c.instagram || "").trim().replace(/^@/, "").replace(/^https?:\/\/(www\.)?instagram\.com\//i, "").split(/[/?#\s]/)[0];
   // Enlace a la conversación según el canal del contacto (no envía nada: solo abre el chat o el perfil).
   function conversacion(c) {
@@ -233,7 +234,9 @@ label input,label select,label textarea{background:var(--night);border:1px solid
       instagram: ig && "https://ig.me/m/" + encodeURIComponent(ig),
       linkedin: li && (/^https?:/i.test(li) ? li : "https://" + li),
       whatsapp: wa.length > 10 && "https://wa.me/" + wa,
-      mail: mail && "mailto:" + mail + (c.asunto ? "?subject=" + encodeURIComponent(c.asunto) : ""),
+      // Mail: busca el hilo en el Gmail de CreceConAds (por asunto o, si no hay, por la dirección) en vez de abrir un correo nuevo.
+      mail: (c.asunto || mail) && "https://mail.google.com/mail/?authuser=" + encodeURIComponent(CUENTA_GMAIL) + "#search/" +
+        encodeURIComponent(c.asunto ? 'subject:"' + String(c.asunto).replace(/"/g, "") + '"' : "from:" + mail + " OR to:" + mail),
     };
     const canal = canalDe(c);
     if (op[canal]) return [CANAL_TXT[canal], op[canal]];
@@ -360,7 +363,7 @@ label input,label select,label textarea{background:var(--night);border:1px solid
         ${c.asunto ? `<p class="asunto"><b>Asunto:</b> ${esc(c.asunto)}</p>` : ""}<p class="texto">${esc(c.mensaje)}</p>
         <div class="tres">
           <button type="button" class="copiar" data-acc="copiar" data-id="${c.id}">Copiar mensaje</button>
-          ${conv ? `<a href="${esc(conv[1])}" target="_blank" rel="noopener" data-acc="conversacion" data-id="${c.id}">Abrir conversación<span class="sr"> en ${conv[0]}</span></a>`
+          ${conv ? `<a href="${esc(conv[1])}" target="_blank" rel="noopener" data-acc="conversacion" data-id="${c.id}">${conv[0] === "Mail" ? "Buscar el hilo en Gmail" : `Abrir conversación<span class="sr"> en ${conv[0]}</span>`}</a>`
                  : `<a role="link" aria-disabled="true" data-acc="conversacion" data-id="${c.id}" title="Falta el usuario o el contacto del canal">Sin enlace${canal ? " de " + CANAL_TXT[canal] : ""}</a>`}
           <button type="button" class="enviado" data-acc="enviado" data-id="${c.id}">Enviado</button>
         </div>
